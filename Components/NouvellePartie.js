@@ -21,6 +21,7 @@ function openDatabase() {
 
 const db = openDatabase();
 
+// Page Nouvelle partie
 export default function NouvellePartie({ navigation }) {
 
   const [participants, onChangeParticipants] = React.useState("");

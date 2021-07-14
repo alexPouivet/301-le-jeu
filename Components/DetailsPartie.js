@@ -21,6 +21,7 @@ function openDatabase() {
 
 const db = openDatabase();
 
+// Page Détails d'une partie
 export default function DetailsPartie({ navigation, route }) {
 
   const {game_id } = route.params;
@@ -41,7 +42,7 @@ export default function DetailsPartie({ navigation, route }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Ecran détails d'une partie</Text>
-      <Text>game id: {partie[0].liste_joueurs}</Text>
+      <Text>game id: {game_id}</Text>
       {joueurs.map(({ nom_joueur, score_joueur, tour_joueur }, i) => (
         <View key={i}>
           <Text>{nom_joueur}, {score_joueur}, {tour_joueur}</Text>

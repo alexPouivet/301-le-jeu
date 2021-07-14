@@ -21,6 +21,7 @@ function openDatabase() {
 
 const db = openDatabase();
 
+// Page Historique des parties
 export default function HistoriquePartie({ navigation }) {
 
   const [games, setGames] = React.useState(null);
@@ -41,6 +42,7 @@ export default function HistoriquePartie({ navigation }) {
       {games.map(({ game_id, nb_joueurs, date, nb_palets, liste_joueurs, statut }, i) => (
         <View key={i}>
           <Text>statut: {statut}</Text>
+          <Text>game id: {game_id}</Text>
           <Text>nb joueurs: {nb_joueurs}</Text>
           <Text>nb palets: {nb_palets}</Text>
           <Text>joueurs: {liste_joueurs}</Text>

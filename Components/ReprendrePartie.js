@@ -21,6 +21,7 @@ function openDatabase() {
 
 const db = openDatabase();
 
+// Page Reprendre une partie en cours
 export default function ReprendrePartie({ navigation }) {
 
   const [games, setGames] = React.useState(null);

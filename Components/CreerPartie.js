@@ -21,14 +21,14 @@ function openDatabase() {
 
 const db = openDatabase();
 
+// Page Création de partie
 export default function CreerPartie({ route, navigation }) {
 
   const { nb_participants, nb_palets } = route.params;
-
   let participants = [];
 
+  // Boucle textInput des noms des participants
   for(let i = 0; i < nb_participants; i++) {
-
     const [participant, onChangeParticipant] = React.useState("");
 
     participants.push(
@@ -49,57 +49,68 @@ export default function CreerPartie({ route, navigation }) {
       <Text>{nb_palets}</Text>
       { participants }
       <Button
-        title="Retourner à l'accueil"
-        // récupère la value du textInput à travers l'objet participants
+        title="Commencer Partie"
         onPress={() => {
-          create(participants, nb_participants, nb_palets)
-          navigation.navigate('Accueil')
+          create(participants, nb_participants, nb_palets).then(function(game_id) {
+            navigation.navigate('Partie', {
+              game_id: game_id,
+            })
+          })
         }}
       />
     </View>
   );
 }
 
-function create(participants, nb_participants, nb_palets) {
+const create = function(participants, nb_participants, nb_palets) {
 
-  var year = new Date().getFullYear();
-  var month = new Date().getMonth() + 1;
-  var date = new Date().getDate();
-  var hour = new Date().getHours()
-  var minutes = new Date().getMinutes()
-  var seconds = new Date().getSeconds()
+  return new Promise(function(resolve, reject) {
 
-  let time = year + '-' + month + '-' + date + ' ' + hour + ':' + minutes + ':' + seconds
+    // config date d'une partie
+    let year = new Date().getFullYear();
+    let month = new Date().getMonth() + 1;
+    let date = new Date().getDate();
+    let hour = new Date().getHours()
+    let minutes = new Date().getMinutes()
+    let seconds = new Date().getSeconds()
+    let time = year + '-' + month + '-' + date + ' ' + hour + ':' + minutes + ':' + seconds
 
-  let liste_joueurs = ""
-
-  for(let i =0; i < nb_participants; i++) {
-    if(i == nb_participants -1) {
-      liste_joueurs += participants[i].props["children"]["props"]["value"]
-    } else {
-      liste_joueurs += participants[i].props["children"]["props"]["value"] + ", "
-    }
-  }
-
-  db.transaction((tx) => {
-    tx.executeSql("PRAGMA foreign_keys=on");
-    tx.executeSql(
-      "create table if not exists game (game_id integer primary key not null, date datetime, statut text, nb_palets int, nb_joueurs int, tour_game int, liste_joueurs text, gagnant_game text)"
-    );
-    tx.executeSql(
-      "create table if not exists joueur (joueur_id integer primary key not null, game_id integer references game(game_id), nom_joueur text, score_joueur int, tour_joueur int, classement_joueur int)"
-    );
-    tx.executeSql(
-      "insert into game (date, statut, nb_palets, nb_joueurs, tour_game, liste_joueurs) values (?, ?, ?, ?, ?, ?)", [time, 'en cours', nb_participants, nb_palets, 1, liste_joueurs],
-      function(tx, res) {
-        for(let i = 0; i < nb_participants; i++ ){
-          tx.executeSql(
-            "insert into joueur (game_id, nom_joueur, score_joueur, tour_joueur) values (?, ?, ?, ?)", [res.insertId, participants[i].props["children"]["props"]["value"], 301, 1]
-          );
-        };
+    // config liste des joueurs d'une partie
+    let liste_joueurs = ""
+    for(let i =0; i < nb_participants; i++) {
+      if(i == nb_participants -1) {
+        liste_joueurs += participants[i].props["children"]["props"]["value"]
+      } else {
+        liste_joueurs += participants[i].props["children"]["props"]["value"] + ", "
       }
-    );
-  });
+    }
+
+    db.transaction((tx) => {
+      tx.executeSql("PRAGMA foreign_keys=on");
+      // création de la table game dans la bdd
+      tx.executeSql(
+        "create table if not exists game (game_id integer primary key not null, date datetime, statut text, nb_palets int, nb_joueurs int, tour_game int, liste_joueurs text, gagnant_game text, tour_joueur int)"
+      );
+      // création de la table joueur dans la bdd
+      tx.executeSql(
+        "create table if not exists joueur (joueur_id integer primary key not null, game_id integer references game(game_id), nom_joueur text, score_joueur int, tour_joueur int, classement_joueur int, position_joueur int)"
+      );
+      // création d'une partie dans la bdd
+      tx.executeSql(
+        "insert into game (date, statut, nb_palets, nb_joueurs, tour_game, liste_joueurs, tour_joueur) values (?, ?, ?, ?, ?, ?, ?)", [time, 'en cours', nb_palets, nb_participants, 1, liste_joueurs, 1],
+        function(tx, res) {
+          // création des joueurs dans la bdd
+          for(let i = 0; i < nb_participants; i++ ){
+            tx.executeSql(
+              "insert into joueur (game_id, nom_joueur, score_joueur, tour_joueur, position_joueur) values (?, ?, ?, ?, ?)", [res.insertId, participants[i].props["children"]["props"]["value"], 301, 0, i+1]
+            );
+          };
+          // return game
+          resolve(res.insertId)
+        }
+      );
+    });
+  })
 }
 
 const styles = StyleSheet.create({
