@@ -42,11 +42,11 @@ export default function Partie({ navigation, route }) {
   React.useEffect(() => {
     db.transaction((tx) => {
       // Récupère de la bdd la partie en cours
-      tx.executeSql(`select * from game where game.game_id = ?`, [game_id],
+      tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id],
         function(tx, res) {
           setGame(res.rows["_array"][0])
           // Récupère le joueur dont c'est le tour de jouer
-          tx.executeSql(`select * from joueur where joueur.game_id = ? AND joueur.position_joueur_en_cours = ?`, [game_id, res.rows["_array"][0].tour_joueur], (_, { rows: { _array } }) => setJoueur(_array[0]));
+          tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ? AND joueur.position_joueur_en_cours = ?`, [game_id, res.rows["_array"][0].tour_joueur], (_, { rows: { _array } }) => setJoueur(_array[0]));
         });
     });
   }, []);
