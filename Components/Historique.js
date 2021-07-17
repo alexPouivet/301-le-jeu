@@ -28,6 +28,10 @@ export default function HistoriquePartie({ navigation }) {
 
   React.useEffect(() => {
     db.transaction((tx) => {
+      // tx.executeSql('delete from game')
+      // tx.executeSql('delete from joueur')
+      // tx.executeSql('drop table game')
+      // tx.executeSql('drop table joueur')
       tx.executeSql(`select * from game`, [], (_, { rows: { _array } }) => setGames(_array));
     });
   }, []);

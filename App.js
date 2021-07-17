@@ -10,6 +10,7 @@ import CreerPartie from './Components/CreerPartie'
 import DetailsPartie from './Components/DetailsPartie'
 import ReprendrePartie from './Components/ReprendrePartie'
 import Partie from './Components/Partie'
+import GagnantPartie from './Components/GagnantPartie'
 import Classement from './Components/Classement'
 import FinDeTour from './Components/FinDeTour'
 
@@ -23,6 +24,7 @@ function App() {
         <Stack.Screen name="Nouvelle partie" component={NouvellePartie} />
         <Stack.Screen name="Creer partie" component={CreerPartie} />
         <Stack.Screen name="Partie" component={Partie} />
+        <Stack.Screen name="Gagnant Partie" component={GagnantPartie} />
         <Stack.Screen name="Classement" component={Classement} />
         <Stack.Screen name="Reprendre une partie" component={ReprendrePartie} />
         <Stack.Screen name="Historique des parties" component={HistoriquePartie} />
