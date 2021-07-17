@@ -28,7 +28,7 @@ export default function ReprendrePartie({ navigation }) {
 
   React.useEffect(() => {
     db.transaction((tx) => {
-      tx.executeSql(`select * from game where game.statut == "en cours"`, [], (_, { rows: { _array } }) => setGames(_array));
+      tx.executeSql(`SELECT * FROM game WHERE game.statut == "en cours"`, [], (_, { rows: { _array } }) => setGames(_array));
     });
   }, []);
 

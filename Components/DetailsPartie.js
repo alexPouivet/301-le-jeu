@@ -30,8 +30,8 @@ export default function DetailsPartie({ navigation, route }) {
 
   React.useEffect(() => {
     db.transaction((tx) => {
-      tx.executeSql(`select * from game where game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setPartie(_array));
-      tx.executeSql(`select * from joueur where joueur.game_id = ?`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
+      tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setPartie(_array));
+      tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ?`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
     });
   }, []);
 

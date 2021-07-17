@@ -89,20 +89,20 @@ const create = function(participants, nb_participants, nb_palets) {
       tx.executeSql("PRAGMA foreign_keys=on");
       // création de la table game dans la bdd
       tx.executeSql(
-        "create table if not exists game (game_id integer primary key not null, date datetime, statut text, nb_palets int, nb_joueurs int, nb_joueurs_restant int, tour_game int, liste_joueurs text, gagnant_game text, tour_joueur int)"
+        "CREATE TABLE IF NOT EXISTS game (game_id integer primary key not null, date datetime, statut text, nb_palets int, nb_joueurs int, nb_joueurs_restant int, tour_game int, liste_joueurs text, gagnant_game text, tour_joueur int)"
       );
       // création de la table joueur dans la bdd
       tx.executeSql(
-        "create table if not exists joueur (joueur_id integer primary key not null, game_id integer references game(game_id), nom_joueur text, score_joueur int, tour_joueur int, classement_joueur int, position_joueur int, position_joueur_en_cours int)"
+        "CREATE TABLE IF NOT EXISTS joueur (joueur_id integer primary key not null, game_id integer references game(game_id), nom_joueur text, score_joueur int, tour_joueur int, classement_joueur int, position_joueur int, position_joueur_en_cours int)"
       );
       // création d'une partie dans la bdd
       tx.executeSql(
-        "insert into game (date, statut, nb_palets, nb_joueurs, nb_joueurs_restant, tour_game, liste_joueurs, tour_joueur) values (?, ?, ?, ?, ?, ?, ?, ?)", [time, 'en cours', nb_palets, nb_participants, nb_participants, 1, liste_joueurs, 1],
+        "INSERT INTO game (date, statut, nb_palets, nb_joueurs, nb_joueurs_restant, tour_game, liste_joueurs, tour_joueur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [time, 'en cours', nb_palets, nb_participants, nb_participants, 1, liste_joueurs, 1],
         function(tx, res) {
           // création des joueurs dans la bdd
           for(let i = 0; i < nb_participants; i++ ){
             tx.executeSql(
-              "insert into joueur (game_id, nom_joueur, score_joueur, tour_joueur, position_joueur, position_joueur_en_cours) values (?, ?, ?, ?, ?, ?)", [res.insertId, participants[i].props["children"]["props"]["value"], 301, 0, i+1, i+1]
+              "INSERT INTO joueur (game_id, nom_joueur, score_joueur, tour_joueur, position_joueur, position_joueur_en_cours) VALUES (?, ?, ?, ?, ?, ?)", [res.insertId, participants[i].props["children"]["props"]["value"], 301, 0, i+1, i+1]
             );
           };
           // return game

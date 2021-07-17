@@ -30,7 +30,7 @@ export default function GagnantPartie({ navigation, route }) {
 
   React.useEffect(() => {
     db.transaction((tx) => {
-      tx.executeSql(`select * from joueur where joueur.game_id = ? ORDER BY joueur.score_joueur asc`, [game_id], (_, { rows: { _array } }) => setClassement(_array));
+      tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ? ORDER BY joueur.score_joueur ASC`, [game_id], (_, { rows: { _array } }) => setClassement(_array));
     });
   }, []);
 
@@ -86,7 +86,7 @@ const updatePartieEtJoueurs = function(game_id) {
     db.transaction((tx) => {
       tx.executeSql('UPDATE game SET nb_joueurs_restant = nb_joueurs_restant - ?, tour_joueur=? WHERE  game_id = ?', [1, 1, game_id]);
       tx.executeSql('UPDATE joueur SET position_joueur_en_cours = ? WHERE game_id = ? AND score_joueur = ?', [null, game_id, 0])
-      tx.executeSql(`select * from joueur where joueur.game_id = ?`, [game_id], (_, { rows: { _array } }) => {
+      tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ?`, [game_id], (_, { rows: { _array } }) => {
 
         for(let i=0; i < _array.length; i++) {
           if(_array[i].score_joueur !== 0 && _array[i].position_joueur_en_cours !== null) {
@@ -97,7 +97,7 @@ const updatePartieEtJoueurs = function(game_id) {
           }
         }
       });
-      tx.executeSql("SELECT * FROM joueur where game_id = ?",[game_id], (txObj, { rows: { _array } }) => console.log(_array))
+      tx.executeSql("SELECT * FROM joueur WHERE game_id = ?",[game_id], (txObj, { rows: { _array } }) => console.log(_array))
     })
     resolve(game_id)
   })
