@@ -30,24 +30,37 @@ export default function DetailsPartie({ navigation, route }) {
 
   React.useEffect(() => {
     db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setPartie(_array));
+      tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setPartie(_array[0]));
       tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ?`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
     });
   }, []);
 
+  console.log(partie);
   if (partie === null || partie.length === 0 || joueurs === null || joueurs.length === 0) {
     return null;
   }
+
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Ecran détails d'une partie</Text>
       <Text>game id: {game_id}</Text>
+      <Text>partie statut: {partie.statut}</Text>
       {joueurs.map(({ nom_joueur, score_joueur, tour_joueur }, i) => (
         <View key={i}>
           <Text>{nom_joueur}, {score_joueur}, {tour_joueur}</Text>
         </View>
       ))}
+      { partie.statut == "en cours" ?
+      <Button
+        title="Reprendre la partie"
+        onPress={() => navigation.navigate('Partie', {
+          game_id: game_id
+        })}
+      />
+       :
+       null
+      }
       <Button
         title="Retourner à l'historique"
         onPress={() => navigation.navigate('Historique des parties')}

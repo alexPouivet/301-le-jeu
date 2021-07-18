@@ -216,6 +216,13 @@ const updateJoueur = function(points20, points10, points8, points6, points4, poi
       // Retourne l'id de la partie en cours
       if (joueur.score_joueur - points == 0) {
 
+        if(game.gagnant_game == null) {
+          tx.executeSql('UPDATE game SET gagnant_game = ? WHERE game_id = ?', [joueur.nom_joueur, game.game_id])
+          tx.executeSql('UPDATE joueur SET classement_joueur = ? WHERE joueur_id = ?', [1, joueur.joueur_id])
+        } else {
+          tx.executeSql('UPDATE joueur SET classement_joueur = ? WHERE joueur_id = ?', [game.nb_joueurs - (game.nb_joueurs_restant -1), joueur.joueur_id])
+        }
+
         let isJoueurWin = true
         resolve([game.game_id, isJoueurWin])
       } else {
