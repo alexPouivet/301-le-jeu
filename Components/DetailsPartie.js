@@ -35,7 +35,6 @@ export default function DetailsPartie({ navigation, route }) {
     });
   }, []);
 
-  console.log(partie);
   if (partie === null || partie.length === 0 || joueurs === null || joueurs.length === 0) {
     return null;
   }

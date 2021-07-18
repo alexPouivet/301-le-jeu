@@ -103,7 +103,6 @@ const updatePartieEtJoueurs = function(game_id) {
           }
         }
       });
-      tx.executeSql("SELECT * FROM joueur WHERE game_id = ?",[game_id], (txObj, { rows: { _array } }) => console.log(_array))
     })
     resolve(game_id)
   })
