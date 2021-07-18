@@ -39,14 +39,11 @@ export default function ReprendrePartie({ navigation }) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Ecran reprendre une partie</Text>
-      {games.map(({ game_id, nb_joueurs, date, nb_palets, liste_joueurs, statut }, i) => (
+      {games.map(({ game_id, date, liste_joueurs, statut }, i) => (
         <View key={i}>
-          <Text>statut: {statut}</Text>
-          <Text>nb joueurs: {nb_joueurs}</Text>
-          <Text>nb palets: {nb_palets}</Text>
-          <Text>joueurs: {liste_joueurs}</Text>
-          <Text>date: {date}</Text>
+          <Text>{date}</Text>
+          <Text>{statut}</Text>
+          <Text>Participants: {liste_joueurs}</Text>
           <Button
             title="Détails partie"
             onPress={() => navigation.navigate('Details', {

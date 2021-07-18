@@ -33,7 +33,7 @@ export default function DetailsPartie({ navigation, route }) {
       // Récupère les données de la partie en cours
       tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setGame(_array[0]));
       // Récupère la liste des joueurs de la partie en cours
-      tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ?`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
+      tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ? ORDER BY joueur.score_joueur ASC`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
     });
   }, []);
 
@@ -44,12 +44,15 @@ export default function DetailsPartie({ navigation, route }) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Ecran détails d'une partie</Text>
-      <Text>game id: {game_id}</Text>
-      <Text>partie statut: {game.statut}</Text>
-      {joueurs.map(({ nom_joueur, score_joueur, tour_joueur }, i) => (
+      {game.gagnant_game == null ?
+        <Text>Partie non finie</Text>
+        :
+        <Text>{game.gagnant_game}</Text>
+      }
+      <Text>-----------</Text>
+      {joueurs.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
         <View key={i}>
-          <Text>{nom_joueur}, {score_joueur}, {tour_joueur}</Text>
+          <Text>{classement_joueur == null ? i+1 : classement_joueur} | {nom_joueur} | {tour_joueur} | {score_joueur} points</Text>
         </View>
       ))}
       { game.statut == "en cours" ?

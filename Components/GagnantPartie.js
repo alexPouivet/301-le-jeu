@@ -44,17 +44,14 @@ export default function GagnantPartie({ navigation, route }) {
 
   return(
     <View>
-      <Text>Gagnant partie</Text>
-      <Text>game_id: {game_id}</Text>
-      {classement.map(({ nom_joueur, score_joueur }, i) => {
-        return score_joueur == 0 ?
-        <Text key={i}>Gagnant: {nom_joueur}</Text>
+      {game.gagnant_game == null ?
+        <Text>Partie non finie</Text>
         :
-        <Text key={i}>Partie en cours</Text>
-      })}
+        <Text>{game.gagnant_game}</Text>
+      }
       {classement.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
         <View key={i}>
-          <Text>{nom_joueur} {score_joueur} {tour_joueur} {classement_joueur ? classement_joueur : "en cours"}</Text>
+          <Text>{classement_joueur == null ? i+1 : classement_joueur} | {nom_joueur} | {tour_joueur} | {score_joueur} points</Text>
         </View>
       ))}
       { game.nb_joueurs_restant > 1 ?

@@ -24,20 +24,20 @@ const db = openDatabase();
 // Page Nouvelle partie
 export default function NouvellePartie({ navigation }) {
 
-  const [participants, onChangeParticipants] = React.useState("");
-  const [palets, onChangePalets] = React.useState("");
+  const [participants, onChangeParticipants] = React.useState("0");
+  const [palets, onChangePalets] = React.useState("0");
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Ecran créer une nouvelle partie</Text>
-      <Text>Nombre de participants</Text>
+      <Text>Nouvelle partie</Text>
+      <Text>Nombre de joueurs</Text>
       <TextInput
         style={styles.input}
         onChangeText={onChangeParticipants}
         value={participants}
         keyboardType="numeric"
       />
-      <Text>Nombre de palets par personne</Text>
+      <Text>Nombre de palets par personnes</Text>
       <TextInput
         style={styles.input}
         onChangeText={onChangePalets}
@@ -45,7 +45,7 @@ export default function NouvellePartie({ navigation }) {
         keyboardType="numeric"
       />
       <Button
-        title="Créer une nouvelle partie"
+        title="Continuer"
         onPress={() => navigation.navigate('Creer partie', {
           nb_participants: participants,
           nb_palets: palets,

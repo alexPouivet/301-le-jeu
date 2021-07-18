@@ -31,7 +31,7 @@ export default function FinDeTour({ navigation, route }) {
   React.useEffect(() => {
     db.transaction((tx) => {
       // Récupère les données de la partie en cours
-      tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setGame(_array));
+      tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setGame(_array[0]));
       // Récupère la liste des joueurs de la partie en cours, avec tri par score
       tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ? ORDER BY joueur.score_joueur ASC`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
     });
@@ -43,11 +43,10 @@ export default function FinDeTour({ navigation, route }) {
 
   return(
     <View>
-    <Text>{game.game_id}</Text>
-      <Text>Fin de Tour n° {game[0].tour_game}</Text>
-      {joueurs.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
+      <Text>Récap Tour {game.tour_game}</Text>
+      {joueurs.map(({ nom_joueur, score_joueur }, i) => (
         <View key={i}>
-          <Text>{nom_joueur} {score_joueur} {tour_joueur}</Text>
+          <Text>{nom_joueur} | {score_joueur} points</Text>
         </View>
       ))}
       <Button

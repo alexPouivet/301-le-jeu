@@ -33,6 +33,7 @@ export default function CreerPartie({ route, navigation }) {
 
     participants.push(
       <View key = {i}>
+        <Text>Joueur {i+1}</Text>
         <TextInput
           style={styles.input}
           value={participant}
@@ -44,12 +45,10 @@ export default function CreerPartie({ route, navigation }) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Noms des participants</Text>
-      <Text>{nb_participants}</Text>
-      <Text>{nb_palets}</Text>
+      <Text>Nommer les joueurs</Text>
       { participants }
       <Button
-        title="Commencer Partie"
+        title="Commencer la partie"
         onPress={() => {
           create(participants, nb_participants, nb_palets).then(function(game_id) {
             navigation.navigate('Partie', {
@@ -79,9 +78,9 @@ const create = function(participants, nb_participants, nb_palets) {
     let liste_joueurs = ""
     for(let i =0; i < nb_participants; i++) {
       if(i == nb_participants -1) {
-        liste_joueurs += participants[i].props["children"]["props"]["value"]
+        liste_joueurs += participants[i].props["children"][1]["props"]["value"]
       } else {
-        liste_joueurs += participants[i].props["children"]["props"]["value"] + ", "
+        liste_joueurs += participants[i].props["children"][1]["props"]["value"] + ", "
       }
     }
 
@@ -102,7 +101,7 @@ const create = function(participants, nb_participants, nb_palets) {
           // création des joueurs dans la bdd
           for(let i = 0; i < nb_participants; i++ ){
             tx.executeSql(
-              "INSERT INTO joueur (game_id, nom_joueur, score_joueur, tour_joueur, position_joueur, position_joueur_en_cours) VALUES (?, ?, ?, ?, ?, ?)", [res.insertId, participants[i].props["children"]["props"]["value"], 301, 0, i+1, i+1]
+              "INSERT INTO joueur (game_id, nom_joueur, score_joueur, tour_joueur, position_joueur, position_joueur_en_cours) VALUES (?, ?, ?, ?, ?, ?)", [res.insertId, participants[i].props["children"][1]["props"]["value"], 301, 0, i+1, i+1]
             );
           };
           // return game

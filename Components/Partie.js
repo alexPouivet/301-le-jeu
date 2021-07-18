@@ -28,6 +28,7 @@ export default function Partie({ navigation, route }) {
 
   const [game, setGame] = React.useState(null);
   const [joueur, setJoueur] = React.useState(null);
+  const [joueurs, setJoueurs] = React.useState(null);
 
 
   const [points20, setPoints20] = React.useState(0);
@@ -47,12 +48,33 @@ export default function Partie({ navigation, route }) {
           setGame(res.rows["_array"][0])
           // Récupère le joueur dont c'est le tour de jouer
           tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ? AND joueur.position_joueur_en_cours = ?`, [game_id, res.rows["_array"][0].tour_joueur], (_, { rows: { _array } }) => setJoueur(_array[0]));
-        });
+        }
+      );
+      tx.executeSql('SELECT nom_joueur from joueur WHERE game_id = ?', [game_id], (_, { rows: { _array } }) => setJoueurs(_array))
     });
   }, []);
 
-  if (joueur === null) {
+  if (joueur === null || joueurs === null) {
     return null;
+  }
+
+  let liste_joueurs = []
+
+  for(let i = 0; i < joueurs.length; i++) {
+    liste_joueurs.push(
+      <View key={i}>
+        { joueurs[i].nom_joueur == joueur.nom_joueur ?
+            <Text>Joueur en cours: {joueurs[i].nom_joueur}</Text>
+           :
+            <Text>{joueurs[i].nom_joueur}</Text>
+        }
+        {  i+1 < joueurs.length ?
+            <Text> > </Text>
+          :
+            null
+        }
+      </View>
+    )
   }
 
   //  calcul du nombre de palets restants à jouer pendant le tour
@@ -62,15 +84,15 @@ export default function Partie({ navigation, route }) {
   return(
     <View>
       <Button
-        title="Classement"
+        title="Classement actuel"
         onPress={() => {
           navigation.navigate('Classement', {
             game_id: game_id
           })
         }}
       />
-      <Text>{totalPalets} {totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false } | Tour n°{game.tour_game} | {joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)} points</Text>
-      <Text>{joueur.nom_joueur}</Text>
+      { liste_joueurs }
+      <Text>{totalPalets} {totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false } | Tour {game.tour_game} | {joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)} points</Text>
       <InputSpinner
         max={game.nb_palets}
         min={0}
@@ -138,7 +160,6 @@ export default function Partie({ navigation, route }) {
         editable={false}
         buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 1 ? true : false}
       />
-      <Text>{joueur.position_joueur_en_cours} {game.nb_joueurs_restant}</Text>
       {joueur.position_joueur_en_cours < game.nb_joueurs_restant ?
         <Button
           title="Joueur suivant"
@@ -161,7 +182,7 @@ export default function Partie({ navigation, route }) {
         />
         :
         <Button
-          title="Terminer le Tour 1"
+          title="Terminer le tour"
           onPress={() => {
             // Met à jour le score du joueur et passe à la page Fin de Tour
             updateJoueur(points20, points10, points8, points6, points4, points2, point1, joueur, game).then(function(array) {
@@ -225,7 +246,7 @@ const updateJoueur = function(points20, points10, points8, points6, points4, poi
         let isJoueurWin = true
         resolve([game.game_id, isJoueurWin])
       } else {
-        
+
         let isJoueurWin = false
         resolve([game.game_id, isJoueurWin])
       }
