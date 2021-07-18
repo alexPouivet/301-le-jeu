@@ -32,6 +32,7 @@ export default function HistoriquePartie({ navigation }) {
       // tx.executeSql('delete from joueur')
       // tx.executeSql('drop table game')
       // tx.executeSql('drop table joueur')
+      // Recupère les données de toutes les parties
       tx.executeSql(`SELECT * FROM game`, [], (_, { rows: { _array } }) => setGames(_array));
     });
   }, []);

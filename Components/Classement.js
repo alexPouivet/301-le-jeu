@@ -24,11 +24,11 @@ const db = openDatabase();
 export default function Classement({ navigation, route }) {
 
   const {game_id } = route.params;
-
   const [classement, setClassement] = React.useState(null);
 
   React.useEffect(() => {
     db.transaction((tx) => {
+      // Récupère le classement des joueurs
       tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ? ORDER BY joueur.score_joueur ASC`, [game_id], (_, { rows: { _array } }) => setClassement(_array));
     });
   }, []);

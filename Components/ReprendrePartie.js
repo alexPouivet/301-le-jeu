@@ -28,6 +28,7 @@ export default function ReprendrePartie({ navigation }) {
 
   React.useEffect(() => {
     db.transaction((tx) => {
+      // Récupère les parties dont le statut est en cours
       tx.executeSql(`SELECT * FROM game WHERE game.statut == "en cours"`, [], (_, { rows: { _array } }) => setGames(_array));
     });
   }, []);

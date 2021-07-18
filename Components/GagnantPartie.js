@@ -31,7 +31,9 @@ export default function GagnantPartie({ navigation, route }) {
 
   React.useEffect(() => {
     db.transaction((tx) => {
+      // Récupère la liste des joueurs de la partie en cours
       tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ? ORDER BY joueur.score_joueur ASC`, [game_id], (_, { rows: { _array } }) => setClassement(_array));
+      // Récupère les données de la partie en cours
       tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setGame(_array[0]));
     });
   }, []);
@@ -74,6 +76,7 @@ export default function GagnantPartie({ navigation, route }) {
       <Button
         title="Arrêter la partie"
         onPress={() => {
+          // Fin de la partie en cours
           terminerPartie(game_id).then(function(game_id) {
             navigation.navigate('Accueil')
           })
@@ -90,12 +93,16 @@ const updatePartieEtJoueurs = function(game_id) {
     let compteur = 1
 
     db.transaction((tx) => {
+      // Mise à jour du nombre de joueurs et du tour en cours de la partie
       tx.executeSql('UPDATE game SET nb_joueurs_restant = nb_joueurs_restant - ?, tour_joueur=? WHERE  game_id = ?', [1, 1, game_id]);
+      // Mise à jour de la position en cours du joueur si il à fini la partie
       tx.executeSql('UPDATE joueur SET position_joueur_en_cours = ? WHERE game_id = ? AND score_joueur = ?', [null, game_id, 0])
+      // Récupère la liste des joueurs de la partie en cours
       tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ?`, [game_id], (_, { rows: { _array } }) => {
 
         for(let i=0; i < _array.length; i++) {
           if(_array[i].score_joueur !== 0 && _array[i].position_joueur_en_cours !== null) {
+            // Mise à jour de la position des joueurs en cours qui n'ont pas fini la partie
             tx.executeSql('UPDATE joueur SET position_joueur_en_cours = ? WHERE joueur_id = ?', [compteur, _array[i].joueur_id])
             compteur++
           } else {
@@ -113,9 +120,9 @@ const terminerPartie = function(game_id) {
   return new Promise(function(resolve, reject) {
 
     db.transaction((tx) => {
+      // Mise à jour du statut de la partie en cours en finie
       tx.executeSql('UPDATE game SET statut = ? WHERE game_id = ?', ["finie", game_id])
     })
-
     resolve(game_id)
   })
 }

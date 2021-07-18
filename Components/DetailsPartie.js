@@ -25,17 +25,19 @@ const db = openDatabase();
 export default function DetailsPartie({ navigation, route }) {
 
   const {game_id } = route.params;
-  const [partie, setPartie] = React.useState(null);
+  const [game, setGame] = React.useState(null);
   const [joueurs, setJoueurs] = React.useState(null);
 
   React.useEffect(() => {
     db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setPartie(_array[0]));
+      // Récupère les données de la partie en cours
+      tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setGame(_array[0]));
+      // Récupère la liste des joueurs de la partie en cours
       tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ?`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
     });
   }, []);
 
-  if (partie === null || partie.length === 0 || joueurs === null || joueurs.length === 0) {
+  if (game === null || game.length === 0 || joueurs === null || joueurs.length === 0) {
     return null;
   }
 
@@ -44,13 +46,13 @@ export default function DetailsPartie({ navigation, route }) {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Ecran détails d'une partie</Text>
       <Text>game id: {game_id}</Text>
-      <Text>partie statut: {partie.statut}</Text>
+      <Text>partie statut: {game.statut}</Text>
       {joueurs.map(({ nom_joueur, score_joueur, tour_joueur }, i) => (
         <View key={i}>
           <Text>{nom_joueur}, {score_joueur}, {tour_joueur}</Text>
         </View>
       ))}
-      { partie.statut == "en cours" ?
+      { game.statut == "en cours" ?
       <Button
         title="Reprendre la partie"
         onPress={() => navigation.navigate('Partie', {

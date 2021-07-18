@@ -55,7 +55,7 @@ export default function Partie({ navigation, route }) {
     return null;
   }
 
-
+  //  calcul du nombre de palets restants à jouer pendant le tour
   let totalPalets = game.nb_palets - (points20 + points10 + points8 + points6 + points4 + points2 + point1)
   let isPaletsEqualZero = false
 
@@ -197,35 +197,35 @@ const updateJoueur = function(points20, points10, points8, points6, points4, poi
     const points = points20 * 20 + points10 * 10 + points8 * 8 + points6 * 6 + points4 * 4 + points2 * 2 + point1
 
     db.transaction((tx) => {
-      tx.executeSql(
-        'UPDATE joueur SET score_joueur = score_joueur - ?, tour_joueur = tour_joueur +1 WHERE joueur_id = ?', [points, joueur.joueur_id]
-      );
+
+      // Mise à jour du score du joueur en cours de partie et du nombre de tour joués
+      tx.executeSql('UPDATE joueur SET score_joueur = score_joueur - ?, tour_joueur = tour_joueur +1 WHERE joueur_id = ?', [points, joueur.joueur_id]);
       if(joueur.position_joueur_en_cours < game.nb_joueurs_restant) {
         // Met à jour le tour du joueur pour faire jouer le joueur suivant
-        tx.executeSql(
-          'UPDATE game SET tour_joueur = ? + 1 WHERE game_id = ?', [game.tour_joueur, game.game_id]
-        )
+        tx.executeSql('UPDATE game SET tour_joueur = ? + 1 WHERE game_id = ?', [game.tour_joueur, game.game_id])
       }
       else {
         // Réinitialise le compteur du tour pour refaire jouer le premier joueur au prochain tour
-        tx.executeSql(
-          'UPDATE game SET tour_joueur = ? WHERE game_id = ?', [1, game.game_id]
-        )
+        tx.executeSql('UPDATE game SET tour_joueur = ? WHERE game_id = ?', [1, game.game_id])
       }
 
       // Retourne l'id de la partie en cours
       if (joueur.score_joueur - points == 0) {
 
         if(game.gagnant_game == null) {
+          // Mise à jour du gagnant de la partie lorsque le premier gagnant est déclaré
           tx.executeSql('UPDATE game SET gagnant_game = ? WHERE game_id = ?', [joueur.nom_joueur, game.game_id])
+          // Mise à jour du classement du joueur ayant gagné la partie
           tx.executeSql('UPDATE joueur SET classement_joueur = ? WHERE joueur_id = ?', [1, joueur.joueur_id])
         } else {
+          // Mise à jour du classement du joueur ayant terminé la partie mais pas en première position
           tx.executeSql('UPDATE joueur SET classement_joueur = ? WHERE joueur_id = ?', [game.nb_joueurs - (game.nb_joueurs_restant -1), joueur.joueur_id])
         }
 
         let isJoueurWin = true
         resolve([game.game_id, isJoueurWin])
       } else {
+        
         let isJoueurWin = false
         resolve([game.game_id, isJoueurWin])
       }

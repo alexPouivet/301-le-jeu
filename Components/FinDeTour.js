@@ -30,7 +30,9 @@ export default function FinDeTour({ navigation, route }) {
 
   React.useEffect(() => {
     db.transaction((tx) => {
+      // Récupère les données de la partie en cours
       tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setGame(_array));
+      // Récupère la liste des joueurs de la partie en cours, avec tri par score
       tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ? ORDER BY joueur.score_joueur ASC`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
     });
   }, []);
@@ -68,6 +70,7 @@ const updateGame = function(game_id) {
 
     db.transaction((tx) => {
       tx.executeSql(
+        // Mise à jour du tour de la partie en cours
         'UPDATE game SET tour_game = tour_game + 1 WHERE game_id = ?', [game_id]
       )
     })
