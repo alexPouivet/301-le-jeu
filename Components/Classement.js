@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
@@ -55,41 +55,45 @@ export default function Classement({ navigation, route }) {
         </TouchableOpacity>
         <Text style={styles.titrePage}>Classement Actuel</Text>
       </View>
-      <View style={styles.containerStatutPartie}>
-      {game.gagnant_game == null ?
-        <Text style={styles.textStatutPartie}>Partie en cours</Text>
-        :
-        <View>
-          <Image
-          style={{width: 50, height: 50, marginBottom: 10}}
-            source={require("../images/trophy.png")}
-          />
-          <Text style={styles.textStatutPartie}>{game.gagnant_game}</Text>
+      <ScrollView style={styles.scrollview}>
+        <View style={styles.scrollContainer}>
+          <View style={styles.containerStatutPartie}>
+          {game.gagnant_game == null ?
+            <Text style={styles.textStatutPartie}>Partie en cours</Text>
+            :
+            <View>
+              <Image
+              style={{width: 50, height: 50, marginBottom: 10}}
+                source={require("../images/trophy.png")}
+              />
+              <Text style={styles.textStatutPartie}>{game.gagnant_game}</Text>
+            </View>
+          }
+          </View>
+          <View style={styles.libele}>
+            <Text style={[styles.libeleClassement]}>#</Text>
+            <Text style={[styles.libeleNom]}>Nom</Text>
+            <Text style={[styles.libeleTour]}>Tour</Text>
+            <Text style={[styles.libelePoints]}>Points restant</Text>
+          </View>
+          {classement.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
+            <View key={i} style={[ styles.joueur, i % 2 == 0 ? styles.joueurImpair : styles.joueurPair, classement_joueur == 1 ? styles.gagnant : null ]}>
+              <Text style={[styles.textClassementJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{classement_joueur == null ? i+1 : classement_joueur}</Text>
+              <Text style={[styles.textNomJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{nom_joueur}</Text>
+              <Text style={[styles.textTourJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{tour_joueur}</Text>
+              <Text style={[styles.textPointsJoueur, classement_joueur == 1 ? styles.textGagnantPoints : null]}>{score_joueur} points</Text>
+            </View>
+          ))}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.goBack()
+            }}
+          >
+            <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Retourner à la partie</Text>
+          </TouchableOpacity>
         </View>
-      }
-      </View>
-      <View style={styles.libele}>
-        <Text style={[styles.libeleClassement]}>#</Text>
-        <Text style={[styles.libeleNom]}>Nom</Text>
-        <Text style={[styles.libeleTour]}>Tour</Text>
-        <Text style={[styles.libelePoints]}>Points restant</Text>
-      </View>
-      {classement.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
-        <View key={i} style={[ styles.joueur, i % 2 == 0 ? styles.joueurImpair : styles.joueurPair, classement_joueur == 1 ? styles.gagnant : null ]}>
-          <Text style={[styles.textClassementJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{classement_joueur == null ? i+1 : classement_joueur}</Text>
-          <Text style={[styles.textNomJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{nom_joueur}</Text>
-          <Text style={[styles.textTourJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{tour_joueur}</Text>
-          <Text style={[styles.textPointsJoueur, classement_joueur == 1 ? styles.textGagnantPoints : null]}>{score_joueur} points</Text>
-        </View>
-      ))}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          navigation.goBack()
-        }}
-      >
-        <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Retourner à la partie</Text>
-      </TouchableOpacity>
+      </ScrollView>
     </View>
   )
 }
@@ -123,6 +127,13 @@ const styles = StyleSheet.create({
     width: "70%",
     color: "rgba(36, 51, 76, 0.85)",
     marginLeft:10,
+  },
+  scrollview: {
+    width: "100%",
+  },
+  scrollContainer: {
+    alignItems: "center",
+    marginBottom: 20
   },
   containerStatutPartie: {
     marginTop: 50,

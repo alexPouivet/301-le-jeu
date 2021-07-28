@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
@@ -45,22 +45,26 @@ export default function CreerPartie({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nommer les joueurs</Text>
-      <View style={styles.inputsContainer}>
-        { participants }
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            create(participants, nb_participants, nb_palets).then(function(game_id) {
-              navigation.navigate('Partie', {
-                game_id: game_id,
-              })
-            })
-          }}
-        >
-          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Commencer la partie</Text>
-        </TouchableOpacity>
-      </View>
+      <ScrollView style={styles.scrollview}>
+        <View style={styles.scrollContainer}>
+          <Text style={styles.title}>Nommer les joueurs</Text>
+          <View style={styles.inputsContainer}>
+            { participants }
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                create(participants, nb_participants, nb_palets).then(function(game_id) {
+                  navigation.navigate('Partie', {
+                    game_id: game_id,
+                  })
+                })
+              }}
+            >
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Commencer la partie</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -128,6 +132,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold'
   },
+  scrollview: {
+    width: "100%",
+  },
+  scrollContainer: {
+    alignItems: "center",
+  },
   inputsContainer: {
     borderRadius: 10,
     paddingTop: 40,
@@ -135,6 +145,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "90%",
     marginTop: 20,
+    marginBottom: 20,
     backgroundColor: "#F3F3F3",
   },
   inputContainer: {

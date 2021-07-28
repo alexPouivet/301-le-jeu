@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
@@ -65,57 +65,61 @@ export default function GagnantPartie({ navigation, route }) {
         </TouchableOpacity>
         <Text style={styles.titrePage}>Gagnant de la partie</Text>
       </View>
-      <View style={styles.containerStatutPartie}>
-        <Image
-        style={{width: 50, height: 50, marginBottom: 10}}
-          source={require("../images/trophy.png")}
-        />
-        <Text style={styles.textStatutPartie}>{game.gagnant_game}</Text>
-      </View>
-      <View style={styles.libele}>
-        <Text style={[styles.libeleClassement]}>#</Text>
-        <Text style={[styles.libeleNom]}>Nom</Text>
-        <Text style={[styles.libeleTour]}>Tour</Text>
-        <Text style={[styles.libelePoints]}>Points restant</Text>
-      </View>
-      {classement.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
-        <View key={i} style={[ styles.joueur, i % 2 == 0 ? styles.joueurImpair : styles.joueurPair, classement_joueur == 1 ? styles.gagnant : null ]}>
-          <Text style={[styles.textClassementJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{classement_joueur == null ? i+1 : classement_joueur}</Text>
-          <Text style={[styles.textNomJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{nom_joueur}</Text>
-          <Text style={[styles.textTourJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{tour_joueur}</Text>
-          <Text style={[styles.textPointsJoueur, classement_joueur == 1 ? styles.textGagnantPoints : null]}>{score_joueur} points</Text>
-        </View>
-      ))}
-      <View style={styles.buttons}>
-        <TouchableOpacity
-          style={game.nb_joueurs_restant > 1 ? styles.buttonArreter2 : styles.buttonArreter}
-          onPress={() => {
-            // Fin de la partie en cours
-            terminerPartie(game_id).then(function(game_id) {
-              navigation.navigate('Accueil')
-            })
-          }}
-        >
-          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Terminer la partie</Text>
-        </TouchableOpacity>
-        { game.nb_joueurs_restant > 1 ?
-          <TouchableOpacity
-            style={styles.buttonContinuer}
-            onPress={() => {
-              // update de la bdd pour retirer le gagnant des joueurs à jouer et mettre le classement à jour
-              updatePartieEtJoueurs(game_id).then(function(game_id) {
-                navigation.push("Partie", {
-                  game_id: game_id,
+      <ScrollView style={styles.scrollview}>
+        <View style={styles.scrollContainer}>
+          <View style={styles.containerStatutPartie}>
+            <Image
+            style={{width: 50, height: 50, marginBottom: 10}}
+              source={require("../images/trophy.png")}
+            />
+            <Text style={styles.textStatutPartie}>{game.gagnant_game}</Text>
+          </View>
+          <View style={styles.libele}>
+            <Text style={[styles.libeleClassement]}>#</Text>
+            <Text style={[styles.libeleNom]}>Nom</Text>
+            <Text style={[styles.libeleTour]}>Tour</Text>
+            <Text style={[styles.libelePoints]}>Points restant</Text>
+          </View>
+          {classement.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
+            <View key={i} style={[ styles.joueur, i % 2 == 0 ? styles.joueurImpair : styles.joueurPair, classement_joueur == 1 ? styles.gagnant : null ]}>
+              <Text style={[styles.textClassementJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{classement_joueur == null ? i+1 : classement_joueur}</Text>
+              <Text style={[styles.textNomJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{nom_joueur}</Text>
+              <Text style={[styles.textTourJoueur, classement_joueur == 1 ? styles.textGagnant : null]}>{tour_joueur}</Text>
+              <Text style={[styles.textPointsJoueur, classement_joueur == 1 ? styles.textGagnantPoints : null]}>{score_joueur} points</Text>
+            </View>
+          ))}
+          <View style={styles.buttons}>
+            <TouchableOpacity
+              style={game.nb_joueurs_restant > 1 ? styles.buttonArreter2 : styles.buttonArreter}
+              onPress={() => {
+                // Fin de la partie en cours
+                terminerPartie(game_id).then(function(game_id) {
+                  navigation.navigate('Accueil')
                 })
-              })
-            }}
-          >
-            <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Continuer la partie</Text>
-          </TouchableOpacity>
-          :
-          null
-        }
-      </View>
+              }}
+            >
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Terminer la partie</Text>
+            </TouchableOpacity>
+            { game.nb_joueurs_restant > 1 ?
+              <TouchableOpacity
+                style={styles.buttonContinuer}
+                onPress={() => {
+                  // update de la bdd pour retirer le gagnant des joueurs à jouer et mettre le classement à jour
+                  updatePartieEtJoueurs(game_id).then(function(game_id) {
+                    navigation.push("Partie", {
+                      game_id: game_id,
+                    })
+                  })
+                }}
+              >
+                <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Continuer la partie</Text>
+              </TouchableOpacity>
+              :
+              null
+            }
+          </View>
+        </View>
+      </ScrollView>
     </View>
   )
 }
@@ -190,6 +194,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft:10,
     color: "rgba(36, 51, 76, 0.85)"
+  },
+  scrollview: {
+    width: "100%"
+  },
+  scrollContainer: {
+    alignItems: "center",
+    marginBottom: 20
   },
   containerStatutPartie: {
     marginTop: 50,

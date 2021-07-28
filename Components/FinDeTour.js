@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
@@ -56,29 +56,33 @@ export default function FinDeTour({ navigation, route }) {
         </TouchableOpacity>
         <Text style={styles.titrePage}>Fin du Tour</Text>
       </View>
-      <Text style={styles.titreRecap}>Récap Tour {game.tour_game}</Text>
-      <View style={styles.libele}>
-        <Text style={[styles.libeleNom]}>Nom</Text>
-        <Text style={[styles.libelePoints]}>Points restant</Text>
-      </View>
-      {joueurs.map(({ nom_joueur, score_joueur }, i) => (
-        <View key={i} style={styles.joueur}>
-          <Text style={styles.textNomJoueur}>{nom_joueur}</Text>
-          <Text style={styles.textPointsJoueur}>{score_joueur} points</Text>
+      <ScrollView style={styles.scrollview}>
+        <View style={styles.scrollContainer}>
+          <Text style={styles.titreRecap}>Récap Tour {game.tour_game}</Text>
+          <View style={styles.libele}>
+            <Text style={[styles.libeleNom]}>Nom</Text>
+            <Text style={[styles.libelePoints]}>Points restant</Text>
+          </View>
+          {joueurs.map(({ nom_joueur, score_joueur }, i) => (
+            <View key={i} style={styles.joueur}>
+              <Text style={styles.textNomJoueur}>{nom_joueur}</Text>
+              <Text style={styles.textPointsJoueur}>{score_joueur} points</Text>
+            </View>
+          ))}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              updateGame(game_id).then(function(game_id) {
+                navigation.push("Partie", {
+                  game_id: game_id,
+                })
+              })
+            }}
+          >
+            <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Tour Suivant</Text>
+          </TouchableOpacity>
         </View>
-      ))}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          updateGame(game_id).then(function(game_id) {
-            navigation.push("Partie", {
-              game_id: game_id,
-            })
-          })
-        }}
-      >
-        <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Tour Suivant</Text>
-      </TouchableOpacity>
+      </ScrollView>
     </View>
   )
 }
@@ -127,6 +131,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft:10,
     color: "rgba(36, 51, 76, 0.85)"
+  },
+  scrollview: {
+    width: "100%",
+  },
+  scrollContainer: {
+    alignItems: "center",
+    marginBottom: 20,
   },
   titreRecap: {
     marginTop: 100,

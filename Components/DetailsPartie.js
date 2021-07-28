@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
@@ -57,53 +57,57 @@ export default function DetailsPartie({ navigation, route }) {
         </TouchableOpacity>
         <Text style={styles.titrePage}>Partie du {game.date}</Text>
       </View>
-      <View style={[styles.containerStatutPartie, game.gagnant_game == null ? styles.backgroundColorStatutPartieEnCours : styles.backgroundColorStatutPartieFinie]}>
-      {game.gagnant_game == null ?
-        <Text style={styles.textStatutPartie}>Partie en cours</Text>
-        :
-        <View>
-          <Image
-          style={{width: 50, height: 50, marginBottom: 10}}
-            source={require("../images/trophy.png")}
-          />
-          <Text style={styles.textStatutPartie}>{game.gagnant_game}</Text>
+      <ScrollView style={styles.scrollview}>
+        <View style={styles.infos}>
+          <View style={[styles.containerStatutPartie, game.gagnant_game == null ? styles.backgroundColorStatutPartieEnCours : styles.backgroundColorStatutPartieFinie]}>
+          {game.gagnant_game == null ?
+            <Text style={styles.textStatutPartie}>Partie en cours</Text>
+            :
+            <View>
+              <Image
+              style={{width: 50, height: 50, marginBottom: 10}}
+                source={require("../images/trophy.png")}
+              />
+              <Text style={styles.textStatutPartie}>{game.gagnant_game}</Text>
+            </View>
+          }
+          </View>
+          <View style={styles.libele}>
+            <Text style={[styles.libeleClassement]}>#</Text>
+            <Text style={[styles.libeleNom]}>Nom</Text>
+            <Text style={[styles.libeleTour]}>Tour</Text>
+            <Text style={[styles.libelePoints]}>Points restant</Text>
+          </View>
+          {joueurs.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
+            <View key={i} style={[ styles.joueur, i % 2 == 0 ? styles.joueurImpair : styles.joueurPair, classement_joueur == 1 ? styles.gagnant : (i == 0 ? styles.joueurPosition1 : null) ]}>
+              <Text style={[styles.textClassementJoueur, classement_joueur == 1 ? styles.textGagnant : (i == 0 ? styles.textClassementJoueurPosition1 : null)]}>{classement_joueur == null ? i+1 : classement_joueur}</Text>
+              <Text style={[styles.textNomJoueur, classement_joueur == 1 ? styles.textGagnant : (i == 0 ? styles.textNomJoueurPosition1 : null)]}>{nom_joueur}</Text>
+              <Text style={[styles.textTourJoueur, classement_joueur == 1 ? styles.textGagnant : (i == 0 ? styles.textTourJoueurPosition1 : null)]}>{tour_joueur}</Text>
+              <Text style={[styles.textPointsJoueur, classement_joueur == 1 ? styles.textGagnantPoints : (i == 0 ? styles.textPointsJoueurPosition1 : null)]}>{score_joueur} points</Text>
+            </View>
+          ))}
+          <View style={styles.buttons}>
+            <TouchableOpacity
+              style={game.statut == "en cours" ? styles.buttonHistorique : styles.buttonHistorique2}
+              onPress={() => navigation.goBack()}
+            >
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Retourner à l'historique</Text>
+            </TouchableOpacity>
+            { game.statut == "en cours" ?
+              <TouchableOpacity
+                style={styles.buttonReprendre}
+                onPress={() => navigation.navigate('Partie', {
+                  game_id: game_id
+                })}
+              >
+                <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Reprendre la partie</Text>
+              </TouchableOpacity>
+              :
+              null
+            }
+          </View>
         </View>
-      }
-      </View>
-      <View style={styles.libele}>
-        <Text style={[styles.libeleClassement]}>#</Text>
-        <Text style={[styles.libeleNom]}>Nom</Text>
-        <Text style={[styles.libeleTour]}>Tour</Text>
-        <Text style={[styles.libelePoints]}>Points restant</Text>
-      </View>
-      {joueurs.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
-        <View key={i} style={[ styles.joueur, i % 2 == 0 ? styles.joueurImpair : styles.joueurPair, classement_joueur == 1 ? styles.gagnant : (i == 0 ? styles.joueurPosition1 : null) ]}>
-          <Text style={[styles.textClassementJoueur, classement_joueur == 1 ? styles.textGagnant : (i == 0 ? styles.textClassementJoueurPosition1 : null)]}>{classement_joueur == null ? i+1 : classement_joueur}</Text>
-          <Text style={[styles.textNomJoueur, classement_joueur == 1 ? styles.textGagnant : (i == 0 ? styles.textNomJoueurPosition1 : null)]}>{nom_joueur}</Text>
-          <Text style={[styles.textTourJoueur, classement_joueur == 1 ? styles.textGagnant : (i == 0 ? styles.textTourJoueurPosition1 : null)]}>{tour_joueur}</Text>
-          <Text style={[styles.textPointsJoueur, classement_joueur == 1 ? styles.textGagnantPoints : (i == 0 ? styles.textPointsJoueurPosition1 : null)]}>{score_joueur} points</Text>
-        </View>
-      ))}
-      <View style={styles.buttons}>
-        <TouchableOpacity
-          style={game.statut == "en cours" ? styles.buttonHistorique : styles.buttonHistorique2}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Retourner à l'historique</Text>
-        </TouchableOpacity>
-        { game.statut == "en cours" ?
-          <TouchableOpacity
-            style={styles.buttonReprendre}
-            onPress={() => navigation.navigate('Partie', {
-              game_id: game_id
-            })}
-          >
-            <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Reprendre la partie</Text>
-          </TouchableOpacity>
-          :
-          null
-        }
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -129,6 +133,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     marginLeft:10,
+  },
+  scrollview: {
+    width: "100%",
+  },
+  infos: {
+    alignItems: "center"
   },
   titrePage: {
     textAlign: "center",
@@ -264,7 +274,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
-
+    marginBottom:20
   },
   buttonReprendre: {
     marginTop: 50,
