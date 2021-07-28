@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
@@ -28,42 +28,79 @@ export default function NouvellePartie({ navigation }) {
   const [palets, onChangePalets] = React.useState("0");
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Nouvelle partie</Text>
-      <Text>Nombre de joueurs</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangeParticipants}
-        value={participants}
-        keyboardType="numeric"
-      />
-      <Text>Nombre de palets par personnes</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={onChangePalets}
-        value={palets}
-        keyboardType="numeric"
-      />
-      <Button
-        title="Continuer"
-        onPress={() => navigation.navigate('Creer partie', {
-          nb_participants: participants,
-          nb_palets: palets,
-        })}
-      />
-
-      <Button
-        title="Retourner à l'accueil"
-        onPress={() => navigation.navigate('Accueil')}
-      />
+    <View style={styles.container}>
+      <Text style={styles.title}>Nouvelle partie</Text>
+      <View style={styles.inputsContainer}>
+        <Text style={styles.text}>Nombre de joueurs</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeParticipants}
+          value={participants}
+          keyboardType="numeric"
+        />
+        <Text style={styles.text}>Nombre de palets par personnes</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangePalets}
+          value={palets}
+          keyboardType="numeric"
+        />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Creer partie', {
+            nb_participants: participants,
+            nb_palets: palets,
+          })}
+        >
+          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14}}>Continuer</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: "#FFFFFF"
+  },
+  title: {
+    marginTop: 100,
+    color: "rgba(36, 51, 76, 0.85)",
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  inputsContainer: {
+    borderRadius: 10,
+    paddingTop: 40,
+    paddingBottom: 20,
+    alignItems: "center",
+    width: "90%",
+    marginTop: 20,
+    backgroundColor: "#F3F3F3",
+  },
   input: {
+    width: "70%",
     height: 40,
-    margin: 12,
-    borderWidth: 1,
+    borderWidth: 2,
+    borderColor: "#D6D6D6",
+    borderRadius: 10,
+    marginBottom: 35,
+    textAlign: 'center',
+    backgroundColor: '#FFFFFF'
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: "rgba(36, 51, 76, 0.85)",
+    paddingBottom: 20,
+  },
+  button: {
+    paddingVertical: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    width: "80%",
+    backgroundColor: "rgba(89, 61, 218, 0.85)",
   },
 });

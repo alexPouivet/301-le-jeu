@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="93.126" height="93.126" viewBox="0 0 93.126 93.126">
+  <g id="Groupe_112" data-name="Groupe 112" transform="translate(-79 -79.436)">
+    <path id="Tracé_8" data-name="Tracé 8" d="M46.563,0A46.563,46.563,0,1,1,0,46.563,46.563,46.563,0,0,1,46.563,0Z" transform="translate(79 79.436)" fill="rgba(89,61,218,0.85)"/>
+    <g id="Ellipse_3" data-name="Ellipse 3" transform="translate(87.642 88.078)" fill="none" stroke="#fff" stroke-width="3">
+      <circle cx="37.711" cy="37.711" r="37.711" stroke="none"/>
+      <circle cx="37.711" cy="37.711" r="36.211" fill="none"/>
+    </g>
+    <g id="Ellipse_4" data-name="Ellipse 4" transform="translate(93.927 94.363)" fill="none" stroke="#fff" stroke-width="3">
+      <circle cx="31.818" cy="31.818" r="31.818" stroke="none"/>
+      <circle cx="31.818" cy="31.818" r="30.318" fill="none"/>
+    </g>
+    <text id="_301" data-name="301" transform="translate(125.563 136.289)" fill="#fff" font-size="25" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="-21.57" y="0">301</tspan></text>
+  </g>
+</svg>

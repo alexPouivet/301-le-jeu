@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
@@ -32,8 +32,8 @@ export default function CreerPartie({ route, navigation }) {
     const [participant, onChangeParticipant] = React.useState("");
 
     participants.push(
-      <View key = {i}>
-        <Text>Joueur {i+1}</Text>
+      <View key = {i} style={styles.inputContainer}>
+        <Text style={styles.textInput}>Joueur {i+1}</Text>
         <TextInput
           style={styles.input}
           value={participant}
@@ -44,19 +44,23 @@ export default function CreerPartie({ route, navigation }) {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Nommer les joueurs</Text>
-      { participants }
-      <Button
-        title="Commencer la partie"
-        onPress={() => {
-          create(participants, nb_participants, nb_palets).then(function(game_id) {
-            navigation.navigate('Partie', {
-              game_id: game_id,
+    <View style={styles.container}>
+      <Text style={styles.title}>Nommer les joueurs</Text>
+      <View style={styles.inputsContainer}>
+        { participants }
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            create(participants, nb_participants, nb_palets).then(function(game_id) {
+              navigation.navigate('Partie', {
+                game_id: game_id,
+              })
             })
-          })
-        }}
-      />
+          }}
+        >
+          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Commencer la partie</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -113,9 +117,51 @@ const create = function(participants, nb_participants, nb_palets) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: "#FFFFFF"
+  },
+  title: {
+    marginTop: 100,
+    color: "rgba(36, 51, 76, 0.85)",
+    fontSize: 20,
+    fontWeight: 'bold'
+  },
+  inputsContainer: {
+    borderRadius: 10,
+    paddingTop: 40,
+    paddingBottom: 20,
+    alignItems: "center",
+    width: "90%",
+    marginTop: 20,
+    backgroundColor: "#F3F3F3",
+  },
+  inputContainer: {
+    width: "100%",
+    alignItems: "center"
+  },
+  textInput: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: "rgba(36, 51, 76, 0.85)",
+    paddingBottom: 10,
+  },
   input: {
+    width: "70%",
     height: 40,
-    margin: 12,
-    borderWidth: 1,
+    borderWidth: 2,
+    borderColor: "#D6D6D6",
+    borderRadius: 10,
+    marginBottom: 20,
+    textAlign: 'center',
+    backgroundColor: '#FFFFFF'
+  },
+  button: {
+    paddingVertical: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    width: "80%",
+    backgroundColor: "rgba(89, 61, 218, 0.85)",
   },
 });

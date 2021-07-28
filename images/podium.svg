@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="18.907" height="17.681" viewBox="0 0 18.907 17.681">
+  <g id="podium-outline" transform="translate(-1.375 -2.5)">
+    <path id="Tracé_5" data-name="Tracé 5" d="M2.25,10.738V22.073a.307.307,0,0,0,.307.307H7.765V10.738a.613.613,0,0,0-.613-.613H2.863A.613.613,0,0,0,2.25,10.738Z" transform="translate(0 -3.074)" fill="none" stroke="rgba(36,51,76,0.85)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"/>
+    <path id="Tracé_6" data-name="Tracé 6" d="M17.889,3.375h-4.9a.613.613,0,0,0-.613.613V19.306H18.5V3.988A.613.613,0,0,0,17.889,3.375Z" transform="translate(-4.611 0)" fill="none" stroke="rgba(36,51,76,0.85)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"/>
+    <path id="Tracé_7" data-name="Tracé 7" d="M28.527,14.625H24.238a.613.613,0,0,0-.613.613v9.191h5.208a.307.307,0,0,0,.307-.307V15.238a.613.613,0,0,0-.613-.613Z" transform="translate(-9.733 -5.123)" fill="none" stroke="rgba(36,51,76,0.85)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"/>
+  </g>
+</svg>

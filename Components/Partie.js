@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import InputSpinner from "react-native-input-spinner";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -62,16 +62,16 @@ export default function Partie({ navigation, route }) {
 
   for(let i = 0; i < joueurs.length; i++) {
     liste_joueurs.push(
-      <View key={i}>
+      <View key={i} style={styles.joueur}>
         { joueurs[i].nom_joueur == joueur.nom_joueur ?
-            <Text>Joueur en cours: {joueurs[i].nom_joueur}</Text>
+            <Text style={[styles.nomJoueur, styles.joueurEnCours]}>{joueurs[i].nom_joueur}</Text>
            :
-            <Text>{joueurs[i].nom_joueur}</Text>
+            <Text style={[styles.nomJoueur]}>{joueurs[i].nom_joueur}</Text>
         }
-        {  i+1 < joueurs.length ?
+        {/*  i+1 < joueurs.length ?
             <Text> > </Text>
           :
-            null
+            null*/
         }
       </View>
     )
@@ -82,87 +82,200 @@ export default function Partie({ navigation, route }) {
   let isPaletsEqualZero = false
 
   return(
-    <View>
-      <Button
-        title="Classement actuel"
-        onPress={() => {
-          navigation.navigate('Classement', {
-            game_id: game_id
-          })
-        }}
-      />
-      { liste_joueurs }
-      <Text>{totalPalets} {totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false } | Tour {game.tour_game} | {joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)} points</Text>
-      <InputSpinner
-        max={game.nb_palets}
-        min={0}
-        step={1}
-        value={points20}
-        onChange={(num)=>{
-          setPoints20(num)
-        }}
-        editable={false}
-        buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 20 ? true : false}
-      />
-      <InputSpinner
-        max={game.nb_palets}
-        min={0}
-        step={1}
-        value={points10}
-        onChange={(num)=>{
-          setPoints10(num)
-        }}
-        editable={false}
-        buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 10 ? true : false}
-      />
-      <InputSpinner
-        max={game.nb_palets}
-        min={0}
-        step={1}
-        value={points8}
-        onChange={(num)=>{setPoints8(num)}}
-        editable={false}
-        buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 8 ? true : false}
-      />
-      <InputSpinner
-        max={game.nb_palets}
-        min={0}
-        step={1}
-        value={points6}
-        onChange={(num)=>{setPoints6(num)}}
-        editable={false}
-        buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 6 ? true : false}
-      />
-      <InputSpinner
-        max={game.nb_palets}
-        min={0}
-        step={1}
-        value={points4}
-        onChange={(num)=>{setPoints4(num)}}
-        editable={false}
-        buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 4 ? true : false}
-      />
-      <InputSpinner
-        max={game.nb_palets}
-        min={0}
-        step={1}
-        value={points2}
-        onChange={(num)=>{setPoints2(num)}}
-        editable={false}
-        buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 2 ? true : false}
-      />
-      <InputSpinner
-        max={game.nb_palets}
-        min={0}
-        step={1}
-        value={point1}
-        onChange={(num)=>{setPoint1(num)}}
-        editable={false}
-        buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 1 ? true : false}
-      />
+    <View style={styles.container}>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonRetour}
+          onPress={() => {
+            navigation.navigate('Accueil')
+          }}
+        >
+          <Image
+            source={require('../images/arrow-left.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonClassement}
+          onPress={() => {
+            navigation.navigate('Classement', {
+              game_id: game_id
+            })
+        }}>
+        <Image
+          source={require('../images/podium-outline.png')}
+        />
+          <Text style={styles.textClassement}>Classement actuel</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.listeJoueurs}>
+        { liste_joueurs }
+      </View>
+      <View style={styles.infosTour}>
+        <Text style={styles.textInfosTour}>{totalPalets} {totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false } | Tour {game.tour_game} | {joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)} points</Text>
+      </View>
+      <View style={styles.inputsContainer}>
+        <View style={styles.inputContainer}>
+          <Image
+            source={require('../images/20pts.png')}
+          />
+          <InputSpinner
+            max={game.nb_palets}
+            min={0}
+            step={1}
+            value={points20}
+            style={{width: "50%"}}
+            textColor="rgba(89, 61, 218, 0.85)"
+            buttonTextColor="#FFFFFF"
+            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+            onChange={(num)=>{
+              setPoints20(num)
+            }}
+            editable={false}
+            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 20 ? true : false}
+          />
+          <Image
+            source={require('../images/20pts.png')}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Image
+            source={require('../images/10pts.png')}
+          />
+          <InputSpinner
+            max={game.nb_palets}
+            min={0}
+            step={1}
+            value={points10}
+            style={{width: "50%"}}
+            textColor="rgba(89, 61, 218, 0.85)"
+            buttonTextColor="#FFFFFF"
+            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+            onChange={(num)=>{
+              setPoints10(num)
+            }}
+            editable={false}
+            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 10 ? true : false}
+          />
+          <Image
+            source={require('../images/10pts.png')}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Image
+            source={require('../images/8pts.png')}
+          />
+          <InputSpinner
+            max={game.nb_palets}
+            min={0}
+            step={1}
+            value={points8}
+            style={{width: "50%"}}
+            textColor="rgba(89, 61, 218, 0.85)"
+            buttonTextColor="#FFFFFF"
+            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+            onChange={(num)=>{setPoints8(num)}}
+            editable={false}
+            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 8 ? true : false}
+          />
+          <Image
+            source={require('../images/8pts.png')}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Image
+            source={require('../images/6pts.png')}
+        />
+          <InputSpinner
+            max={game.nb_palets}
+            min={0}
+            step={1}
+            value={points6}
+            style={{width: "50%"}}
+            textColor="rgba(89, 61, 218, 0.85)"
+            buttonTextColor="#FFFFFF"
+            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+            onChange={(num)=>{setPoints6(num)}}
+            editable={false}
+            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 6 ? true : false}
+          />
+          <Image
+            source={require('../images/6pts.png')}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Image
+            source={require('../images/4pts.png')}
+          />
+          <InputSpinner
+            max={game.nb_palets}
+            min={0}
+            step={1}
+            value={points4}
+            style={{width: "50%"}}
+            textColor="rgba(89, 61, 218, 0.85)"
+            buttonTextColor="#FFFFFF"
+            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+            onChange={(num)=>{setPoints4(num)}}
+            editable={false}
+            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 4 ? true : false}
+          />
+          <Image
+            source={require('../images/4pts.png')}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Image
+            source={require('../images/2pts.png')}
+          />
+          <InputSpinner
+            max={game.nb_palets}
+            min={0}
+            step={1}
+            value={points2}
+            style={{width: "50%"}}
+            textColor="rgba(89, 61, 218, 0.85)"
+            buttonTextColor="#FFFFFF"
+            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+            onChange={(num)=>{setPoints2(num)}}
+            editable={false}
+            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 2 ? true : false}
+          />
+          <Image
+            source={require('../images/2pts.png')}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Image
+            source={require('../images/1pt.png')}
+          />
+          <InputSpinner
+            max={game.nb_palets}
+            min={0}
+            step={1}
+            value={point1}
+            style={{width: "50%"}}
+            textColor="rgba(89, 61, 218, 0.85)"
+            buttonTextColor="#FFFFFF"
+            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+            onChange={(num)=>{setPoint1(num)}}
+            editable={false}
+            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 1 ? true : false}
+          />
+          <Image
+            source={require('../images/1pt.png')}
+          />
+        </View>
+      </View>
       {joueur.position_joueur_en_cours < game.nb_joueurs_restant ?
-        <Button
-          title="Joueur suivant"
+        <TouchableOpacity
+          style={styles.button}
           onPress={() => {
             // Met à jour le joueur et passe au joueur suivant
             updateJoueur(points20, points10, points8, points6, points4, points2, point1, joueur, game).then(function(array) {
@@ -179,10 +292,12 @@ export default function Partie({ navigation, route }) {
               }
             })
           }}
-        />
+        >
+          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Joueur suivant</Text>
+        </TouchableOpacity>
         :
-        <Button
-          title="Terminer le tour"
+        <TouchableOpacity
+          style={styles.button}
           onPress={() => {
             // Met à jour le score du joueur et passe à la page Fin de Tour
             updateJoueur(points20, points10, points8, points6, points4, points2, point1, joueur, game).then(function(array) {
@@ -199,14 +314,10 @@ export default function Partie({ navigation, route }) {
               }
             })
           }}
-        />
+        >
+          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Terminer le tour</Text>
+        </TouchableOpacity>
       }
-      <Button
-        title="Retourner à l'accueil"
-        onPress={() => {
-          navigation.navigate('Accueil')
-        }}
-      />
     </View>
   )
 }
@@ -254,3 +365,91 @@ const updateJoueur = function(points20, points10, points8, points6, points4, poi
 
   })
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    paddingTop:10,
+    alignItems: "center"
+  },
+  buttonContainer: {
+    width: "100%",
+    flexDirection: "row",
+    marginBottom: 15,
+  },
+  buttonRetour: {
+    width: 42,
+    height: 42,
+    backgroundColor: "#f3f3f3",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    marginLeft:10,
+  },
+  buttonClassement: {
+    marginLeft:10,
+    paddingVertical: 10,
+    borderRadius: 10,
+    justifyContent: "center",
+    width: "70%",
+    flexDirection: "row",
+    backgroundColor: "#f3f3f3",
+  },
+  textClassement: {
+    marginLeft: 10,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "rgba(36, 51, 76, 0.85)",
+  },
+  listeJoueurs: {
+    flexDirection: "row",
+    width: "85%",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  joueur: {
+    flexDirection: "row"
+  },
+  nomJoueur: {
+    fontSize: 14,
+    color: "rgba(36, 51, 76, 0.85)",
+  },
+  joueurEnCours: {
+    fontWeight: "bold",
+    textDecorationLine: 'underline',
+  },
+  infosTour: {
+    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    marginTop:15,
+    width: "75%",
+    alignItems: "center",
+    borderRadius: 10,
+    paddingVertical: 10,
+  },
+  textInfosTour: {
+    fontSize: 22,
+    color: '#FFFFFF',
+    fontWeight: "bold"
+  },
+  inputsContainer: {
+    width: "90%",
+    marginTop: 10,
+  },
+  inputContainer: {
+    justifyContent: "space-between",
+    width: "100%",
+    backgroundColor: "#F3F3F3",
+    borderRadius: 10,
+    marginBottom: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+    flexDirection: "row"
+  },
+  button: {
+    paddingVertical: 15,
+    borderRadius: 10,
+    width: "80%",
+    backgroundColor: "rgba(89, 61, 218, 0.85)",
+  }
+})
