@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import InputSpinner from "react-native-input-spinner";
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
 
@@ -24,26 +25,42 @@ const db = openDatabase();
 // Page Nouvelle partie
 export default function NouvellePartie({ navigation }) {
 
-  const [participants, onChangeParticipants] = React.useState("0");
-  const [palets, onChangePalets] = React.useState("0");
+  const [participants, onChangeParticipants] = React.useState(0);
+  const [palets, onChangePalets] = React.useState(0);
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nouvelle partie</Text>
       <View style={styles.inputsContainer}>
         <Text style={styles.text}>Nombre de joueurs</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeParticipants}
+        <InputSpinner
+          min={1}
+          step={1}
           value={participants}
-          keyboardType="numeric"
+          style={{width: "45%", marginBottom: 35}}
+          textColor="rgba(89, 61, 218, 0.85)"
+          buttonTextColor="#FFFFFF"
+          buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+          inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+          onChange={(num)=>{
+            onChangeParticipants(num)
+          }}
+          editable={false}
         />
         <Text style={styles.text}>Nombre de palets par personnes</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangePalets}
+        <InputSpinner
+          min={1}
+          step={1}
           value={palets}
-          keyboardType="numeric"
+          style={{width: "45%", marginBottom: 35}}
+          textColor="rgba(89, 61, 218, 0.85)"
+          buttonTextColor="#FFFFFF"
+          buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+          inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+          onChange={(num)=>{
+            onChangePalets(num)
+          }}
+          editable={false}
         />
         <TouchableOpacity
           style={styles.button}
