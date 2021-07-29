@@ -71,18 +71,36 @@ export default function FinDeTour({ navigation, route }) {
               <Text style={styles.textPointsJoueur}>{score_joueur} points</Text>
             </View>
           ))}
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              updateGame(game_id).then(function(game_id) {
-                navigation.push("Partie", {
-                  game_id: game_id,
+          <View style={styles.buttons}>
+            {game.nb_joueurs_restant < 2
+            ?
+            <TouchableOpacity
+              style={styles.buttonArreter}
+              onPress={() => {
+                // Fin de la partie en cours
+                terminerPartie(game_id).then(function(game_id) {
+                  navigation.navigate('Accueil')
                 })
-              })
-            }}
-          >
-            <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Tour Suivant</Text>
-          </TouchableOpacity>
+              }}
+            >
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Terminer la partie</Text>
+            </TouchableOpacity>
+            :
+            null
+            }
+            <TouchableOpacity
+              style={game.nb_joueurs_restant < 2 ? styles.buttonContinuer : styles.button}
+              onPress={() => {
+                updateGame(game_id).then(function(game_id) {
+                  navigation.push("Partie", {
+                    game_id: game_id,
+                  })
+                })
+              }}
+            >
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Tour Suivant</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -100,6 +118,18 @@ const updateGame = function(game_id) {
       )
     })
     // Retourne l'id de la partie en cours
+    resolve(game_id)
+  })
+}
+
+const terminerPartie = function(game_id) {
+
+  return new Promise(function(resolve, reject) {
+
+    db.transaction((tx) => {
+      // Mise à jour du statut de la partie en cours en finie
+      tx.executeSql('UPDATE game SET statut = ? WHERE game_id = ?', ["finie", game_id])
+    })
     resolve(game_id)
   })
 }
@@ -201,11 +231,31 @@ const styles = StyleSheet.create({
     paddingHorizontal:10,
     color: "rgba(36, 51, 76, 0.85)",
   },
+  buttons: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+
+  },
   button: {
     marginTop: 50,
     paddingVertical: 15,
     borderRadius: 10,
     width: "80%",
     backgroundColor: "rgba(89, 61, 218, 0.85)",
+  },
+  buttonContinuer: {
+    marginTop: 50,
+    paddingVertical: 15,
+    borderRadius: 10,
+    width: "45%",
+    backgroundColor: "rgba(89, 61, 218, 0.85)",
+  },
+  buttonArreter: {
+    marginTop: 50,
+    paddingVertical: 15,
+    borderRadius: 10,
+    width: "45%",
+    backgroundColor: "#B9B9B9"
   },
 })
