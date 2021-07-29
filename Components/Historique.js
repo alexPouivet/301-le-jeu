@@ -3,6 +3,7 @@ import { View, Text, Button, TextInput, StyleSheet, ScrollView, TouchableOpacity
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
+import Svg, { G, Path, Rect, Polyline, Line } from 'react-native-svg';
 
 function openDatabase() {
   if (Platform.OS === "web") {
@@ -50,9 +51,10 @@ export default function HistoriquePartie({ navigation }) {
             navigation.navigate("Accueil")
           }}
         >
-          <Image
-            source={require('../images/arrow-left.png')}
-          />
+          <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <Polyline points="15 6 9 12 15 18" />
+          </Svg>
         </TouchableOpacity>
         <Text style={styles.titrePage}>Historique des parties jouées</Text>
       </View>
@@ -68,10 +70,9 @@ export default function HistoriquePartie({ navigation }) {
                 <Text style={styles.partieDate}>{date}</Text>
                 { statut == "finie" ?
                   <View style={styles.containerGagnant}>
-                    <Image
-                    style={{width: 16, height: 18, marginRight: 5}}
-                      source={require("../images/trophy.png")}
-                    />
+                    <Svg style={{ justifyContent: "center", marginRight: 5}} xmlns="http://www.w3.org/2000/svg" width="18.084" height="16.075" viewBox="0 0 18.084 16.075">
+                      <Path id="Icon_awesome-trophy" data-name="Icon awesome-trophy" d="M17.331,2.009H14.066V.754A.752.752,0,0,0,13.312,0H4.772a.752.752,0,0,0-.754.754V2.009H.754A.752.752,0,0,0,0,2.763V4.521A4.1,4.1,0,0,0,1.943,7.683,7.355,7.355,0,0,0,5.4,8.992,6.945,6.945,0,0,0,7.535,11.3v2.261H6.028a1.812,1.812,0,0,0-2.009,1.758V15.7a.378.378,0,0,0,.377.377h9.293a.378.378,0,0,0,.377-.377v-.377a1.812,1.812,0,0,0-2.009-1.758H10.549V11.3a6.945,6.945,0,0,0,2.138-2.311,7.33,7.33,0,0,0,3.454-1.309,4.106,4.106,0,0,0,1.943-3.162V2.763A.752.752,0,0,0,17.331,2.009ZM3.118,6.053A2.309,2.309,0,0,1,2.009,4.521v-.5H4.025a11.276,11.276,0,0,0,.4,2.706,5.06,5.06,0,0,1-1.309-.672ZM16.075,4.521a2.412,2.412,0,0,1-1.108,1.532,5.079,5.079,0,0,1-1.312.672,11.277,11.277,0,0,0,.4-2.706h2.019Z" fill="#fff"/>
+                    </Svg>
                     <Text style={styles.libeleGagnant}>Gagnant: </Text>
                     <Text style={styles.partieGagnant}>{gagnant_game}</Text>
                   </View>
@@ -84,10 +85,10 @@ export default function HistoriquePartie({ navigation }) {
                 </View>
               </View>
               <View style={styles.arrowContainer}>
-                <Image
-                  style={styles.arrow}
-                  source={require('../images/arrow-right.png')}
-                />
+                <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <Polyline points="9 6 15 12 9 18" />
+                </Svg>
               </View>
             </TouchableOpacity>
           ))}

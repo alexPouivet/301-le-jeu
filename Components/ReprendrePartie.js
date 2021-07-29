@@ -3,6 +3,7 @@ import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, ScrollView
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
+import Svg, { G, Path, Rect, Polyline, Line } from 'react-native-svg';
 
 function openDatabase() {
   if (Platform.OS === "web") {
@@ -46,9 +47,10 @@ export default function ReprendrePartie({ navigation }) {
             navigation.navigate("Accueil")
           }}
         >
-          <Image
-            source={require('../images/arrow-left.png')}
-          />
+          <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <Polyline points="15 6 9 12 15 18" />
+          </Svg>
         </TouchableOpacity>
         <Text style={styles.titrePage}>Historique des parties jouées</Text>
       </View>
@@ -69,10 +71,10 @@ export default function ReprendrePartie({ navigation }) {
                 </View>
               </View>
               <View style={styles.arrowContainer}>
-                <Image
-                  style={styles.arrow}
-                  source={require('../images/arrow-right.png')}
-                />
+                <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <Polyline points="9 6 15 12 9 18" />
+                </Svg>
               </View>
             </TouchableOpacity>
           ))}
