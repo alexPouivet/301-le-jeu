@@ -24,6 +24,7 @@ const db = openDatabase();
 // Page Création de partie
 export default function CreerPartie({ route, navigation }) {
 
+  const [errorText, onChangeErrorText] = React.useState("")
   const { nb_participants, nb_palets } = route.params;
   let participants = [];
 
@@ -49,14 +50,33 @@ export default function CreerPartie({ route, navigation }) {
         <View style={styles.scrollContainer}>
           <Text style={styles.title}>Nommer les joueurs</Text>
           <View style={styles.inputsContainer}>
+            <Text style={styles.errorText}>{errorText}</Text>
             { participants }
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
                 create(participants, nb_participants, nb_palets).then(function(game_id) {
-                  navigation.navigate('Partie', {
-                    game_id: game_id,
-                  })
+
+                  let isParticipantsNameEmpty = true
+
+                  for (var i = 0; i < nb_participants; i++) {
+                    if(participants[i].props["children"][1]["props"]["value"] == "" || participants[i].props["children"][1]["props"]["value"].length < 2 ) {
+                      isParticipantsNameEmpty = true
+                      break
+                    }
+                    else {
+                      isParticipantsNameEmpty = false
+                    }
+                  }
+
+                  if(isParticipantsNameEmpty){
+                    onChangeErrorText("Les noms ne sont pas correctement remplis, deux lettres au minimum")
+                  } else {
+                    onChangeErrorText("")
+                    navigation.navigate('Partie', {
+                      game_id: game_id,
+                    })
+                  }
                 })
               }}
             >
@@ -137,6 +157,12 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     alignItems: "center",
+  },
+  errorText: {
+    width: "80%",
+    textAlign: "center",
+    marginBottom: 10,
+    color: "red"
   },
   inputsContainer: {
     borderRadius: 10,
