@@ -462,12 +462,10 @@ const styles = StyleSheet.create({
   },
   listeJoueurs: {
     flexDirection: "row",
-    width: "85%",
-    alignItems: "center",
-    justifyContent: "space-between"
+    width: "95%",
+    justifyContent: "space-evenly",
   },
   joueur: {
-    flexDirection: "row"
   },
   nomJoueur: {
     fontSize: 14,
