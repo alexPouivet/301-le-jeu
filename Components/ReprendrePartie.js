@@ -34,10 +34,6 @@ export default function ReprendrePartie({ navigation }) {
     });
   }, []);
 
-  if (games === null || games.length === 0) {
-    return null;
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -52,8 +48,12 @@ export default function ReprendrePartie({ navigation }) {
             <Polyline points="15 6 9 12 15 18" />
           </Svg>
         </TouchableOpacity>
-        <Text style={styles.titrePage}>Historique des parties jouées</Text>
+        <Text style={styles.titrePage}>Reprendre une partie</Text>
       </View>
+      { games === null || games.length === 0
+      ?
+      <Text>Pas de partie en cours disponible</Text>
+      :
       <ScrollView style={styles.scrollview}>
         <View style={styles.parties}>
           {games.map(({ game_id, date, liste_joueurs, statut, gagnant_game }, i) => (
@@ -80,6 +80,7 @@ export default function ReprendrePartie({ navigation }) {
           ))}
         </View>
       </ScrollView>
+      }
     </View>
   );
 }
