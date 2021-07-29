@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import InputSpinner from "react-native-input-spinner";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -113,269 +113,273 @@ export default function Partie({ navigation, route }) {
           <Text style={styles.textClassement}>Classement actuel</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.listeJoueurs}>
-        { liste_joueurs }
-      </View>
-      <View style={styles.infosTour}>
-        <Svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-          <G id="Groupe_109" data-name="Groupe 109" transform="translate(-63 -141)">
-            <Circle id="Ellipse_2" data-name="Ellipse 2" cx="16" cy="16" r="16" transform="translate(63 141)" fill="#fff"/>
-            <Circle id="Ellipse_3" data-name="Ellipse 3" cx="13" cy="13" r="13" transform="translate(66 144)" fill="#fff"/>
-            <Path id="Ellipse_3_-_Contour" data-name="Ellipse 3 - Contour" d="M13,1.25A11.75,11.75,0,0,0,4.691,21.309,11.75,11.75,0,1,0,21.309,4.691,11.673,11.673,0,0,0,13,1.25M13,0A13,13,0,1,1,0,13,13,13,0,0,1,13,0Z" transform="translate(66 144)" fill="rgba(89,61,218,0.85)"/>
-            <Circle id="Ellipse_4" data-name="Ellipse 4" cx="11" cy="11" r="11" transform="translate(68 146)" fill="#fff"/>
-            <Path id="Ellipse_4_-_Contour" data-name="Ellipse 4 - Contour" d="M11,1.25A9.75,9.75,0,1,0,20.75,11,9.761,9.761,0,0,0,11,1.25M11,0A11,11,0,1,1,0,11,11,11,0,0,1,11,0Z" transform="translate(68 146)" fill="rgba(89,61,218,0.85)"/>
-            <TextSvg id="_6" data-name="6" transform="translate(79 162)" fill="rgba(89,61,218,0.85)" fontSize="16" fontWeight="700"><TSpan x="-4.526" y="0.5">{totalPalets}</TSpan></TextSvg>
-          </G>
-        </Svg>
-        <Text style={styles.textInfosTour}>{totalPalets} {totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false } | Tour {game.tour_game} | {joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)} points</Text>
-      </View>
-      <View style={styles.inputsContainer}>
-        <View style={styles.inputContainer}>
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
-              <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-              <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-          <InputSpinner
-            max={game.nb_palets}
-            min={0}
-            step={1}
-            value={points20}
-            style={{width: "50%"}}
-            textColor="rgba(89, 61, 218, 0.85)"
-            buttonTextColor="#FFFFFF"
-            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
-            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
-            onChange={(num)=>{
-              setPoints20(num)
-            }}
-            editable={false}
-            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 20 ? true : false}
-          />
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
-              <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-              <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-        </View>
-        <View style={styles.inputContainer}>
-        <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-          <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
-            <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-            <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-          </G>
-        </Svg>
-          <InputSpinner
-            max={game.nb_palets}
-            min={0}
-            step={1}
-            value={points10}
-            style={{width: "50%"}}
-            textColor="rgba(89, 61, 218, 0.85)"
-            buttonTextColor="#FFFFFF"
-            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
-            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
-            onChange={(num)=>{
-              setPoints10(num)
-            }}
-            editable={false}
-            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 10 ? true : false}
-          />
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
-              <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-              <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-        </View>
-        <View style={styles.inputContainer}>
-        <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-          <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-            <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-            <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-          </G>
-        </Svg>
-          <InputSpinner
-            max={game.nb_palets}
-            min={0}
-            step={1}
-            value={points8}
-            style={{width: "50%"}}
-            textColor="rgba(89, 61, 218, 0.85)"
-            buttonTextColor="#FFFFFF"
-            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
-            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
-            onChange={(num)=>{setPoints8(num)}}
-            editable={false}
-            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 8 ? true : false}
-          />
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-              <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-              <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-        </View>
-        <View style={styles.inputContainer}>
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-              <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-              <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-          <InputSpinner
-            max={game.nb_palets}
-            min={0}
-            step={1}
-            value={points6}
-            style={{width: "50%"}}
-            textColor="rgba(89, 61, 218, 0.85)"
-            buttonTextColor="#FFFFFF"
-            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
-            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
-            onChange={(num)=>{setPoints6(num)}}
-            editable={false}
-            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 6 ? true : false}
-          />
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-              <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-              <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-        </View>
-        <View style={styles.inputContainer}>
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-              <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-              <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-          <InputSpinner
-            max={game.nb_palets}
-            min={0}
-            step={1}
-            value={points4}
-            style={{width: "50%"}}
-            textColor="rgba(89, 61, 218, 0.85)"
-            buttonTextColor="#FFFFFF"
-            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
-            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
-            onChange={(num)=>{setPoints4(num)}}
-            editable={false}
-            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 4 ? true : false}
-          />
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-              <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-              <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-        </View>
-        <View style={styles.inputContainer}>
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-              <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-              <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-          <InputSpinner
-            max={game.nb_palets}
-            min={0}
-            step={1}
-            value={points2}
-            style={{width: "50%"}}
-            textColor="rgba(89, 61, 218, 0.85)"
-            buttonTextColor="#FFFFFF"
-            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
-            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
-            onChange={(num)=>{setPoints2(num)}}
-            editable={false}
-            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 2 ? true : false}
-          />
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-              <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-              <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-            </G>
-          </Svg>
-        </View>
-        <View style={styles.inputContainer}>
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_72" data-name="Groupe 72" transform="translate(-23 -682)">
-              <Rect id="Rectangle_24" data-name="Rectangle 24" width="52" height="52" rx="10" transform="translate(23 682)" fill="#fff"/>
-              <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
-            </G>
-          </Svg>
-          <InputSpinner
-            max={game.nb_palets}
-            min={0}
-            step={1}
-            value={point1}
-            style={{width: "50%"}}
-            textColor="rgba(89, 61, 218, 0.85)"
-            buttonTextColor="#FFFFFF"
-            buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
-            inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
-            onChange={(num)=>{setPoint1(num)}}
-            editable={false}
-            buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 1 ? true : false}
-          />
-          <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-            <G id="Groupe_72" data-name="Groupe 72" transform="translate(-23 -682)">
-              <Rect id="Rectangle_24" data-name="Rectangle 24" width="52" height="52" rx="10" transform="translate(23 682)" fill="#fff"/>
-              <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
-            </G>
-          </Svg>
-        </View>
-      </View>
-      {joueur.position_joueur_en_cours < game.nb_joueurs_restant ?
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            // Met à jour le joueur et passe au joueur suivant
-            updateJoueur(points20, points10, points8, points6, points4, points2, point1, joueur, game).then(function(array) {
-              const [ game_id, isJoueurWin ] = array
+      <ScrollView style={styles.scrollview}>
+        <View style={styles.scrollContainer}>
+          <View style={styles.listeJoueurs}>
+            { liste_joueurs }
+          </View>
+          <View style={styles.infosTour}>
+            <Svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <G id="Groupe_109" data-name="Groupe 109" transform="translate(-63 -141)">
+                <Circle id="Ellipse_2" data-name="Ellipse 2" cx="16" cy="16" r="16" transform="translate(63 141)" fill="#fff"/>
+                <Circle id="Ellipse_3" data-name="Ellipse 3" cx="13" cy="13" r="13" transform="translate(66 144)" fill="#fff"/>
+                <Path id="Ellipse_3_-_Contour" data-name="Ellipse 3 - Contour" d="M13,1.25A11.75,11.75,0,0,0,4.691,21.309,11.75,11.75,0,1,0,21.309,4.691,11.673,11.673,0,0,0,13,1.25M13,0A13,13,0,1,1,0,13,13,13,0,0,1,13,0Z" transform="translate(66 144)" fill="rgba(89,61,218,0.85)"/>
+                <Circle id="Ellipse_4" data-name="Ellipse 4" cx="11" cy="11" r="11" transform="translate(68 146)" fill="#fff"/>
+                <Path id="Ellipse_4_-_Contour" data-name="Ellipse 4 - Contour" d="M11,1.25A9.75,9.75,0,1,0,20.75,11,9.761,9.761,0,0,0,11,1.25M11,0A11,11,0,1,1,0,11,11,11,0,0,1,11,0Z" transform="translate(68 146)" fill="rgba(89,61,218,0.85)"/>
+                <TextSvg id="_6" data-name="6" transform="translate(79 162)" fill="rgba(89,61,218,0.85)" fontSize="16" fontWeight="700"><TSpan x="-4.526" y="0.5">{totalPalets}</TSpan></TextSvg>
+              </G>
+            </Svg>
+            <Text style={styles.textInfosTour}>{totalPalets} {totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false } | Tour {game.tour_game} | {joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)} points</Text>
+          </View>
+          <View style={styles.inputsContainer}>
+            <View style={styles.inputContainer}>
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
+                  <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
+                  <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+              <InputSpinner
+                max={game.nb_palets}
+                min={0}
+                step={1}
+                value={points20}
+                style={{width: "50%"}}
+                textColor="rgba(89, 61, 218, 0.85)"
+                buttonTextColor="#FFFFFF"
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+                onChange={(num)=>{
+                  setPoints20(num)
+                }}
+                editable={false}
+                buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 20 ? true : false}
+              />
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
+                  <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
+                  <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+            </View>
+            <View style={styles.inputContainer}>
+            <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+              <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
+                <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
+                <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+              </G>
+            </Svg>
+              <InputSpinner
+                max={game.nb_palets}
+                min={0}
+                step={1}
+                value={points10}
+                style={{width: "50%"}}
+                textColor="rgba(89, 61, 218, 0.85)"
+                buttonTextColor="#FFFFFF"
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+                onChange={(num)=>{
+                  setPoints10(num)
+                }}
+                editable={false}
+                buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 10 ? true : false}
+              />
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
+                  <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
+                  <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+            </View>
+            <View style={styles.inputContainer}>
+            <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+              <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
+                <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
+                <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+              </G>
+            </Svg>
+              <InputSpinner
+                max={game.nb_palets}
+                min={0}
+                step={1}
+                value={points8}
+                style={{width: "50%"}}
+                textColor="rgba(89, 61, 218, 0.85)"
+                buttonTextColor="#FFFFFF"
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+                onChange={(num)=>{setPoints8(num)}}
+                editable={false}
+                buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 8 ? true : false}
+              />
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
+                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+            </View>
+            <View style={styles.inputContainer}>
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
+                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+              <InputSpinner
+                max={game.nb_palets}
+                min={0}
+                step={1}
+                value={points6}
+                style={{width: "50%"}}
+                textColor="rgba(89, 61, 218, 0.85)"
+                buttonTextColor="#FFFFFF"
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+                onChange={(num)=>{setPoints6(num)}}
+                editable={false}
+                buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 6 ? true : false}
+              />
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
+                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+            </View>
+            <View style={styles.inputContainer}>
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
+                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+              <InputSpinner
+                max={game.nb_palets}
+                min={0}
+                step={1}
+                value={points4}
+                style={{width: "50%"}}
+                textColor="rgba(89, 61, 218, 0.85)"
+                buttonTextColor="#FFFFFF"
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+                onChange={(num)=>{setPoints4(num)}}
+                editable={false}
+                buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 4 ? true : false}
+              />
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
+                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+            </View>
+            <View style={styles.inputContainer}>
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
+                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+              <InputSpinner
+                max={game.nb_palets}
+                min={0}
+                step={1}
+                value={points2}
+                style={{width: "50%"}}
+                textColor="rgba(89, 61, 218, 0.85)"
+                buttonTextColor="#FFFFFF"
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+                onChange={(num)=>{setPoints2(num)}}
+                editable={false}
+                buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 2 ? true : false}
+              />
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
+                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                </G>
+              </Svg>
+            </View>
+            <View style={styles.inputContainer}>
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_72" data-name="Groupe 72" transform="translate(-23 -682)">
+                  <Rect id="Rectangle_24" data-name="Rectangle 24" width="52" height="52" rx="10" transform="translate(23 682)" fill="#fff"/>
+                  <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
+                </G>
+              </Svg>
+              <InputSpinner
+                max={game.nb_palets}
+                min={0}
+                step={1}
+                value={point1}
+                style={{width: "50%"}}
+                textColor="rgba(89, 61, 218, 0.85)"
+                buttonTextColor="#FFFFFF"
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
+                onChange={(num)=>{setPoint1(num)}}
+                editable={false}
+                buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 1 ? true : false}
+              />
+              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
+                <G id="Groupe_72" data-name="Groupe 72" transform="translate(-23 -682)">
+                  <Rect id="Rectangle_24" data-name="Rectangle 24" width="52" height="52" rx="10" transform="translate(23 682)" fill="#fff"/>
+                  <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
+                </G>
+              </Svg>
+            </View>
+          </View>
+          {joueur.position_joueur_en_cours < game.nb_joueurs_restant ?
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                // Met à jour le joueur et passe au joueur suivant
+                updateJoueur(points20, points10, points8, points6, points4, points2, point1, joueur, game).then(function(array) {
+                  const [ game_id, isJoueurWin ] = array
 
-              if(isJoueurWin == true) {
-                navigation.push('Gagnant Partie', {
-                  game_id: game_id,
+                  if(isJoueurWin == true) {
+                    navigation.push('Gagnant Partie', {
+                      game_id: game_id,
+                    })
+                  } else {
+                    navigation.push('Partie', {
+                      game_id: game_id,
+                    })
+                  }
                 })
-              } else {
-                navigation.push('Partie', {
-                  game_id: game_id,
-                })
-              }
-            })
-          }}
-        >
-          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Joueur suivant</Text>
-        </TouchableOpacity>
-        :
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            // Met à jour le score du joueur et passe à la page Fin de Tour
-            updateJoueur(points20, points10, points8, points6, points4, points2, point1, joueur, game).then(function(array) {
-              const [ game_id, isJoueurWin ]= array
+              }}
+            >
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Joueur suivant</Text>
+            </TouchableOpacity>
+          :
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                // Met à jour le score du joueur et passe à la page Fin de Tour
+                updateJoueur(points20, points10, points8, points6, points4, points2, point1, joueur, game).then(function(array) {
+                  const [ game_id, isJoueurWin ]= array
 
-              if(isJoueurWin == true) {
-                navigation.push('Gagnant Partie', {
-                  game_id: game_id,
+                  if(isJoueurWin == true) {
+                    navigation.push('Gagnant Partie', {
+                      game_id: game_id,
+                    })
+                  } else {
+                    navigation.push('Fin de Tour', {
+                      game_id: game_id,
+                    })
+                  }
                 })
-              } else {
-                navigation.push('Fin de Tour', {
-                  game_id: game_id,
-                })
-              }
-            })
-          }}
-        >
-          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Terminer le tour</Text>
-        </TouchableOpacity>
-      }
+              }}
+            >
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Terminer le tour</Text>
+            </TouchableOpacity>
+          }
+        </View>
+      </ScrollView>
     </View>
   )
 }
@@ -459,6 +463,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "rgba(36, 51, 76, 0.85)",
+  },
+  scrollview: {
+    width: "100%"
+  },
+  scrollContainer: {
+    alignItems: "center",
+    marginBottom: 10
   },
   listeJoueurs: {
     flexDirection: "row",
