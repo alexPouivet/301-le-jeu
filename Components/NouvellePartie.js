@@ -50,6 +50,7 @@ export default function NouvellePartie({ navigation }) {
         <Text style={styles.text}>Nombre de palets par personnes</Text>
         <InputSpinner
           min={1}
+          max={9}
           step={1}
           value={palets}
           style={{width: "45%", marginBottom: 35}}
