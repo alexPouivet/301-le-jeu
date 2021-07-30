@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, StatusBar } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, StatusBar, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -97,15 +97,14 @@ const styles = StyleSheet.create({
   accueil: {
     flex: 1,
     backgroundColor: "#ffffff",
+    flexDirection: "column",
+    justifyContent: "space-between"
   },
   logoContainer: {
-    marginTop: 150,
-    marginBottom: 80,
-    flex: 1,
-    alignItems: "center"
+    paddingTop: 50,
+    alignItems: "center",
   },
   buttonsContainer: {
-    flex: 3,
     paddingHorizontal: 18
   },
   buttons: {
