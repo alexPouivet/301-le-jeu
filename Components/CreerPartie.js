@@ -100,7 +100,7 @@ const create = function(participants, nb_participants, nb_palets) {
     let hour = new Date().getHours()
     let minutes = new Date().getMinutes()
     let seconds = new Date().getSeconds()
-    let time = year + '-' + month + '-' + date + ' ' + hour + ':' + minutes + ':' + seconds
+    let time =  date + '/' + month + '/' + year + ' ' + hour + ':' + minutes
 
     // config liste des joueurs d'une partie
     let liste_joueurs = ""

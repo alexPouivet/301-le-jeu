@@ -34,7 +34,7 @@ export default function FinDeTour({ navigation, route }) {
       // Récupère les données de la partie en cours
       tx.executeSql(`SELECT * FROM game WHERE game.game_id = ?`, [game_id], (_, { rows: { _array } }) => setGame(_array[0]));
       // Récupère la liste des joueurs de la partie en cours, avec tri par score
-      tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ? ORDER BY joueur.score_joueur ASC`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
+      tx.executeSql(`SELECT * FROM joueur WHERE joueur.game_id = ?`, [game_id], (_, { rows: { _array } }) => setJoueurs(_array));
     });
   }, []);
 
