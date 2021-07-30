@@ -55,29 +55,29 @@ export default function CreerPartie({ route, navigation }) {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                create(participants, nb_participants, nb_palets).then(function(game_id) {
 
-                  let isParticipantsNameEmpty = true
+                let isParticipantsNameEmpty = true
 
-                  for (var i = 0; i < nb_participants; i++) {
-                    if(participants[i].props["children"][1]["props"]["value"] == "" || participants[i].props["children"][1]["props"]["value"].length < 2 ) {
-                      isParticipantsNameEmpty = true
-                      break
-                    }
-                    else {
-                      isParticipantsNameEmpty = false
-                    }
+                for (var i = 0; i < nb_participants; i++) {
+                  if(participants[i].props["children"][1]["props"]["value"] == "" || participants[i].props["children"][1]["props"]["value"].length < 2 ) {
+                    isParticipantsNameEmpty = true
+                    break
                   }
+                  else {
+                    isParticipantsNameEmpty = false
+                  }
+                }
 
-                  if(isParticipantsNameEmpty){
-                    onChangeErrorText("Les noms ne sont pas correctement remplis, deux lettres au minimum")
-                  } else {
-                    onChangeErrorText("")
+                if(isParticipantsNameEmpty){
+                  onChangeErrorText("Les noms ne sont pas correctement remplis, deux lettres au minimum")
+                } else {
+                  onChangeErrorText("")
+                  create(participants, nb_participants, nb_palets).then(function(game_id) {
                     navigation.navigate('Partie', {
                       game_id: game_id,
                     })
-                  }
-                })
+                  })
+                }
               }}
             >
               <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Commencer la partie</Text>
