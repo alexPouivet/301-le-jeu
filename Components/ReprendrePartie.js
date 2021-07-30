@@ -34,6 +34,28 @@ export default function ReprendrePartie({ navigation }) {
     });
   }, []);
 
+  if(games === null || games.length === 0) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.buttonRetour}
+            onPress={() => {
+              navigation.navigate("Accueil")
+            }}
+          >
+            <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <Polyline points="15 6 9 12 15 18" />
+            </Svg>
+          </TouchableOpacity>
+          <Text style={styles.titrePage}>Reprendre une partie</Text>
+        </View>
+        <Text>Pas de partie en cours disponible</Text>
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>

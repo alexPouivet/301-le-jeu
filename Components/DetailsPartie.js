@@ -25,7 +25,7 @@ const db = openDatabase();
 // Page Détails d'une partie
 export default function DetailsPartie({ navigation, route }) {
 
-  const {game_id } = route.params;
+  const { game_id } = route.params;
   const [game, setGame] = React.useState(null);
   const [joueurs, setJoueurs] = React.useState(null);
 
@@ -42,7 +42,6 @@ export default function DetailsPartie({ navigation, route }) {
     return null;
   }
 
-
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -58,6 +57,18 @@ export default function DetailsPartie({ navigation, route }) {
           </Svg>
         </TouchableOpacity>
         <Text style={styles.titrePage}>Partie du {game.date}</Text>
+        <TouchableOpacity
+          style={styles.buttonSupprimer}
+          onPress={() => {
+            deletePartie(game_id).then(function(game_id) {
+              navigation.navigate('Accueil')
+            })
+          }}
+        >
+          <Svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" viewBox="0 0 21 27">
+            <Path id="Icon_material-delete" data-name="Icon material-delete" d="M9,28.5a3.009,3.009,0,0,0,3,3H24a3.009,3.009,0,0,0,3-3v-18H9ZM28.5,6H23.25l-1.5-1.5h-7.5L12.75,6H7.5V9h21Z" transform="translate(-7.5 -4.5)" fill="rgba(36,51,76,0.85)"/>
+          </Svg>
+        </TouchableOpacity>
       </View>
       <ScrollView style={styles.scrollview}>
         <View style={styles.infos}>
@@ -113,6 +124,22 @@ export default function DetailsPartie({ navigation, route }) {
   );
 }
 
+const deletePartie = function(game_id) {
+
+  return new Promise(function(resolve, reject) {
+
+    db.transaction((tx) => {
+      tx.executeSql(
+        "DELETE FROM game WHERE game.game_id = ?", [game_id]
+      );
+      tx.executeSql(
+        "DELETE FROM joueur WHERE joueur.game_id = ?", [game_id]
+      )
+    })
+    resolve(game_id)
+  })
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -134,6 +161,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     marginLeft:10,
+  },
+  buttonSupprimer: {
+    width: 42,
+    height: 42,
+    backgroundColor: "#f3f3f3",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    marginRight:10,
   },
   scrollview: {
     width: "100%",
