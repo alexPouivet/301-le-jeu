@@ -105,9 +105,9 @@ export default function Partie({ navigation, route }) {
         }}>
           <Svg xmlns="http://www.w3.org/2000/svg" width="18.907" height="17.681" viewBox="0 0 18.907 17.681">
             <G id="podium-outline" transform="translate(-1.375 -2.5)">
-              <Path id="Tracé_5" data-name="Tracé 5" d="M2.863,9.25h4.29A1.489,1.489,0,0,1,8.64,10.738V22.38a.875.875,0,0,1-.875.875H2.557a1.183,1.183,0,0,1-1.182-1.182V10.738A1.489,1.489,0,0,1,2.863,9.25ZM6.89,11H3.125V21.5H6.89Z" transform="translate(0 -3.074)" fill="rgba(36,51,76,0.85)"/>
-              <Path id="Tracé_6" data-name="Tracé 6" d="M12.988,2.5h4.9a1.489,1.489,0,0,1,1.488,1.488V19.306a.875.875,0,0,1-.875.875H12.375a.875.875,0,0,1-.875-.875V3.988A1.489,1.489,0,0,1,12.988,2.5Zm4.639,1.75H13.25V18.431h4.377Z" transform="translate(-4.611 0)" fill="rgba(36,51,76,0.85)"/>
-              <Path id="Tracé_7" data-name="Tracé 7" d="M24.238,13.75h4.289a1.49,1.49,0,0,1,1.488,1.488v8.884A1.183,1.183,0,0,1,28.833,25.3H23.625a.875.875,0,0,1-.875-.875V15.238A1.489,1.489,0,0,1,24.238,13.75Zm4.027,1.75H24.5v8.054h3.765Z" transform="translate(-9.733 -5.123)" fill="rgba(36,51,76,0.85)"/>
+              <Path id="Tracé_5" data-name="Tracé 5" d="M2.863,9.25h4.29A1.489,1.489,0,0,1,8.64,10.738V22.38a.875.875,0,0,1-.875.875H2.557a1.183,1.183,0,0,1-1.182-1.182V10.738A1.489,1.489,0,0,1,2.863,9.25ZM6.89,11H3.125V21.5H6.89Z" transform="translate(0 -3.074)" fill="#24334c"/>
+              <Path id="Tracé_6" data-name="Tracé 6" d="M12.988,2.5h4.9a1.489,1.489,0,0,1,1.488,1.488V19.306a.875.875,0,0,1-.875.875H12.375a.875.875,0,0,1-.875-.875V3.988A1.489,1.489,0,0,1,12.988,2.5Zm4.639,1.75H13.25V18.431h4.377Z" transform="translate(-4.611 0)" fill="#24334c"/>
+              <Path id="Tracé_7" data-name="Tracé 7" d="M24.238,13.75h4.289a1.49,1.49,0,0,1,1.488,1.488v8.884A1.183,1.183,0,0,1,28.833,25.3H23.625a.875.875,0,0,1-.875-.875V15.238A1.489,1.489,0,0,1,24.238,13.75Zm4.027,1.75H24.5v8.054h3.765Z" transform="translate(-9.733 -5.123)" fill="#24334c"/>
             </G>
           </Svg>
           <Text style={styles.textClassement}>Classement actuel</Text>
@@ -123,10 +123,10 @@ export default function Partie({ navigation, route }) {
               <G id="Groupe_109" data-name="Groupe 109" transform="translate(-63 -141)">
                 <Circle id="Ellipse_2" data-name="Ellipse 2" cx="16" cy="16" r="16" transform="translate(63 141)" fill="#fff"/>
                 <Circle id="Ellipse_3" data-name="Ellipse 3" cx="13" cy="13" r="13" transform="translate(66 144)" fill="#fff"/>
-                <Path id="Ellipse_3_-_Contour" data-name="Ellipse 3 - Contour" d="M13,1.25A11.75,11.75,0,0,0,4.691,21.309,11.75,11.75,0,1,0,21.309,4.691,11.673,11.673,0,0,0,13,1.25M13,0A13,13,0,1,1,0,13,13,13,0,0,1,13,0Z" transform="translate(66 144)" fill="rgba(89,61,218,0.85)"/>
+                <Path id="Ellipse_3_-_Contour" data-name="Ellipse 3 - Contour" d="M13,1.25A11.75,11.75,0,0,0,4.691,21.309,11.75,11.75,0,1,0,21.309,4.691,11.673,11.673,0,0,0,13,1.25M13,0A13,13,0,1,1,0,13,13,13,0,0,1,13,0Z" transform="translate(66 144)" fill="#7159df"/>
                 <Circle id="Ellipse_4" data-name="Ellipse 4" cx="11" cy="11" r="11" transform="translate(68 146)" fill="#fff"/>
-                <Path id="Ellipse_4_-_Contour" data-name="Ellipse 4 - Contour" d="M11,1.25A9.75,9.75,0,1,0,20.75,11,9.761,9.761,0,0,0,11,1.25M11,0A11,11,0,1,1,0,11,11,11,0,0,1,11,0Z" transform="translate(68 146)" fill="rgba(89,61,218,0.85)"/>
-                <TextSvg id="_6" data-name="6" transform="translate(79 162)" fill="rgba(89,61,218,0.85)" fontSize="16" fontWeight="700"><TSpan x="-4" y="1">{totalPalets}</TSpan></TextSvg>
+                <Path id="Ellipse_4_-_Contour" data-name="Ellipse 4 - Contour" d="M11,1.25A9.75,9.75,0,1,0,20.75,11,9.761,9.761,0,0,0,11,1.25M11,0A11,11,0,1,1,0,11,11,11,0,0,1,11,0Z" transform="translate(68 146)" fill="#7159df"/>
+                <TextSvg id="_6" data-name="6" transform="translate(79 162)" fill="#7159df" fontSize="16" fontWeight="700"><TSpan x="-4" y="1">{totalPalets}</TSpan></TextSvg>
               </G>
             </Svg>
             <Text style={styles.textInfosTour}>{totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false }|</Text>
@@ -139,7 +139,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
                   <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-                  <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg transform="translate(49 224)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
               <InputSpinner
@@ -148,9 +148,9 @@ export default function Partie({ navigation, route }) {
                 step={1}
                 value={points20}
                 style={{width: "50%"}}
-                textColor="rgba(89, 61, 218, 0.85)"
+                textColor="#7159df"
                 buttonTextColor="#FFFFFF"
-                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "#7159df", }}
                 inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
                 onChange={(num)=>{
                   setPoints20(num)
@@ -161,7 +161,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
                   <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-                  <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg transform="translate(49 224)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
             </View>
@@ -169,7 +169,7 @@ export default function Partie({ navigation, route }) {
             <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
               <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
                 <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-                <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                <TextSvg transform="translate(49 224)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
               </G>
             </Svg>
               <InputSpinner
@@ -178,9 +178,9 @@ export default function Partie({ navigation, route }) {
                 step={1}
                 value={points10}
                 style={{width: "50%"}}
-                textColor="rgba(89, 61, 218, 0.85)"
+                textColor="#7159df"
                 buttonTextColor="#FFFFFF"
-                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "#7159df", }}
                 inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
                 onChange={(num)=>{
                   setPoints10(num)
@@ -191,7 +191,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
                   <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-                  <TextSvg transform="translate(49 224)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg transform="translate(49 224)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
             </View>
@@ -199,7 +199,7 @@ export default function Partie({ navigation, route }) {
             <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
               <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
                 <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
               </G>
             </Svg>
               <InputSpinner
@@ -208,9 +208,9 @@ export default function Partie({ navigation, route }) {
                 step={1}
                 value={points8}
                 style={{width: "50%"}}
-                textColor="rgba(89, 61, 218, 0.85)"
+                textColor="#7159df"
                 buttonTextColor="#FFFFFF"
-                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "#7159df", }}
                 inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
                 onChange={(num)=>{setPoints8(num)}}
                 editable={false}
@@ -219,7 +219,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
                   <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
             </View>
@@ -227,7 +227,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
                   <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
               <InputSpinner
@@ -236,9 +236,9 @@ export default function Partie({ navigation, route }) {
                 step={1}
                 value={points6}
                 style={{width: "50%"}}
-                textColor="rgba(89, 61, 218, 0.85)"
+                textColor="#7159df"
                 buttonTextColor="#FFFFFF"
-                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "#7159df", }}
                 inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
                 onChange={(num)=>{setPoints6(num)}}
                 editable={false}
@@ -247,7 +247,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
                   <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
             </View>
@@ -255,7 +255,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
                   <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
               <InputSpinner
@@ -264,9 +264,9 @@ export default function Partie({ navigation, route }) {
                 step={1}
                 value={points4}
                 style={{width: "50%"}}
-                textColor="rgba(89, 61, 218, 0.85)"
+                textColor="#7159df"
                 buttonTextColor="#FFFFFF"
-                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "#7159df", }}
                 inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
                 onChange={(num)=>{setPoints4(num)}}
                 editable={false}
@@ -275,7 +275,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
                   <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
             </View>
@@ -283,7 +283,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
                   <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
               <InputSpinner
@@ -292,9 +292,9 @@ export default function Partie({ navigation, route }) {
                 step={1}
                 value={points2}
                 style={{width: "50%"}}
-                textColor="rgba(89, 61, 218, 0.85)"
+                textColor="#7159df"
                 buttonTextColor="#FFFFFF"
-                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "#7159df", }}
                 inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
                 onChange={(num)=>{setPoints2(num)}}
                 editable={false}
@@ -303,7 +303,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
                   <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
+                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
                 </G>
               </Svg>
             </View>
@@ -311,7 +311,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_72" data-name="Groupe 72" transform="translate(-23 -682)">
                   <Rect id="Rectangle_24" data-name="Rectangle 24" width="52" height="52" rx="10" transform="translate(23 682)" fill="#fff"/>
-                  <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
+                  <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
                 </G>
               </Svg>
               <InputSpinner
@@ -320,9 +320,9 @@ export default function Partie({ navigation, route }) {
                 step={1}
                 value={point1}
                 style={{width: "50%"}}
-                textColor="rgba(89, 61, 218, 0.85)"
+                textColor="#7159df"
                 buttonTextColor="#FFFFFF"
-                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+                buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "#7159df", }}
                 inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
                 onChange={(num)=>{setPoint1(num)}}
                 editable={false}
@@ -331,7 +331,7 @@ export default function Partie({ navigation, route }) {
               <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
                 <G id="Groupe_72" data-name="Groupe 72" transform="translate(-23 -682)">
                   <Rect id="Rectangle_24" data-name="Rectangle 24" width="52" height="52" rx="10" transform="translate(23 682)" fill="#fff"/>
-                  <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="rgba(36,51,76,0.85)" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
+                  <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
                 </G>
               </Svg>
             </View>
@@ -356,7 +356,7 @@ export default function Partie({ navigation, route }) {
                 })
               }}
             >
-              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Joueur suivant</Text>
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>Joueur suivant</Text>
             </TouchableOpacity>
           :
             <TouchableOpacity
@@ -378,7 +378,7 @@ export default function Partie({ navigation, route }) {
                 })
               }}
             >
-              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Terminer le tour</Text>
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>Terminer le tour</Text>
             </TouchableOpacity>
           }
         </View>
@@ -465,7 +465,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
     fontWeight: "bold",
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   scrollview: {
     width: "100%"
@@ -483,14 +483,16 @@ const styles = StyleSheet.create({
   },
   nomJoueur: {
     fontSize: 14,
-    color: "rgba(36, 51, 76, 0.85)",
+    textTransform: "uppercase",
+    color: "#24334c",
   },
   joueurEnCours: {
     fontWeight: "bold",
     textDecorationLine: 'underline',
+    color: "#7159df",
   },
   infosTour: {
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    backgroundColor: "#7159df",
     marginTop:15,
     width: "75%",
     alignItems: "center",
@@ -521,7 +523,7 @@ const styles = StyleSheet.create({
   button: {
     paddingVertical: 15,
     borderRadius: 10,
-    width: "80%",
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    width: "90%",
+    backgroundColor: "#7159df",
   }
 })

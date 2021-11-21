@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import InputSpinner from "react-native-input-spinner";
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
+import Svg, { G, Path, Rect,Circle, Polyline, Line } from 'react-native-svg';
 
 function openDatabase() {
   if (Platform.OS === "web") {
@@ -30,17 +31,38 @@ export default function NouvellePartie({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nouvelle partie</Text>
+    <View style={styles.buttonContainer}>
+      <TouchableOpacity
+        style={styles.buttonRetour}
+        onPress={() => {
+          navigation.goBack()
+        }}
+      >
+        <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <Polyline points="15 6 9 12 15 18" />
+        </Svg>
+      </TouchableOpacity>
+      <Text style={styles.titrePage}>Nouvelle partie</Text>
+    </View>
+    <Image
+    style={styles.image}
+    source={
+      require('../images/illustrations/start.png')}
+    />
+    <Text style={styles.description}>Commencez une nouvelle partie en indiquant le nombre de joueurs et de palets par personne
+    </Text>
       <View style={styles.inputsContainer}>
         <Text style={styles.text}>Nombre de joueurs</Text>
         <InputSpinner
           min={1}
+          max={8}
           step={1}
           value={participants}
           style={{width: "45%", marginBottom: 35}}
-          textColor="rgba(89, 61, 218, 0.85)"
+          textColor="#7159df"
           buttonTextColor="#FFFFFF"
-          buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+          buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "#7159df", }}
           inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
           onChange={(num)=>{
             onChangeParticipants(num)
@@ -54,44 +76,45 @@ export default function NouvellePartie({ navigation }) {
           step={1}
           value={palets}
           style={{width: "45%", marginBottom: 35}}
-          textColor="rgba(89, 61, 218, 0.85)"
+          textColor="#7159df"
           buttonTextColor="#FFFFFF"
-          buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "rgba(89, 61, 218, 0.85)", }}
+          buttonStyle={{borderBottomLeftRadius:10, borderBottomRightRadius:10, borderTopLeftRadius:10, borderTopRightRadius:10, activityOpacity: 0, backgroundColor: "#7159df", }}
           inputStyle={{backgroundColor: "#FFFFFF", width: "35%", marginLeft: 20, marginRight: 20, borderRadius: 10, fontWeight: "bold", fontSize: 30 }}
           onChange={(num)=>{
             onChangePalets(num)
           }}
           editable={false}
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Creer partie', {
-            nb_participants: participants,
-            nb_palets: palets,
-          })}
-        >
-          <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14}}>Continuer</Text>
-        </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Creer partie', {
+          nb_participants: participants,
+          nb_palets: palets,
+        })}
+      >
+        <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold"}}>Valider</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 20,
     flex: 1,
     alignItems: 'center',
     backgroundColor: "#FFFFFF"
   },
   title: {
     marginTop: 100,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
     fontSize: 20,
     fontWeight: 'bold'
   },
   inputsContainer: {
     borderRadius: 10,
-    paddingTop: 40,
+    paddingTop: 20,
     paddingBottom: 20,
     alignItems: "center",
     width: "90%",
@@ -111,14 +134,50 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
     paddingBottom: 20,
   },
   button: {
     paddingVertical: 15,
     borderRadius: 10,
+    marginTop: "auto",
     marginBottom: 15,
-    width: "80%",
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    width: "90%",
+
+    backgroundColor: "#7159df",
+  },
+  buttonContainer: {
+    width: "100%",
+    flexDirection: "row",
+    marginBottom: 30,
+    alignItems: "center"
+  },
+  buttonRetour: {
+    width: 42,
+    height: 42,
+    backgroundColor: "#f3f3f3",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    marginLeft:20,
+  },
+  titrePage: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    width: "70%",
+    color: "#24334c",
+  },
+  description: {
+    marginLeft: 20,
+    marginRight:20,
+    textAlign: 'center',
+    fontSize: 14,
+    color: "#24334c"
+  },
+  image: {
+    width: 210,
+    height: 210,
+    marginBottom: 10
   },
 });

@@ -3,7 +3,7 @@ import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, ScrollView
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
-import Svg, { G, Path, Rect, Polyline, Line } from 'react-native-svg';
+import Svg, { G, Path, Rect, Circle, Text as TextSvg, TSpan, Polyline, Line }  from 'react-native-svg';
 
 function openDatabase() {
   if (Platform.OS === "web") {
@@ -38,17 +38,6 @@ export default function ReprendrePartie({ navigation }) {
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.buttonRetour}
-            onPress={() => {
-              navigation.navigate("Accueil")
-            }}
-          >
-            <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <Polyline points="15 6 9 12 15 18" />
-            </Svg>
-          </TouchableOpacity>
           <Text style={styles.titrePage}>Reprendre une partie</Text>
         </View>
         <Text>Pas de partie en cours disponible</Text>
@@ -59,36 +48,73 @@ export default function ReprendrePartie({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.buttonRetour}
-          onPress={() => {
-            navigation.navigate("Accueil")
-          }}
-        >
-          <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <Polyline points="15 6 9 12 15 18" />
-          </Svg>
-        </TouchableOpacity>
         <Text style={styles.titrePage}>Reprendre une partie</Text>
       </View>
+      <Text style={styles.description}>Reprenez une partie non terminée jouée précédemment</Text>
       { games === null || games.length === 0
       ?
       <Text>Pas de partie en cours disponible</Text>
       :
       <ScrollView style={styles.scrollview}>
         <View style={styles.parties}>
-          {games.map(({ game_id, date, liste_joueurs, statut, gagnant_game }, i) => (
+          {games.map(({ game_id, date, time, liste_joueurs, statut, gagnant_game }, i) => (
             <TouchableOpacity key={i} style={styles.partie}
               onPress={() => navigation.navigate('Details', {
                 game_id: game_id
               })}
             >
+              <Svg xmlns="http://www.w3.org/2000/svg" width="129" height="129" viewBox="0 0 93.126 93.126" style={{ position: "absolute", opacity: 0.4, top: -50, right: -30}}
+              >
+                <G id="Groupe_112" data-name="Groupe 112" transform="translate(-79 -79.436)">
+                  <Path id="Tracé_8" data-name="Tracé 8" d="M46.563,0A46.563,46.563,0,1,1,0,46.563,46.563,46.563,0,0,1,46.563,0Z" transform="translate(79 79.436)" fill="rgba(214, 214, 214, 0.10)"/>
+                  <Path id="Ellipse_3" data-name="Ellipse 3" d="M37.711,3A34.721,34.721,0,0,0,24.2,69.7,34.721,34.721,0,0,0,51.221,5.727,34.491,34.491,0,0,0,37.711,3m0-3A37.711,37.711,0,1,1,0,37.711,37.711,37.711,0,0,1,37.711,0Z" transform="translate(87.642 88.078)" fill="#fff"/>
+                  <Path id="Ellipse_4" data-name="Ellipse 4" d="M31.818,3A28.827,28.827,0,0,0,20.6,58.373,28.827,28.827,0,0,0,43.035,5.263,28.635,28.635,0,0,0,31.818,3m0-3A31.818,31.818,0,1,1,0,31.818,31.818,31.818,0,0,1,31.818,0Z" transform="translate(93.927 94.363)" fill="#fff"/>
+                  <TextSvg id="_301" data-name="301" transform="translate(125.563 136.289)" fill="#fff" fontSize="25" fontWeight="bold"><TSpan x="-20" y="-1">301</TSpan></TextSvg>
+                </G>
+              </Svg>
               <View style={styles.infosContainer}>
-                <Text style={styles.partieDate}>{date}</Text>
-                <Text style={styles.partieEnCours}>Partie non finie</Text>
+                <View style={styles.containerDateAndTime}>
+                  <View style={styles.containerDate}>
+                    <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <Rect x="4" y="5" width="16" height="16" rx="2" />
+                      <Line x1="16" y1="3" x2="16" y2="7" />
+                      <Line x1="8" y1="3" x2="8" y2="7" />
+                      <Line x1="4" y1="11" x2="20" y2="11" />
+                      <Line x1="11" y1="15" x2="12" y2="15" />
+                      <Line x1="12" y1="15" x2="12" y2="18" />
+                    </Svg>
+                    <Text style={styles.partieDate}>{date}</Text>
+                  </View>
+                  <View style={styles.containerTime}>
+                    <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <Circle cx="12" cy="12" r="9" />
+                      <Polyline points="12 7 12 12 15 15" />
+                    </Svg>
+                    <Text style={styles.partieDate}>{time}</Text>
+                  </View>
+                </View>
+                <View style={styles.containerGagnant}>
+                  <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trophy" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <Line x1="8" y1="21" x2="16" y2="21" />
+                    <Line x1="12" y1="17" x2="12" y2="21" />
+                    <Line x1="7" y1="4" x2="17" y2="4" />
+                    <Path d="M17 4v8a5 5 0 0 1 -10 0v-8" />
+                    <Circle cx="5" cy="9" r="2" />
+                    <Circle cx="19" cy="9" r="2" />
+                  </Svg>
+                  <Text style={styles.partieEnCours}>Partie en cours</Text>
+                </View>
                 <View style={styles.containerJoueurs}>
-                  <Text style={styles.libeleJoueurs}>Participants: </Text>
+                  <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <Circle cx="9" cy="7" r="4" />
+                    <Path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                    <Path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    <Path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                  </Svg>
                   <Text style={styles.partieJoueurs}>{liste_joueurs}</Text>
                 </View>
               </View>
@@ -111,32 +137,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop:10,
+    paddingTop:20,
     backgroundColor: "#FFFFFF",
     width: "100%"
   },
-  buttonContainer: {
-    width: "100%",
-    flexDirection: "row",
+  description: {
+    marginLeft: 20,
+    marginRight:20,
     marginBottom: 30,
-    alignItems: "center"
+    textAlign: 'center',
+    fontSize: 14,
+    color: "#24334c"
   },
-  buttonRetour: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
+  buttonContainer: {
+    marginBottom: 30,
     alignItems: "center",
-    borderRadius: 10,
-    marginLeft:10,
   },
   titrePage: {
-    textAlign: "center",
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
-    width: "70%",
-    color: "rgba(36, 51, 76, 0.85)",
-    marginLeft:10,
+    color: "#24334c",
   },
   scrollview: {
     width: "100%",
@@ -151,7 +171,15 @@ const styles = StyleSheet.create({
     width: "90%",
     marginBottom: 20,
     flexDirection: "row",
-    backgroundColor: "rgba(36, 51, 76, 0.85)",
+    backgroundColor: "#24334c",
+    shadowColor: "#000",
+    shadowOffset: {
+    	width: 0,
+    	height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 10,
   },
   infosContainer: {
     width: "95%"
@@ -162,12 +190,16 @@ const styles = StyleSheet.create({
   },
   partieDate: {
     color: "#FFFFFF",
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: "bold",
+    marginLeft: 5
   },
   partieEnCours: {
     color: "#FFFFFF",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
+    marginLeft: 5,
+    textTransform: "uppercase",
   },
   containerJoueurs: {
     flexDirection: "row",
@@ -180,6 +212,27 @@ const styles = StyleSheet.create({
   partieJoueurs: {
     color: "#FFFFFF",
     fontSize: 16,
-    width: "70%"
-  }
+    fontWeight: "bold",
+    width: "90%",
+    marginLeft: 5,
+  },
+  containerDateAndTime: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10
+  },
+  containerDate: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  containerTime: {
+    marginLeft: 20,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  containerGagnant: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10
+  },
 })

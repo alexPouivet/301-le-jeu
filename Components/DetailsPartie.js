@@ -3,7 +3,7 @@ import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, Image, Scr
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
-import Svg, { G, Path, Rect, Polyline, Line } from 'react-native-svg';
+import Svg, { G, Path, Rect, Circle, Text as TextSvg, TSpan, Polyline, Line }  from 'react-native-svg';
 
 function openDatabase() {
   if (Platform.OS === "web") {
@@ -56,7 +56,7 @@ export default function DetailsPartie({ navigation, route }) {
             <Polyline points="15 6 9 12 15 18" />
           </Svg>
         </TouchableOpacity>
-        <Text style={styles.titrePage}>Partie du {game.date}</Text>
+        <Text style={styles.titrePage}>Détail partie</Text>
         <TouchableOpacity
           style={styles.buttonSupprimer}
           onPress={() => {
@@ -66,23 +66,77 @@ export default function DetailsPartie({ navigation, route }) {
           }}
         >
           <Svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" viewBox="0 0 21 27">
-            <Path id="Icon_material-delete" data-name="Icon material-delete" d="M9,28.5a3.009,3.009,0,0,0,3,3H24a3.009,3.009,0,0,0,3-3v-18H9ZM28.5,6H23.25l-1.5-1.5h-7.5L12.75,6H7.5V9h21Z" transform="translate(-7.5 -4.5)" fill="rgba(36,51,76,0.85)"/>
+            <Path id="Icon_material-delete" data-name="Icon material-delete" d="M9,28.5a3.009,3.009,0,0,0,3,3H24a3.009,3.009,0,0,0,3-3v-18H9ZM28.5,6H23.25l-1.5-1.5h-7.5L12.75,6H7.5V9h21Z" transform="translate(-7.5 -4.5)" fill="#24334C"/>
           </Svg>
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.scrollview}>
         <View style={styles.infos}>
-          <View style={[styles.containerStatutPartie, game.gagnant_game == null ? styles.backgroundColorStatutPartieEnCours : styles.backgroundColorStatutPartieFinie]}>
-          {game.gagnant_game == null ?
-            <Text style={styles.textStatutPartie}>Partie en cours</Text>
+          {game.gagnant_game == null
+            ?
+            <Image
+            style={styles.image}
+            source={
+              require('../images/illustrations/team.png')}
+            />
             :
-            <View style={{alignItems: "center"}}>
-              <Svg  style={{ marginBottom: 10}} xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 18.084 16.075">
-                <Path  id="Icon_awesome-trophy" data-name="Icon awesome-trophy" d="M17.331,2.009H14.066V.754A.752.752,0,0,0,13.312,0H4.772a.752.752,0,0,0-.754.754V2.009H.754A.752.752,0,0,0,0,2.763V4.521A4.1,4.1,0,0,0,1.943,7.683,7.355,7.355,0,0,0,5.4,8.992,6.945,6.945,0,0,0,7.535,11.3v2.261H6.028a1.812,1.812,0,0,0-2.009,1.758V15.7a.378.378,0,0,0,.377.377h9.293a.378.378,0,0,0,.377-.377v-.377a1.812,1.812,0,0,0-2.009-1.758H10.549V11.3a6.945,6.945,0,0,0,2.138-2.311,7.33,7.33,0,0,0,3.454-1.309,4.106,4.106,0,0,0,1.943-3.162V2.763A.752.752,0,0,0,17.331,2.009ZM3.118,6.053A2.309,2.309,0,0,1,2.009,4.521v-.5H4.025a11.276,11.276,0,0,0,.4,2.706,5.06,5.06,0,0,1-1.309-.672ZM16.075,4.521a2.412,2.412,0,0,1-1.108,1.532,5.079,5.079,0,0,1-1.312.672,11.277,11.277,0,0,0,.4-2.706h2.019Z" fill="#fff"/>
-              </Svg>
-              <Text style={styles.textStatutPartie}>{game.gagnant_game}</Text>
-            </View>
+            <Image
+            style={styles.image}
+            source={
+              require('../images/illustrations/winner.png')}
+            />
           }
+          <View style={[styles.containerStatutPartie, game.gagnant_game == null ? styles.containerStatutPartieEnCours : styles.containerStatutGagnant ]
+          }>
+            <Svg xmlns="http://www.w3.org/2000/svg" width="129" height="129" viewBox="0 0 93.126 93.126" style={{ position: "absolute", opacity: 0.4, bottom: -50, right: -40}}
+            >
+              <G id="Groupe_112" data-name="Groupe 112" transform="translate(-79 -79.436)">
+                <Path id="Tracé_8" data-name="Tracé 8" d="M46.563,0A46.563,46.563,0,1,1,0,46.563,46.563,46.563,0,0,1,46.563,0Z" transform="translate(79 79.436)" fill="rgba(89,61,218,0.50)"/>
+                <Path id="Ellipse_3" data-name="Ellipse 3" d="M37.711,3A34.721,34.721,0,0,0,24.2,69.7,34.721,34.721,0,0,0,51.221,5.727,34.491,34.491,0,0,0,37.711,3m0-3A37.711,37.711,0,1,1,0,37.711,37.711,37.711,0,0,1,37.711,0Z" transform="translate(87.642 88.078)" fill="#fff"/>
+                <Path id="Ellipse_4" data-name="Ellipse 4" d="M31.818,3A28.827,28.827,0,0,0,20.6,58.373,28.827,28.827,0,0,0,43.035,5.263,28.635,28.635,0,0,0,31.818,3m0-3A31.818,31.818,0,1,1,0,31.818,31.818,31.818,0,0,1,31.818,0Z" transform="translate(93.927 94.363)" fill="#fff"/>
+                <TextSvg id="_301" data-name="301" transform="translate(125.563 136.289)" fill="#fff" fontSize="25" fontWeight="bold"><TSpan x="-20" y="-1">301</TSpan></TextSvg>
+              </G>
+            </Svg>
+            <View style={{alignItems: "center"}}>
+              <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trophy" width="44" height="44" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round"
+              >
+                <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <Line x1="8" y1="21" x2="16" y2="21" />
+                <Line x1="12" y1="17" x2="12" y2="21" />
+                <Line x1="7" y1="4" x2="17" y2="4" />
+                <Path d="M17 4v8a5 5 0 0 1 -10 0v-8" />
+                <Circle cx="5" cy="9" r="2" />
+                <Circle cx="19" cy="9" r="2" />
+              </Svg>
+              {game.gagnant_game == null
+                ?
+                  <Text style={styles.textStatutPartie}>Partie en cours</Text>
+                :
+                  <Text style={styles.textStatutPartie}>{game.gagnant_game}</Text>
+              }
+            </View>
+          </View>
+          <View style={styles.containerDateAndTime}>
+            <View style={styles.containerDate}>
+              <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#24334c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <Rect x="4" y="5" width="16" height="16" rx="2" />
+                <Line x1="16" y1="3" x2="16" y2="7" />
+                <Line x1="8" y1="3" x2="8" y2="7" />
+                <Line x1="4" y1="11" x2="20" y2="11" />
+                <Line x1="11" y1="15" x2="12" y2="15" />
+                <Line x1="12" y1="15" x2="12" y2="18" />
+              </Svg>
+              <Text style={styles.partieDate}>{game.date}</Text>
+            </View>
+            <View style={styles.containerTime}>
+              <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#24334c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <Circle cx="12" cy="12" r="9" />
+                <Polyline points="12 7 12 12 15 15" />
+              </Svg>
+              <Text style={styles.partieDate}>{game.time}</Text>
+            </View>
           </View>
           <View style={styles.libele}>
             <Text style={[styles.libeleClassement]}>#</Text>
@@ -99,12 +153,6 @@ export default function DetailsPartie({ navigation, route }) {
             </View>
           ))}
           <View style={styles.buttons}>
-            <TouchableOpacity
-              style={game.statut == "en cours" ? styles.buttonHistorique : styles.buttonHistorique2}
-              onPress={() => navigation.goBack()}
-            >
-              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Retourner à l'historique</Text>
-            </TouchableOpacity>
             { game.statut == "en cours" ?
               <TouchableOpacity
                 style={styles.buttonReprendre}
@@ -112,11 +160,17 @@ export default function DetailsPartie({ navigation, route }) {
                   game_id: game_id
                 })}
               >
-                <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Reprendre la partie</Text>
+                <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>Reprendre la partie</Text>
               </TouchableOpacity>
               :
               null
             }
+            <TouchableOpacity
+              style={game.statut == "en cours" ? styles.buttonHistorique : styles.buttonHistorique2}
+              onPress={() => navigation.goBack()}
+            >
+              <Text style={[{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight:"bold" }, game.statut == "en cours" ? null : styles.TextButtonHistoriqueTerminee]}>Retourner à l'historique</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -179,26 +233,28 @@ const styles = StyleSheet.create({
   },
   titrePage: {
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: "bold",
     width: "70%",
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
     marginLeft:10,
   },
   containerStatutPartie: {
-    marginTop: 50,
-    marginBottom: 50,
+    marginBottom: 40,
     alignItems: "center",
     justifyContent: "center",
-    width: 130,
-    height: 130,
+    width: "60%",
+    paddingTop: 5,
+    paddingBottom: 5,
     borderRadius: 10,
+    position: "relative",
+    overflow: "hidden"
   },
-  backgroundColorStatutPartieEnCours: {
-    backgroundColor: "rgba(36, 51, 76, 0.85)",
+  containerStatutGagnant: {
+    backgroundColor: "#7159df",
   },
-  backgroundColorStatutPartieFinie: {
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+  containerStatutPartieEnCours: {
+    backgroundColor: "#24334c",
   },
   textStatutPartie: {
     color: "#FFFFFF",
@@ -208,7 +264,7 @@ const styles = StyleSheet.create({
   },
   libele: {
     flexDirection: "row",
-    width: "80%",
+    width: "90%",
     paddingHorizontal: 5,
     paddingLeft: 15,
     marginBottom: 10
@@ -217,32 +273,32 @@ const styles = StyleSheet.create({
     width: "10%",
     fontWeight: "bold",
     fontSize: 12,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   libeleNom: {
     width: "35%",
     fontWeight: "bold",
     fontSize: 12,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   libeleTour: {
     width: "20%",
     fontWeight: "bold",
     fontSize: 12,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   libelePoints: {
     width: "35%",
     fontWeight: "bold",
     fontSize: 12,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   joueur: {
     paddingVertical: 5,
     paddingHorizontal: 5,
     paddingLeft: 15,
     borderRadius: 10,
-    width: "80%",
+    width: "90%",
     marginBottom: 15,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -255,10 +311,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F3F3F3",
   },
   gagnant: {
-    backgroundColor: "rgba(89, 61, 218, 0.85)"
+    backgroundColor: "#7159df"
   },
   joueurPosition1: {
-    backgroundColor: "rgba(36, 51, 76, 0.85)",
+    backgroundColor: "#24334c",
   },
   textClassementJoueurPosition1: {
     color: "#FFFFFF"
@@ -267,7 +323,7 @@ const styles = StyleSheet.create({
     width: "10%",
     fontSize: 16,
     fontWeight: "bold",
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   textNomJoueurPosition1: {
     color: "#FFFFFF"
@@ -276,7 +332,7 @@ const styles = StyleSheet.create({
     width: "35%",
     fontSize: 16,
     fontWeight: "bold",
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   textTourJoueurPosition1: {
     color: "#FFFFFF"
@@ -285,10 +341,10 @@ const styles = StyleSheet.create({
     width: "20%",
     fontSize: 16,
     fontWeight: "bold",
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   textPointsJoueurPosition1: {
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   textPointsJoueur: {
     width: "35%",
@@ -299,39 +355,59 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal:10,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   textGagnant: {
     color: "#FFFFFF"
   },
   textGagnantPoints: {
-    color: "rgba(89, 61, 218, 0.85)"
+    color: "#7159df"
   },
   buttons: {
     width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginBottom:20
+    marginTop: 50,
+    marginBottom:20,
+    alignItems: "center"
   },
   buttonReprendre: {
-    marginTop: 50,
     paddingVertical: 15,
     borderRadius: 10,
-    width: "45%",
-    backgroundColor: "rgba(36, 51, 76, 0.85)",
+    width: "90%",
+    backgroundColor: "#24334c",
   },
   buttonHistorique2: {
-    marginTop: 50,
     paddingVertical: 15,
     borderRadius: 10,
-    width: "80%",
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    width: "90%",
+    backgroundColor: "#7159df",
   },
   buttonHistorique: {
-    marginTop: 50,
+    marginTop: 10,
     paddingVertical: 15,
     borderRadius: 10,
-    width: "45%",
+    width: "90%",
     backgroundColor: "#B9B9B9",
   },
+  image: {
+    width: 210,
+    height: 210,
+    marginBottom: 10
+  },
+  containerDateAndTime: {
+    flexDirection: "row",
+    marginBottom: 20
+  },
+  containerDate: {
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  containerTime: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 20
+  },
+  partieDate: {
+    fontWeight: "bold",
+    fontSize: 14
+  }
 })

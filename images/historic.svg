@@ -1,3 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37">
-  <path id="Exclusion_3" data-name="Exclusion 3" d="M27,37H10A10.011,10.011,0,0,1,0,27V10A10.011,10.011,0,0,1,10,0H27A10.011,10.011,0,0,1,37,10V27A10.011,10.011,0,0,1,27,37ZM7.677,18.5a10.826,10.826,0,1,0,3.228-7.708V7.677H9.461v5.778h5.778V12.01H11.731A9.377,9.377,0,1,1,9.122,18.5Zm10.089-6.492-.024,7.948h5.8V18.511H19.191l.02-6.5Z" fill="#fff"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="historic" transform="translate(24 24) rotate(180)">
+    <path id="Tracé_16" data-name="Tracé 16" d="M0,0H24V24H0Z" fill="none"/>
+    <path id="Tracé_17" data-name="Tracé 17" d="M19.95,11a8,8,0,1,0-.5,4m.5,5V15h-5" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Tracé_18" data-name="Tracé 18" d="M12,7v5h4.018" transform="translate(24 23) rotate(-180)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
 </svg>

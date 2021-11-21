@@ -3,7 +3,7 @@ import { View, Text, Button, TextInput, StyleSheet, ScrollView, TouchableOpacity
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
-import Svg, { G, Path, Rect, Polyline, Line } from 'react-native-svg';
+import Svg, { G, Path, Rect, Circle, Text as TextSvg, TSpan, Polyline, Line }  from 'react-native-svg';
 
 function openDatabase() {
   if (Platform.OS === "web") {
@@ -34,7 +34,7 @@ export default function HistoriquePartie({ navigation }) {
       // tx.executeSql('drop table game')
       // tx.executeSql('drop table joueur')
       // Recupère les données de toutes les parties
-      tx.executeSql(`SELECT * FROM game ORDER BY date DESC`, [], (_, { rows: { _array } }) => setGames(_array));
+      tx.executeSql(`SELECT * FROM game ORDER BY date DESC, time DESC`, [], (_, { rows: { _array } }) => setGames(_array));
     });
   }, []);
 
@@ -42,17 +42,6 @@ export default function HistoriquePartie({ navigation }) {
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.buttonRetour}
-            onPress={() => {
-              navigation.navigate("Accueil")
-            }}
-          >
-            <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <Polyline points="15 6 9 12 15 18" />
-            </Svg>
-          </TouchableOpacity>
           <Text style={styles.titrePage}>Historique des parties jouées</Text>
         </View>
         <Text>Pas de partie encore créée</Text>
@@ -63,46 +52,93 @@ export default function HistoriquePartie({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.buttonRetour}
-          onPress={() => {
-            navigation.navigate("Accueil")
-          }}
-        >
-          <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <Polyline points="15 6 9 12 15 18" />
-          </Svg>
-        </TouchableOpacity>
         <Text style={styles.titrePage}>Historique des parties jouées</Text>
       </View>
+      <Text style={styles.description}>Retrouvez toutes les parties jouées dans votre historique des parties</Text>
       { games === null || games.length === 0
         ?
         <Text>Pas de partie encore créée</Text>
         :
         <ScrollView style={styles.scrollview}>
           <View style={styles.parties}>
-            {games.map(({ game_id, date, liste_joueurs, statut, gagnant_game }, i) => (
+            {games.map(({ game_id, date, time, liste_joueurs, statut, gagnant_game }, i) => (
               <TouchableOpacity key={i} style={[styles.partie, statut == "finie" ? styles.partieFinie : styles.partieNonFinie]}
                 onPress={() => navigation.navigate('Details', {
                   game_id: game_id
                 })}
               >
+              {
+                statut ==  "finie"
+                ?
+                  <Svg xmlns="http://www.w3.org/2000/svg" width="129" height="129" viewBox="0 0 93.126 93.126" style={{ position: "absolute", opacity: 0.4, top: -50, right: -30}}
+                  >
+                    <G id="Groupe_112" data-name="Groupe 112" transform="translate(-79 -79.436)">
+                      <Path id="Tracé_8" data-name="Tracé 8" d="M46.563,0A46.563,46.563,0,1,1,0,46.563,46.563,46.563,0,0,1,46.563,0Z" transform="translate(79 79.436)" fill="rgba(89,61,218,0.20)"/>
+                      <Path id="Ellipse_3" data-name="Ellipse 3" d="M37.711,3A34.721,34.721,0,0,0,24.2,69.7,34.721,34.721,0,0,0,51.221,5.727,34.491,34.491,0,0,0,37.711,3m0-3A37.711,37.711,0,1,1,0,37.711,37.711,37.711,0,0,1,37.711,0Z" transform="translate(87.642 88.078)" fill="#fff"/>
+                      <Path id="Ellipse_4" data-name="Ellipse 4" d="M31.818,3A28.827,28.827,0,0,0,20.6,58.373,28.827,28.827,0,0,0,43.035,5.263,28.635,28.635,0,0,0,31.818,3m0-3A31.818,31.818,0,1,1,0,31.818,31.818,31.818,0,0,1,31.818,0Z" transform="translate(93.927 94.363)" fill="#fff"/>
+                      <TextSvg id="_301" data-name="301" transform="translate(125.563 136.289)" fill="#fff" fontSize="25" fontWeight="bold"><TSpan x="-20" y="-1">301</TSpan></TextSvg>
+                    </G>
+                  </Svg>
+                :
+                  <Svg xmlns="http://www.w3.org/2000/svg" width="129" height="129" viewBox="0 0 93.126 93.126" style={{ position: "absolute", opacity: 0.4, top: -50, right: -30}}
+                  >
+                    <G id="Groupe_112" data-name="Groupe 112" transform="translate(-79 -79.436)">
+                      <Path id="Tracé_8" data-name="Tracé 8" d="M46.563,0A46.563,46.563,0,1,1,0,46.563,46.563,46.563,0,0,1,46.563,0Z" transform="translate(79 79.436)" fill="rgba(214, 214, 214, 0.10)"/>
+                      <Path id="Ellipse_3" data-name="Ellipse 3" d="M37.711,3A34.721,34.721,0,0,0,24.2,69.7,34.721,34.721,0,0,0,51.221,5.727,34.491,34.491,0,0,0,37.711,3m0-3A37.711,37.711,0,1,1,0,37.711,37.711,37.711,0,0,1,37.711,0Z" transform="translate(87.642 88.078)" fill="#fff"/>
+                      <Path id="Ellipse_4" data-name="Ellipse 4" d="M31.818,3A28.827,28.827,0,0,0,20.6,58.373,28.827,28.827,0,0,0,43.035,5.263,28.635,28.635,0,0,0,31.818,3m0-3A31.818,31.818,0,1,1,0,31.818,31.818,31.818,0,0,1,31.818,0Z" transform="translate(93.927 94.363)" fill="#fff"/>
+                      <TextSvg id="_301" data-name="301" transform="translate(125.563 136.289)" fill="#fff" fontSize="25" fontWeight="bold"><TSpan x="-20" y="-1">301</TSpan></TextSvg>
+                    </G>
+                  </Svg>
+              }
                 <View style={styles.infosContainer}>
-                  <Text style={styles.partieDate}>{date}</Text>
-                  { statut == "finie" ?
-                    <View style={styles.containerGagnant}>
-                      <Svg style={{ marginRight: 5}} xmlns="http://www.w3.org/2000/svg" width="18.084" height="16.075" viewBox="0 0 18.084 16.075">
-                        <Path id="Icon_awesome-trophy" data-name="Icon awesome-trophy" d="M17.331,2.009H14.066V.754A.752.752,0,0,0,13.312,0H4.772a.752.752,0,0,0-.754.754V2.009H.754A.752.752,0,0,0,0,2.763V4.521A4.1,4.1,0,0,0,1.943,7.683,7.355,7.355,0,0,0,5.4,8.992,6.945,6.945,0,0,0,7.535,11.3v2.261H6.028a1.812,1.812,0,0,0-2.009,1.758V15.7a.378.378,0,0,0,.377.377h9.293a.378.378,0,0,0,.377-.377v-.377a1.812,1.812,0,0,0-2.009-1.758H10.549V11.3a6.945,6.945,0,0,0,2.138-2.311,7.33,7.33,0,0,0,3.454-1.309,4.106,4.106,0,0,0,1.943-3.162V2.763A.752.752,0,0,0,17.331,2.009ZM3.118,6.053A2.309,2.309,0,0,1,2.009,4.521v-.5H4.025a11.276,11.276,0,0,0,.4,2.706,5.06,5.06,0,0,1-1.309-.672ZM16.075,4.521a2.412,2.412,0,0,1-1.108,1.532,5.079,5.079,0,0,1-1.312.672,11.277,11.277,0,0,0,.4-2.706h2.019Z" fill="#fff"/>
+                  <View style={styles.containerDateAndTime}>
+                    <View style={styles.containerDate}>
+                      <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <Rect x="4" y="5" width="16" height="16" rx="2" />
+                        <Line x1="16" y1="3" x2="16" y2="7" />
+                        <Line x1="8" y1="3" x2="8" y2="7" />
+                        <Line x1="4" y1="11" x2="20" y2="11" />
+                        <Line x1="11" y1="15" x2="12" y2="15" />
+                        <Line x1="12" y1="15" x2="12" y2="18" />
                       </Svg>
-                      <Text style={styles.libeleGagnant}>Gagnant: </Text>
-                      <Text style={styles.partieGagnant}>{gagnant_game}</Text>
+                      <Text style={styles.partieDate}>{date}</Text>
                     </View>
+                    <View style={styles.containerTime}>
+                      <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <Circle cx="12" cy="12" r="9" />
+                        <Polyline points="12 7 12 12 15 15" />
+                      </Svg>
+                      <Text style={styles.partieDate}>{time}</Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.containerGagnant}>
+                    <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trophy" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <Line x1="8" y1="21" x2="16" y2="21" />
+                      <Line x1="12" y1="17" x2="12" y2="21" />
+                      <Line x1="7" y1="4" x2="17" y2="4" />
+                      <Path d="M17 4v8a5 5 0 0 1 -10 0v-8" />
+                      <Circle cx="5" cy="9" r="2" />
+                      <Circle cx="19" cy="9" r="2" />
+                    </Svg>
+                    { statut == "finie"
+                    ?
+                      <Text style={styles.partieGagnant}>{gagnant_game}</Text>
                     :
-                    <Text style={styles.partieEnCours}>Partie non finie</Text>
-                  }
+                      <Text style={styles.partieEnCours}>Partie en cours</Text>
+                    }
+                  </View>
                   <View style={styles.containerJoueurs}>
-                    <Text style={styles.libeleJoueurs}>Participants: </Text>
+                    <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <Circle cx="9" cy="7" r="4" />
+                      <Path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                      <Path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                      <Path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                    </Svg>
                     <Text style={styles.partieJoueurs}>{liste_joueurs}</Text>
                   </View>
                 </View>
@@ -125,32 +161,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingTop:10,
+    paddingTop:20,
     backgroundColor: "#FFFFFF",
     width: "100%"
   },
-  buttonContainer: {
-    width: "100%",
-    flexDirection: "row",
+  description: {
+    marginLeft: 20,
+    marginRight:20,
     marginBottom: 30,
-    alignItems: "center"
+    textAlign: 'center',
+    fontSize: 14,
+    color: "#24334c"
   },
-  buttonRetour: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
+  buttonContainer: {
+    marginBottom: 25,
     alignItems: "center",
-    borderRadius: 10,
-    marginLeft:10,
   },
   titrePage: {
-    textAlign: "center",
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
-    width: "70%",
-    color: "rgba(36, 51, 76, 0.85)",
-    marginLeft:10,
+    color: "#24334c",
   },
   scrollview: {
     width: "100%",
@@ -165,6 +195,16 @@ const styles = StyleSheet.create({
     width: "90%",
     marginBottom: 20,
     flexDirection: "row",
+    position: "relative",
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+    	width: 0,
+    	height: 1,
+    },
+    shadowOpacity: 0.20,
+    shadowRadius: 1.41,
+    elevation: 10,
   },
   infosContainer: {
     width: "95%"
@@ -174,18 +214,21 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end"
   },
   partieFinie: {
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    backgroundColor: "#7159df",
   },
   partieNonFinie: {
-    backgroundColor: "rgba(36, 51, 76, 0.85)",
+    backgroundColor: "#24334c",
   },
   partieDate: {
     color: "#FFFFFF",
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: "bold",
+    marginLeft: 5
   },
   containerGagnant: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: 10
   },
   libeleGagnant: {
     color: "#FFFFFF",
@@ -194,24 +237,45 @@ const styles = StyleSheet.create({
   },
   partieGagnant: {
     color: "#FFFFFF",
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    marginLeft: 5
   },
   partieEnCours: {
     color: "#FFFFFF",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
+    marginLeft: 5,
+    textTransform: "uppercase",
   },
   containerJoueurs: {
     flexDirection: "row",
   },
   libeleJoueurs: {
     color: "#FFFFFF",
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
   },
   partieJoueurs: {
     color: "#FFFFFF",
     fontSize: 16,
-    width: "70%"
+    fontWeight: "bold",
+    width: "90%",
+    marginLeft: 5,
+  },
+  containerDateAndTime: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 10
+  },
+  containerDate: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  containerTime: {
+    marginLeft: 20,
+    flexDirection: "row",
+    alignItems: "center",
   }
 })

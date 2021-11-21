@@ -48,7 +48,7 @@ export default function FinDeTour({ navigation, route }) {
         <TouchableOpacity
           style={styles.buttonRetour}
           onPress={() => {
-            navigation.push("Accueil")
+            navigation.push("Home")
           }}
         >
           <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -60,18 +60,39 @@ export default function FinDeTour({ navigation, route }) {
       </View>
       <ScrollView style={styles.scrollview}>
         <View style={styles.scrollContainer}>
+          <Image
+          style={styles.image}
+          source={
+            require('../images/illustrations/recap.png')}
+          />
           <Text style={styles.titreRecap}>Récap Tour {game.tour_game}</Text>
           <View style={styles.libele}>
+            <Text style={[styles.libeleClassement]}>#</Text>
             <Text style={[styles.libeleNom]}>Nom</Text>
+            <Text style={[styles.libeleTour]}>Tour</Text>
             <Text style={[styles.libelePoints]}>Points restant</Text>
           </View>
-          {joueurs.map(({ nom_joueur, score_joueur }, i) => (
-            <View key={i} style={styles.joueur}>
-              <Text style={styles.textNomJoueur}>{nom_joueur}</Text>
-              <Text style={styles.textPointsJoueur}>{score_joueur} points</Text>
+          {joueurs.map(({ nom_joueur, score_joueur, tour_joueur, classement_joueur }, i) => (
+            <View key={i} style={[ styles.joueur, i % 2 == 0 ? styles.joueurImpair : styles.joueurPair, i == 0 ? styles.premier : null , classement_joueur == 1 ? styles.gagnant : null ]}>
+              <Text style={[styles.textClassementJoueur, i == 0 ? styles.textPremier : null, classement_joueur == 1 ? styles.textGagnant : null]}>{classement_joueur == null ? i+1 : classement_joueur}</Text>
+              <Text style={[styles.textNomJoueur, i == 0 ? styles.textPremier : null, classement_joueur == 1 ? styles.textGagnant : null]}>{nom_joueur}</Text>
+              <Text style={[styles.textTourJoueur, i == 0 ? styles.textPremier : null, classement_joueur == 1 ? styles.textGagnant : null]}>{tour_joueur}</Text>
+              <Text style={[styles.textPointsJoueur, classement_joueur == 1 ? styles.textGagnantPoints : null]}>{score_joueur} points</Text>
             </View>
           ))}
           <View style={styles.buttons}>
+            <TouchableOpacity
+              style={game.nb_joueurs_restant < 2 ? styles.buttonContinuer : styles.button}
+              onPress={() => {
+                updateGame(game_id).then(function(game_id) {
+                  navigation.push("Partie", {
+                    game_id: game_id,
+                  })
+                })
+              }}
+            >
+              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>Tour Suivant</Text>
+            </TouchableOpacity>
             {game.nb_joueurs_restant < 2
             ?
             <TouchableOpacity
@@ -83,23 +104,11 @@ export default function FinDeTour({ navigation, route }) {
                 })
               }}
             >
-              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Terminer la partie</Text>
+              <Text style={{textAlign: "center", color: "#24334c", fontSize: 18, fontWeight: "bold" }}>Fin de la partie</Text>
             </TouchableOpacity>
             :
             null
             }
-            <TouchableOpacity
-              style={game.nb_joueurs_restant < 2 ? styles.buttonContinuer : styles.button}
-              onPress={() => {
-                updateGame(game_id).then(function(game_id) {
-                  navigation.push("Partie", {
-                    game_id: game_id,
-                  })
-                })
-              }}
-            >
-              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Tour Suivant</Text>
-            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -159,10 +168,10 @@ const styles = StyleSheet.create({
   titrePage: {
     width: "70%",
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: "bold",
-    marginLeft:10,
-    color: "rgba(36, 51, 76, 0.85)"
+    marginLeft: 10,
+    color: "#24334c"
   },
   scrollview: {
     width: "100%",
@@ -172,9 +181,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   titreRecap: {
-    marginTop: 100,
-    marginBottom: 30,
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    marginBottom: 40,
+    width: "60%",
+    textAlign: "center",
+    backgroundColor: "#24334c",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -185,28 +195,40 @@ const styles = StyleSheet.create({
   libele: {
     alignItems: "center",
     flexDirection: "row",
-    width: "80%",
+    width: "90%",
     paddingHorizontal: 5,
     paddingLeft: 15,
     marginBottom: 10
   },
-  libeleNom: {
-    width: "65%",
+  libeleClassement: {
+    width: "10%",
     fontWeight: "bold",
     fontSize: 12,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
+  },
+  libeleNom: {
+    width: "35%",
+    fontWeight: "bold",
+    fontSize: 12,
+    color: "#24334c",
+  },
+  libeleTour: {
+    width: "20%",
+    fontWeight: "bold",
+    fontSize: 12,
+    color: "#24334c",
   },
   libelePoints: {
     width: "35%",
     fontWeight: "bold",
     fontSize: 12,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
   },
   joueur: {
     paddingVertical: 5,
     paddingHorizontal: 5,
     paddingLeft: 15,
-    width: "80%",
+    width: "90%",
     backgroundColor: "#F3F3F3",
     marginBottom: 15,
     flexDirection: "row",
@@ -214,11 +236,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10
   },
+  joueurImpair: {
+    backgroundColor: "#D6D6D6",
+  },
+  joueurPair: {
+    backgroundColor: "#F3F3F3",
+  },
+  gagnant: {
+    backgroundColor: "#7159df"
+  },
+  premier: {
+    backgroundColor: "#24334c",
+  },
+  textClassementJoueur: {
+    width: "10%",
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#24334c",
+  },
   textNomJoueur: {
     width: "35%",
     fontSize: 16,
     fontWeight: "bold",
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
+  },
+  textTourJoueur: {
+    width: "20%",
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#24334c",
   },
   textPointsJoueur: {
     width: "35%",
@@ -229,33 +275,46 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal:10,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
+  },
+  textGagnant: {
+    color: "#FFFFFF"
+  },
+  textPremier: {
+    color: "#FFFFFF"
+  },
+  textGagnantPoints: {
+    color: "#7159df"
   },
   buttons: {
     width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-around",
+    alignItems: "center",
+    marginTop: 50,
+    marginBottom: 20
 
   },
   button: {
-    marginTop: 50,
     paddingVertical: 15,
     borderRadius: 10,
-    width: "80%",
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    width: "90%",
+    backgroundColor: "#7159df",
   },
   buttonContinuer: {
-    marginTop: 50,
     paddingVertical: 15,
     borderRadius: 10,
-    width: "45%",
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    width: "90%",
+    backgroundColor: "#7159df",
   },
   buttonArreter: {
-    marginTop: 50,
+    marginTop: 10,
     paddingVertical: 15,
     borderRadius: 10,
-    width: "45%",
+    width: "90%",
     backgroundColor: "#B9B9B9"
+  },
+  image: {
+    width: 210,
+    height: 210,
+    marginBottom: 10
   },
 })

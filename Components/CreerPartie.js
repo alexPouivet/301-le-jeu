@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
+import Svg, { G, Path, Rect,Circle, Polyline, Line } from 'react-native-svg';
 
 function openDatabase() {
   if (Platform.OS === "web") {
@@ -46,43 +47,63 @@ export default function CreerPartie({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonRetour}
+          onPress={() => {
+            navigation.goBack()
+          }}
+        >
+          <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <Polyline points="15 6 9 12 15 18" />
+          </Svg>
+        </TouchableOpacity>
+        <Text style={styles.titrePage}>Nouvelle partie</Text>
+      </View>
       <ScrollView style={styles.scrollview}>
         <View style={styles.scrollContainer}>
-          <Text style={styles.title}>Nommer les joueurs</Text>
+          <Image
+          style={styles.image}
+          source={
+            require('../images/illustrations/progress.png')}
+          />
+          <Text style={styles.description}>Nommer tous les joueurs participants à la partie en remplissant les champs ci-dessous et commencez la partie
+          </Text>
           <View style={styles.inputsContainer}>
             <Text style={styles.errorText}>{errorText}</Text>
             { participants }
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-
-                let isParticipantsNameEmpty = true
-
-                for (var i = 0; i < nb_participants; i++) {
-                  if(participants[i].props["children"][1]["props"]["value"] == "" || participants[i].props["children"][1]["props"]["value"].length < 2 ) {
-                    isParticipantsNameEmpty = true
-                    break
-                  }
-                  else {
-                    isParticipantsNameEmpty = false
-                  }
-                }
-
-                if(isParticipantsNameEmpty){
-                  onChangeErrorText("Les noms ne sont pas correctement remplis, deux lettres au minimum")
-                } else {
-                  onChangeErrorText("")
-                  create(participants, nb_participants, nb_palets).then(function(game_id) {
-                    navigation.navigate('Partie', {
-                      game_id: game_id,
-                    })
-                  })
-                }
-              }}
-            >
-              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 14 }}>Commencer la partie</Text>
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+
+              let isParticipantsNameEmpty = true
+
+              for (var i = 0; i < nb_participants; i++) {
+                if(participants[i].props["children"][1]["props"]["value"] == "" || participants[i].props["children"][1]["props"]["value"].length < 2 ) {
+                  isParticipantsNameEmpty = true
+                  break
+                }
+                else {
+                  isParticipantsNameEmpty = false
+                }
+              }
+
+              if(isParticipantsNameEmpty){
+                onChangeErrorText("Les noms ne sont pas correctement remplis, deux lettres au minimum")
+              } else {
+                onChangeErrorText("")
+                create(participants, nb_participants, nb_palets).then(function(game_id) {
+                  navigation.navigate('Partie', {
+                    game_id: game_id,
+                  })
+                })
+              }
+            }}
+          >
+            <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold"}}>Commencer la partie</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -96,11 +117,12 @@ const create = function(participants, nb_participants, nb_palets) {
     // config date d'une partie
     let year = new Date().getFullYear();
     let month = new Date().getMonth() + 1;
-    let date = new Date().getDate();
+    let day = new Date().getDate();
     let hour = new Date().getHours()
     let minutes = new Date().getMinutes()
     let seconds = new Date().getSeconds()
-    let time =  date + '/' + month + '/' + year + ' ' + hour + ':' + minutes
+    let date =  day + '/' + month + '/' + year
+    let time = hour + ':' + minutes
 
     // config liste des joueurs d'une partie
     let liste_joueurs = ""
@@ -116,7 +138,7 @@ const create = function(participants, nb_participants, nb_palets) {
       tx.executeSql("PRAGMA foreign_keys=on");
       // création de la table game dans la bdd
       tx.executeSql(
-        "CREATE TABLE IF NOT EXISTS game (game_id integer primary key not null, date datetime, statut text, nb_palets int, nb_joueurs int, nb_joueurs_restant int, tour_game int, liste_joueurs text, gagnant_game text, tour_joueur int)"
+        "CREATE TABLE IF NOT EXISTS game (game_id integer primary key not null, date date, time time, statut text, nb_palets int, nb_joueurs int, nb_joueurs_restant int, tour_game int, liste_joueurs text, gagnant_game text, tour_joueur int)"
       );
       // création de la table joueur dans la bdd
       tx.executeSql(
@@ -124,7 +146,7 @@ const create = function(participants, nb_participants, nb_palets) {
       );
       // création d'une partie dans la bdd
       tx.executeSql(
-        "INSERT INTO game (date, statut, nb_palets, nb_joueurs, nb_joueurs_restant, tour_game, liste_joueurs, tour_joueur) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [time, 'en cours', nb_palets, nb_participants, nb_participants, 1, liste_joueurs, 1],
+        "INSERT INTO game (date, time, statut, nb_palets, nb_joueurs, nb_joueurs_restant, tour_game, liste_joueurs, tour_joueur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", ["10/09/2020", time, 'en cours', nb_palets, nb_participants, nb_participants, 1, liste_joueurs, 1],
         function(tx, res) {
           // création des joueurs dans la bdd
           for(let i = 0; i < nb_participants; i++ ){
@@ -142,21 +164,24 @@ const create = function(participants, nb_participants, nb_palets) {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 20,
     flex: 1,
     alignItems: 'center',
     backgroundColor: "#FFFFFF"
   },
   title: {
     marginTop: 100,
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
     fontSize: 20,
     fontWeight: 'bold'
   },
   scrollview: {
     width: "100%",
+    height: "100%",
   },
   scrollContainer: {
     alignItems: "center",
+    height: "100%",
   },
   errorText: {
     width: "80%",
@@ -166,7 +191,7 @@ const styles = StyleSheet.create({
   },
   inputsContainer: {
     borderRadius: 10,
-    paddingTop: 40,
+    paddingTop: 0,
     paddingBottom: 20,
     alignItems: "center",
     width: "90%",
@@ -181,15 +206,16 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: "rgba(36, 51, 76, 0.85)",
+    color: "#24334c",
     paddingBottom: 10,
   },
   input: {
-    width: "70%",
+    width: "80%",
     height: 40,
     borderWidth: 2,
     borderColor: "#D6D6D6",
     borderRadius: 10,
+    marginTop: "auto",
     marginBottom: 20,
     textAlign: 'center',
     backgroundColor: '#FFFFFF'
@@ -199,6 +225,49 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
     width: "80%",
-    backgroundColor: "rgba(89, 61, 218, 0.85)",
+    backgroundColor: "#7159df",
+  },
+  button: {
+    paddingVertical: 15,
+    borderRadius: 10,
+    marginTop: "auto",
+    marginBottom: 15,
+    width: "90%",
+
+    backgroundColor: "#7159df",
+  },
+  buttonContainer: {
+    width: "100%",
+    flexDirection: "row",
+    marginBottom: 30,
+    alignItems: "center"
+  },
+  buttonRetour: {
+    width: 42,
+    height: 42,
+    backgroundColor: "#f3f3f3",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    marginLeft:20,
+  },
+  titrePage: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    width: "70%",
+    color: "#24334c",
+  },
+  description: {
+    marginLeft: 20,
+    marginRight:20,
+    textAlign: 'center',
+    fontSize: 14,
+    color: "#24334c"
+  },
+  image: {
+    width: 210,
+    height: 210,
+    marginBottom: 10,
   },
 });
