@@ -4,7 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import InputSpinner from "react-native-input-spinner";
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
-import Svg, { G, Path, Rect,Circle, Polyline, Line } from 'react-native-svg';
+
+import ArrowLeftIcon from '../Components/Icons/arrowLeftIcon';
 
 function openDatabase() {
   if (Platform.OS === "web") {
@@ -38,10 +39,7 @@ export default function NouvellePartie({ navigation }) {
           navigation.goBack()
         }}
       >
-        <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <Polyline points="15 6 9 12 15 18" />
-        </Svg>
+        <ArrowLeftIcon />
       </TouchableOpacity>
       <Text style={styles.titrePage}>Nouvelle partie</Text>
     </View>

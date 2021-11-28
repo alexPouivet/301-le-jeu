@@ -3,7 +3,8 @@ import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity, ScrollView
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
-import Svg, { G, Path, Rect,Circle, Polyline, Line } from 'react-native-svg';
+
+import ArrowLeftIcon from '../Components/Icons/arrowLeftIcon';
 
 function openDatabase() {
   if (Platform.OS === "web") {
@@ -54,10 +55,7 @@ export default function CreerPartie({ route, navigation }) {
             navigation.goBack()
           }}
         >
-          <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <Polyline points="15 6 9 12 15 18" />
-          </Svg>
+          <ArrowLeftIcon />
         </TouchableOpacity>
         <Text style={styles.titrePage}>Nouvelle partie</Text>
       </View>
@@ -68,7 +66,7 @@ export default function CreerPartie({ route, navigation }) {
           source={
             require('../images/illustrations/progress.png')}
           />
-          <Text style={styles.description}>Nommer tous les joueurs participants à la partie en remplissant les champs ci-dessous et commencez la partie
+          <Text style={styles.description}>Nommez tous les joueurs participants à la partie en remplissant les champs ci-dessous et commencez la partie
           </Text>
           <View style={styles.inputsContainer}>
             <Text style={styles.errorText}>{errorText}</Text>
@@ -146,7 +144,7 @@ const create = function(participants, nb_participants, nb_palets) {
       );
       // création d'une partie dans la bdd
       tx.executeSql(
-        "INSERT INTO game (date, time, statut, nb_palets, nb_joueurs, nb_joueurs_restant, tour_game, liste_joueurs, tour_joueur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", ["10/09/2020", time, 'en cours', nb_palets, nb_participants, nb_participants, 1, liste_joueurs, 1],
+        "INSERT INTO game (date, time, statut, nb_palets, nb_joueurs, nb_joueurs_restant, tour_game, liste_joueurs, tour_joueur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [date, time, 'en cours', nb_palets, nb_participants, nb_participants, 1, liste_joueurs, 1],
         function(tx, res) {
           // création des joueurs dans la bdd
           for(let i = 0; i < nb_participants; i++ ){

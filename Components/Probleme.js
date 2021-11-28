@@ -5,6 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
 import Svg, { G, Path, Rect,Circle, Polyline, Line } from 'react-native-svg';
 
+import ArrowLeftIcon from '../Components/Icons/arrowLeftIcon';
+import HelpIcon from '../Components/Icons/helpIcon';
+
 // Page Détails d'une partie
 export default function Probleme({ navigation, route }) {
 
@@ -19,20 +22,12 @@ export default function Probleme({ navigation, route }) {
             navigation.goBack()
           }}
         >
-          <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <Polyline points="15 6 9 12 15 18" />
-          </Svg>
+          <ArrowLeftIcon />
         </TouchableOpacity>
         <Text style={styles.titrePage}>Paramètres</Text>
       </View>
       <View style={styles.subTitrePage}>
-        <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-help" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#24334c" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <Circle cx="12" cy="12" r="9" />
-          <Line x1="12" y1="17" x2="12" y2="17.01" />
-          <Path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" />
-        </Svg>
+        <HelpIcon />
         <Text style={styles.description}>Un problème ?</Text>
       </View>
 

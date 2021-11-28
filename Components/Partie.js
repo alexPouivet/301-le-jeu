@@ -6,6 +6,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
 import Svg, { G, Path, Rect, Polyline, Line, Text as TextSvg, TSpan, Circle } from 'react-native-svg';
 
+import ArrowLeftIcon from '../Components/Icons/arrowLeftIcon';
+import PodiumIcon from '../Components/Icons/podiumIcon';
+import TwentyPtsIcon from '../Components/Icons/20ptsIcon';
+import TenPtsIcon from '../Components/Icons/10ptsIcon';
+import EightPtsIcon from '../Components/Icons/8ptsIcon';
+import SixPtsIcon from '../Components/Icons/6ptsIcon';
+import FourPtsIcon from '../Components/Icons/4ptsIcon';
+import TwoPtsIcon from '../Components/Icons/2ptsIcon';
+import OnePtIcon from '../Components/Icons/1ptIcon';
+
 function openDatabase() {
   if (Platform.OS === "web") {
     return {
@@ -91,10 +101,7 @@ export default function Partie({ navigation, route }) {
             navigation.navigate('Accueil')
           }}
         >
-          <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <Polyline points="15 6 9 12 15 18" />
-          </Svg>
+          <ArrowLeftIcon />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonClassement}
@@ -103,13 +110,7 @@ export default function Partie({ navigation, route }) {
               game_id: game_id
             })
         }}>
-          <Svg xmlns="http://www.w3.org/2000/svg" width="18.907" height="17.681" viewBox="0 0 18.907 17.681">
-            <G id="podium-outline" transform="translate(-1.375 -2.5)">
-              <Path id="Tracé_5" data-name="Tracé 5" d="M2.863,9.25h4.29A1.489,1.489,0,0,1,8.64,10.738V22.38a.875.875,0,0,1-.875.875H2.557a1.183,1.183,0,0,1-1.182-1.182V10.738A1.489,1.489,0,0,1,2.863,9.25ZM6.89,11H3.125V21.5H6.89Z" transform="translate(0 -3.074)" fill="#24334c"/>
-              <Path id="Tracé_6" data-name="Tracé 6" d="M12.988,2.5h4.9a1.489,1.489,0,0,1,1.488,1.488V19.306a.875.875,0,0,1-.875.875H12.375a.875.875,0,0,1-.875-.875V3.988A1.489,1.489,0,0,1,12.988,2.5Zm4.639,1.75H13.25V18.431h4.377Z" transform="translate(-4.611 0)" fill="#24334c"/>
-              <Path id="Tracé_7" data-name="Tracé 7" d="M24.238,13.75h4.289a1.49,1.49,0,0,1,1.488,1.488v8.884A1.183,1.183,0,0,1,28.833,25.3H23.625a.875.875,0,0,1-.875-.875V15.238A1.489,1.489,0,0,1,24.238,13.75Zm4.027,1.75H24.5v8.054h3.765Z" transform="translate(-9.733 -5.123)" fill="#24334c"/>
-            </G>
-          </Svg>
+          <PodiumIcon />
           <Text style={styles.textClassement}>Classement actuel</Text>
         </TouchableOpacity>
       </View>
@@ -136,12 +137,7 @@ export default function Partie({ navigation, route }) {
           </View>
           <View style={styles.inputsContainer}>
             <View style={styles.inputContainer}>
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
-                  <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-                  <TextSvg transform="translate(49 224)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <TwentyPtsIcon />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
@@ -158,20 +154,10 @@ export default function Partie({ navigation, route }) {
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 20 ? true : false}
               />
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
-                  <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-                  <TextSvg transform="translate(49 224)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">20</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <TwentyPtsIcon />
             </View>
             <View style={styles.inputContainer}>
-            <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-              <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
-                <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-                <TextSvg transform="translate(49 224)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-              </G>
-            </Svg>
+              <TenPtsIcon />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
@@ -188,20 +174,10 @@ export default function Partie({ navigation, route }) {
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 10 ? true : false}
               />
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_65" data-name="Groupe 65" transform="translate(-23 -203)">
-                  <Rect id="Rectangle_18" data-name="Rectangle 18" width="52" height="52" rx="10" transform="translate(23 203)" fill="#fff"/>
-                  <TextSvg transform="translate(49 224)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-10.354" y="0">10</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <TenPtsIcon />
             </View>
             <View style={styles.inputContainer}>
-            <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-              <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-                <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-              </G>
-            </Svg>
+              <EightPtsIcon />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
@@ -216,20 +192,10 @@ export default function Partie({ navigation, route }) {
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 8 ? true : false}
               />
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">8</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <EightPtsIcon />
             </View>
             <View style={styles.inputContainer}>
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <SixPtsIcon />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
@@ -244,20 +210,10 @@ export default function Partie({ navigation, route }) {
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 6 ? true : false}
               />
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">6</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <SixPtsIcon />
             </View>
             <View style={styles.inputContainer}>
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <FourPtsIcon />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
@@ -272,20 +228,10 @@ export default function Partie({ navigation, route }) {
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 4 ? true : false}
               />
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">4</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <FourPtsIcon />
             </View>
             <View style={styles.inputContainer}>
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <TwoPtsIcon />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
@@ -300,20 +246,10 @@ export default function Partie({ navigation, route }) {
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 2 ? true : false}
               />
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_67" data-name="Groupe 67" transform="translate(-23 -363)">
-                  <Rect id="Rectangle_20" data-name="Rectangle 20" width="52" height="52" rx="10" transform="translate(23 363)" fill="#fff"/>
-                  <TextSvg id="_8_pts" data-name="8pts" transform="translate(49 384)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">2</TSpan><TSpan x="-13.043" y="24">pts</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <TwoPtsIcon />
             </View>
             <View style={styles.inputContainer}>
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_72" data-name="Groupe 72" transform="translate(-23 -682)">
-                  <Rect id="Rectangle_24" data-name="Rectangle 24" width="52" height="52" rx="10" transform="translate(23 682)" fill="#fff"/>
-                  <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <OnePtIcon />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
@@ -328,12 +264,7 @@ export default function Partie({ navigation, route }) {
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 1 ? true : false}
               />
-              <Svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 52 52">
-                <G id="Groupe_72" data-name="Groupe 72" transform="translate(-23 -682)">
-                  <Rect id="Rectangle_24" data-name="Rectangle 24" width="52" height="52" rx="10" transform="translate(23 682)" fill="#fff"/>
-                  <TextSvg id="_1_pt" data-name="1pt" transform="translate(49 703)" fill="#24334c" fontSize="18" fontWeight="bold"><TSpan x="-5.177" y="0">1</TSpan><TSpan x="-9.083" y="24">pt</TSpan></TextSvg>
-                </G>
-              </Svg>
+              <OnePtIcon />
             </View>
           </View>
           {joueur.position_joueur_en_cours < game.nb_joueurs_restant ?

@@ -5,6 +5,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as SQLite from 'expo-sqlite';
 import Svg, { G, Path, Rect, Circle, Text as TextSvg, TSpan, Polyline, Line }  from 'react-native-svg';
 
+import ArrowLeftIcon from '../Components/Icons/arrowLeftIcon';
+import DeleteIcon from '../Components/Icons/deleteIcon';
+import TrophyIcon from '../Components/Icons/trophyIcon';
+import CalendarIcon from '../Components/Icons/calendarIcon';
+import ClockIcon from '../Components/Icons/clockIcon';
+import LogoIconBlue from '../Components/Icons/logoIconBlueBackground'
+import LogoIconPurple from '../Components/Icons/logoIconPurpleBackground'
+
 function openDatabase() {
   if (Platform.OS === "web") {
     return {
@@ -51,10 +59,7 @@ export default function DetailsPartie({ navigation, route }) {
             navigation.goBack()
           }}
         >
-          <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2.5" stroke="#24334C" fill="none" stroke-linecap="round" stroke-linejoin="round">
-            <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <Polyline points="15 6 9 12 15 18" />
-          </Svg>
+          <ArrowLeftIcon />
         </TouchableOpacity>
         <Text style={styles.titrePage}>Détail partie</Text>
         <TouchableOpacity
@@ -65,9 +70,7 @@ export default function DetailsPartie({ navigation, route }) {
             })
           }}
         >
-          <Svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" viewBox="0 0 21 27">
-            <Path id="Icon_material-delete" data-name="Icon material-delete" d="M9,28.5a3.009,3.009,0,0,0,3,3H24a3.009,3.009,0,0,0,3-3v-18H9ZM28.5,6H23.25l-1.5-1.5h-7.5L12.75,6H7.5V9h21Z" transform="translate(-7.5 -4.5)" fill="#24334C"/>
-          </Svg>
+          <DeleteIcon />
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.scrollview}>
@@ -88,26 +91,15 @@ export default function DetailsPartie({ navigation, route }) {
           }
           <View style={[styles.containerStatutPartie, game.gagnant_game == null ? styles.containerStatutPartieEnCours : styles.containerStatutGagnant ]
           }>
-            <Svg xmlns="http://www.w3.org/2000/svg" width="129" height="129" viewBox="0 0 93.126 93.126" style={{ position: "absolute", opacity: 0.4, bottom: -50, right: -40}}
-            >
-              <G id="Groupe_112" data-name="Groupe 112" transform="translate(-79 -79.436)">
-                <Path id="Tracé_8" data-name="Tracé 8" d="M46.563,0A46.563,46.563,0,1,1,0,46.563,46.563,46.563,0,0,1,46.563,0Z" transform="translate(79 79.436)" fill="rgba(89,61,218,0.50)"/>
-                <Path id="Ellipse_3" data-name="Ellipse 3" d="M37.711,3A34.721,34.721,0,0,0,24.2,69.7,34.721,34.721,0,0,0,51.221,5.727,34.491,34.491,0,0,0,37.711,3m0-3A37.711,37.711,0,1,1,0,37.711,37.711,37.711,0,0,1,37.711,0Z" transform="translate(87.642 88.078)" fill="#fff"/>
-                <Path id="Ellipse_4" data-name="Ellipse 4" d="M31.818,3A28.827,28.827,0,0,0,20.6,58.373,28.827,28.827,0,0,0,43.035,5.263,28.635,28.635,0,0,0,31.818,3m0-3A31.818,31.818,0,1,1,0,31.818,31.818,31.818,0,0,1,31.818,0Z" transform="translate(93.927 94.363)" fill="#fff"/>
-                <TextSvg id="_301" data-name="301" transform="translate(125.563 136.289)" fill="#fff" fontSize="25" fontWeight="bold"><TSpan x="-20" y="-1">301</TSpan></TextSvg>
-              </G>
-            </Svg>
+            {game.gagnant_game == null
+              ?
+                <LogoIconBlue position="bottom-right"/>
+              :
+                <LogoIconPurple position="bottom-right"/>
+            }
+
             <View style={{alignItems: "center"}}>
-              <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trophy" width="44" height="44" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round"
-              >
-                <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <Line x1="8" y1="21" x2="16" y2="21" />
-                <Line x1="12" y1="17" x2="12" y2="21" />
-                <Line x1="7" y1="4" x2="17" y2="4" />
-                <Path d="M17 4v8a5 5 0 0 1 -10 0v-8" />
-                <Circle cx="5" cy="9" r="2" />
-                <Circle cx="19" cy="9" r="2" />
-              </Svg>
+              <TrophyIcon size="big"/>
               {game.gagnant_game == null
                 ?
                   <Text style={styles.textStatutPartie}>Partie en cours</Text>
@@ -118,23 +110,11 @@ export default function DetailsPartie({ navigation, route }) {
           </View>
           <View style={styles.containerDateAndTime}>
             <View style={styles.containerDate}>
-              <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#24334c" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <Rect x="4" y="5" width="16" height="16" rx="2" />
-                <Line x1="16" y1="3" x2="16" y2="7" />
-                <Line x1="8" y1="3" x2="8" y2="7" />
-                <Line x1="4" y1="11" x2="20" y2="11" />
-                <Line x1="11" y1="15" x2="12" y2="15" />
-                <Line x1="12" y1="15" x2="12" y2="18" />
-              </Svg>
+              <CalendarIcon color="black"/>
               <Text style={styles.partieDate}>{game.date}</Text>
             </View>
             <View style={styles.containerTime}>
-              <Svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#24334c" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <Path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <Circle cx="12" cy="12" r="9" />
-                <Polyline points="12 7 12 12 15 15" />
-              </Svg>
+              <ClockIcon color="black"/>
               <Text style={styles.partieDate}>{game.time}</Text>
             </View>
           </View>

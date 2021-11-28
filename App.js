@@ -24,6 +24,11 @@ import PriseEnMain from './Components/PriseEnMain'
 import Partager from './Components/Partager'
 import Probleme from './Components/Probleme'
 
+import SettingsIcon from './Components/Icons/settingsIcon'
+import PlusIcon from './Components/Icons/plusIcon'
+import LogoIcon from './Components/Icons/logoIcon'
+import LogoIconPurpleBackground from './Components/Icons/logoIconPurpleBackground'
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -112,27 +117,6 @@ export default function App() {
   );
 }
 
-// function App() {
-//   return (
-//     <SafeAreaProvider style={{marginTop: StatusBar.currentHeight, flex: 1}}>
-//       <NavigationContainer>
-//         <Stack.Navigator screenOptions={{headerShown: false}}>
-//           <Stack.Screen name="Accueil" component={Accueil} />
-//           <Stack.Screen name="Nouvelle partie" component={NouvellePartie} />
-//           <Stack.Screen name="Creer partie" component={CreerPartie} />
-//           <Stack.Screen name="Partie" component={Partie} />
-//           <Stack.Screen name="Gagnant Partie" component={GagnantPartie} />
-//           <Stack.Screen name="Classement" component={Classement} />
-//           <Stack.Screen name="Reprendre une partie" component={ReprendrePartie} />
-//           <Stack.Screen name="Historique des parties" component={HistoriquePartie} />
-//           <Stack.Screen name="Details" component={DetailsPartie} />
-//           <Stack.Screen name="Fin de Tour" component={FinDeTour} />
-//         </Stack.Navigator>
-//       </NavigationContainer>
-//     </SafeAreaProvider>
-//   );
-// }
-
 // Page d'accueil
 function Accueil({ navigation }) {
   return (
@@ -144,40 +128,20 @@ function Accueil({ navigation }) {
             navigation.navigate("Parametres")
           }}
         >
-          <Svg id="settings" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40.4 40.4">
-            <Path id="Tracé_19" data-name="Tracé 19" d="M0,0H40.4V40.4H0Z" fill="none"/>
-            <Path id="Tracé_20" data-name="Tracé 20" d="M15.33,5.217a2.9,2.9,0,0,1,5.639,0A2.9,2.9,0,0,0,25.3,7.011,2.9,2.9,0,0,1,29.29,11a2.9,2.9,0,0,0,1.793,4.33,2.9,2.9,0,0,1,0,5.639A2.9,2.9,0,0,0,29.289,25.3a2.9,2.9,0,0,1-3.99,3.99,2.9,2.9,0,0,0-4.33,1.793,2.9,2.9,0,0,1-5.639,0A2.9,2.9,0,0,0,11,29.289,2.9,2.9,0,0,1,7.01,25.3a2.9,2.9,0,0,0-1.793-4.33,2.9,2.9,0,0,1,0-5.639A2.9,2.9,0,0,0,7.011,11,2.9,2.9,0,0,1,11,7.01a2.9,2.9,0,0,0,4.33-1.793Z" transform="translate(2.05 2.05)" fill="none" stroke="#24334c" stroke-linecap="round" stroke-linejoin="round" strokeWidth="2.5"/>
-            <Circle id="Ellipse_3" data-name="Ellipse 3" cx="5" cy="5" r="5" transform="translate(15 15)" fill="none" stroke="#24334c" stroke-linecap="round" stroke-linejoin="round" strokeWidth="2.5"/>
-          </Svg>
+          <SettingsIcon />
         </TouchableOpacity>
       </View>
       <View style={styles.logoContainer}>
         <Text style={[styles.textPurple, styles.textLogo]}>Jeu du</Text>
-        <Svg xmlns="http://www.w3.org/2000/svg" width="93.126" height="93.126" viewBox="0 0 93.126 93.126">
-          <G id="Groupe_112" data-name="Groupe 112" transform="translate(-79 -79.436)">
-            <Path id="Tracé_8" data-name="Tracé 8" d="M46.563,0A46.563,46.563,0,1,1,0,46.563,46.563,46.563,0,0,1,46.563,0Z" transform="translate(79 79.436)" fill="rgba(89,61,218,0.85)"/>
-            <Path id="Ellipse_3" data-name="Ellipse 3" d="M37.711,3A34.721,34.721,0,0,0,24.2,69.7,34.721,34.721,0,0,0,51.221,5.727,34.491,34.491,0,0,0,37.711,3m0-3A37.711,37.711,0,1,1,0,37.711,37.711,37.711,0,0,1,37.711,0Z" transform="translate(87.642 88.078)" fill="#fff"/>
-            <Path id="Ellipse_4" data-name="Ellipse 4" d="M31.818,3A28.827,28.827,0,0,0,20.6,58.373,28.827,28.827,0,0,0,43.035,5.263,28.635,28.635,0,0,0,31.818,3m0-3A31.818,31.818,0,1,1,0,31.818,31.818,31.818,0,0,1,31.818,0Z" transform="translate(93.927 94.363)" fill="#fff"/>
-            <TextSvg id="_301" data-name="301" transform="translate(125.563 136.289)" fill="#fff" fontSize="25" fontWeight="bold"><TSpan x="-20" y="-1">301</TSpan></TextSvg>
-          </G>
-        </Svg>
+        <LogoIcon />
       </View>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
           onPress={() => navigation.navigate('Nouvelle partie')}
           style={[styles.buttons, styles.buttonViolet]}
         >
-          <Svg xmlns="http://www.w3.org/2000/svg" width="129" height="129" viewBox="0 0 93.126 93.126" style={{ position: "absolute", opacity: 0.4, top: -30, left: -40}}>
-            <G id="Groupe_112" data-name="Groupe 112" transform="translate(-79 -79.436)">
-              <Path id="Tracé_8" data-name="Tracé 8" d="M46.563,0A46.563,46.563,0,1,1,0,46.563,46.563,46.563,0,0,1,46.563,0Z" transform="translate(79 79.436)" fill="rgba(89,61,218,0.85)"/>
-              <Path id="Ellipse_3" data-name="Ellipse 3" d="M37.711,3A34.721,34.721,0,0,0,24.2,69.7,34.721,34.721,0,0,0,51.221,5.727,34.491,34.491,0,0,0,37.711,3m0-3A37.711,37.711,0,1,1,0,37.711,37.711,37.711,0,0,1,37.711,0Z" transform="translate(87.642 88.078)" fill="#fff"/>
-              <Path id="Ellipse_4" data-name="Ellipse 4" d="M31.818,3A28.827,28.827,0,0,0,20.6,58.373,28.827,28.827,0,0,0,43.035,5.263,28.635,28.635,0,0,0,31.818,3m0-3A31.818,31.818,0,1,1,0,31.818,31.818,31.818,0,0,1,31.818,0Z" transform="translate(93.927 94.363)" fill="#fff"/>
-              <TextSvg id="_301" data-name="301" transform="translate(125.563 136.289)" fill="#fff" fontSize="25" fontWeight="bold"><TSpan x="-20" y="-1">301</TSpan></TextSvg>
-            </G>
-          </Svg>
-          <Svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37">
-            <Path id="Exclusion_1" data-name="Exclusion 1" d="M27,37H10A10.011,10.011,0,0,1,0,27V10A10.011,10.011,0,0,1,10,0H27A10.011,10.011,0,0,1,37,10V27A10.011,10.011,0,0,1,27,37ZM8.834,19.606h9.158v9.207a.832.832,0,0,0,1.665,0V19.655h9.158a.832.832,0,0,0,0-1.665H19.656V8.833a.832.832,0,1,0-1.665,0V17.99H8.834A.834.834,0,0,0,8,18.823a.759.759,0,0,0,.758.787C8.783,19.609,8.809,19.608,8.834,19.606Z" fill="#fff"/>
-          </Svg>
+          <LogoIconPurpleBackground position="top-left"/>
+          <PlusIcon />
           <Text style={[styles.text, styles.textWhite]}>Commencer une nouvelle partie</Text>
         </TouchableOpacity>
       </View>
