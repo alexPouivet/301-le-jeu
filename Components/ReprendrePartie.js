@@ -62,6 +62,14 @@ export default function ReprendrePartie({ navigation }) {
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
           <Text style={styles.titrePage}>Reprendre une partie</Text>
+          <TouchableOpacity
+            style={styles.buttonSupprimer}
+            onPress={() => {
+              onRefresh();
+            }}
+          >
+            <RefreshIcon />
+          </TouchableOpacity>
         </View>
         <Text>Pas de partie en cours disponible</Text>
         <Image

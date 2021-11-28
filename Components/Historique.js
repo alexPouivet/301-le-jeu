@@ -67,6 +67,14 @@ export default function HistoriquePartie({ navigation }) {
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
           <Text style={styles.titrePage}>Historique des parties jouées</Text>
+          <TouchableOpacity
+            style={styles.buttonSupprimer}
+            onPress={() => {
+              onRefresh();
+            }}
+          >
+            <RefreshIcon />
+          </TouchableOpacity>
         </View>
         <Text>Pas de partie encore créée</Text>
         <Image

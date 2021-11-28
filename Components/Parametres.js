@@ -55,7 +55,7 @@ export default function Parametres({ navigation, route }) {
             <Text  style={styles.textButtonParametres}>Un problème ?</Text>
             <ArrowRightIcon />
           </TouchableOpacity>
-          <Text style={styles.versionApp}>V.2.0.3 par Alexandre Pouivet</Text>
+          <Text style={styles.versionApp}>V.2.0.4 par Alexandre Pouivet</Text>
         </View>
       </View>
     </View>
