@@ -2,11 +2,11 @@
   "expo": {
     "name": "Jeu du 301",
     "slug": "jeuDu301",
-    "version": "2.0.4",
+    "version": "2.1.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/logo/logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#7159df"
     },
@@ -17,18 +17,20 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.alexpouivet.jeudu301",
+      "buildNumber": "9.0.0"
     },
     "android": {
-      "versionCode": 6,
+      "versionCode": 9,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
+        "foregroundImage": "./assets/logo/logo.png",
         "backgroundColor": "#7159df"
       },
       "package": "com.alexpouivet.jeudu301"
     },
     "web": {
-      "favicon": "./assets/logo.png"
+      "favicon": "./assets/logo/logo.png"
     }
   }
 }
