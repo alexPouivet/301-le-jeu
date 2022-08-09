@@ -114,7 +114,7 @@ const CustomTabBarButton = ({children, onPress}) => (
 		style={{
 			top: -30,
 			justifyContent: 'center',
-			alignItems: 'left',
+			alignItems: 'center',
 		}}
 	>
 		<View style={{

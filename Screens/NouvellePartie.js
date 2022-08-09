@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions, View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, ScrollView, Platform, TouchableOpacity, Image } from 'react-native';
 import InputSpinner from "react-native-input-spinner";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Curve from '../assets/curves/curve';
@@ -94,11 +94,12 @@ export default function NouvellePartie({ navigation }) {
 }
 
 const width = Dimensions.get("screen").width;
+const height = Dimensions.get("screen").height;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
     height: "100%",
+    backgroundColor: "#fff"
   },
   buttonContainer: {
     width: "100%",
@@ -136,11 +137,13 @@ const styles = StyleSheet.create({
     marginTop: "auto",
     marginBottom: 24,
     marginRight: 16,
-    textAlign: "center"
+    textAlign: "center",
   },
   inputsContainer: {
     backgroundColor: "#7159df",
+    minHeight: Platform.OS === "android" ? (height/2 - 16) : "100%",
     height: "100%",
+    width: "100%",
     alignItems: "center",
     paddingTop: 32,
   },

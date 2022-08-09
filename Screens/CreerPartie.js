@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions, View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Dimensions, View, Text, TextInput, StyleSheet, Platform, TouchableOpacity, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import CurveGrey from '../assets/curves/curveGrey';
@@ -152,6 +152,7 @@ const create = function(participants, nb_participants, nb_palets) {
 }
 
 const width = Dimensions.get("screen").width;
+const height = Dimensions.get("screen").height;
 
 const styles = StyleSheet.create({
   container: {
@@ -184,9 +185,6 @@ const styles = StyleSheet.create({
   scrollview: {
 
   },
-  scrollContainer: {
-    marginBottom: 64
-  },
   image: {
     width: 210,
     height: 210,
@@ -209,9 +207,11 @@ const styles = StyleSheet.create({
     color: "#FF4B3E"
   },
   inputsContainer: {
+    minHeight: Platform.OS === "android" ? (height/2 - 80) : "100%",
     height: "100%",
     alignItems: "center",
     paddingTop: 16,
+    marginBottom: 64,
     backgroundColor: "#F3F3F3",
   },
   inputContainer: {

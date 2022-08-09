@@ -215,6 +215,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#fff",
     marginBottom: 8,
+    elevation: 5,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

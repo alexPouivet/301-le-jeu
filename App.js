@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, Platform, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -17,7 +17,7 @@ import FinDeTour from './Screens/FinDeTour'
 
 export default function App() {
   return (
-    <SafeAreaView style={{ flex: 1}}>
+    <SafeAreaView style={{ flex: 1, paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0 }}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}} >
           <Stack.Screen name="Home" component={Tabs} />

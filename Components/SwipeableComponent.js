@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
   partie: {
     paddingVertical: 12,
     paddingHorizontal: 12,
-
     width: "100%",
     flexDirection: "row",
   },

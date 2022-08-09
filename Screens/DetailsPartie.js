@@ -163,9 +163,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight:16,
   },
-  scrollview: {
-    paddingTop: 16,
-  },
   containerJoueurs: {
     backgroundColor: "#ffffff",
     borderBottomColor: "#d6d6d6",
