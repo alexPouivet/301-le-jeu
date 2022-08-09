@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, Share } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 // Page Détails d'une partie
 export default function Partager({ navigation, route }) {
@@ -52,7 +52,7 @@ export default function Partager({ navigation, route }) {
       </View>
       <TouchableOpacity style={styles.buttonPartager} onPress={shareLink} title="Partager l'application">
           <Ionicons name='ios-share-social-outline' size={20} color="#fff" style={{marginLeft: "auto"}}/>
-          <Text style={{marginLeft: 10, marginRight: "auto", textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "500" }}>Partager l'application</Text> 
+          <Text style={{marginLeft: 10, marginRight: "auto", textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "500" }}>Partager l'application</Text>
       </TouchableOpacity>
     </View>
   );

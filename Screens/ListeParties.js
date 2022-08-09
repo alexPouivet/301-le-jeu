@@ -1,8 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import ModalDropdown from 'react-native-modal-dropdown';
-import Swipeable from 'react-native-swipeable';
 import SwipeableComponent from '../Components/SwipeableComponent';
 
 import openDatabase from '../Components/OpenDatabase';

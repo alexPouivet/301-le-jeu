@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dimensions, View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import CurveGrey from '../assets/curves/curveGrey';
 

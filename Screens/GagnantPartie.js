@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Dimensions, View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import InfosPartieComponent from '../Components/InfosPartieComponent';
 import ItemJoueurComponent from '../Components/ItemJoueurComponent';
 import PodiumJoueurComponent from '../Components/PodiumJoueurComponent';

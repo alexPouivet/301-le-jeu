@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 // Page Détails d'une partie
 export default function Probleme({ navigation, route }) {

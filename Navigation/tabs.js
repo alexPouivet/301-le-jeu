@@ -1,7 +1,8 @@
+import React from 'react';
 import { View, TouchableOpacity} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import Parametres from '../Screens/Parametres'
 import ListeParties from '../Screens/ListeParties'

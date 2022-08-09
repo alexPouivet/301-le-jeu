@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import Swipeable from 'react-native-swipeable';
-
 class SwipeableComponent extends React.Component {
 
   swipeable = null;

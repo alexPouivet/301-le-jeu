@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Alert, Dimensions, View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import InfosPartieComponent from '../Components/InfosPartieComponent';
 import ItemJoueurComponent from '../Components/ItemJoueurComponent';
 import PodiumJoueurComponent from '../Components/PodiumJoueurComponent';
@@ -80,7 +80,7 @@ export default function DetailsPartie({ navigation, route }) {
 }
 
 const showConfirmDialog = (game_id, navigation) => {
-  
+
   return Alert.alert(
     "Supprimer la partie ?",
     "Etes vous sûr de vouloir supprimer la partie ? Cette action est définitive et toutes les données seront perdues.",

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Alert, View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import DeleteAllPartiesComponent from '../Components/DeleteAllPartiesComponent';
 import UpdateAllPartiesComponent from '../Components/UpdateAllPartiesComponent';
 

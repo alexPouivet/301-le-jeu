@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Dimensions, View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import InputSpinner from "react-native-input-spinner";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import openDatabase from '../Components/OpenDatabase';
 const db = openDatabase();
