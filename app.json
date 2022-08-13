@@ -23,7 +23,7 @@
     "android": {
       "versionCode": 9,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo/icon.png",
+        "foregroundImage": "./assets/logo/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.alexpouivet.jeudu301"
