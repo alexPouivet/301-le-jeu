@@ -4,7 +4,7 @@
     "slug": "jeuDu301",
     "version": "2.1.0",
     "orientation": "portrait",
-    "icon": "./assets/logo/favicon.png",
+    "icon": "./assets/logo/icon.png",
     "splash": {
       "image": "./assets/logo/splash-icon.png",
       "backgroundColor": "#ffffff"
