@@ -85,6 +85,7 @@ export default function Partie({ navigation, route }) {
         >
           <Ionicons name='ios-chevron-back-outline' size={28} color="#252422"/>
         </TouchableOpacity>
+        <Text style={styles.title}>Tour n°{game.tour_game}</Text>
         <TouchableOpacity
           style={styles.buttonClassement}
           onPress={() => {
@@ -110,9 +111,7 @@ export default function Partie({ navigation, route }) {
                   <Text style={{fontSize: 12, color: "#fff", fontWeight: "500"}}>restant</Text>
                 </View>
               </View>
-              <View style={{width: 2, height: "80%", backgroundColor: "#fff", marginLeft: 12, marginRight: 12}}></View>
-              <Text style={styles.textInfosTour}>Tour {game.tour_game}</Text>
-              <View style={{width: 2, height: "80%", backgroundColor: "#fff", marginLeft: 12, marginRight: 12}}></View>
+              <View style={{width: 2, height: "80%", backgroundColor: "#fff", marginLeft: 16, marginRight: 16}}></View>
               <View>
                 <Text style={styles.textInfosTour}>{joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)} points</Text>
                 <Text style={{fontSize: 12, color: "#fff", fontWeight: "500"}}>restant</Text>
@@ -388,6 +387,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 16,
     marginTop: 16,
+    alignItems: 'center',
   },
   buttonRetour: {
     width: 42,
@@ -406,8 +406,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     paddingLeft: 2,
-    marginLeft: "auto",
     marginRight: 16
+  },
+  title: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#252422",
   },
   infosTour: {
     backgroundColor: "#7159df",
@@ -440,7 +446,7 @@ const styles = StyleSheet.create({
     marginTop: "auto",
   },
   textInfosTour: {
-    fontSize: 18,
+    fontSize: 20,
     color: '#FFFFFF',
     fontWeight: "bold"
   },

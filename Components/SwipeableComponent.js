@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   partieInfosContainer: {
     height: 64,
     width: 64,
-    borderRadius: 16,
+    borderRadius: 20,
     justifyContent: "center",
     alignItems: "center"
   },

@@ -25,9 +25,11 @@ const showConfirmDialog = () => {
     [
       {
         text: "Annuler",
+				style: "cancel",
       },
       {
         text: "Supprimer",
+				style: "destructive",
         onPress: () => {
           deleteGames().then(function() {
             showConfirmDeleteDialog();

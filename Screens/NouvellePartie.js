@@ -3,6 +3,7 @@ import { Dimensions, View, Text, StyleSheet, ScrollView, Platform, TouchableOpac
 import InputSpinner from "react-native-input-spinner";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Curve from '../assets/curves/curve';
+import Lottie from 'lottie-react-native';
 
 import openDatabase from '../Components/OpenDatabase';
 const db = openDatabase();
@@ -29,11 +30,7 @@ export default function NouvellePartie({ navigation }) {
       <ScrollView style={styles.scrollview}>
         <View style={styles.scrollContainer}>
           <View style={{height: 300}}>
-            <Image
-              style={styles.image}
-              source={
-                require('../assets/images/start.png')}
-            />
+            <Lottie style={styles.image} source={require('../assets/animations/floating-palet.json')} autoPlay loop />
             <Text style={styles.description}>Commencez une nouvelle partie en indiquant le nombre de joueurs et de palets par joueurs</Text>
           </View>
           <Curve />

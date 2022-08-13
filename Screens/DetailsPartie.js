@@ -87,9 +87,11 @@ const showConfirmDialog = (game_id, navigation) => {
     [
       {
         text: "Annuler",
+        style: "cancel",
       },
       {
         text: "Supprimer",
+        style: "destructive",
         onPress: () => {
           deletePartie(game_id).then(function() {
             showConfirmDeleteDialog(navigation);

@@ -3,6 +3,7 @@ import { Dimensions, View, Text, TextInput, StyleSheet, Platform, TouchableOpaci
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import CurveGrey from '../assets/curves/curveGrey';
+import Lottie from 'lottie-react-native';
 
 import openDatabase from '../Components/OpenDatabase';
 const db = openDatabase();
@@ -46,11 +47,7 @@ export default function CreerPartie({ route, navigation }) {
       <KeyboardAwareScrollView style={styles.scrollview}>
         <View style={styles.scrollContainer}>
           <View style={{height: 300}}>
-            <Image
-            style={styles.image}
-            source={
-              require('../assets/images/progress.png')}
-            />
+            <Lottie style={styles.image} source={require('../assets/animations/floating-palet.json')} autoPlay loop />
             <Text style={styles.description}>Nommez tous les joueurs participants à la partie en remplissant les champs ci-dessous et commencez la partie !
             </Text>
           </View>

@@ -4,11 +4,10 @@
     "slug": "jeuDu301",
     "version": "2.1.0",
     "orientation": "portrait",
-    "icon": "./assets/logo/logo.png",
+    "icon": "./assets/logo/favicon.png",
     "splash": {
-      "image": "./assets/logo/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#7159df"
+      "image": "./assets/logo/splash-icon.png",
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,13 +23,10 @@
     "android": {
       "versionCode": 9,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo/logo.png",
-        "backgroundColor": "#7159df"
+        "foregroundImage": "./assets/logo/icon.png",
+        "backgroundColor": "#ffffff"
       },
       "package": "com.alexpouivet.jeudu301"
     },
-    "web": {
-      "favicon": "./assets/logo/logo.png"
-    }
   }
 }
