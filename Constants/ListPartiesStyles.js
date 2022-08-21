@@ -29,7 +29,7 @@ export default StyleSheet.create({
   dropdownStyle: {
     width: "auto",
     height: "auto",
-    marginTop: 12,
+    marginTop: Platform.OS === "android" ? -16 : 12,
     marginRight: -9,
     borderRadius: 10,
     paddingVertical: 0,
