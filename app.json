@@ -2,7 +2,7 @@
   "expo": {
     "name": "Jeu du 301",
     "slug": "jeuDu301",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "orientation": "portrait",
     "icon": "./assets/logo/icon.png",
     "splash": {
@@ -18,10 +18,10 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.alexpouivet.jeudu301",
-      "buildNumber": "9.0.0"
+      "buildNumber": "9.1.1"
     },
     "android": {
-      "versionCode": 9,
+      "versionCode": 10,
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo/adaptive-icon.png",
         "backgroundColor": "#ffffff"
