@@ -3,9 +3,30 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import Swipeable from 'react-native-swipeable';
-class SwipeableComponent extends React.Component {
+import * as Font from 'expo-font';
+import ListPartiesStyles from '../Constants/ListPartiesStyles';
+
+let customFonts = {
+  'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+  'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+  'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+};
+
+export default class SwipeableComponent extends React.Component {
 
   swipeable = null;
+  state = {
+    fontsLoaded: false,
+  };
+
+  async _loadFontsAsync() {
+    await Font.loadAsync(customFonts);
+    this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    this._loadFontsAsync();
+  }
 
   render() {
 
@@ -13,13 +34,17 @@ class SwipeableComponent extends React.Component {
     let db = this.props.db;
     let setGames = this.props.setGames
 
+    if (!this.state.fontsLoaded) {
+      return null;
+    }
+
     return (
       <Swipeable
         onRef={ref => this.swipeable = ref}
         rightButtons={[
           <TouchableOpacity
 
-            style={{ justifyContent: "center", height: "100%", backgroundColor: "#FF4B3E", borderTopRightRadius: 16, borderBottomRightRadius: 16}}
+            style={ListPartiesStyles.buttonSupprimerSwipeable}
             onPress={() => {
               this.swipeable.recenter();
               deletePartie(this.props.game_id, db).then(function() {
@@ -27,18 +52,18 @@ class SwipeableComponent extends React.Component {
               })
             }}
           >
-            <Ionicons name='ios-trash-outline' size={24} color="#fff" style={{ marginRight: "auto", marginLeft: 20}}/>
+            <Ionicons name='ios-trash-outline' size={24} color="#fff" style={ListPartiesStyles.iconButtonSupprimerSwipeable}/>
           </TouchableOpacity>
         ]}
-        style={styles.swipeable}
+        style={ListPartiesStyles.swipeable}
         rightButtonWidth={64}
       >
-        <TouchableOpacity style={[styles.partie] }
+        <TouchableOpacity style={[ListPartiesStyles.partie] }
           onPress={() => this.props.navigation.navigate('Details', {
             game_id: this.props.game_id
           })}
         >
-          <View style={[styles.partieInfosContainer, this.props.statut == "finie" ? styles.partieFinie : styles.partieEnCours ]}>
+          <View style={[ListPartiesStyles.partieInfosContainer, this.props.statut == "finie" ? ListPartiesStyles.partieFinie : ListPartiesStyles.partieEnCours ]}>
           {
           this.props.statut ==  "finie"
           ?
@@ -48,16 +73,16 @@ class SwipeableComponent extends React.Component {
           }
 
           </View>
-          <View style={styles.infosContainer}>
-            <View style={styles.containerDateAndTime}>
-              <Text style={styles.libeleDateAndTime}>Le {this.props.date} à {this.props.time}</Text>
+          <View style={ListPartiesStyles.infosContainer}>
+            <View style={ListPartiesStyles.containerDateAndTime}>
+              <Text style={[ListPartiesStyles.libeleDateAndTime, { fontFamily: "Poppins-Medium" }]}>Le {this.props.date} à {this.props.time}</Text>
             </View>
-            <View style={styles.containerJoueurs}>
+            <View style={ListPartiesStyles.containerJoueurs}>
               <Ionicons name='ios-people' size={20} color="#252422"/>
-              <Text style={styles.libeleJoueurs} numberOfLines={1} ellipsizeMode='tail'> {this.props.liste_joueurs}</Text>
+              <Text style={[ListPartiesStyles.libeleJoueurs, {fontFamily: "Poppins-Regular"}]} numberOfLines={1} ellipsizeMode='tail'> {this.props.liste_joueurs}</Text>
             </View>
           </View>
-          <View style={styles.arrowContainer}>
+          <View style={ListPartiesStyles.arrowContainer}>
             <Ionicons name='ios-chevron-forward-outline' size={28} color="#252422"/>
           </View>
         </TouchableOpacity>
@@ -98,63 +123,3 @@ const onRefresh = function(statutFiltres, db, setGames) {
     });
   }
 };
-
-export default SwipeableComponent;
-
-const styles = StyleSheet.create({
-  swipeable: {
-    overflow: "hidden",
-    height: "auto",
-    borderRadius: 16,
-  },
-  partie: {
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    width: "100%",
-    flexDirection: "row",
-  },
-  partieInfosContainer: {
-    height: 64,
-    width: 64,
-    borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  partieFinie: {
-    backgroundColor: "#FEC601",
-  },
-  partieEnCours: {
-    backgroundColor: "#7159DF"
-  },
-  infosContainer: {
-    justifyContent: "space-evenly",
-    marginLeft: 12,
-    width: "60%"
-  },
-  containerDateAndTime: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10
-  },
-  libeleDateAndTime: {
-    color: "#252422",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  containerJoueurs: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%"
-  },
-  libeleJoueurs: {
-    color: "#252422",
-    fontSize: 16,
-    fontWeight: "500",
-    marginLeft: 4,
-    flex: 1,
-  },
-  arrowContainer: {
-    justifyContent: "center",
-    marginLeft: "auto",
-  },
-})

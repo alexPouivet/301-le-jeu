@@ -1,15 +1,24 @@
 import * as React from 'react';
-import { Alert, Dimensions, View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { Alert, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import InfosPartieComponent from '../Components/InfosPartieComponent';
 import ItemJoueurComponent from '../Components/ItemJoueurComponent';
 import PodiumJoueurComponent from '../Components/PodiumJoueurComponent';
+import { useFonts } from 'expo-font';
+import GlobalStyles from '../Constants/GlobalStyles';
+import DetailsPartieStyles from '../Constants/DetailsPartieStyles';
 
 import openDatabase from '../Components/OpenDatabase';
 const db = openDatabase();
 
 // Page Détails d'une partie
 export default function DetailsPartie({ navigation, route }) {
+
+  const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+  });
 
   const { game_id } = route.params;
   const [game, setGame] = React.useState(null);
@@ -28,11 +37,15 @@ export default function DetailsPartie({ navigation, route }) {
     return null;
   }
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.buttonContainer}>
+    <View style={GlobalStyles.container}>
+      <View style={DetailsPartieStyles.buttonContainer}>
         <TouchableOpacity
-          style={styles.buttonRetour}
+          style={GlobalStyles.buttonRetour}
           onPress={() => {
             navigation.goBack()
           }}
@@ -40,7 +53,7 @@ export default function DetailsPartie({ navigation, route }) {
           <Ionicons name='ios-chevron-back-outline' size={28} color="#252422"/>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.buttonSupprimer}
+          style={GlobalStyles.buttonSupprimer}
           onPress={() => {
             showConfirmDialog(game_id, navigation);
           }}
@@ -49,9 +62,9 @@ export default function DetailsPartie({ navigation, route }) {
         </TouchableOpacity>
       </View>
       <InfosPartieComponent game={game}/>
-      <ScrollView style={styles.scrollview}>
+      <ScrollView style={GlobalStyles.scrollview}>
         <PodiumJoueurComponent joueurs1={joueurs[1]} joueurs0={joueurs[0]} joueurs2={joueurs[2]} />
-        <View style={styles.containerJoueurs}>
+        <View style={DetailsPartieStyles.containerJoueurs}>
           {joueurs.map(({ nom_joueur, score_joueur, classement_joueur }, i) => (
            i < 3
             ? null
@@ -61,15 +74,15 @@ export default function DetailsPartie({ navigation, route }) {
 
         </View>
       </ScrollView>
-      <View style={styles.buttons}>
+      <View style={DetailsPartieStyles.containerButton}>
         { game.statut == "en cours" ?
           <TouchableOpacity
-            style={styles.buttonReprendre}
+            style={DetailsPartieStyles.buttonReprendre}
             onPress={() => navigation.navigate('Partie', {
               game_id: game_id
             })}
           >
-            <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>Reprendre la partie</Text>
+            <Text style={DetailsPartieStyles.textButtonReprendre}>Reprendre la partie</Text>
           </TouchableOpacity>
           :
           null
@@ -132,65 +145,3 @@ const deletePartie = function(game_id) {
     resolve(game_id)
   })
 }
-
-const width = Dimensions.get("screen").width;
-
-const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    backgroundColor: "#FFFFFF"
-  },
-  buttonContainer: {
-    width: "100%",
-    marginTop: 16,
-    flexDirection: "row",
-    marginBottom: 16,
-    justifyContent: "space-between"
-  },
-  buttonRetour: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginLeft:16,
-  },
-  buttonSupprimer: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginRight:16,
-  },
-  containerJoueurs: {
-    backgroundColor: "#ffffff",
-    borderBottomColor: "#d6d6d6",
-    borderRadius: 16,
-    marginLeft: 16,
-    marginRight: 16,
-    marginBottom: 128,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    elevation: 10,
-  },
-  buttons: {
-    position: "absolute",
-    bottom: 48,
-  },
-  buttonReprendre: {
-    marginLeft: 16,
-    marginRight: 16,
-    width: width - 32,
-    paddingVertical: 15,
-    borderRadius: 10,
-    backgroundColor: "#7159df",
-  }
-})

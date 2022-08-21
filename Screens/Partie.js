@@ -1,21 +1,30 @@
 import * as React from 'react';
-import { Dimensions, View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import InputSpinner from "react-native-input-spinner";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useFonts } from 'expo-font';
+import GlobalStyles from '../Constants/GlobalStyles';
+import PartieStyles from '../Constants/PartieStyles';
 
 import openDatabase from '../Components/OpenDatabase';
 const db = openDatabase();
 
 function Points(props) {
   return (
-    <View style={{backgroundColor: "#fff", width: 56, borderRadius: 10, alignItems: "center", justifyContent: "center"}}>
-      <Text style={{color: "#7159DF", fontWeight: "bold", fontSize: 28}}>{props.score}</Text>
-      <Text style={{position: "absolute", bottom: 2, fontSize: 11, color: "#C0C0C0"}}>pts</Text>
+    <View style={PartieStyles.pointsContainer}>
+      <Text style={[PartieStyles.textPoints, {fontFamily: "Poppins-Bold"} ]}>{props.score}</Text>
+      <Text style={PartieStyles.textsPointsLabel}>pts</Text>
     </View>
   )
 }
 
 export default function Partie({ navigation, route }) {
+
+  const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+  });
 
   const {game_id } = route.params;
 
@@ -58,15 +67,15 @@ export default function Partie({ navigation, route }) {
   for(let i = 0; i < joueurs.length; i++) {
 
     joueurs[i].position_joueur_en_cours == (joueur.position_joueur_en_cours - 1 )
-      ? joueurPrecedent.push(<Text key={i} style={[styles.joueurPrecedent]}>{joueurs[i].nom_joueur}</Text>)
+      ? joueurPrecedent.push(<Text key={i} style={[PartieStyles.joueurPrecedent]}>{joueurs[i].nom_joueur}</Text>)
       : null
 
     joueurs[i].joueur_id == joueur.joueur_id
-      ? joueurEnCours.push(<Text key={i} style={[styles.joueurEnCours]}>{joueur.nom_joueur}</Text>)
+      ? joueurEnCours.push(<Text key={i} style={[PartieStyles.joueurEnCours, {fontFamily: "Poppins-Bold"}]}>{joueur.nom_joueur}</Text>)
       : null
 
     joueurs[i].position_joueur_en_cours == (joueur.position_joueur_en_cours + 1 )
-      ? joueurSuivant.push(<Text key={i} style={[styles.joueurSuivant]}>{joueurs[i].nom_joueur}</Text>)
+      ? joueurSuivant.push(<Text key={i} style={[PartieStyles.joueurSuivant]}>{joueurs[i].nom_joueur}</Text>)
       : null
   }
 
@@ -74,20 +83,24 @@ export default function Partie({ navigation, route }) {
   let totalPalets = game.nb_palets - (points20 + points10 + points8 + points6 + points4 + points2 + point1)
   let isPaletsEqualZero = false
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return(
-    <View style={styles.container}>
-      <View style={styles.buttonContainer}>
+    <View style={GlobalStyles.container}>
+      <View style={PartieStyles.headerContainer}>
         <TouchableOpacity
-          style={styles.buttonRetour}
+          style={GlobalStyles.buttonRetour}
           onPress={() => {
             navigation.navigate('Liste')
           }}
         >
           <Ionicons name='ios-chevron-back-outline' size={28} color="#252422"/>
         </TouchableOpacity>
-        <Text style={styles.title}>Tour n°{game.tour_game}</Text>
+        <Text style={[PartieStyles.titrePage, {fontFamily: "Poppins-Medium"} ]}>Tour n°{game.tour_game}</Text>
         <TouchableOpacity
-          style={styles.buttonClassement}
+          style={PartieStyles.buttonClassement}
           onPress={() => {
             navigation.navigate('Classement', {
               game_id: game_id
@@ -96,47 +109,47 @@ export default function Partie({ navigation, route }) {
           <Ionicons name='ios-podium-outline' size={24} color="#252422"/>
         </TouchableOpacity>
       </View>
-      <View style={styles.infosTour}>
-            <View style={styles.listeJoueurs}>
-              <View style={{width: "33%"}}>{joueurPrecedent}</View>
-              <View style={{width: "33%" }}>{joueurEnCours}</View>
-              <View style={{width: "33%"}}>{joueurSuivant}</View>
+      <View style={PartieStyles.infosTour}>
+            <View style={PartieStyles.listeJoueurs}>
+              <View style={PartieStyles.joueursContainer}>{joueurPrecedent}</View>
+              <View style={PartieStyles.joueursContainer}>{joueurEnCours}</View>
+              <View style={PartieStyles.joueursContainer}>{joueurSuivant}</View>
             </View>
-            <View style={{width: "15%", height: 2, backgroundColor: "#fff", marginLeft: "auto", marginRight: "auto", marginBottom: 16, marginTop: 8}}></View>
-            <View style={{flexDirection: "row", alignItems: "center", marginLeft: "auto", marginRight: "auto"}}>
-              <View style={{flexDirection: "row", alignItems: "center"}}>
+            <View style={PartieStyles.horizontalSeparator}></View>
+            <View style={PartieStyles.informationsPartie}>
+              <View style={PartieStyles.informationsPalets}>
                 <Ionicons name='ios-disc-outline' size={36} color="#fff"/>
-                <View style={{marginLeft: 4}}>
-                  <Text style={styles.textInfosTour}>{totalPalets}{totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false } palets</Text>
-                  <Text style={{fontSize: 12, color: "#fff", fontWeight: "500"}}>restant</Text>
+                <View style={PartieStyles.paletsTextsContainer}>
+                  <Text style={[ PartieStyles.textInfosTour, {fontFamily: "Poppins-Bold"} ]}>{totalPalets}{totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false } palets</Text>
+                  <Text style={PartieStyles.textInfosTourLabel}>restant</Text>
                 </View>
               </View>
-              <View style={{width: 2, height: "80%", backgroundColor: "#fff", marginLeft: 16, marginRight: 16}}></View>
+              <View style={PartieStyles.verticalSeparator}></View>
               <View>
-                <Text style={styles.textInfosTour}>{joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)} points</Text>
-                <Text style={{fontSize: 12, color: "#fff", fontWeight: "500"}}>restant</Text>
+                <Text style={[ PartieStyles.textInfosTour, {fontFamily: "Poppins-Bold"} ]}>{joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)} points</Text>
+                <Text style={PartieStyles.textInfosTourLabel}>restant</Text>
               </View>
             </View>
           </View>
-      <ScrollView style={styles.scrollview}>
-        <View style={styles.scrollContainer}>
-          <View style={styles.inputsContainer}>
-            <View style={styles.inputContainer}>
+      <ScrollView>
+        <View style={PartieStyles.scrollContainer}>
+          <View style={PartieStyles.inputsContainer}>
+            <View style={PartieStyles.inputContainer}>
               <Points score="20" />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
                 step={1}
                 value={points20}
-                style={{width: "50%", borderWidth: 0}}
+                style={PartieStyles.spinner}
                 width= {56}
                 height= {56}
                 buttonFontSize={52}
                 textColor="#7159df"
                 showBorder={true}
                 buttonTextColor="#fff"
-                buttonStyle={{borderRadius:16, activityOpacity: 0, backgroundColor: "#7159df" }}
-                inputStyle={{backgroundColor: "#fff", width: 56, height: 56, marginLeft: 16, marginRight: 16, borderRadius: 16, fontWeight: "bold", fontSize: 30, borderColor: "#7159df", borderWidth: 3 }}
+                buttonStyle={PartieStyles.buttonSpinner}
+                inputStyle={PartieStyles.inputSpinner}
                 onChange={(num)=>{
                   setPoints20(num)
                 }}
@@ -145,22 +158,22 @@ export default function Partie({ navigation, route }) {
               />
               <Points score="20" />
             </View>
-            <View style={styles.inputContainer}>
+            <View style={PartieStyles.inputContainer}>
               <Points score="10" />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
                 step={1}
                 value={points10}
-                style={{width: "50%", borderWidth: 0}}
+                style={PartieStyles.spinner}
                 width= {56}
                 height= {56}
                 buttonFontSize={52}
                 textColor="#7159df"
                 showBorder={true}
                 buttonTextColor="#fff"
-                buttonStyle={{borderRadius:16, activityOpacity: 0, backgroundColor: "#7159df" }}
-                inputStyle={{backgroundColor: "#fff", width: 56, height: 56, marginLeft: 16, marginRight: 16, borderRadius: 16, fontWeight: "bold", fontSize: 30, borderColor: "#7159df", borderWidth: 3 }}
+                buttonStyle={PartieStyles.buttonSpinner}
+                inputStyle={PartieStyles.inputSpinner}
                 onChange={(num)=>{
                   setPoints10(num)
                 }}
@@ -169,110 +182,110 @@ export default function Partie({ navigation, route }) {
               />
               <Points score="10" />
             </View>
-            <View style={styles.inputContainer}>
+            <View style={PartieStyles.inputContainer}>
               <Points score="8" />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
                 step={1}
                 value={points8}
-                style={{width: "50%", borderWidth: 0}}
+                style={PartieStyles.spinner}
                 width= {56}
                 height= {56}
                 buttonFontSize={52}
                 textColor="#7159df"
                 showBorder={true}
                 buttonTextColor="#fff"
-                buttonStyle={{borderRadius:16, activityOpacity: 0, backgroundColor: "#7159df" }}
-                inputStyle={{backgroundColor: "#fff", width: 56, height: 56, marginLeft: 16, marginRight: 16, borderRadius: 16, fontWeight: "bold", fontSize: 30, borderColor: "#7159df", borderWidth: 3 }}
+                buttonStyle={PartieStyles.buttonSpinner}
+                inputStyle={PartieStyles.inputSpinner}
                 onChange={(num)=>{setPoints8(num)}}
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 8 ? true : false}
               />
               <Points score="8" />
             </View>
-            <View style={styles.inputContainer}>
+            <View style={PartieStyles.inputContainer}>
               <Points score="6" />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
                 step={1}
                 value={points6}
-                style={{width: "50%", borderWidth: 0}}
+                style={PartieStyles.spinner}
                 width= {56}
                 height= {56}
                 buttonFontSize={52}
                 textColor="#7159df"
                 showBorder={true}
                 buttonTextColor="#fff"
-                buttonStyle={{borderRadius:16, activityOpacity: 0, backgroundColor: "#7159df" }}
-                inputStyle={{backgroundColor: "#fff", width: 56, height: 56, marginLeft: 16, marginRight: 16, borderRadius: 16, fontWeight: "bold", fontSize: 30, borderColor: "#7159df", borderWidth: 3 }}
+                buttonStyle={PartieStyles.buttonSpinner}
+                inputStyle={PartieStyles.inputSpinner}
                 onChange={(num)=>{setPoints6(num)}}
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 6 ? true : false}
               />
               <Points score="6" />
             </View>
-            <View style={styles.inputContainer}>
+            <View style={PartieStyles.inputContainer}>
               <Points score="4" />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
                 step={1}
                 value={points4}
-                style={{width: "50%", borderWidth: 0}}
+                style={PartieStyles.spinner}
                 width= {56}
                 height= {56}
                 buttonFontSize={52}
                 textColor="#7159df"
                 showBorder={true}
                 buttonTextColor="#fff"
-                buttonStyle={{borderRadius:16, activityOpacity: 0, backgroundColor: "#7159df" }}
-                inputStyle={{backgroundColor: "#fff", width: 56, height: 56, marginLeft: 16, marginRight: 16, borderRadius: 16, fontWeight: "bold", fontSize: 30, borderColor: "#7159df", borderWidth: 3 }}
+                buttonStyle={PartieStyles.buttonSpinner}
+                inputStyle={PartieStyles.inputSpinner}
                 onChange={(num)=>{setPoints4(num)}}
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 4 ? true : false}
               />
               <Points score="4" />
             </View>
-            <View style={styles.inputContainer}>
+            <View style={PartieStyles.inputContainer}>
               <Points score="2" />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
                 step={1}
                 value={points2}
-                style={{width: "50%", borderWidth: 0}}
+                style={PartieStyles.spinner}
                 width= {56}
                 height= {56}
                 buttonFontSize={52}
                 textColor="#7159df"
                 showBorder={true}
                 buttonTextColor="#fff"
-                buttonStyle={{borderRadius:16, activityOpacity: 0, backgroundColor: "#7159df" }}
-                inputStyle={{backgroundColor: "#fff", width: 56, height: 56, marginLeft: 16, marginRight: 16, borderRadius: 16, fontWeight: "bold", fontSize: 30, borderColor: "#7159df", borderWidth: 3 }}
+                buttonStyle={PartieStyles.buttonSpinner}
+                inputStyle={PartieStyles.inputSpinner}
                 onChange={(num)=>{setPoints2(num)}}
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 2 ? true : false}
               />
               <Points score="2" />
             </View>
-            <View style={styles.inputContainer}>
+            <View style={PartieStyles.inputContainer}>
               <Points score="1" />
               <InputSpinner
                 max={game.nb_palets}
                 min={0}
                 step={1}
                 value={point1}
-                style={{width: "50%", borderWidth: 0}}
+                style={PartieStyles.spinner}
                 width= {56}
                 height= {56}
                 buttonFontSize={52}
                 textColor="#7159df"
                 showBorder={true}
                 buttonTextColor="#fff"
-                buttonStyle={{borderRadius:16, activityOpacity: 0, backgroundColor: "#7159df" }}
-                inputStyle={{backgroundColor: "#fff", width: 56, height: 56, marginLeft: 16, marginRight: 16, borderRadius: 16, fontWeight: "bold", fontSize: 30, borderColor: "#7159df", borderWidth: 3 }}
+                buttonStyle={PartieStyles.buttonSpinner}
+                inputStyle={PartieStyles.inputSpinner}
                 onChange={(num)=>{setPoint1(num)}}
                 editable={false}
                 buttonRightDisabled={isPaletsEqualZero ? true : false || joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1) < 1 ? true : false}
@@ -284,7 +297,7 @@ export default function Partie({ navigation, route }) {
       </ScrollView>
       {joueur.position_joueur_en_cours < game.nb_joueurs_restant ?
             <TouchableOpacity
-              style={styles.button}
+              style={PartieStyles.button}
               onPress={() => {
                 // Met à jour le joueur et passe au joueur suivant
                 updateJoueur(points20, points10, points8, points6, points4, points2, point1, joueur, game).then(function(array) {
@@ -302,11 +315,11 @@ export default function Partie({ navigation, route }) {
                 })
               }}
             >
-              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>Joueur suivant</Text>
+              <Text style={PartieStyles.textButton}>Joueur suivant</Text>
             </TouchableOpacity>
           :
             <TouchableOpacity
-              style={styles.button}
+              style={PartieStyles.button}
               onPress={() => {
                 // Met à jour le score du joueur et passe à la page Fin de Tour
                 updateJoueur(points20, points10, points8, points6, points4, points2, point1, joueur, game).then(function(array) {
@@ -324,7 +337,7 @@ export default function Partie({ navigation, route }) {
                 })
               }}
             >
-              <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>Terminer le tour</Text>
+              <Text style={PartieStyles.textButton}>Terminer le tour</Text>
             </TouchableOpacity>
           }
     </View>
@@ -374,111 +387,3 @@ const updateJoueur = function(points20, points10, points8, points6, points4, poi
 
   })
 }
-
-const width = Dimensions.get("screen").width;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#FFFFFF",
-    height: "100%",
-  },
-  buttonContainer: {
-    width: "100%",
-    flexDirection: "row",
-    marginBottom: 16,
-    marginTop: 16,
-    alignItems: 'center',
-  },
-  buttonRetour: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginLeft:16,
-  },
-  buttonClassement: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    paddingLeft: 2,
-    marginRight: 16
-  },
-  title: {
-    marginLeft: "auto",
-    marginRight: "auto",
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#252422",
-  },
-  infosTour: {
-    backgroundColor: "#7159df",
-    marginLeft: 16,
-    marginRight: 16,
-    borderRadius: 16,
-    padding: 8
-  },
-  listeJoueurs: {
-    flexDirection: "row",
-    justifyContent: "center"
-  },
-  joueurPrecedent: {
-    fontSize: 14,
-    color: "#fff",
-    textAlign: "right",
-    marginTop: "auto",
-  },
-  joueurEnCours: {
-    fontSize: 18,
-    marginTop: "auto",
-    fontWeight: "bold",
-    color: "#fff",
-    textAlign: "center",
-  },
-  joueurSuivant: {
-    fontSize: 14,
-    color: "#fff",
-    textAlign: "left",
-    marginTop: "auto",
-  },
-  textInfosTour: {
-    fontSize: 20,
-    color: '#FFFFFF',
-    fontWeight: "bold"
-  },
-  scrollview: {
-    width: "100%"
-  },
-  scrollContainer: {
-    marginBottom: 70
-  },
-
-  inputsContainer: {
-    marginHorizontal: 16,
-    marginTop: 8,
-  },
-  inputContainer: {
-    justifyContent: "space-between",
-    width: "100%",
-    backgroundColor: "#F3F3F3",
-    borderRadius: 10,
-    marginBottom: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 8,
-    flexDirection: "row"
-  },
-  button: {
-    position: "absolute",
-    marginLeft: 16,
-    marginRight: 16,
-    bottom: 16,
-    width: width - 32,
-    paddingVertical: 15,
-    borderRadius: 10,
-    backgroundColor: "#7159df",
-  }
-})

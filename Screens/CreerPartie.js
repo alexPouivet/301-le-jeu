@@ -1,15 +1,24 @@
 import * as React from 'react';
-import { Dimensions, View, Text, TextInput, StyleSheet, Platform, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import CurveGrey from '../assets/curves/curveGrey';
 import Lottie from 'lottie-react-native';
+import { useFonts } from 'expo-font';
+import GlobalStyles from '../Constants/GlobalStyles';
+import CreerPartieStyles from '../Constants/CreerPartieStyles';
 
 import openDatabase from '../Components/OpenDatabase';
 const db = openDatabase();
 
 // Page Création de partie
 export default function CreerPartie({ route, navigation }) {
+
+  const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+  });
 
   const [errorText, onChangeErrorText] = React.useState("")
   const { nb_participants, nb_palets } = route.params;
@@ -20,10 +29,10 @@ export default function CreerPartie({ route, navigation }) {
     const [participant, onChangeParticipant] = React.useState("");
 
     participants.push(
-      <View key = {i} style={styles.inputContainer}>
-        <Text style={styles.textInput}>Prénom Joueur {i+1}</Text>
+      <View key = {i} style={CreerPartieStyles.inputContainer}>
+        <Text style={[CreerPartieStyles.textInput, {fontFamily: "Poppins-Bold"}]}>Prénom Joueur {i+1}</Text>
         <TextInput
-          style={styles.input}
+          style={CreerPartieStyles.input}
           value={participant}
           onChangeText={onChangeParticipant}
         />
@@ -31,35 +40,39 @@ export default function CreerPartie({ route, navigation }) {
     )
   }
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.buttonContainer}>
+    <View style={GlobalStyles.container}>
+      <View style={CreerPartieStyles.headerContainer}>
         <TouchableOpacity
-          style={styles.buttonRetour}
+          style={GlobalStyles.buttonRetour}
           onPress={() => {
             navigation.goBack()
           }}
         >
           <Ionicons name='ios-chevron-back-outline' size={28} color="#252422"/>
         </TouchableOpacity>
-        <Text style={styles.titrePage}>Nouvelle partie</Text>
+        <Text style={[GlobalStyles.titrePage, {fontFamily: "Poppins-Medium"} ]}>Nouvelle partie</Text>
       </View>
-      <KeyboardAwareScrollView style={styles.scrollview}>
-        <View style={styles.scrollContainer}>
-          <View style={{height: 300}}>
-            <Lottie style={styles.image} source={require('../assets/animations/floating-palet.json')} autoPlay loop />
-            <Text style={styles.description}>Nommez tous les joueurs participants à la partie en remplissant les champs ci-dessous et commencez la partie !
+      <KeyboardAwareScrollView>
+        <View>
+          <View style={CreerPartieStyles.animationContainer}>
+            <Lottie style={CreerPartieStyles.animation} source={require('../assets/animations/floating-palet.json')} autoPlay loop />
+            <Text style={CreerPartieStyles.description}>Nommez tous les joueurs participants à la partie en remplissant les champs ci-dessous et commencez la partie !
             </Text>
           </View>
           <CurveGrey />
-          <View style={styles.inputsContainer}>
-            <Text style={styles.errorText}>{errorText}</Text>
+          <View style={CreerPartieStyles.inputsGreyContainer}>
+            <Text style={CreerPartieStyles.errorText}>{errorText}</Text>
             { participants }
           </View>
         </View>
       </KeyboardAwareScrollView>
       <TouchableOpacity
-        style={styles.button}
+        style={CreerPartieStyles.button}
         onPress={() => {
 
           let isParticipantsNameEmpty = true
@@ -86,7 +99,7 @@ export default function CreerPartie({ route, navigation }) {
           }
         }}
       >
-        <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold"}}>Commencer la partie</Text>
+        <Text style={CreerPartieStyles.textButtonWhite}>Commencer la partie</Text>
       </TouchableOpacity>
     </View>
   );
@@ -147,101 +160,3 @@ const create = function(participants, nb_participants, nb_palets) {
     });
   })
 }
-
-const width = Dimensions.get("screen").width;
-const height = Dimensions.get("screen").height;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#FFFFFF",
-    height: "100%"
-  },
-  buttonContainer: {
-     width: "100%",
-    flexDirection: "row",
-    marginTop: 16,
-    marginBottom: 16,
-    alignItems: "center"
-  },
-  buttonRetour: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginLeft:16,
-  },
-  titrePage: {
-    fontSize: 20,
-    fontWeight: "500",
-    textAlign: "center",
-    marginLeft: 16,
-    color: "#252422",
-  },
-  scrollview: {
-
-  },
-  image: {
-    width: 210,
-    height: 210,
-    marginLeft: "auto",
-    marginRight: "auto"
-  },
-  description: {
-    fontSize: 14,
-    color: "#252422",
-    marginLeft: 16,
-    marginTop: "auto",
-    marginBottom: 24,
-    marginRight: 16,
-    textAlign: "center"
-  },
-  errorText: {
-    width: "80%",
-    textAlign: "center",
-    marginBottom: 10,
-    color: "#FF4B3E"
-  },
-  inputsContainer: {
-    minHeight: Platform.OS === "android" ? (height/2 - 80) : "100%",
-    height: "100%",
-    alignItems: "center",
-    paddingTop: 16,
-    marginBottom: 64,
-    backgroundColor: "#F3F3F3",
-  },
-  inputContainer: {
-    width: "100%",
-  },
-  textInput: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: "#24334c",
-    paddingBottom: 10,
-    textAlign: "center"
-  },
-  input: {
-    marginLeft: 16,
-    marginRight: 16,
-    height: 48,
-    borderWidth: 3,
-    borderColor: "#7159df",
-    borderRadius: 10,
-    marginTop: "auto",
-    marginBottom: 20,
-    textAlign: 'center',
-    fontSize: 16,
-    backgroundColor: '#FFFFFF'
-  },
-  button: {
-    position: "absolute",
-    marginLeft: 16,
-    marginRight: 16,
-    bottom: 16,
-    width: width - 32,
-    paddingVertical: 15,
-    borderRadius: 10,
-    backgroundColor: "#7159df",
-  },
-});

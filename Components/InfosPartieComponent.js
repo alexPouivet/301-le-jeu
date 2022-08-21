@@ -1,70 +1,40 @@
 import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useFonts } from 'expo-font';
+import GlobalStyles from '../Constants/GlobalStyles';
+import DetailsPartieStyles from '../Constants/DetailsPartieStyles';
 
 export default function infosPartieComponent(props) {
 
+  const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
 
-    <View style={[styles.containerStatutPartie, props.game.gagnant_game == null ? styles.containerStatutPartieEnCours : styles.containerStatutGagnant ]}>
+    <View style={[DetailsPartieStyles.containerStatutPartie, props.game.gagnant_game == null ? DetailsPartieStyles.containerStatutPartieEnCours : DetailsPartieStyles.containerStatutGagnant ]}>
       <View>
         {props.game.gagnant_game == null
           ?
-            <Text style={styles.textStatutPartie}>Partie en cours</Text>
+            <Text style={[ DetailsPartieStyles.textStatutPartie, { fontFamily: "Poppins-Bold" } ]}>Partie en cours</Text>
           :
-            <Text style={styles.textStatutPartie}>Gagnant: {props.game.gagnant_game}</Text>
+            <Text style={[ DetailsPartieStyles.textStatutPartie, { fontFamily: "Poppins-Bold" } ]}>Gagnant: {props.game.gagnant_game}</Text>
         }
       </View>
-      <View style={{marginLeft: 8, marginRight: 8}}>
-        <Text style={{color: "#fff"}}>|</Text>
-      </View>
-      <View style={styles.containerDate}>
+      <View style={DetailsPartieStyles.separator}></View>
+      <View style={DetailsPartieStyles.containerDate}>
         <Ionicons name='ios-calendar-outline' size={20} color="#fff"/>
-        <Text style={styles.partieDate}>Le {props.game.date} à {props.game.time}</Text>
+        <Text style={[ DetailsPartieStyles.partieDate, { fontFamily: "Poppins-Medium" } ]}>Le {props.game.date} à {props.game.time}</Text>
       </View>
     </View>
 
   );
 
 }
-
-const styles = StyleSheet.create({
-  containerStatutPartie: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 16,
-    marginBottom: 32,
-    marginLeft: 16,
-    marginRight: 16,
-  },
-  containerStatutGagnant: {
-    backgroundColor: "#FEC601",
-  },
-  containerStatutPartieEnCours: {
-    backgroundColor: "#7159df",
-  },
-  textStatutPartie: {
-    color: "#FFFFFF",
-    fontSize: 12,
-    fontWeight: "bold",
-    textAlign: "center",
-    textTransform: 'uppercase'
-  },
-  containerDateAndTime: {
-    flexDirection: "row",
-    marginBottom: 20
-  },
-  containerDate: {
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  partieDate: {
-    fontWeight: "500",
-    fontSize: 12,
-    color: "#fff",
-    marginLeft: 4,
-  },
-})

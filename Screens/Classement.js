@@ -1,13 +1,22 @@
 import * as React from 'react';
-import { Dimensions, View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import InfosPartieComponent from '../Components/InfosPartieComponent';
 import ItemJoueurComponent from '../Components/ItemJoueurComponent';
+import { useFonts } from 'expo-font';
+import GlobalStyles from '../Constants/GlobalStyles';
+import ClassementStyles from '../Constants/ClassementStyles';
 
 import openDatabase from '../Components/OpenDatabase';
 const db = openDatabase();
 
 export default function Classement({ navigation, route }) {
+
+  const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+  });
 
   const {game_id } = route.params;
   const [game, setGame] = React.useState(null);
@@ -26,35 +35,39 @@ export default function Classement({ navigation, route }) {
     return null;
   }
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return(
-    <View style={styles.container}>
-      <View style={styles.buttonContainer}>
+    <View style={GlobalStyles.container}>
+      <View style={ClassementStyles.headerContainer}>
         <TouchableOpacity
-          style={styles.buttonRetour}
+          style={GlobalStyles.buttonRetour}
           onPress={() => {
             navigation.goBack()
           }}
         >
           <Ionicons name='ios-chevron-back-outline' size={28} color="#252422"/>
         </TouchableOpacity>
-        <Text style={styles.titrePage}>Classement Actuel</Text>
+        <Text style={[ GlobalStyles.titrePage, { fontFamily: "Poppins-Medium"} ]}>Classement Actuel</Text>
       </View>
       <InfosPartieComponent game={game}/>
-      <ScrollView style={styles.scrollview}>
-        <View style={styles.containerJoueurs}>
+      <ScrollView >
+        <View style={ClassementStyles.containerJoueurs}>
           {classement.map(({ nom_joueur, score_joueur, classement_joueur }, i) => (
             <ItemJoueurComponent key={i} nom_joueur={nom_joueur} score_joueur={score_joueur} classement_joueur={classement_joueur} joueurs={classement} i={i}/>
           ))}
         </View>
       </ScrollView>
-      <View style={styles.buttons}>
+      <View style={ClassementStyles.containerButton}>
         <TouchableOpacity
-          style={styles.button}
+          style={ClassementStyles.button}
           onPress={() => {
             navigation.goBack()
           }}
         >
-        <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>Retourner à la partie</Text>
+        <Text style={ClassementStyles.textButton}>Retourner à la partie</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -72,97 +85,3 @@ const terminerPartie = function(game_id) {
     resolve(game_id)
   })
 }
-
-const width = Dimensions.get("screen").width;
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#FFFFFF",
-    height: "100%"
-  },
-  buttonContainer: {
-    width: "100%",
-    flexDirection: "row",
-    marginBottom: 16,
-    marginTop: 16,
-    alignItems: "center"
-  },
-  buttonRetour: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginLeft:16,
-  },
-  titrePage: {
-    fontSize: 20,
-    fontWeight: "500",
-    textAlign: "center",
-    marginLeft: 16,
-    color: "#252422",
-  },
-  containerStatutPartie: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 16,
-    marginBottom: 16,
-    marginLeft: 16,
-    marginRight: 16,
-    backgroundColor: "#7159df",
-  },
-  textStatutPartie: {
-    color: "#FFFFFF",
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-    textTransform: 'uppercase'
-  },
-  containerDateAndTime: {
-    flexDirection: "row",
-    marginBottom: 20
-  },
-  containerDate: {
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  partieDate: {
-    fontWeight: "bold",
-    fontSize: 14,
-    color: "#fff",
-    marginLeft: 4,
-  },
-  containerJoueurs: {
-    marginTop: 16,
-    backgroundColor: "#ffffff",
-    borderRadius: 16,
-    marginLeft: 16,
-    marginRight: 16,
-    marginBottom: 96,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    elevation: 10,
-  },
-  buttons: {
-    position: "absolute",
-    bottom: 16,
-    flexDirection: "row"
-  },
-  button: {
-    marginLeft: 16,
-    marginRight: 16,
-    width: width - 32,
-    paddingVertical: 15,
-    borderRadius: 10,
-    backgroundColor: "#7159df",
-  },
-})

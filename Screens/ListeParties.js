@@ -1,8 +1,11 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import SwipeableComponent from '../Components/SwipeableComponent';
+import { useFonts } from 'expo-font';
+import GlobalStyles from '../Constants/GlobalStyles';
+import ListPartiesStyles from '../Constants/ListPartiesStyles';
 
 import openDatabase from '../Components/OpenDatabase';
 const db = openDatabase();
@@ -66,12 +69,22 @@ export default function ListeParties({ navigation }) {
     }
   }, [statutFiltres]);
 
+  const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <View style={styles.buttonContainer}>
-        <Text style={styles.titrePage}>{statutFiltres["statut"]}</Text>
+    <View style={GlobalStyles.container}>
+      <View style={GlobalStyles.headerContainer}>
+        <Text style={[ListPartiesStyles.titrePage, { fontFamily: "Poppins-Medium" }]}>{statutFiltres["statut"]}</Text>
         <TouchableOpacity
-          style={styles.buttonRefresh}
+          style={ListPartiesStyles.buttonRefresh}
           onPress={() => {
             onRefresh(statutFiltres);
           }}
@@ -81,10 +94,10 @@ export default function ListeParties({ navigation }) {
         <ModalDropdown
           options={['Toutes les parties', 'Parties en Cours', 'Parties Terminées']}
           defaultIndex={0}
-          style={styles.buttonFiltres}
-          dropdownStyle={styles.dropdownStyle}
-          dropdownTextStyle={{marginLeft: 16, marginRight: 32, marginVertical: 4, fontSize: 16}}
-          dropdownTextHighlightStyle={{color: "#252422"}}
+          style={ListPartiesStyles.buttonFiltres}
+          dropdownStyle={ListPartiesStyles.dropdownStyle}
+          dropdownTextStyle={ListPartiesStyles.dropdownTextStyle}
+          dropdownTextHighlightStyle={ListPartiesStyles.dropdownTextHighlightStyle}
           onSelect={(index, value) => {
             filterParties(value);
           }}
@@ -94,18 +107,18 @@ export default function ListeParties({ navigation }) {
       </View>
       { games === null || games.length === 0
         ?
-        <View style={{height:"100%", marginTop: 32, marginHorizontal: 16}}>
+        <View style={ListPartiesStyles.listEmptyContainer}>
           {
             statutFiltres["statut"] === "Parties Terminées"
             ?
-              <Text style={{textAlign: "center", fontSize: 16}}>Aucune partie n'a été terminée pour le moment</Text>
+              <Text style={ListPartiesStyles.listEmptyText}>Aucune partie n'a été terminée pour le moment</Text>
             :
-              <Text style={{textAlign: "center", fontSize: 16}}>Aucune partie créée</Text>
+              <Text style={ListPartiesStyles.listEmptyText}>Aucune partie créée</Text>
           }
         </View>
         :
         <ScrollView
-          style={styles.scrollview}
+          style={ListPartiesStyles.scrollview}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -115,9 +128,9 @@ export default function ListeParties({ navigation }) {
             />
           }
         >
-          <View style={styles.parties}>
+          <View style={ListPartiesStyles.parties}>
             {games.map(({ game_id, date, time, liste_joueurs, statut, gagnant_game }, i) => (
-              <View style={styles.partieContainer} key={i} >
+              <View style={ListPartiesStyles.partieContainer} key={i} >
                 <SwipeableComponent setGames={setGames} statutFiltres={statutFiltres} game_id={game_id} date={date} time={time} liste_joueurs={liste_joueurs} statut={statut} gagnant_game={gagnant_game} navigation={navigation} db={db}/>
               </View>
             ))}
@@ -147,81 +160,3 @@ const deletePartie = function(game_id) {
     resolve(game_id)
   })
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#FFFFFF",
-  },
-  buttonContainer: {
-    marginTop: 16,
-    marginBottom: 16,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  titrePage: {
-    fontSize: 20,
-    fontWeight: "500",
-    marginRight: "auto",
-    color: "#252422",
-    marginLeft: 16,
-  },
-  buttonRefresh: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginRight:12,
-  },
-  buttonFiltres: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginRight:16,
-  },
-  dropdownStyle: {
-    width: "auto",
-    height: "auto",
-    marginTop: 12,
-    marginRight: -9,
-    borderRadius: 10,
-    paddingVertical: 0,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.125,
-    shadowRadius: 5,
-  },
-  scrollview: {
-    width: "100%",
-    height: "100%"
-  },
-  parties: {
-    alignItems: "center",
-    marginLeft: 16,
-    marginRight: 16,
-    marginTop: 12,
-    marginBottom: 120
-  },
-  partieContainer: {
-    borderRadius: 16,
-    width: "100%",
-    backgroundColor: "#fff",
-    marginBottom: 8,
-    elevation: 5,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.125,
-    shadowRadius: 5,
-  }
-})

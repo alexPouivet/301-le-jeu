@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
-import { Dimensions, View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import InfosPartieComponent from '../Components/InfosPartieComponent';
 import ItemJoueurComponent from '../Components/ItemJoueurComponent';
 import PodiumJoueurComponent from '../Components/PodiumJoueurComponent';
-
+import { useFonts } from 'expo-font';
+import GlobalStyles from '../Constants/GlobalStyles';
+import DetailsPartieStyles from '../Constants/DetailsPartieStyles';
+import ClassementStyles from '../Constants/ClassementStyles';
 
 import openDatabase from '../Components/OpenDatabase';
 const db = openDatabase();
 
 export default function GagnantPartie({ navigation, route }) {
+
+  const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+  });
 
   const { game_id } = route.params;
 
@@ -29,11 +38,15 @@ export default function GagnantPartie({ navigation, route }) {
     return null;
   }
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return(
-    <View style={styles.container}>
-      <View style={styles.buttonContainer}>
+    <View style={GlobalStyles.container}>
+      <View style={DetailsPartieStyles.buttonContainer}>
           <TouchableOpacity
-            style={styles.buttonRetour}
+            style={GlobalStyles.buttonRetour}
             onPress={() => {
               if(game.nb_joueurs_restant > 1) {
                 updatePartieEtJoueurs(game_id).then(function(game_id) {
@@ -50,9 +63,9 @@ export default function GagnantPartie({ navigation, route }) {
         </TouchableOpacity>
       </View>
       <InfosPartieComponent game={game}/>
-      <ScrollView style={styles.scrollview}>
+      <ScrollView>
         <PodiumJoueurComponent joueurs1={classement[1]} joueurs0={classement[0]} joueurs2={classement[2]} />
-        <View style={styles.containerJoueurs}>
+        <View style={DetailsPartieStyles.containerJoueurs}>
           {classement.map(({ nom_joueur, score_joueur, classement_joueur }, i) => (
             i < 3
             ? null
@@ -62,9 +75,9 @@ export default function GagnantPartie({ navigation, route }) {
 
         </View>
       </ScrollView>
-      <View style={styles.buttons}>
+      <View style={ClassementStyles.containerButton}>
         <TouchableOpacity
-          style={game.nb_joueurs_restant > 1 ? styles.buttonArreter2 : styles.buttonArreter}
+          style={game.nb_joueurs_restant > 1 ? ClassementStyles.buttonArreter : ClassementStyles.button}
           onPress={() => {
             // Fin de la partie en cours
             terminerPartie(game_id).then(function(game_id) {
@@ -72,11 +85,11 @@ export default function GagnantPartie({ navigation, route }) {
             })
           }}
         >
-          <Text style={{textAlign: "center", color: "#fff", fontSize: 18, fontWeight: "bold" }}>Finir la partie</Text>
+          <Text style={ClassementStyles.textButton}>Arrêter la partie</Text>
         </TouchableOpacity>
         { game.nb_joueurs_restant > 1 ?
           <TouchableOpacity
-            style={styles.buttonContinuer}
+            style={ClassementStyles.buttonContinuer}
             onPress={() => {
               // update de la bdd pour retirer le gagnant des joueurs à jouer et mettre le classement à jour
               updatePartieEtJoueurs(game_id).then(function(game_id) {
@@ -86,7 +99,7 @@ export default function GagnantPartie({ navigation, route }) {
               })
             }}
           >
-            <Text style={{textAlign: "center", color: "#FFFFFF", fontSize: 18, fontWeight: "bold" }}>Continuer la partie</Text>
+            <Text style={ClassementStyles.textButton}>Continuer la partie</Text>
           </TouchableOpacity>
           :
           null
@@ -136,107 +149,3 @@ const terminerPartie = function(game_id) {
     resolve(game_id)
   })
 }
-
-const width = Dimensions.get("screen").width;
-
-const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    backgroundColor: "#FFFFFF"
-  },
-  buttonContainer: {
-    width: "100%",
-    flexDirection: "row",
-    marginBottom: 16,
-    marginTop: 16,
-    alignItems: "center"
-  },
-  buttonRetour: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginLeft:16,
-  },
-  containerStatutPartie: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-    paddingTop: 16,
-    paddingBottom: 16,
-    borderRadius: 16,
-    marginBottom: 32,
-    marginLeft: 16,
-    marginRight: 16,
-    backgroundColor: "#7159df",
-  },
-  textStatutPartie: {
-    color: "#FFFFFF",
-    fontSize: 14,
-    fontWeight: "bold",
-    textAlign: "center",
-    textTransform: 'uppercase'
-  },
-  containerDateAndTime: {
-    flexDirection: "row",
-    marginBottom: 20
-  },
-  containerDate: {
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  partieDate: {
-    fontWeight: "bold",
-    fontSize: 14,
-    color: "#fff",
-    marginLeft: 4,
-  },
-  containerJoueurs: {
-    marginTop: 16,
-    backgroundColor: "#ffffff",
-    borderBottomColor: "#d6d6d6",
-    borderRadius: 16,
-    marginLeft: 16,
-    marginRight: 16,
-    marginBottom: 128,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    elevation: 10,
-  },
-  buttons: {
-    position: "absolute",
-    bottom: 16,
-    flexDirection: "row"
-  },
-  buttonArreter: {
-    marginLeft: 16,
-    marginRight: 16,
-    width: width - 32,
-    paddingVertical: 15,
-    borderRadius: 10,
-    backgroundColor: "#7159df",
-  },
-  buttonContinuer: {
-    marginLeft: 4,
-    marginRight: 16,
-    width: (width / 2) - 20,
-    paddingVertical: 15,
-    borderRadius: 10,
-    backgroundColor: "#7159df",
-  },
-  buttonArreter2: {
-    marginLeft: 16,
-    marginRight: 4,
-    width: (width / 2) - 20,
-    paddingVertical: 15,
-    borderRadius: 10,
-    backgroundColor: "#B9B9B9"
-  },
-})
