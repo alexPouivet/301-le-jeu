@@ -56,7 +56,7 @@ export default function Parametres({ navigation, route }) {
         </View>
         <UpdateAllPartiesComponent />
         <DeleteAllPartiesComponent />
-        <Text style={ParametersStyles.versionApp}>V.2.1.11 par Alexandre Pouivet</Text>
+        <Text style={ParametersStyles.versionApp}>V.2.1.12 par Alexandre Pouivet</Text>
       </View>
     </View>
   );
