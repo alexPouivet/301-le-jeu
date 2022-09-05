@@ -46,7 +46,7 @@ export default function FinDeTour({ navigation, route }) {
         <TouchableOpacity
           style={GlobalStyles.buttonRetour}
           onPress={() => {
-            navigation.navigate("Liste")
+            navigation.navigate('Historique', {screen: "Liste"});
           }}
         >
           <Ionicons name='ios-chevron-back-outline' size={28} color="#252422"/>

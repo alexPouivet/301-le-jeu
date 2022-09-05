@@ -15,7 +15,7 @@ import Probleme from '../Screens/Probleme'
 const Tab = createBottomTabNavigator();
 const PartieStack = createNativeStackNavigator();
 const ParametresStack = createNativeStackNavigator();
-const HistoriqueStack = createNativeStackNavigator();
+const ListePartiesStack = createNativeStackNavigator();
 
 function PartieStackScreen() {
   return (
@@ -37,12 +37,12 @@ function ParametresStackScreen() {
   );
 }
 
-function HistoriqueStackScreen() {
+function ListePartiesStackScreen() {
   return (
-    <HistoriqueStack.Navigator screenOptions={{headerShown: false}}>
-      <HistoriqueStack.Screen name="Liste" component={ListeParties} />
-      <HistoriqueStack.Screen name="Details" component={DetailsPartie} />
-    </HistoriqueStack.Navigator>
+    <ListePartiesStack.Navigator screenOptions={{headerShown: false}}>
+      <ListePartiesStack.Screen name="Liste" component={ListeParties} />
+      <ListePartiesStack.Screen name="Details" component={DetailsPartie} />
+    </ListePartiesStack.Navigator>
   );
 }
 
@@ -54,15 +54,16 @@ const Tabs = () => {
 					position: 'absolute',
 				}
 			}}
-			initialRouteName="Historique"
+			initialRouteName="ListeParties"
 			screenOptions={({ route }) => ({
           		headerShown: false,
 
       		})}
 		>
-        <Tab.Screen name="Historique" component={HistoriqueStackScreen} options={{
+        <Tab.Screen name="Historique" component={ListePartiesStackScreen} options={{
         	tabBarActiveTintColor: '#7159df',
-          	tabBarInactiveTintColor: '#24334c',
+        	tabBarInactiveTintColor: '#24334c',
+          unmountOnBlur: true,
         	tabBarIcon: ({ focused, color, size}) => {
             let iconName;
             iconName = focused
@@ -76,6 +77,7 @@ const Tabs = () => {
 
         	options={{
 			  	tabBarLabel: () => null,
+          unmountOnBlur: true,
 			  	tabBarStyle: { display: "none" },
         		tabBarIcon: ({focused, color, size}) => {
         			let iconName = 'ios-add-outline';
@@ -94,7 +96,8 @@ const Tabs = () => {
         <Tab.Screen name="Paramètres" component={ParametresStackScreen} options={{
         	tabBarActiveTintColor: '#7159df',
         	showLabel: false,
-          	tabBarInactiveTintColor: '#24334c',
+          unmountOnBlur: true,
+        	tabBarInactiveTintColor: '#24334c',
         	tabBarIcon: ({ focused, color, size}) => {
             let iconName;
             iconName = focused

@@ -50,11 +50,11 @@ export default function GagnantPartie({ navigation, route }) {
             onPress={() => {
               if(game.nb_joueurs_restant > 1) {
                 updatePartieEtJoueurs(game_id).then(function(game_id) {
-                  navigation.navigate("Liste")
+                  navigation.navigate('Historique', {screen: "Liste"});
                 })
               } else {
                 terminerPartie(game_id).then(function(game_id) {
-                  navigation.navigate('Liste')
+                  navigation.navigate('Historique', {screen: "Liste"});
                 })
               }
             }}
@@ -81,7 +81,7 @@ export default function GagnantPartie({ navigation, route }) {
           onPress={() => {
             // Fin de la partie en cours
             terminerPartie(game_id).then(function(game_id) {
-              navigation.navigate('Liste')
+              navigation.navigate('Historique', {screen: "Liste"});
             })
           }}
         >

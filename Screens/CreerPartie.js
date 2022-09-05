@@ -26,15 +26,16 @@ export default function CreerPartie({ route, navigation }) {
 
   // Boucle textInput des noms des participants
   for(let i = 0; i < nb_participants; i++) {
-    const [participant, onChangeParticipant] = React.useState("");
+    const [participant, setParticipant] = React.useState(null);
 
     participants.push(
       <View key = {i} style={CreerPartieStyles.inputContainer}>
         <Text style={[CreerPartieStyles.textInput, {fontFamily: "Poppins-Bold"}]}>Prénom Joueur {i+1}</Text>
         <TextInput
           style={CreerPartieStyles.input}
+          defaultValue=""
           value={participant}
-          onChangeText={onChangeParticipant}
+          onChangeText={setParticipant}
         />
       </View>
     )

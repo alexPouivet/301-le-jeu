@@ -20,8 +20,8 @@ export default function NouvellePartie({ navigation }) {
     'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
   });
 
-  const [participants, onChangeParticipants] = React.useState(1);
-  const [palets, onChangePalets] = React.useState(1);
+  const [participants, onChangeParticipants] = React.useState(null);
+  const [palets, onChangePalets] = React.useState(null);
 
   if (!fontsLoaded) {
     return null;
@@ -53,6 +53,7 @@ export default function NouvellePartie({ navigation }) {
               value={participants}
               min={1}
               max={8}
+              initialValue={0}
               step={1}
               style={{marginBottom: 24}}
               width= {56}
@@ -72,6 +73,7 @@ export default function NouvellePartie({ navigation }) {
             <InputSpinner
               value={palets}
               min={1}
+              initialValue={0}
               max={9}
               step={1}
               width= {56}
@@ -95,7 +97,8 @@ export default function NouvellePartie({ navigation }) {
         onPress={() => navigation.navigate('Creer partie', {
           nb_participants: participants,
           nb_palets: palets,
-        })}
+        })
+      }
       >
         <Text style={CreerPartieStyles.textButton}>Valider</Text>
       </TouchableOpacity>
