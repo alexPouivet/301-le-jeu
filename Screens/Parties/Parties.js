@@ -177,8 +177,6 @@ function listerGames(setListGames, games) {
 
     if ( Platform.OS === "android") {
 
-      console.log(convertedDate);
-
       let month = convertedDate.split(' ');
 
       convertedDate = month[1] + " " + newDate.getFullYear();
