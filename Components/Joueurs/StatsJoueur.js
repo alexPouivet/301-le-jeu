@@ -99,7 +99,7 @@ const ItemStat = (props) => {
 
         <View style={[ DetailsJoueurStyles.iconStatItemContainer, { backgroundColor: ( props.color + "25" ) } ]}>
 
-          <Ionicons name={props.icon} size={24} color={props.color}/>
+          <Ionicons name={props.icon} size={24} color={props.color} style={{ height: 24, width: 24, lineHeight: 24, textAlign: "center"}}/>
 
         </View>
 

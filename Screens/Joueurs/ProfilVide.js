@@ -25,7 +25,7 @@ export default function ProfilVide({ navigation }) {
     <View style={GlobalStyles.container}>
 
       <View style={[GlobalStyles.textHeaderContainer]}>
-        <Text style={GlobalStyles.textHeaderTitle}>Pas de profil disponible</Text>
+        <Text style={GlobalStyles.textHeaderTitle}>Profil indisponible</Text>
       </View>
 
       <View style={{marginHorizontal: 16, marginTop: "auto", marginBottom: "auto"}}>

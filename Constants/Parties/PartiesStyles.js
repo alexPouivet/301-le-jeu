@@ -13,7 +13,7 @@ export default StyleSheet.create({
   switchSelectedText: {
     textTransform: "uppercase",
     fontSize: 12,
-    fontFamily: "Poppins-Bold"
+    fontFamily: "Poppins-Medium"
   },
   listEmptyContainer: {
     height:"100%",
@@ -28,12 +28,20 @@ export default StyleSheet.create({
   partiesContainer: {
     paddingHorizontal: 16,
   },
+  sectionHeader: {
+    textAlign: "center",
+    fontFamily: "Poppins-Medium",
+    textTransform: "capitalize",
+    color: "#BEBEBE",
+    fontSize: 14,
+    marginTop: 0,
+    marginBottom: 8,
+  },
   itemPartieContainer: {
     borderRadius: 10,
     width: "100%",
     backgroundColor: "#fff",
     marginBottom: 8,
-    elevation: 5,
     borderStyle: "solid",
     borderColor: "#F3F3F3",
     borderWidth: 1

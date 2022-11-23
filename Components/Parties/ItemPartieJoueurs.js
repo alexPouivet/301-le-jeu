@@ -39,8 +39,6 @@ export default class ItemPartie extends React.Component {
     let statutFiltres = this.props.statutFiltres;
     let db = this.props.db;
     let setGames = this.props.setGames;
-    let listerGames = this.props.listerGames;
-    let setListGames = this.props.setListGames;
     let avatars = this.props.avatars.split(',');
     let toast = this.props.toast;
 
@@ -61,7 +59,7 @@ export default class ItemPartie extends React.Component {
               onPress={() => {
                 this.swipeable.recenter();
                 deletePartie(this.props.game_id, db).then(function() {
-                  onRefresh(statutFiltres, db, setGames, listerGames, setListGames);
+                  onRefresh(statutFiltres, db, setGames);
                   toast.show('Partie supprimée !', {
                     type: "success",
                     placement: "top",
@@ -144,7 +142,7 @@ const deletePartie = function(game_id, db) {
   })
 }
 
-const onRefresh = function(statutFiltres, db, setGames, listerGames, setListGames) {
+const onRefresh = function(statutFiltres, db, setGames) {
 
   if (statutFiltres["statut"] == 'Toutes les parties') {
     db.transaction((tx) => {
@@ -155,7 +153,7 @@ const onRefresh = function(statutFiltres, db, setGames, listerGames, setListGame
           INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id
           GROUP BY infos_parties_joueurs.partie_id
           ORDER BY parties.partie_id DESC`
-        , [], (_, { rows: { _array } }) => { setGames(listerGames(setListGames, _array)) });
+        , [], (_, { rows: { _array } }) => { setGames( _array) });
     });
   } else if (statutFiltres["statut"] == 'Parties en Cours'){
   db.transaction((tx) => {
@@ -167,7 +165,7 @@ const onRefresh = function(statutFiltres, db, setGames, listerGames, setListGame
         WHERE parties.statut == "en cours"
         GROUP BY infos_parties_joueurs.partie_id
         ORDER BY parties.partie_id DESC`
-      , [], (_, { rows: { _array } }) => { setGames(listerGames(setListGames, _array)) });
+      , [], (_, { rows: { _array } }) => { setGames(_array) });
   });
   } else {
     db.transaction((tx) => {
@@ -179,7 +177,7 @@ const onRefresh = function(statutFiltres, db, setGames, listerGames, setListGame
           WHERE parties.statut == "finie"
           GROUP BY infos_parties_joueurs.partie_id
           ORDER BY parties.partie_id DESC`
-        , [], (_, { rows: { _array } }) => { setGames(listerGames(setListGames, _array)) });
+        , [], (_, { rows: { _array } }) => { setGames(_array) });
     });
   }
 };

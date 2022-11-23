@@ -14,7 +14,7 @@ import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';
 import PartiesStyles from '../../Constants/Parties/PartiesStyles';
 
 // Components
-import ItemPartie from '../../Components/Parties/ItemPartie';
+import ItemPartieJoueurs from '../../Components/Parties/ItemPartieJoueurs';
 import StatsJoueur from '../../Components/Joueurs/StatsJoueur';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
@@ -155,7 +155,7 @@ export default function DetailsJoueur({ route, navigation }) {
 
               {games.map(({ partie_id, date, horaire, liste_joueurs, statut, gagnant_game, avatars }, index) => (
 
-                <ItemPartie toast={toast} avatars={avatars} setGames={setGames} statutFiltres={statutFiltres} game_id={partie_id} date={date} time={horaire} statut={statut} gagnant_game={gagnant_game} navigation={navigation} db={db} index={index} />
+                <ItemPartieJoueurs key={index} toast={toast} avatars={avatars} setGames={setGames} statutFiltres={statutFiltres} game_id={partie_id} date={date} time={horaire} statut={statut} gagnant_game={gagnant_game} navigation={navigation} db={db} index={index} />
 
               ))}
 
@@ -199,12 +199,18 @@ function initJoueur(route, db, setJoueur, setGames) {
 
 function deleteJoueur(joueur_id, db, games) {
 
-  const arrayGames = games.map(game => { return game.partie_id });
+  let arrayGames = null;
+
+  if (games !== null) {
+
+    arrayGames = games.map(game => { return game.partie_id });
+
+  }
 
   db.transaction((tx) => {
 
     // si le joueur est dans des parties
-    if (arrayGames.length !== 0) {
+    if (arrayGames !== null) {
 
       //  boucle pour mettre à jour les données des parties
       for (var i = 0; i < arrayGames.length; i++) {
@@ -260,6 +266,7 @@ function addGames(joueur, tx, setGames) {
 
   let joueur_id = joueur.joueur_id;
 
+
   tx.executeSql(
     `SELECT parties.partie_id, parties.date, parties.horaire, infos_parties_joueurs.joueur_id, parties.statut, GROUP_CONCAT(joueurs.avatar_slug) AS avatars, GROUP_CONCAT(infos_parties_joueurs.joueur_id) AS joueurs
       FROM parties
@@ -268,7 +275,7 @@ function addGames(joueur, tx, setGames) {
       GROUP BY infos_parties_joueurs.partie_id
       ORDER BY parties.partie_id DESC
       `
-    , [joueur_id], (_, { rows: { _array } }) => {
+    , [], (_, { rows: { _array } }) => {
 
       const games = _array.map( game => {
 

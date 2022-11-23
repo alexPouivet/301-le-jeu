@@ -54,7 +54,14 @@ export default function ModifierJoueur({ navigation, route }) {
         <TouchableOpacity
           style={GlobalStyles.buttonLeft}
           onPress={() => {
-            navigation.goBack()
+            if (joueur.profil) {
+              navigation.reset({
+                index: 0,
+                routes: [{ name: 'Profil' }],
+              });
+            } else {
+              navigation.navigate('Details Joueur', { joueur_id: joueur.joueur_id })
+            }
           }}
         >
           <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>

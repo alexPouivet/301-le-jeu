@@ -13,17 +13,46 @@ export default StyleSheet.create({
   listJoueursContainer: {
     paddingHorizontal: 16,
   },
+  sectionHeader: {
+    fontFamily: "Poppins-Medium",
+    color: "#BEBEBE",
+    fontSize: 14,
+    marginTop: 0,
+    marginLeft: 4,
+    marginBottom: 8,
+  },
   itemJoueurContainer: {
     borderRadius: 10,
     borderStyle: "solid",
     borderColor: "#F3F3F3",
     borderWidth: 1,
-    padding: 12,
     width: "100%",
+    marginBottom: 8
+  },
+  swipeable: {
+    overflow: "hidden",
+    height: "auto",
+    borderRadius: 10,
+  },
+  buttonSupprimerSwipeable: {
+    justifyContent: "center",
+    height: "100%",
+    backgroundColor: "#FF4B3E",
+  },
+  buttonEditSwipeable: {
+    justifyContent: "center",
+    height: "100%",
+    backgroundColor: "#F3F3F3",
+  },
+  iconButtonSwipeable: {
+    marginRight: "auto",
+    marginLeft: 20
+  },
+  wrapperJoueur: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 8
+    padding: 12,
   },
   infosJoueurContainer: {
     flexDirection: "row",
@@ -38,7 +67,7 @@ export default StyleSheet.create({
   profilJoueur: {
     fontFamily: "Poppins-Medium",
     fontSize: 10,
-    color: "#C0C0C0", 
+    color: "#C0C0C0",
     marginLeft: 4
   }
 })

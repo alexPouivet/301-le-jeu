@@ -83,7 +83,7 @@ export default function FinDeTour({ navigation, route }) {
             onPress={() => {
               // Fin de la partie en cours
               terminerPartie(game_id, joueurs).then(function(game_id) {
-                navigation.navigate('Liste');
+                navigation.navigate('Parties', {screen: "Liste Parties"});
                 toast.show('Partie terminée !', {
                   type: "success",
                   placement: "top",

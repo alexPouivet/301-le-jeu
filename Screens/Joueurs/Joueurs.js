@@ -1,10 +1,10 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, RefreshControl, FlatList } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, RefreshControl, FlatList, SectionList } from 'react-native';
 
 // Packages
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
 import Avatar from 'react-native-boring-avatars';
+import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
 // Styles
@@ -12,6 +12,7 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import JoueursStyles from '../../Constants/Joueurs/JoueursStyles';
 
 // Components
+import ItemJoueur from '../../Components/Joueurs/ItemJoueur';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
@@ -26,9 +27,18 @@ export default function Joueurs({ navigation }) {
 
   const onRefresh = useCallback(() => {
 
-    db.transaction((tx) => {
-      tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setJoueurs(_array));
+    setRefreshing(true);
+
+    wait(500).then(() => {
+
+      db.transaction((tx) => {
+        tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array));
+      });
+
     });
+
+    setRefreshing(false);
+
 
   }, []);
 
@@ -36,16 +46,14 @@ export default function Joueurs({ navigation }) {
 
     const focusHandler = navigation.addListener('focus', () => {
       db.transaction((tx) => {
-        // Recupère les données de toutes les parties
-        tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => { setJoueurs(_array) });
+        // Recupère la liste des joueurs
+        tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array));
       });
     });
 
     db.transaction((tx) => {
-      // Recupère les données de toutes les parties
-      tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => {
-        setJoueurs(_array)
-      });
+      // Recupère la liste des joueurs
+      tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array));
       // Supprimer tous les joueurs
       // tx.executeSql(`DELETE FROM joueurs`);
     });
@@ -127,12 +135,15 @@ export default function Joueurs({ navigation }) {
 
         :
 
-        <FlatList
-          data={ joueurs }
+        <SectionList
+          sections={ joueurs }
           refreshing={ refreshing }
           onRefresh={ () => onRefresh() }
           style={ JoueursStyles.listJoueursContainer }
-          renderItem={({item, index}) => ( <ItemJoueur item={item} index={index} navigation={navigation} /> )}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={ JoueursStyles.sectionHeader }>{title}</Text>
+          )}
+          renderItem={({ item, index }) => ( <ItemJoueur setListJoueurs={setListJoueurs} key={index} profil={item.profil} avatar_slug={item.avatar_slug} nom_joueur={item.nom_joueur} joueur_id={item.joueur_id} navigation={navigation} toast={toast} db={db} setJoueurs={setJoueurs} /> )}
         />
 
       }
@@ -141,50 +152,50 @@ export default function Joueurs({ navigation }) {
   );
 }
 
-const ItemJoueur = (props) => {
+function setListJoueurs(setJoueurs, joueurs) {
 
-  return (
-    <TouchableOpacity
-      key={props.index}
-      style={JoueursStyles.itemJoueurContainer}
-      onPress={() => {
+  if (joueurs === null || joueurs.length === 0 ) {
 
-        if (props.item.profil) {
-          props.navigation.navigate('Profil')
+    setJoueurs(joueurs)
+
+  } else {
+
+    let listJoueurs = [];
+
+    joueurs.forEach((item, index) => {
+
+      const firstNameLetter = item.nom_joueur.substring(0, 1);
+
+      let newItem = {
+        title: firstNameLetter,
+        data: [ item ]
+      }
+
+      if (index == 0) {
+
+        listJoueurs.push(newItem);
+
+      } else {
+
+        if (listJoueurs.some( listJoueur => listJoueur.title === firstNameLetter )) {
+
+          let i = listJoueurs.findIndex( listJoueur => listJoueur.title === firstNameLetter );
+
+          listJoueurs[i]["data"].push(item);
+
         } else {
-          props.navigation.navigate('Details Joueur', { joueur_id: props.item.joueur_id })
+
+          listJoueurs.push(newItem);
+
         }
 
       }
-      }
-    >
-      <View style={JoueursStyles.infosJoueurContainer}>
 
-        <Avatar
-          size={48}
-          name={props.item.avatar_slug}
-          variant="beam"
-          colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-        />
+    });
 
-        <Text style={JoueursStyles.nomJoueur}>{props.item.nom_joueur}</Text>
+    setJoueurs(listJoueurs);
 
-        { props.item.profil
-          ?
-          <Text style={JoueursStyles.profilJoueur}>(profil)</Text>
-          :
-          null
-        }
-      </View>
-
-      <View>
-
-        <Ionicons name='ios-chevron-forward-outline' size={24} color="#C0C0C0"/>
-
-      </View>
-
-    </TouchableOpacity>
-  );
+  }
 
 }
 
@@ -197,4 +208,8 @@ function addPlayer(player) {
     );
 
   });
+}
+
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
 }

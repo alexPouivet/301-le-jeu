@@ -25,19 +25,19 @@ export default function App() {
 
   db.transaction((tx) => {
     tx.executeSql(" PRAGMA foreign_keys=on ");
-    // création de la table game dans la bdd
+    // suppression de la table game v1 dans la bdd
     tx.executeSql(
       "DELETE FROM game"
     );
-    // création de la table joueur dans la bdd
+    // suppression de la table joueur v1 dans la bdd
     tx.executeSql(
       "DELETE FROM joueur"
     );
-    // création de la table joueurs dans la bdd
+    // création de la table joueurs v2 dans la bdd
     tx.executeSql(
       "CREATE TABLE IF NOT EXISTS joueurs (joueur_id integer primary key not null, nom_joueur text, avatar_slug text, profil integer)"
     );
-    // création de la table parties dans la bdd
+    // création de la table parties v2 dans la bdd
     tx.executeSql(
       "CREATE TABLE IF NOT EXISTS parties (partie_id integer primary key not null, date text, horaire time, statut text, nb_palets int, nb_joueurs int, nb_joueurs_restant int, tour_partie int, gagnant_partie text, tour_joueur int)"
     );
