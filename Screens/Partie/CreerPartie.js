@@ -221,7 +221,7 @@ const create = function(playersSelect, nb_participants, nb_palets) {
 
     // config date d'une partie
     let year = new Date().getFullYear();
-    let month = padTo2Digits(new Date('April 19, 1975 23:15:30').getMonth() + 1);
+    let month = padTo2Digits(new Date().getMonth() + 1);
     let day = padTo2Digits(new Date().getDate());
     let hour = padTo2Digits(new Date().getHours());
     let minutes = padTo2Digits(new Date().getMinutes());

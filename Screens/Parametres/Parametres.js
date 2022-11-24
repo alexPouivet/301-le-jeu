@@ -83,7 +83,7 @@ export default function Parametres({ navigation, route }) {
           </TouchableOpacity>
 
         </View>
-        <Text style={ParametersStyles.versionApp}>V.2.3.22 | 301 le Jeu - Alexandre Pouivet</Text>
+        <Text style={ParametersStyles.versionApp}>V.2.3.23 | 301 le Jeu - Alexandre Pouivet</Text>
       </View>
     </View>
   );
