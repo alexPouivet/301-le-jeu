@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Svg, { G, Path, Rect, Ellipse, Circle, Mask, Line, Text as TextSvg, TSpan, Polyline } from 'react-native-svg';
+import Svg, { G, Rect, Ellipse, Mask } from 'react-native-svg';
 
 export default function curve() {
   return (
