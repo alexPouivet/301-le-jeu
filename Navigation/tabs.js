@@ -19,6 +19,7 @@ import CreerPartie from '../Screens/Partie/CreerPartie'
 import Parametres from '../Screens/Parametres/Parametres'
 import Partager from '../Screens/Parametres/Partager'
 import Probleme from '../Screens/Parametres/Probleme'
+import Logs from '../Screens/Parametres/Logs'
 import Configuration from '../Screens/Parametres/Configuration'
 import Nouveautes from '../Screens/Parametres/Nouveautes'
 
@@ -70,6 +71,7 @@ function ParametresStackScreen() {
       <ParametresStack.Screen name="Probleme" component={Probleme} />
       <ParametresStack.Screen name="Configuration" component={Configuration} />
       <ParametresStack.Screen name="Nouveautés" component={Nouveautes} />
+      <ParametresStack.Screen name="Logs" component={Logs} />
     </ParametresStack.Navigator>
   );
 }

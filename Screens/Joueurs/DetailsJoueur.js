@@ -89,7 +89,7 @@ export default function DetailsJoueur({ route, navigation }) {
          <TouchableOpacity
            style={GlobalStyles.buttonLeft}
            onPress={() => {
-             navigation.goBack()
+             navigation.navigate('Liste Joueurs');
            }}
          >
            <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>

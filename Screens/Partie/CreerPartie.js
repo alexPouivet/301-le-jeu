@@ -91,14 +91,14 @@ export default function CreerPartie({ route, navigation }) {
         <View style={GlobalStyles.inputAddPlayerContainer}>
 
           <TextInput
-            style={GlobalStyles.inputAddPlayer}
-            placeholder="John Doe..."
+            style={[ participant.length < 2 ? GlobalStyles.inputAddPlayerFull : GlobalStyles.inputAddPlayer ]}
+            placeholder="Nom du joueur..."
             value={participant}
             onChangeText={setParticipant}
           />
 
           <TouchableOpacity
-            style={GlobalStyles.addPlayerButton}
+            style={[ participant.length < 2 ? GlobalStyles.addPlayerButtonNone : GlobalStyles.addPlayerButton ]}
             onPress={() => {
 
               if( participant == "" || participant.length < 2 ){

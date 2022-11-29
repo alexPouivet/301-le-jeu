@@ -55,9 +55,71 @@ export default StyleSheet.create({
   marginText12: {
     marginTop: 12,
   },
-  versionApp: {
+  containerVersionApp: {
     margin: 16,
     marginTop: 12,
+    flexDirection: "row",
+  },
+  logTitreApp: {
+    fontSize: 16,
+    alignSelf: "center",
+    fontFamily: "Poppins-Medium",
+    color: "#252422",
+  },
+  logVersionAppContainer: {
+    alignItems: "center",
+    flexDirection: "row",
+    marginHorizontal: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    borderRadius: 16,
+    backgroundColor: "#7159DF25",
+  },
+  logVersionApp: {
+    fontSize: 10,
+    color: "#7159DF",
+    alignSelf: "center",
+    fontFamily: "Poppins-Medium"
+  },
+  logSpecialContainer: {
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    borderRadius: 16,
+    backgroundColor: "#f3f3f3",
+  },
+  logSpecial: {
+    fontSize: 10,
+    color: "#252422",
+    fontFamily: "Poppins-Medium"
+  },
+  logDate: {
+    marginTop:4,
+    fontSize: 12,
+    color: "#BEBEBE",
+    fontFamily: "Poppins-Regular"
+  },
+  logDescriptionApp: {
+    marginTop: 4,
+    fontSize: 14,
+    fontFamily: "Poppins-Regular",
+    color: "#252422",
+  },
+  logContainer: {
+    marginHorizontal: 16,
+    marginTop: 0,
+    marginBottom: 8,
+    padding: 24,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    borderWidth: 1,
+    borderColor: "#F3F3F3",
+  },
+  titreContainer: {
+    flexDirection: "row",
+    flexWrap: 'wrap',
+    gap: 4
+  },
+  versionApp: {
     color: "#252422",
     fontSize: 12,
   },

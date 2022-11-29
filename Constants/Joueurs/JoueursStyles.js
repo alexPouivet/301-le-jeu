@@ -64,10 +64,16 @@ export default StyleSheet.create({
     fontFamily: "Poppins-Medium",
     fontSize: 14, color: "#252422"
   },
+  profilJoueurContainer: {
+    marginLeft: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    borderRadius: 16,
+    backgroundColor: "#f3f3f3",
+  },
   profilJoueur: {
     fontFamily: "Poppins-Medium",
     fontSize: 10,
     color: "#C0C0C0",
-    marginLeft: 4
   }
 })

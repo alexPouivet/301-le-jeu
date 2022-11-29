@@ -149,7 +149,9 @@ export default class ItemJoueur extends React.Component {
 
               { profil
                 ?
-                <Text style={JoueursStyles.profilJoueur}>(profil)</Text>
+                <View style={JoueursStyles.profilJoueurContainer}>
+                  <Text style={JoueursStyles.profilJoueur}>Profil</Text>
+                </View>
                 :
                 null
               }

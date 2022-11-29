@@ -84,6 +84,14 @@ export default StyleSheet.create({
     width: "85%",
     backgroundColor: '#F3F3F3'
   },
+  inputAddPlayerFull: {
+    height: 48,
+    borderRadius: 10,
+    paddingLeft: 16,
+    fontSize: 16,
+    width: "100%",
+    backgroundColor: '#F3F3F3'
+  },
   addPlayerButton: {
     width: 48,
     height: 48,
@@ -91,6 +99,9 @@ export default StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center"
+  },
+  addPlayerButtonNone: {
+    display: "none"
   },
   errorText: {
     marginTop: 8,

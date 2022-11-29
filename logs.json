@@ -1,0 +1,34 @@
+[
+  {
+    "titre": "Lancement de l'application",
+    "version": "1.0.0",
+    "date": "Juillet 2021",
+    "description": "Première version du \"Jeu du 301\" permettant de créer une partie en rentrant le nom des joueurs et le nombre de palets par participant, avec la possibilité de reprendre la partie plus tard."
+  },
+  {
+    "titre": "Refonte majeure",
+    "version": "2.0.0",
+    "special": "Refonte majeure",
+    "date": "Juillet 2022",
+    "description": "Deuxième version de \"301 le Jeu\", reprenant la base de la première version mais avec une refonte totale du design de l'application."
+  },
+  {
+    "titre": "Ajout de fonctionnalités",
+    "version": "2.1.0",
+    "date": "Aout 2022",
+    "description": "Après la refonte de l'application, perfectionnement de l'apparence et du Design System ainsi que début de l'ajout de fonctionnalités majeures."
+  },
+  {
+    "titre": "Fonctionnalités majeures",
+    "version": "2.3.0",
+    "date": "Octobre 2022",
+    "description": "Ajout à l'application des nouvelles fonctionnalités : refonte du Menu, ajout des Joueurs et du Profil et Statistiques des joueurs."
+  },
+  {
+    "titre": "Corrections et micro-fonctionnalités",
+    "version": "2.3.24",
+    "special": "Corrections",
+    "date": "Décembre 2022",
+    "description": "Ajout de la page \"Logs\" permettant la lecture de l'historique des fonctionnalités de l'application ainsi que corrections de divers bugs mineurs entraînant une difficulté à utiliser pleinement l'application + légers changements de design."
+  },
+]

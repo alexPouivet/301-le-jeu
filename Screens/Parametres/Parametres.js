@@ -83,7 +83,16 @@ export default function Parametres({ navigation, route }) {
           </TouchableOpacity>
 
         </View>
-        <Text style={ParametersStyles.versionApp}>V.2.3.23 | 301 le Jeu - Alexandre Pouivet</Text>
+        <View style={ParametersStyles.containerVersionApp}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Logs");
+            }}
+          >
+            <Text style={ParametersStyles.versionApp}>V.2.3.24</Text>
+          </TouchableOpacity>
+          <Text style={ParametersStyles.versionApp}> | 301 le Jeu - Alexandre Pouivet</Text>
+        </View>
       </View>
     </View>
   );
