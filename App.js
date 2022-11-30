@@ -27,11 +27,11 @@ export default function App() {
     tx.executeSql(" PRAGMA foreign_keys=on ");
     // suppression de la table game v1 dans la bdd
     tx.executeSql(
-      "DELETE FROM game"
+      "DROP TABLE IF EXISTS game"
     );
     // suppression de la table joueur v1 dans la bdd
     tx.executeSql(
-      "DELETE FROM joueur"
+      "DROP TABLE IF EXISTS joueur"
     );
     // création de la table joueurs v2 dans la bdd
     tx.executeSql(
