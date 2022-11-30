@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 
 // Packages
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Avatar from 'react-native-boring-avatars';
 import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
@@ -12,6 +11,7 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';
 
 // Components
+import AvatarComponent from '../../Components/AvatarComponent'
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
@@ -64,12 +64,7 @@ export default function CreerProfil({ navigation }) {
       <View style={DetailsJoueurStyles.changeAvatarContainer}>
 
         <Text style={DetailsJoueurStyles.subtitle}>choisir votre avatar</Text>
-        <Avatar
-          size={64}
-          name={avatarJoueur}
-          variant="beam"
-          colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-        />
+        <AvatarComponent size={64} name={avatarJoueur} />
 
         <View style={DetailsJoueurStyles.buttonsContainerChangeAvatar}>
 

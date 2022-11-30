@@ -4,10 +4,12 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 // Packages
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Font from 'expo-font';
-import Avatar from 'react-native-boring-avatars';
 
 // Styles
 import CreerPartieStyles from '../../Constants/Partie/CreerPartieStyles';
+
+// Components
+import AvatarComponent from '../../Components/AvatarComponent'
 
 let customFonts = {
   'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
@@ -63,14 +65,22 @@ export default class SelectionJoueurComponent extends React.Component {
 
         }}
       >
+
+        {
+          this.props.playersSelect.includes(joueur.joueur_id)
+          ?
+            <View style={CreerPartieStyles.counterJoueurSelected}>
+
+              <Text style={CreerPartieStyles.counterJoueurSelectedText}>{ this.props.playersSelect.indexOf(joueur.joueur_id) + 1 }</Text>
+
+            </View>
+          :
+            null
+        }
+
         <View style={CreerPartieStyles.wrapperItemJoueur}>
 
-          <Avatar
-            size={64}
-            name={joueur.avatar_slug}
-            variant="beam"
-            colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-          />
+          <AvatarComponent size={64} name={joueur.avatar_slug} />
 
           <Text numberOfLines={1} style={CreerPartieStyles.nomItemJoueur}>{joueur.nom_joueur}</Text>
         </View>

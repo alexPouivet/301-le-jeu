@@ -2,13 +2,15 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 // Packages
-import Avatar from 'react-native-boring-avatars';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Swipeable from 'react-native-swipeable';
 import * as Font from 'expo-font';
 
 // Styles
 import PartiesStyles from '../../Constants/Parties/PartiesStyles';
+
+// Components
+import AvatarComponent from '../../Components/AvatarComponent'
 
 let customFonts = {
   'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
@@ -99,13 +101,7 @@ export default class ItemPartie extends React.Component {
 
                 <View key={i} style={PartiesStyles.avatarContainer}>
 
-                  <Avatar
-                    size={24}
-                    name={avatar_slug}
-                    variant="beam"
-                    style={{}}
-                    colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-                  />
+                  <AvatarComponent size={24} name={avatar_slug} />
 
                 </View>
 

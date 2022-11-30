@@ -30,10 +30,26 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: "#F3F3F3"
   },
+  counterJoueurSelected: {
+    position: "absolute",
+    left: 6,
+    top: 6,
+    backgroundColor: "#7159df",
+    width: 18,
+    height: 18,
+    borderRadius: 16,
+    justifyContent: "center"
+  },
+  counterJoueurSelectedText: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 12,
+    fontFamily: "Poppins-Medium"
+  },
   wrapperItemJoueur: {
     alignItems: "center",
     justifyContent: "center",
-    flex: 1
+    flex: 1,
   },
   nomItemJoueur: {
     marginTop: 4,

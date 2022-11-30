@@ -2,13 +2,15 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 // Packages
-import Avatar from 'react-native-boring-avatars';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Swipeable from 'react-native-swipeable';
 import * as Font from 'expo-font';
 
 // Styles
 import JoueursStyles from '../../Constants/Joueurs/JoueursStyles';
+
+// Components
+import AvatarComponent from '../../Components/AvatarComponent'
 
 let customFonts = {
   'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
@@ -138,12 +140,7 @@ export default class ItemJoueur extends React.Component {
           >
             <View style={JoueursStyles.infosJoueurContainer}>
 
-              <Avatar
-                size={48}
-                name={avatar_slug}
-                variant="beam"
-                colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-              />
+              <AvatarComponent size={48} name={avatar_slug} />
 
               <Text style={JoueursStyles.nomJoueur}>{nom_joueur}</Text>
 

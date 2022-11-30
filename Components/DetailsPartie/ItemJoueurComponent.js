@@ -3,11 +3,13 @@ import { View, Text, StyleSheet } from 'react-native';
 
 // Packages
 import { useFonts } from 'expo-font';
-import Avatar from 'react-native-boring-avatars';
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
 import DetailsPartieStyles from '../../Constants/Parties/DetailsPartieStyles';
+
+// Components
+import AvatarComponent from '../../Components/AvatarComponent'
 
 // Item Joueur Classement Partie
 export default function itemJoueurComponent(props) {
@@ -30,12 +32,7 @@ export default function itemJoueurComponent(props) {
       </View>
 
 			<View style={DetailsPartieStyles.infosClassementJoueur}>
-				<Avatar
-					size={24}
-					name={props.avatar_slug}
-					variant="beam"
-					colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-				/>
+				<AvatarComponent size={24} name={props.avatar_slug} />
 	      <Text numberOfLines={1} style={DetailsPartieStyles.textNomJoueur}>{props.nom_joueur}</Text>
 			</View>
 

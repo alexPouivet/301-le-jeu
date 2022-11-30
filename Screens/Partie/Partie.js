@@ -5,13 +5,13 @@ import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import InputSpinner from "react-native-input-spinner";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useFonts } from 'expo-font';
-import Avatar from 'react-native-boring-avatars';
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
 import PartieStyles from '../../Constants/Partie/PartieStyles';
 
 // Components
+import AvatarComponent from '../../Components/AvatarComponent'
 import PointsPartieInputSpinner from '../../Components/Partie/PointsPartieInputSpinner';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
@@ -72,12 +72,7 @@ export default function Partie({ navigation, route }) {
     joueurs[i].position_joueur_en_cours == (joueur.position_joueur_en_cours - 1 )
       ? joueurPrecedent.push(
         <View key={i} style={{alignItems: "center"}}>
-          <Avatar
-            size={32}
-            name={joueurs[i].avatar_slug}
-            variant="beam"
-            colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-          />
+          <AvatarComponent size={32} name={joueurs[i].avatar_slug} />
           <Text numberOfLines={1} style={[PartieStyles.joueurPrecedent]}>{joueurs[i].nom_joueur}</Text>
         </View>
       )
@@ -86,12 +81,7 @@ export default function Partie({ navigation, route }) {
     joueurs[i].joueur_id == joueur.joueur_id
       ? joueurEnCours.push(
         <View key={i} style={{alignItems: "center"}}>
-          <Avatar
-            size={44}
-            name={joueur.avatar_slug}
-            variant="beam"
-            colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-          />
+          <AvatarComponent size={44} name={joueur.avatar_slug} />
           <Text numberOfLines={1} style={[PartieStyles.joueurEnCours, {fontFamily: "Poppins-Bold"}]}>{joueur.nom_joueur}</Text>
         </View>
       )
@@ -100,12 +90,7 @@ export default function Partie({ navigation, route }) {
     joueurs[i].position_joueur_en_cours == (joueur.position_joueur_en_cours + 1 )
       ? joueurSuivant.push(
         <View key={i} style={{alignItems: "center"}}>
-          <Avatar
-            size={32}
-            name={joueurs[i].avatar_slug}
-            variant="beam"
-            colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-          />
+          <AvatarComponent size={32} name={joueurs[i].avatar_slug} />
           <Text numberOfLines={1} style={[PartieStyles.joueurSuivant]}>{joueurs[i].nom_joueur}</Text>
         </View>
       )

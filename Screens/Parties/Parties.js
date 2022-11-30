@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, RefreshControl, SectionList, FlatList, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, SectionList, Platform } from 'react-native';
 
 // Packages
 import Ionicons from '@expo/vector-icons/Ionicons';

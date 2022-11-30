@@ -3,7 +3,6 @@ import { View, Text, TextInput, TouchableOpacity, RefreshControl, FlatList, Sect
 
 // Packages
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Avatar from 'react-native-boring-avatars';
 import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
@@ -162,12 +161,15 @@ function setListJoueurs(setJoueurs, joueurs) {
 
     let listJoueurs = [];
 
+    const removeAccents = str =>
+      str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
     joueurs.forEach((item, index) => {
 
       const firstNameLetter = item.nom_joueur.substring(0, 1);
 
       let newItem = {
-        title: firstNameLetter,
+        title: removeAccents(firstNameLetter),
         data: [ item ]
       }
 
@@ -177,9 +179,9 @@ function setListJoueurs(setJoueurs, joueurs) {
 
       } else {
 
-        if (listJoueurs.some( listJoueur => listJoueur.title === firstNameLetter )) {
+        if (listJoueurs.some( listJoueur => removeAccents(listJoueur.title) === removeAccents(firstNameLetter) )) {
 
-          let i = listJoueurs.findIndex( listJoueur => listJoueur.title === firstNameLetter );
+          let i = listJoueurs.findIndex( listJoueur => removeAccents(listJoueur.title) === removeAccents(firstNameLetter) );
 
           listJoueurs[i]["data"].push(item);
 
@@ -192,6 +194,20 @@ function setListJoueurs(setJoueurs, joueurs) {
       }
 
     });
+
+    listJoueurs.forEach((item, i) => {
+
+      let joueur = item.data.sort(function(a, b) {
+        a = a.nom_joueur;
+        b = b.nom_joueur;
+
+        return a.localeCompare(b);
+      });
+
+    });
+
+
+
 
     setJoueurs(listJoueurs);
 

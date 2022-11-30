@@ -74,7 +74,7 @@ export default function Probleme({ navigation, route }) {
 
           <View style={{flex: 4/7, justifyContent: "flex-end"}}>
 
-            <Image style={{width: width - 96, resizeMode: "contain", marginBottom: 8}} source={item.image} />
+            <Image style={{ width: width - 96, resizeMode: "contain", marginBottom: 8 }} source={item.image} />
 
           </View>
 

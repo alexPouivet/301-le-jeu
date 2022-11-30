@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 // Packages
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Constants from 'expo-constants';
 import { useFonts } from 'expo-font';
 
 // Styles
@@ -11,6 +12,8 @@ import ParametersStyles from '../../Constants/Parametres/ParametersStyles';
 
 // Paramètres
 export default function Parametres({ navigation, route }) {
+
+  const version = Constants.manifest.version;
 
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
@@ -89,7 +92,7 @@ export default function Parametres({ navigation, route }) {
               navigation.navigate("Logs");
             }}
           >
-            <Text style={ParametersStyles.versionApp}>V.2.3.24</Text>
+            <Text style={ParametersStyles.versionApp}>V.{version}</Text>
           </TouchableOpacity>
           <Text style={ParametersStyles.versionApp}> | 301 le Jeu - Alexandre Pouivet</Text>
         </View>

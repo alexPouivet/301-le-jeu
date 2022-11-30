@@ -1,10 +1,8 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 // Packages
-import Avatar from 'react-native-boring-avatars';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Swipeable from 'react-native-swipeable';
 import * as Font from 'expo-font';
 
 // Styles

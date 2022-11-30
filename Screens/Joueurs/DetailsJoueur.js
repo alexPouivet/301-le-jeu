@@ -2,7 +2,6 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 // Packages
-import Avatar from 'react-native-boring-avatars';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { useFonts } from 'expo-font';
@@ -14,6 +13,7 @@ import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';
 import PartiesStyles from '../../Constants/Parties/PartiesStyles';
 
 // Components
+import AvatarComponent from '../../Components/AvatarComponent'
 import ItemPartieJoueurs from '../../Components/Parties/ItemPartieJoueurs';
 import StatsJoueur from '../../Components/Joueurs/StatsJoueur';
 import openDatabase from '../../Components/OpenDatabase';
@@ -128,12 +128,7 @@ export default function DetailsJoueur({ route, navigation }) {
       <ScrollView>
 
         <View style={DetailsJoueurStyles.infosJoueurContainer}>
-          <Avatar
-            size={64}
-            name={joueur.avatar_slug}
-            variant="beam"
-            colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-          />
+          <AvatarComponent size={64} name={joueur.avatar_slug} />
           <Text style={DetailsJoueurStyles.joueur}>{joueur.nom_joueur}</Text>
         </View>
 

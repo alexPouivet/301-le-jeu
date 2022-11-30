@@ -61,6 +61,7 @@ export default StyleSheet.create({
     flexDirection: "row",
   },
   logTitreApp: {
+    marginRight: 4,
     fontSize: 16,
     alignSelf: "center",
     fontFamily: "Poppins-Medium",
@@ -69,7 +70,6 @@ export default StyleSheet.create({
   logVersionAppContainer: {
     alignItems: "center",
     flexDirection: "row",
-    marginHorizontal: 4,
     paddingHorizontal: 6,
     paddingVertical: 4,
     borderRadius: 16,
@@ -84,6 +84,7 @@ export default StyleSheet.create({
   logSpecialContainer: {
     paddingHorizontal: 6,
     paddingVertical: 4,
+    marginLeft: 4,
     borderRadius: 16,
     backgroundColor: "#f3f3f3",
   },
@@ -117,7 +118,6 @@ export default StyleSheet.create({
   titreContainer: {
     flexDirection: "row",
     flexWrap: 'wrap',
-    gap: 4
   },
   versionApp: {
     color: "#252422",

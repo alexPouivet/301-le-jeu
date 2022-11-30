@@ -4,7 +4,6 @@ import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native'
 // Packages
 import GridFlatList from 'grid-flatlist-react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Avatar from 'react-native-boring-avatars';
 import Lottie from 'lottie-react-native';
 import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
@@ -44,7 +43,7 @@ export default function CreerPartie({ route, navigation }) {
 
       db.transaction((tx) => {
         // Récupère les données de tous les joueurs
-        tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setJoueurs(_array));
+        tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setOrderJoueurs(setJoueurs, _array) );
       });
 
       setRefreshing(false);
@@ -55,7 +54,7 @@ export default function CreerPartie({ route, navigation }) {
   useEffect(() => {
     db.transaction((tx) => {
       // Recupère les données de toutes les parties
-      tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setJoueurs(_array));
+      tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setOrderJoueurs(setJoueurs, _array) );
     });
   }, []);
 
@@ -246,6 +245,21 @@ const create = function(playersSelect, nb_participants, nb_palets) {
     });
 
   })
+
+}
+
+function setOrderJoueurs(setJoueurs, joueurs) {
+
+  joueurs.sort(function(a, b) {
+
+    a = a.nom_joueur;
+    b = b.nom_joueur;
+
+    return a.localeCompare(b);
+
+  });
+
+  setJoueurs(joueurs);
 
 }
 

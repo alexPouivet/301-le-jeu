@@ -26,9 +26,9 @@
   },
   {
     "titre": "Corrections et micro-fonctionnalités",
-    "version": "2.3.24",
+    "version": "2.3.25",
     "special": "Corrections",
     "date": "Décembre 2022",
-    "description": "Ajout de la page \"Logs\" permettant la lecture de l'historique des fonctionnalités de l'application ainsi que corrections de divers bugs mineurs entraînant une difficulté à utiliser pleinement l'application + légers changements de design."
+    "description": "Ajout de la page \"Logs\" permettant la lecture de l'historique des fonctionnalités de l'application ainsi que corrections de divers bugs mineurs entraînant une difficulté à utiliser pleinement l'application + légers ajouts et modifications de design."
   },
 ]

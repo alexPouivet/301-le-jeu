@@ -2,11 +2,13 @@ import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 // Packages
-import Avatar from 'react-native-boring-avatars';
 import { useFonts } from 'expo-font';
 
 // Styles
 import DetailsPartieStyles from '../../Constants/Parties/DetailsPartieStyles';
+
+// Components
+import AvatarComponent from '../../Components/AvatarComponent'
 
 // Podium Partie
 export default function PodiumPartieComponent(props) {
@@ -29,12 +31,7 @@ export default function PodiumPartieComponent(props) {
             { props.joueurs1 == null
               ? null
               : <View style={DetailsPartieStyles.podiumJoueurContainer}>
-									<Avatar
-										size={48}
-										name={props.joueurs1.avatar_slug}
-										variant="beam"
-										colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-									/>
+									<AvatarComponent size={48} name={props.joueurs1.avatar_slug} />
 									<Text numberOfLines={1} style={[ DetailsPartieStyles.podiumJoueurNom, { fontFamily: "Poppins-Medium"}]}>{props.joueurs1.nom_joueur}</Text>
 								</View>
             }
@@ -54,12 +51,7 @@ export default function PodiumPartieComponent(props) {
             { props.joueurs0 == null
               ? null
               : <View style={DetailsPartieStyles.podiumJoueurContainer}>
-									<Avatar
-										size={48}
-										name={props.joueurs0.avatar_slug}
-										variant="beam"
-										colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-									/>
+									<AvatarComponent size={48} name={props.joueurs0.avatar_slug} />
 									<Text numberOfLines={1} style={[ DetailsPartieStyles.podiumJoueurNom, { fontFamily: "Poppins-Medium"}]}>{props.joueurs0.nom_joueur}</Text>
 							</View>
 						}
@@ -79,12 +71,7 @@ export default function PodiumPartieComponent(props) {
             { props.joueurs2 == null
               ? null
               : <View style={DetailsPartieStyles.podiumJoueurContainer}>
-									<Avatar
-										size={48}
-										name={props.joueurs2.avatar_slug}
-										variant="beam"
-										colors={['#FFAD08', '#EDD75A', '#73B06F', '#0C8F8F', '#405059']}
-									/>
+									<AvatarComponent size={48} name={props.joueurs2.avatar_slug} />
 									<Text numberOfLines={1} style={[ DetailsPartieStyles.podiumJoueurNom, { fontFamily: "Poppins-Medium"}]}>{props.joueurs2.nom_joueur}</Text>
 								</View>
 						}
