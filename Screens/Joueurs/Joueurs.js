@@ -206,6 +206,13 @@ function setListJoueurs(setJoueurs, joueurs) {
 
     });
 
+    listJoueurs.sort(function(a, b) {
+      a = a.title;
+      b = b.title;
+
+      return a.localeCompare(b);
+    })
+
 
 
 
