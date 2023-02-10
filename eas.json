@@ -3,20 +3,8 @@
     "version": ">= 0.57.0"
   },
   "build": {
-    "preview": {
-      "channel": "main",
-      "android": {
-        "buildType": "apk"
-      }
+    "default": {
+      "developmentClient": true,
+      "distribution": "internal"
     },
-    "preview2": {
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
-      }
-    },
-    "preview3": {
-      "developmentClient": true
-    },
-    "production": {}
-  }
 }
