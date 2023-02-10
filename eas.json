@@ -4,6 +4,7 @@
   },
   "build": {
     "preview": {
+      "channel": "default",
       "android": {
         "buildType": "apk"
       }
