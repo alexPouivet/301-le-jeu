@@ -5,6 +5,6 @@
   "build": {
     "default": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
     },
 }
