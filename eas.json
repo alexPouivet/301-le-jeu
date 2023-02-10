@@ -6,6 +6,6 @@
     "default": {
       "developmentClient": true,
       "distribution": "internal",
-    }
+    },
   }
 }
