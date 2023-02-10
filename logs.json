@@ -31,4 +31,17 @@
     "date": "Décembre 2022",
     "description": "Ajout de la page \"Logs\" permettant la lecture de l'historique des fonctionnalités de l'application ainsi que corrections de divers bugs mineurs entraînant une difficulté à utiliser pleinement l'application + légers ajouts et modifications de design."
   },
+  {
+    "titre": "Ajouts de statistiques",
+    "version": "2.4.10",
+    "date": "Février 2023",
+    "description": "Ajout de la page \"Classement des joueurs\", montrant le classement des joueurs selon plusieurs facteurs (Victoires, Points ou Position moyenne). Ajout également de certaines statistiques sur la liste des joueurs."
+  },
+  {
+    "titre": "Changements de design",
+    "version": "2.4.20",
+    "special": "Refonte d'éléments mineurs",
+    "date": "Février 2022",
+    "description": "Refonte de la page \"Paramètres\", avec l'ajout de certains liens et la mise en avant des Nouvelles fonctionnalités et de la Configuration. Refonte également de certains éléments pour homogénéiser l'application dans son ensemble."
+  },
 ]

@@ -35,7 +35,7 @@ export default function Probleme({ navigation, route }) {
         >
           <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Un problème ?</Text>
+        <Text style={GlobalStyles.textHeaderTitle}>Besoin d'aide ?</Text>
         <View style={{ width: 42 }}>
         </View>
       </View>

@@ -138,7 +138,7 @@ export default function Parties({ navigation }) {
             <Text style={ PartiesStyles.sectionHeader }>{title}</Text>
           )}
           renderItem={({item, index}) => (
-            <ItemPartie key={index} toast={toast} avatars={item.avatars} setGames={setGames} statutFiltres={statutFiltres} game_id={item.partie_id} date={item.date} time={item.horaire} statut={item.statut} gagnant_game={item.gagnant_game} listerGames={listerGames} setListGames={setListGames} navigation={navigation} db={db}/>
+            <ItemPartie key={index} toast={toast} gagnant={item.gagnant_partie} avatars={item.avatars} setGames={setGames} statutFiltres={statutFiltres} game_id={item.partie_id} date={item.date} time={item.horaire} statut={item.statut} gagnant_game={item.gagnant_game} listerGames={listerGames} setListGames={setListGames} navigation={navigation} db={db}/>
           )}
         />
       }
@@ -247,13 +247,10 @@ function listerGames(setListGames, games) {
 
 }
 
-const filtrerTout = function(setGames, setListGames, db) {
-
-  return new Promise(function(resolve, reject) {
-
+function filtrerTout(setGames, setListGames, db) {
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
+        `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, parties.gagnant_partie, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
           FROM parties
           INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
           INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id
@@ -261,15 +258,12 @@ const filtrerTout = function(setGames, setListGames, db) {
           ORDER BY parties.partie_id DESC`
         , [], (_, { rows: { _array } }) => { setGames(listerGames(setListGames, _array)) });
     });
-
-  })
-
 }
 
 function filtrerEnCours(setGames, setListGames, db) {
   db.transaction((tx) => {
     tx.executeSql(
-      `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
+      `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, parties.gagnant_partie, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
         FROM parties
         INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
         INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id
@@ -283,7 +277,7 @@ function filtrerEnCours(setGames, setListGames, db) {
 function filtrerTerminees(setGames, setListGames, db) {
   db.transaction((tx) => {
     tx.executeSql(
-      `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
+      `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, parties.gagnant_partie, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
         FROM parties
         INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
         INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id

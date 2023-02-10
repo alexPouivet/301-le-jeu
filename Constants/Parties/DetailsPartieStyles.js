@@ -4,9 +4,6 @@ const width = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
   containerStatutPartie: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
     padding: 6,
     borderRadius: 16,
     marginBottom: 16,
@@ -14,36 +11,34 @@ export default StyleSheet.create({
     marginRight: 16,
   },
   containerStatutGagnant: {
-    backgroundColor: "#FEC601",
+    backgroundColor: "#FEC60120",
   },
   containerStatutPartieEnCours: {
-    backgroundColor: "#7159df",
+    backgroundColor: "#7159df20",
   },
   textStatutPartieContainer: {
-    backgroundColor: "#FFFFFF20",
-    paddingVertical: 16,
-    borderRadius: 16,
-    width: "49%"
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10,
+    width: "49.25%",
+    height: 50
   },
   textStatutPartie: {
-    color: "#FFFFFF",
     fontSize: 14,
     textAlign: "center",
-    textTransform: 'uppercase',
-    fontFamily: "Poppins-Bold"
+    fontFamily: "Poppins-Medium"
   },
   containerDate: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    width: "49%",
-    backgroundColor: "#FFFFFF20",
-    height: "100%",
-    borderRadius: 16,
+    borderRadius: 10,
+    height: 50,
+    marginBottom: 6
   },
   textDate: {
-    fontSize: 12,
-    color: "#fff",
+    fontSize: 14,
     fontFamily: "Poppins-Medium"
   },
   containerPodium: {

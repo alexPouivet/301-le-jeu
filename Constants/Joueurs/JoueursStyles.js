@@ -1,6 +1,37 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  classementButton: {
+    overflow: "hidden",
+    marginBottom: 16,
+    backgroundColor: "#7159DF",
+    marginLeft: 16,
+    marginRight: 16,
+    borderRadius: 10,
+    padding: 16
+  },
+  crownIcon: {
+    position: "absolute",
+    top: 4,
+    right: 128,
+    transform: [{rotate: '45deg'}]
+  },
+  classementTitle: {
+    fontSize: 16,
+    color: "#fff",
+    fontFamily: "Poppins-Medium"
+  },
+  classementDescription: {
+    fontSize: 10,
+    color: "#fff",
+    fontFamily: "Poppins-Regular",
+    marginTop: 4
+  },
+  soccerIcon: {
+    position: "absolute",
+    bottom: -28,
+    right: -24
+  },
   listEmptyContainer: {
     height:"100%",
     marginTop: 32,
@@ -11,6 +42,7 @@ export default StyleSheet.create({
     fontSize: 16
   },
   listJoueursContainer: {
+    marginTop: 8,
     paddingHorizontal: 16,
   },
   sectionHeader: {
@@ -59,13 +91,22 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start"
   },
-  nomJoueur: {
+  infosContainer: {
     marginLeft: 12,
+  },
+  primaryInfosJoueurContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start"
+  },
+  nomJoueur: {
     fontFamily: "Poppins-Medium",
     fontSize: 14,
     color: "#252422"
   },
   profilJoueurContainer: {
+    flexDirection: "row",
+    alignItems: "center",
     marginLeft: 4,
     paddingHorizontal: 6,
     paddingVertical: 4,
@@ -76,5 +117,29 @@ export default StyleSheet.create({
     fontFamily: "Poppins-Medium",
     fontSize: 10,
     color: "#7159DF",
-  }
+  },
+  profilIconJoueur: {
+    marginRight: 2,
+  },
+  secondaryInfosJoueurContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rowSecondaryInfosJoueur: {
+    marginTop: 4,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  separatorSecondaryInfosJoueur: {
+    paddingHorizontal: 4,
+    fontFamily: "Poppins-Medium",
+    fontSize: 10,
+    color: "#252422",
+  },
+  secondaryInfosJoueurText: {
+    fontFamily: "Poppins-Medium",
+    fontSize: 10,
+    color: "#252422",
+  },
+
 })

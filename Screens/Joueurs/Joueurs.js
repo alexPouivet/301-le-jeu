@@ -11,6 +11,7 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import JoueursStyles from '../../Constants/Joueurs/JoueursStyles';
 
 // Components
+import { Crown, SoccerBall } from 'phosphor-react-native';
 import ItemJoueur from '../../Components/Joueurs/ItemJoueur';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
@@ -31,7 +32,7 @@ export default function Joueurs({ navigation }) {
     wait(500).then(() => {
 
       db.transaction((tx) => {
-        tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array));
+        tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array, db));
       });
 
     });
@@ -46,15 +47,13 @@ export default function Joueurs({ navigation }) {
     const focusHandler = navigation.addListener('focus', () => {
       db.transaction((tx) => {
         // Recupère la liste des joueurs
-        tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array));
+        tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array, db));
       });
     });
 
     db.transaction((tx) => {
       // Recupère la liste des joueurs
-      tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array));
-      // Supprimer tous les joueurs
-      // tx.executeSql(`DELETE FROM joueurs`);
+      tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array, db));
     });
 
   }, []);
@@ -74,6 +73,18 @@ export default function Joueurs({ navigation }) {
       <View style={GlobalStyles.textHeaderContainer}>
         <Text style={GlobalStyles.textHeaderTitle}>Joueurs</Text>
       </View>
+
+      <TouchableOpacity onPress={() => {
+        navigation.navigate("Classement Joueurs");
+      }} style={JoueursStyles.classementButton}>
+
+        <Crown size={20} weight="regular" color="#fff" style={JoueursStyles.crownIcon}/>
+
+        <Text style={JoueursStyles.classementTitle}>Classement des joueurs</Text>
+        <Text style={JoueursStyles.classementDescription}>Cliquez et découvrez le classement entre tous les joueurs en fonction de leurs parties jouées.</Text>
+
+        <SoccerBall weight="thin" color="#fff" style={JoueursStyles.soccerIcon} size={64}/>
+      </TouchableOpacity>
 
       <View style={GlobalStyles.addPlayerContainer}>
 
@@ -151,15 +162,15 @@ export default function Joueurs({ navigation }) {
   );
 }
 
-function setListJoueurs(setJoueurs, joueurs) {
+function setListJoueurs(setJoueurs, joueurs, db) {
+
+  let listJoueurs = [];
 
   if (joueurs === null || joueurs.length === 0 ) {
 
     setJoueurs(joueurs)
 
   } else {
-
-    let listJoueurs = [];
 
     const removeAccents = str =>
       str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');

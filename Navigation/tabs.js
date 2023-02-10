@@ -9,6 +9,7 @@ import DetailsPartie from '../Screens/Parties/DetailsPartie'
 
 import Joueurs from '../Screens/Joueurs/Joueurs'
 import DetailsJoueur from '../Screens/Joueurs/DetailsJoueur'
+import ClassementJoueurs from '../Screens/Joueurs/ClassementJoueurs'
 import ModifierJoueur from '../Screens/Joueurs/ModifierJoueur'
 import CreerProfil from '../Screens/Joueurs/CreerProfil'
 import ProfilVide from '../Screens/Joueurs/ProfilVide'
@@ -47,6 +48,7 @@ function JoueursStackScreen() {
     <JoueursStack.Navigator screenOptions={{headerShown: false}}>
       <JoueursStack.Screen name="Liste Joueurs" component={Joueurs} />
       <JoueursStack.Screen name="Details Joueur" component={DetailsJoueur} />
+      <JoueursStack.Screen name="Classement Joueurs" component={ClassementJoueurs} />
       <PartiesStack.Screen name="Details Partie" component={DetailsPartie} />
       <JoueursStack.Screen name="Modifier Joueur" component={ModifierJoueur} />
     </JoueursStack.Navigator>

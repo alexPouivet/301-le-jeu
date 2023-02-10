@@ -99,8 +99,26 @@ export default StyleSheet.create({
     flexDirection: "row",
     width: "100%"
   },
+  containerGagnant: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  gagnantPartieText: {
+    fontFamily: "Poppins-Medium",
+    fontSize: 10,
+    color: "#252422",
+  },
+  separatorGagnantPartie: {
+    paddingHorizontal: 4,
+    fontFamily: "Poppins-Medium",
+    fontSize: 10,
+    color: "#252422",
+  },
   avatarContainer: {
     marginRight: -8
+  },
+  iconGagnant: {
+    marginRight: 2,
   },
   arrowContainer: {
     justifyContent: "center",

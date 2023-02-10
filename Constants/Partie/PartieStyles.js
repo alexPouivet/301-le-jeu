@@ -4,7 +4,7 @@ const width = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
   infosTour: {
-    backgroundColor: "#7159df",
+    backgroundColor: "#7159df20",
     marginLeft: 16,
     marginRight: 16,
     borderRadius: 16,
@@ -25,20 +25,20 @@ export default StyleSheet.create({
   },
   joueurPrecedent: {
     fontSize: 14,
-    color: "#fff",
+    color: "#7159df",
     textAlign: "center",
     marginTop: 4,
     width: "75%"
   },
   joueurEnCours: {
     fontSize: 18,
-    color: "#fff",
+    color: "#7159df",
     marginTop: 4,
     textAlign: "center",
   },
   joueurSuivant: {
     fontSize: 14,
-    color: "#fff",
+    color: "#7159df",
     textAlign: "center",
     marginTop: 4,
     width: "75%"
@@ -49,20 +49,23 @@ export default StyleSheet.create({
     justifyContent: "space-between",
   },
   informationsPalets: {
+    flexDirection: "row",
     alignItems: "center",
-    borderRadius: 16,
-    width: "49%",
+    justifyContent: "center",
+    borderRadius: 10,
+    width: "49.25%",
     paddingVertical: 8,
-    backgroundColor: "#ffffff20"
+    backgroundColor: "#7159df25"
   },
   textInfosTour: {
     fontSize: 20,
-    color: '#FFFFFF',
-    fontFamily: "Poppins-Bold"
+    color: '#7159df',
+    fontFamily: "Poppins-Bold",
+    marginBottom: -4
   },
   textInfosTourLabel: {
     fontSize: 11,
-    color: "#fff",
+    color: "#7159df",
     fontFamily: "Poppins-Regular"
   },
   scrollContainer: {

@@ -1,8 +1,9 @@
 {
   "expo": {
+    "owner": "301-le-jeu",
     "name": "301 le Jeu",
     "slug": "jeuDu301",
-    "version": "2.3.25",
+    "version": "2.4.20",
     "orientation": "portrait",
     "icon": "./assets/logo/icon.png",
     "splash": {
@@ -21,7 +22,7 @@
       "buildNumber": "9.1.14"
     },
     "android": {
-      "versionCode": 17,
+      "versionCode": 18,
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo/adaptive-icon.png",
         "backgroundColor": "#ffffff"

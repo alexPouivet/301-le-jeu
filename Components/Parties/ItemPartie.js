@@ -36,6 +36,7 @@ export default class ItemPartie extends React.Component {
     this._loadFontsAsync();
   }
 
+
   render() {
 
     let statutFiltres = this.props.statutFiltres;
@@ -44,6 +45,7 @@ export default class ItemPartie extends React.Component {
     let listerGames = this.props.listerGames;
     let setListGames = this.props.setListGames;
     let avatars = this.props.avatars.split(',');
+    let gagnant_partie = this.props.gagnant;
     let toast = this.props.toast;
 
     if (!this.state.fontsLoaded) {
@@ -99,15 +101,33 @@ export default class ItemPartie extends React.Component {
 
               <View style={PartiesStyles.containerJoueurs}>
 
-              {avatars.map(( avatar_slug, i) => (
+                {gagnant_partie == undefined
 
-                <View key={i} style={PartiesStyles.avatarContainer}>
+                  ?
 
-                  <AvatarComponent size={24} name={avatar_slug} />
+                  null
 
-                </View>
+                  :
 
-              ))}
+                  <View style={PartiesStyles.containerGagnant}>
+
+                    <Ionicons name='ios-trophy-outline' size={12} color="#FEC601"  style={PartiesStyles.iconGagnant}/>
+                    <Text style={PartiesStyles.gagnantPartieText}>{gagnant_partie}</Text>
+                    <Text style={PartiesStyles.separatorGagnantPartie}> · </Text>
+
+                  </View>
+
+                }
+
+                {avatars.map(( avatar_slug, i) => (
+
+                  <View key={i} style={PartiesStyles.avatarContainer}>
+
+                    <AvatarComponent size={24} name={avatar_slug} />
+
+                  </View>
+
+                ))}
 
               </View>
 

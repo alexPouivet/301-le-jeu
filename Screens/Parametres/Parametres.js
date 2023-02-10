@@ -10,6 +10,9 @@ import { useFonts } from 'expo-font';
 import GlobalStyles from '../../Constants/GlobalStyles';
 import ParametersStyles from '../../Constants/Parametres/ParametersStyles';
 
+// Components
+import { ClockCounterClockwise } from 'phosphor-react-native';
+
 // Paramètres
 export default function Parametres({ navigation, route }) {
 
@@ -31,20 +34,40 @@ export default function Parametres({ navigation, route }) {
         <Text style={GlobalStyles.textHeaderTitle}>Paramètres</Text>
       </View>
       <View style={ParametersStyles.parametresContainer}>
-        <View style={ ParametersStyles.parametres }>
+
+        <View style={ParametersStyles.parametresRow}>
+
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Configuration");
+          }}
+          style={ParametersStyles.buttonParametresRowFirst} >
+            <View style={ParametersStyles.iconButtonParametresGrey} >
+              <Ionicons name='options-outline' size={20} color="#252422"/>
+            </View>
+            <View style={ParametersStyles.infosButtonContainer}>
+              <Text style={[ ParametersStyles.titleParametresButton, { color: "#252422" } ]}>Configuration</Text>
+              <Ionicons style={ParametersStyles.chevronParametresButton} name='ios-chevron-forward-outline' size={20} color="#D9D9D9"/>
+            </View>
+          </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Configuration");
+              navigation.navigate("Nouveautés");
             }}
-            style={ParametersStyles.buttonParametres}
-          >
+            style={ParametersStyles.buttonParametresRowLast} >
             <View style={ParametersStyles.iconButtonParametres} >
-              <Ionicons name='options-outline' size={20} color="#7159DF"/>
+              <Ionicons name='ios-newspaper-outline' size={20} color="#7159DF"/>
             </View>
-            <Text style={[ParametersStyles.textButtonParametres, { fontFamily: "Poppins-Medium" }]}>Configuration</Text>
-            <Ionicons name='ios-chevron-forward-outline' size={20} color="#C0C0C0"/>
+            <View style={ParametersStyles.infosButtonContainer}>
+              <Text style={[ParametersStyles.titleParametresButton]}>Nouvelles fonctionnalités</Text>
+              <Ionicons style={ParametersStyles.chevronParametresButton} name='ios-chevron-forward-outline' size={20} color="#7159DF35"/>
+            </View>
           </TouchableOpacity>
+
+        </View>
+
+        <View style={ ParametersStyles.parametres }>
 
           <TouchableOpacity
             onPress={() => {
@@ -61,40 +84,35 @@ export default function Parametres({ navigation, route }) {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Nouveautés");
+              navigation.navigate("Probleme");
             }}
             style={ParametersStyles.buttonParametres}
           >
             <View style={ParametersStyles.iconButtonParametres} >
-              <Ionicons name='ios-newspaper-outline' size={20} color="#7159DF"/>
+              <Ionicons name='help-buoy-outline' size={20} color="#7159DF"/>
             </View>
-            <Text style={[ParametersStyles.textButtonParametres, { fontFamily: "Poppins-Medium" }]}>Nouvelles fonctionnalités</Text>
+            <Text  style={[ParametersStyles.textButtonParametres, { fontFamily: "Poppins-Medium" }]}>Besoin d'aide ?</Text>
             <Ionicons name='ios-chevron-forward-outline' size={20} color="#C0C0C0"/>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Probleme");
+              navigation.navigate("Logs");
             }}
             style={[ ParametersStyles.buttonParametres, ParametersStyles.lastButtonParametres]}
           >
             <View style={ParametersStyles.iconButtonParametres} >
-              <Ionicons name='ios-help-outline' size={20} color="#7159DF"/>
+              <ClockCounterClockwise size={20} color="#7159DF"/>
             </View>
-            <Text  style={[ParametersStyles.textButtonParametres, { fontFamily: "Poppins-Medium" }]}>Un problème ?</Text>
+            <Text  style={[ParametersStyles.textButtonParametres, { fontFamily: "Poppins-Medium" }]}>Historique des versions</Text>
             <Ionicons name='ios-chevron-forward-outline' size={20} color="#C0C0C0"/>
           </TouchableOpacity>
 
         </View>
         <View style={ParametersStyles.containerVersionApp}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Logs");
-            }}
-          >
-            <Text style={ParametersStyles.versionApp}>V.{version}</Text>
-          </TouchableOpacity>
-          <Text style={ParametersStyles.versionApp}> | 301 le Jeu - Alexandre Pouivet</Text>
+
+          <Text style={ParametersStyles.versionApp}>V.{version} · 301 le Jeu · Alexandre Pouivet</Text>
+
         </View>
       </View>
     </View>

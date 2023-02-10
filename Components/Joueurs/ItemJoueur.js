@@ -24,6 +24,9 @@ export default class ItemJoueur extends React.Component {
   swipeable = null;
   state = {
     fontsLoaded: false,
+    victoires: null,
+    parties: null,
+    positionMoy: null
   };
 
   async _loadFontsAsync() {
@@ -46,6 +49,27 @@ export default class ItemJoueur extends React.Component {
     let db = this.props.db;
     let toast = this.props.toast;
     let setJoueurs = this.props.setJoueurs;
+
+    db.transaction((tx) => {
+
+      tx.executeSql(`SELECT classement_joueur, SUM(classement_joueur = 1) AS victoires, AVG(SUBSTR(classement_joueur, 1, 2)) AS position_moy, COUNT(*) AS nombre FROM infos_parties_joueurs WHERE infos_parties_joueurs.joueur_id = ?`, [joueur_id], (_, { rows: { _array } }) => {
+
+        let positionMoy = null;
+
+        if(_array[0].position_moy == null) {
+          positionMoy = _array[0].position_moy;
+        } else {
+          positionMoy = _array[0].position_moy.toString().substring(0,4);
+        }
+
+        this.setState({
+          victoires: _array[0].victoires,
+          parties: _array[0].nombre,
+          positionMoy: positionMoy,
+        })
+
+      })
+    });
 
     const rightButtons = [
       <TouchableOpacity
@@ -142,16 +166,83 @@ export default class ItemJoueur extends React.Component {
 
               <AvatarComponent size={48} name={avatar_slug} />
 
-              <Text style={JoueursStyles.nomJoueur}>{nom_joueur}</Text>
+              <View style={JoueursStyles.infosContainer}>
 
-              { profil
-                ?
-                <View style={JoueursStyles.profilJoueurContainer}>
-                  <Text style={JoueursStyles.profilJoueur}>Profil</Text>
+                <View style={JoueursStyles.primaryInfosJoueurContainer}>
+
+                  <Text style={JoueursStyles.nomJoueur}>{nom_joueur}</Text>
+
+                  { profil
+                    ?
+                    <View style={JoueursStyles.profilJoueurContainer}>
+                      <Ionicons name='ios-person-circle-outline' size={12} color="#7159DF" style={JoueursStyles.profilIconJoueur}/>
+                      <Text style={JoueursStyles.profilJoueur}>Profil</Text>
+                    </View>
+                    :
+                    null
+                  }
+
                 </View>
-                :
-                null
-              }
+
+                <View style={JoueursStyles.secondaryInfosJoueurContainer}>
+
+                  { this.state.parties == null || this.state.parties == 0
+
+                    ?
+
+                    null
+
+                    :
+
+                    <View style={JoueursStyles.rowSecondaryInfosJoueur}>
+
+                    <Ionicons name='ios-football-outline' size={12} color="#7159DF" style={JoueursStyles.profilIconJoueur}/>
+                    <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.parties} parties</Text>
+
+                    </View>
+
+                  }
+
+                  { this.state.victoires == null && this.state.victoires !== 0
+
+                    ?
+
+                    null
+
+                    :
+
+                    <View style={JoueursStyles.rowSecondaryInfosJoueur}>
+
+                    <Text style={JoueursStyles.separatorSecondaryInfosJoueur}>·</Text>
+                    <Ionicons name='ios-trophy-outline' size={12} color="#FEC601" style={JoueursStyles.profilIconJoueur}/>
+                    <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.victoires} victoires</Text>
+
+                    </View>
+
+                  }
+
+                  { this.state.positionMoy == null
+
+                    ?
+
+                    null
+
+                    :
+
+                    <View style={JoueursStyles.rowSecondaryInfosJoueur}>
+
+                      <Text style={JoueursStyles.separatorSecondaryInfosJoueur}>·</Text>
+                      <Ionicons name='ios-analytics-outline' size={12} color="#FD96A9" style={JoueursStyles.profilIconJoueur}/>
+                      <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.positionMoy} de moy.</Text>
+
+                    </View>
+
+                  }
+
+                </View>
+
+              </View>
+
             </View>
 
             <View>

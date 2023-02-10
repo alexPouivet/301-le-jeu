@@ -11,6 +11,7 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import PartieStyles from '../../Constants/Partie/PartieStyles';
 
 // Components
+import { CoinVertical, Sparkle } from 'phosphor-react-native';
 import AvatarComponent from '../../Components/AvatarComponent'
 import PointsPartieInputSpinner from '../../Components/Partie/PointsPartieInputSpinner';
 import openDatabase from '../../Components/OpenDatabase';
@@ -134,7 +135,7 @@ export default function Partie({ navigation, route }) {
 
               <View style={PartieStyles.separatorJoueursContainer}>
               { joueurPrecedent.length !== 0
-                ? <Ionicons name='ios-chevron-forward-outline' size={16} color="#ffffff50"/>
+                ? <Ionicons name='ios-chevron-forward-outline' size={16} color="#7159df50"/>
                 : null
               }
               </View>
@@ -143,7 +144,7 @@ export default function Partie({ navigation, route }) {
 
               <View style={PartieStyles.separatorJoueursContainer}>
                 { joueurSuivant.length !== 0
-                ? <Ionicons name='ios-chevron-forward-outline' size={16} color="#ffffff50"/>
+                ? <Ionicons name='ios-chevron-forward-outline' size={16} color="#7159df50"/>
                 : null
                 }
               </View>
@@ -155,13 +156,19 @@ export default function Partie({ navigation, route }) {
             <View style={PartieStyles.informationsPartie}>
 
               <View style={PartieStyles.informationsPalets}>
-                <Text style={PartieStyles.textInfosTour}>{joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)}</Text>
-                <Text style={PartieStyles.textInfosTourLabel}>points restant</Text>
+                <Sparkle size={32} weight="regular" color="#7159df" style={{marginRight: 8}}/>
+                <View>
+                  <Text style={PartieStyles.textInfosTour}>{joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)}</Text>
+                  <Text style={PartieStyles.textInfosTourLabel}>points restant</Text>
+                </View>
               </View>
 
               <View style={PartieStyles.informationsPalets}>
-                <Text style={PartieStyles.textInfosTour}>{totalPalets}{totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false }</Text>
-                <Text style={PartieStyles.textInfosTourLabel}>palets restant</Text>
+                <CoinVertical size={32} weight="regular" color="#7159df" style={{marginRight: 8}}/>
+                <View>
+                  <Text style={PartieStyles.textInfosTour}>{totalPalets}{totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false }</Text>
+                  <Text style={PartieStyles.textInfosTourLabel}>palets restant</Text>
+                </View>
               </View>
 
             </View>

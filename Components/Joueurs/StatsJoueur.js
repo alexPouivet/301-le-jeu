@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 // Packages
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Font from 'expo-font';
+import { Sparkle } from 'phosphor-react-native';
 
 // Styles
 import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';
@@ -76,7 +77,7 @@ export default function StatsJoueur(props) {
 
     <View style={DetailsJoueurStyles.rowContainer}>
 
-      <ItemStat title="Pts marqués" data={pointsMarques} icon="ios-medal-outline" color="#FEC601" />
+      <ItemStat title="Pts marqués" data={pointsMarques} icon="sparkle" color="#FEC601" />
 
       <ItemStat title="Position moy." data={positionMoy} icon="ios-analytics-outline" color="#FD96A9" />
 
@@ -97,7 +98,16 @@ const ItemStat = (props) => {
 
         <View style={[ DetailsJoueurStyles.iconStatItemContainer, { backgroundColor: ( props.color + "25" ) } ]}>
 
-          <Ionicons name={props.icon} size={24} color={props.color} style={{ height: 24, width: 24, lineHeight: 24, textAlign: "center"}}/>
+          { props.icon == "sparkle" ?
+
+            <Sparkle size={24} weight="regular" color={props.color} style={{ textAlign: "center"}}/>
+
+          :
+
+            <Ionicons name={props.icon} size={24} color={props.color} style={{ height: 24, width: 24, lineHeight: 24, textAlign: "center"}}/>
+
+          }
+
 
         </View>
 

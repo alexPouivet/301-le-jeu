@@ -5,6 +5,13 @@ export default StyleSheet.create({
     height: "100%",
     width: "100%",
   },
+  parametresRow: {
+    paddingHorizontal: 16,
+    flexDirection: "row",
+     width: "100%",
+     justifyContent: "space-between",
+     marginBottom: 6
+  },
   parametres: {
     backgroundColor: "#ffffff",
     marginLeft: 16,
@@ -21,6 +28,45 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#F3F3F3",
+  },
+  buttonParametresRowFirst: {
+    height: 130,
+    width: "49.25%",
+    backgroundColor: "#C0C0C025",
+    padding: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#C0C0C025"
+  },
+  buttonParametresRowLast: {
+    height: 130,
+    width: "49.25%",
+    backgroundColor: "#7159DF25",
+    padding: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: "#7159DF25"
+  },
+  titleParametresButton: {
+    fontFamily: "Poppins-Medium",
+    color: "#7159DF",
+    fontSize: 16
+  },
+  chevronParametresButton: {
+    marginTop: "auto",
+    marginLeft: "auto"
+  },
+  iconButtonParametresGrey: {
+    backgroundColor: "#D9D9D9",
+    height: 40,
+    width: 40,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  infosButtonContainer: {
+    flexDirection: "row",
+    marginTop: "auto"
   },
   buttonParametres: {
     marginLeft: 16,
