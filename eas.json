@@ -1,11 +1,7 @@
 {
-  "cli": {
-    "version": ">= 0.57.0"
-  },
   "build": {
     "default": {
-      "developmentClient": true,
-      "distribution": "internal",
-    },
+      "distribution": "internal"
+    }
   }
 }
