@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 // Packages
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Font from 'expo-font';
-import { Sparkle } from 'phosphor-react-native';
+import Sparkle from 'phosphor-react-native/src/icons/Sparkle';
 
 // Styles
 import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';

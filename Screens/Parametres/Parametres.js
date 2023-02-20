@@ -11,7 +11,7 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import ParametersStyles from '../../Constants/Parametres/ParametersStyles';
 
 // Components
-import { ClockCounterClockwise } from 'phosphor-react-native';
+import ClockCounterClockwise from 'phosphor-react-native/src/icons/ClockCounterClockwise';
 
 // Paramètres
 export default function Parametres({ navigation, route }) {

@@ -6,7 +6,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useFonts } from 'expo-font';
 
 // Components
-import { Calendar, CoinVertical } from 'phosphor-react-native';
+import Calendar from 'phosphor-react-native/src/icons/Calendar';
+import CoinVertical from 'phosphor-react-native/src/icons/CoinVertical';
 
 // Styles
 import DetailsPartieStyles from '../../Constants/Parties/DetailsPartieStyles';

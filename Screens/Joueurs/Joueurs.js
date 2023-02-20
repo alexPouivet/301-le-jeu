@@ -11,7 +11,8 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import JoueursStyles from '../../Constants/Joueurs/JoueursStyles';
 
 // Components
-import { Crown, SoccerBall } from 'phosphor-react-native';
+import Crown from 'phosphor-react-native/src/icons/Crown';
+import SoccerBall from 'phosphor-react-native/src/icons/SoccerBall';
 import ItemJoueur from '../../Components/Joueurs/ItemJoueur';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();

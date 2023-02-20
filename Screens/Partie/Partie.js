@@ -11,7 +11,8 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import PartieStyles from '../../Constants/Partie/PartieStyles';
 
 // Components
-import { CoinVertical, Sparkle } from 'phosphor-react-native';
+import Sparkle from 'phosphor-react-native/src/icons/Sparkle';
+import CoinVertical from 'phosphor-react-native/src/icons/CoinVertical';
 import AvatarComponent from '../../Components/AvatarComponent'
 import PointsPartieInputSpinner from '../../Components/Partie/PointsPartieInputSpinner';
 import openDatabase from '../../Components/OpenDatabase';
