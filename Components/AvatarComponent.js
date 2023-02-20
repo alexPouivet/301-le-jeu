@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { View } from 'react-native';
 
 // Packages
-import Avatar from '@mealection/react-native-boring-avatars';
+import Avatar from 'react-native-boring-avatars';
 
 // Avatar
 export default function AvatarComponent(props) {
