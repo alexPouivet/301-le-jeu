@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import {View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
 // Styles
@@ -15,25 +13,21 @@ import ClassementStyles from '../../Constants/Partie/ClassementStyles';
 import InfosPartieComponent from '../../Components/DetailsPartie/InfosPartieComponent';
 import ItemJoueurComponent from '../../Components/DetailsPartie/ItemJoueurComponent';
 import PodiumPartieComponent from '../../Components/DetailsPartie/PodiumPartieComponent';
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Gagnant Partie
 export default function GagnantPartie({ navigation, route }) {
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
-
+  const [fontsLoaded] = font();
   const { game_id, gagnant } = route.params;
 
-  const [classement, setClassement] = React.useState(null);
-  const [game, setGame] = React.useState(null);
+  const [classement, setClassement] = useState(null);
+  const [game, setGame] = useState(null);
   const toast = useToast();
 
-  React.useEffect(() => {
+  useEffect(() => {
     db.transaction((tx) => {
       // Récupère la liste des joueurs de la partie en cours
       tx.executeSql(`SELECT * FROM joueurs INNER JOIN infos_parties_joueurs ON joueurs.joueur_id = infos_parties_joueurs.joueur_id AND infos_parties_joueurs.partie_id = ? ORDER BY infos_parties_joueurs.score_joueur ASC`, [game_id], (_, { rows: { _array } }) => setClassement(_array));
@@ -53,29 +47,8 @@ export default function GagnantPartie({ navigation, route }) {
   return(
     <View style={GlobalStyles.container}>
 
-      <View style={GlobalStyles.buttonsHeaderContainer}>
-          <TouchableOpacity
-            style={GlobalStyles.buttonLeft}
-            onPress={() => {
-              if(game.nb_joueurs_restant > 1) {
-                updatePartieEtJoueurs(game_id, classement[0]).then(function(game_id) {
-                  navigation.navigate('Historique', {screen: "Liste"});
-                })
-              } else {
-                terminerPartie(game_id).then(function(game_id) {
-                  navigation.navigate('Historique', {screen: "Liste"});
-                  toast.show('Partie terminée !', {
-                    type: "success",
-                    placement: "top",
-                    animationType: "slide-in"
-                  });
-                })
-              }
-            }}
-          >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
-        </TouchableOpacity>
-        <View style={{width: 42}}></View>
+      <View style={GlobalStyles.textHeaderContainer}>
+        <Text style={GlobalStyles.textHeaderTitle}>Gagnant de la partie</Text>
       </View>
 
       <InfosPartieComponent game={game}/>
@@ -116,7 +89,7 @@ export default function GagnantPartie({ navigation, route }) {
             })
           }}
         >
-          <Text style={ClassementStyles.textButton}>Arrêter la partie</Text>
+          <Text style={ClassementStyles.textButtonArreter}>Arrêter la partie</Text>
         </TouchableOpacity>
         { game.nb_joueurs_restant > 1 ?
           <TouchableOpacity

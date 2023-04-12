@@ -1,9 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, RefreshControl, FlatList, SectionList } from 'react-native';
+import { useCallback, useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, SectionList } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
 // Styles
@@ -11,18 +9,19 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import JoueursStyles from '../../Constants/Joueurs/JoueursStyles';
 
 // Components
-import Crown from 'phosphor-react-native/src/icons/Crown';
-import SoccerBall from 'phosphor-react-native/src/icons/SoccerBall';
+import IconComponent from '../../Components/IconComponent';
 import ItemJoueur from '../../Components/Joueurs/ItemJoueur';
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Joueurs
 export default function Joueurs({ navigation }) {
 
+  const [fontsLoaded] = font();
   const [refreshing, setRefreshing] = useState(false);
-  const [errorText, onChangeErrorText] = React.useState("");
-  const [participant, setParticipant] = React.useState("");
+  const [errorText, onChangeErrorText] = useState("");
+  const [participant, setParticipant] = useState("");
   const [joueurs, setJoueurs] = useState(null);
   const toast = useToast();
 
@@ -59,12 +58,6 @@ export default function Joueurs({ navigation }) {
 
   }, []);
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
-
   if (!fontsLoaded) {
     return null;
   }
@@ -79,12 +72,17 @@ export default function Joueurs({ navigation }) {
         navigation.navigate("Classement Joueurs");
       }} style={JoueursStyles.classementButton}>
 
-        <Crown size={20} weight="regular" color="#fff" style={JoueursStyles.crownIcon}/>
-
         <Text style={JoueursStyles.classementTitle}>Classement des joueurs</Text>
         <Text style={JoueursStyles.classementDescription}>Cliquez et découvrez le classement entre tous les joueurs en fonction de leurs parties jouées.</Text>
 
-        <SoccerBall weight="thin" color="#fff" style={JoueursStyles.soccerIcon} size={64}/>
+        <View style={{position: "absolute", bottom: 0, right: -16, transform: [{rotate: '-20deg'}] }}>
+          <IconComponent name="cup" size="80" color="#ffffff35" />
+        </View>
+
+        <View style={{position: "absolute", top: 12, right: 128, transform: [{rotate: '30deg'}] }}>
+          <IconComponent name="points" size="24" color="#ffffff35" />
+        </View>
+
       </TouchableOpacity>
 
       <View style={GlobalStyles.addPlayerContainer}>
@@ -120,7 +118,7 @@ export default function Joueurs({ navigation }) {
             }}
           >
 
-            <Ionicons name='ios-person-add' size={20} color="#F3F3F3"/>
+            <IconComponent name="add-person" size="24" color="#fff" />
 
           </TouchableOpacity>
 
@@ -154,7 +152,7 @@ export default function Joueurs({ navigation }) {
           renderSectionHeader={({ section: { title } }) => (
             <Text style={ JoueursStyles.sectionHeader }>{title}</Text>
           )}
-          renderItem={({ item, index }) => ( <ItemJoueur setListJoueurs={setListJoueurs} key={index} profil={item.profil} avatar_slug={item.avatar_slug} nom_joueur={item.nom_joueur} joueur_id={item.joueur_id} navigation={navigation} toast={toast} db={db} setJoueurs={setJoueurs} /> )}
+          renderItem={({ item, index }) => ( <ItemJoueur key={index} joueur_id={item.joueur_id} nom_joueur={item.nom_joueur} profil={item.profil} avatar_slug={item.avatar_slug} navigation={navigation} toast={toast} onRefresh={onRefresh} db={db} /> )}
         />
 
       }

@@ -1,24 +1,26 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, SectionList, Platform } from 'react-native';
+import { useCallback, useState, useEffect, useMemo, useRef } from 'react';
+import { View, Text, SectionList, Platform } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import SwitchSelector from "react-native-switch-selector";
-import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
+import Lottie from 'lottie-react-native';
+import SwitchSelector from "react-native-switch-selector";
 
 // Styles
 import PartiesStyles from '../../Constants/Parties/PartiesStyles';
 import GlobalStyles from '../../Constants/GlobalStyles';
 
 // Components
+import IconComponent from '../../Components/IconComponent';
 import ItemPartie from '../../Components/Parties/ItemPartie';
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Liste des Parties
 export default function Parties({ navigation }) {
 
+  const [fontsLoaded] = font();
   const [games, setGames] = useState(null);
   const [listGames, setListGames] = useState(null);
   const [avatars, setAvatars] = useState([]);
@@ -79,16 +81,20 @@ export default function Parties({ navigation }) {
   }, [statutFiltres]);
 
   const options = [
-    { label: "en cours", value: "Parties en Cours" },
-    { label: "Tout", value: "Toutes les parties" },
-    { label: "terminées", value: "Parties Terminées" }
+    { label: "en cours", value: "Parties en Cours", customIcon: <IconComponent name="hourglass" size="20" color={ statutFiltres["statut"] === "Parties en Cours" ? "#fff" : "#7159DF" } /> },
+    { label: "Tout", value: "Toutes les parties", customIcon: <IconComponent name="layer-bold" size="20" color={ statutFiltres["statut"] === "Toutes les parties" ? "#fff" : "#7159DF" } /> },
+    { label: "terminées", value: "Parties Terminées", customIcon: <IconComponent name="flag" size="20" color={ statutFiltres["statut"] === "Parties Terminées" ? "#fff" : "#7159DF" } /> }
   ];
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
+  const bottomSheetModalRef = useRef(null);
+
+  // variables
+  const snapPoints = useMemo(() => ['25%', '50%'], []);
+
+  // callbacks
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
 
   if (!fontsLoaded) {
     return null;
@@ -106,9 +112,11 @@ export default function Parties({ navigation }) {
         selectedTextStyle={PartiesStyles.switchSelectedText}
         selectedColor="#ffffff"
         textStyle={PartiesStyles.switchText}
-        textColor="#7159DF"//'#7a44cf'
+        textColor="#7159DF"
         buttonColor="#7159DF"
         initial={1}
+        backgroundColor="#f3f3f3"
+        height={48}
         options={options}
         onPress={value => filterParties(value)}
       />
@@ -119,13 +127,23 @@ export default function Parties({ navigation }) {
           {
             statutFiltres["statut"] === "Parties Terminées"
             ?
-              <Text style={PartiesStyles.listEmptyText}>Aucune partie n'a été terminée pour le moment</Text>
+              <View style={{marginTop: "auto", marginBottom: "auto", alignItems: "center"}}>
+                <Lottie style={{ width: 210, height: 210}} source={require('../../assets/animations/floating-palet.json')} autoPlay loop />
+                <Text style={PartiesStyles.listEmptyText}>Aucune partie n'a été terminée pour le moment.</Text>
+              </View>
             :
-              statutFiltres["statut"] === "Parties En Cours"
+              statutFiltres["statut"] === "Parties en Cours"
               ?
-                <Text style={PartiesStyles.listEmptyText}>Aucune partie en cours</Text>
+              <View style={{marginTop: "auto", marginBottom: "auto", alignItems: "center"}}>
+                <Lottie style={{ width: 210, height: 210}} source={require('../../assets/animations/floating-palet.json')} autoPlay loop />
+                <Text style={PartiesStyles.listEmptyText}>Aucune partie en cours n'a été créée.</Text>
+              </View>
               :
-                <Text style={PartiesStyles.listEmptyText}>Aucune partie créée</Text>
+
+              <View style={{marginTop: "auto", marginBottom: "auto", alignItems: "center"}}>
+                <Lottie style={{ width: 210, height: 210}} source={require('../../assets/animations/floating-palet.json')} autoPlay loop />
+                <Text style={PartiesStyles.listEmptyText}>Aucune partie créée pour le moment.</Text>
+              </View>
           }
         </View>
         :
@@ -138,7 +156,7 @@ export default function Parties({ navigation }) {
             <Text style={ PartiesStyles.sectionHeader }>{title}</Text>
           )}
           renderItem={({item, index}) => (
-            <ItemPartie key={index} toast={toast} gagnant={item.gagnant_partie} avatars={item.avatars} setGames={setGames} statutFiltres={statutFiltres} game_id={item.partie_id} date={item.date} time={item.horaire} statut={item.statut} gagnant_game={item.gagnant_game} listerGames={listerGames} setListGames={setListGames} navigation={navigation} db={db}/>
+            <ItemPartie onRefresh={onRefresh} key={index} toast={toast} gagnant={item.gagnant_partie} avatars={item.avatars} setGames={setGames} statutFiltres={statutFiltres} game_id={item.partie_id} date={item.date} time={item.horaire} nbJoueurs={item.nb_joueurs} statut={item.statut} gagnant_game={item.gagnant_game} listerGames={listerGames} setListGames={setListGames} navigation={navigation} db={db}/>
           )}
         />
       }
@@ -250,7 +268,7 @@ function listerGames(setListGames, games) {
 function filtrerTout(setGames, setListGames, db) {
     db.transaction((tx) => {
       tx.executeSql(
-        `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, parties.gagnant_partie, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
+        `SELECT parties.partie_id, parties.date, parties.horaire, parties.nb_joueurs, parties.statut, parties.gagnant_partie, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
           FROM parties
           INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
           INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id
@@ -263,7 +281,7 @@ function filtrerTout(setGames, setListGames, db) {
 function filtrerEnCours(setGames, setListGames, db) {
   db.transaction((tx) => {
     tx.executeSql(
-      `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, parties.gagnant_partie, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
+      `SELECT parties.partie_id, parties.date, parties.horaire, parties.nb_joueurs, parties.statut, parties.gagnant_partie, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
         FROM parties
         INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
         INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id
@@ -277,7 +295,7 @@ function filtrerEnCours(setGames, setListGames, db) {
 function filtrerTerminees(setGames, setListGames, db) {
   db.transaction((tx) => {
     tx.executeSql(
-      `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, parties.gagnant_partie, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
+      `SELECT parties.partie_id, parties.date, parties.horaire, parties.nb_joueurs, parties.statut, parties.gagnant_partie, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
         FROM parties
         INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
         INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id

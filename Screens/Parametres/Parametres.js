@@ -1,28 +1,22 @@
-import * as React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-
-// Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
+import React, {useState} from 'react';
+import { View, Text, TouchableOpacity, Switch } from 'react-native';
 import Constants from 'expo-constants';
-import { useFonts } from 'expo-font';
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
 import ParametersStyles from '../../Constants/Parametres/ParametersStyles';
 
 // Components
-import ClockCounterClockwise from 'phosphor-react-native/src/icons/ClockCounterClockwise';
+import IconComponent from '../../Components/IconComponent';
+import font from '../../Components/FontComponent';
 
 // Paramètres
 export default function Parametres({ navigation, route }) {
 
+  const [fontsLoaded] = font();
   const version = Constants.manifest.version;
-
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   if (!fontsLoaded) {
     return null;
@@ -30,44 +24,18 @@ export default function Parametres({ navigation, route }) {
 
   return (
     <View style={GlobalStyles.container}>
-      <View style={[GlobalStyles.textHeaderContainer]}>
+      <View style={GlobalStyles.textHeaderContainer}>
         <Text style={GlobalStyles.textHeaderTitle}>Paramètres</Text>
       </View>
       <View style={ParametersStyles.parametresContainer}>
 
-        <View style={ParametersStyles.parametresRow}>
+        <View style={ParametersStyles.containerSubtitle}>
 
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Configuration");
-          }}
-          style={ParametersStyles.buttonParametresRowFirst} >
-            <View style={ParametersStyles.iconButtonParametresGrey} >
-              <Ionicons name='options-outline' size={20} color="#252422"/>
-            </View>
-            <View style={ParametersStyles.infosButtonContainer}>
-              <Text style={[ ParametersStyles.titleParametresButton, { color: "#252422" } ]}>Configuration</Text>
-              <Ionicons style={ParametersStyles.chevronParametresButton} name='ios-chevron-forward-outline' size={20} color="#D9D9D9"/>
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Nouveautés");
-            }}
-            style={ParametersStyles.buttonParametresRowLast} >
-            <View style={ParametersStyles.iconButtonParametres} >
-              <Ionicons name='ios-newspaper-outline' size={20} color="#7159DF"/>
-            </View>
-            <View style={ParametersStyles.infosButtonContainer}>
-              <Text style={[ParametersStyles.titleParametresButton]}>Nouvelles fonctionnalités</Text>
-              <Ionicons style={ParametersStyles.chevronParametresButton} name='ios-chevron-forward-outline' size={20} color="#7159DF35"/>
-            </View>
-          </TouchableOpacity>
+          <Text style={ParametersStyles.subtitle}>Paramètres</Text>
 
         </View>
 
-        <View style={ ParametersStyles.parametres }>
+        <View style={ParametersStyles.parametres}>
 
           <TouchableOpacity
             onPress={() => {
@@ -76,10 +44,64 @@ export default function Parametres({ navigation, route }) {
             style={ParametersStyles.buttonParametres}
           >
             <View style={ParametersStyles.iconButtonParametres} >
-              <Ionicons name='ios-share-social-outline' size={20} color="#7159DF"/>
+              <IconComponent name="share" size="24" color="#7159DF" />
             </View>
-            <Text style={[ParametersStyles.textButtonParametres, { fontFamily: "Poppins-Medium" }]}>Partager l'application</Text>
-            <Ionicons name='ios-chevron-forward-outline' size={20} color="#C0C0C0"/>
+            <Text style={ParametersStyles.textButtonParametres}>Partager l'application</Text>
+            <IconComponent name="chevron-right" size="24" color="#C0C0C0" />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Configuration");
+            }}
+            style={ParametersStyles.buttonParametres}
+          >
+            <View style={ParametersStyles.iconButtonParametres} >
+              <IconComponent name="config" size="24" color="#7159DF" />
+            </View>
+            <Text  style={ParametersStyles.textButtonParametres}>Configuration</Text>
+            <IconComponent name="chevron-right" size="24" color="#C0C0C0" />
+          </TouchableOpacity>
+
+          <View style={[ ParametersStyles.buttonParametres, ParametersStyles.lastButtonParametres ]}>
+
+            <View style={ParametersStyles.iconButtonParametres} >
+              <IconComponent name="moon" size="24" color="#7159DF" />
+            </View>
+
+            <Text  style={ParametersStyles.textButtonParametres}>Mode sombre <Text style={{color: "#D9D9D9", fontFamily: "Poppins-Regular"}}>(à venir)</Text> </Text>
+
+            <Switch
+              trackColor={{false: '#D9D9D9', true: '#7159DF'}}
+              thumbColor={"#fff"}
+              onValueChange={toggleSwitch}
+              disabled={true}
+              value={isEnabled}
+            />
+
+          </View>
+
+        </View>
+
+        <View style={ParametersStyles.containerSubtitle}>
+
+          <Text style={ParametersStyles.subtitle}>Informations</Text>
+
+        </View>
+
+        <View style={ ParametersStyles.parametres }>
+
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Nouveautés");
+            }}
+            style={ParametersStyles.buttonParametres}
+          >
+            <View style={ParametersStyles.iconButtonParametres} >
+              <IconComponent name="new" size="24" color="#7159DF" />
+            </View>
+            <Text style={ParametersStyles.textButtonParametres}>Nouvelles fonctionnalités</Text>
+            <IconComponent name="chevron-right" size="24" color="#C0C0C0" />
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -89,23 +111,23 @@ export default function Parametres({ navigation, route }) {
             style={ParametersStyles.buttonParametres}
           >
             <View style={ParametersStyles.iconButtonParametres} >
-              <Ionicons name='help-buoy-outline' size={20} color="#7159DF"/>
+              <IconComponent name="help" size="24" color="#7159DF" />
             </View>
-            <Text  style={[ParametersStyles.textButtonParametres, { fontFamily: "Poppins-Medium" }]}>Besoin d'aide ?</Text>
-            <Ionicons name='ios-chevron-forward-outline' size={20} color="#C0C0C0"/>
+            <Text  style={ParametersStyles.textButtonParametres}>Besoin d'aide ?</Text>
+            <IconComponent name="chevron-right" size="24" color="#C0C0C0" />
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Logs");
             }}
-            style={[ ParametersStyles.buttonParametres, ParametersStyles.lastButtonParametres]}
+            style={[ ParametersStyles.buttonParametres, ParametersStyles.lastButtonParametres ]}
           >
             <View style={ParametersStyles.iconButtonParametres} >
-              <ClockCounterClockwise size={20} color="#7159DF"/>
+              <IconComponent name="list" size="24" color="#7159DF" />
             </View>
-            <Text  style={[ParametersStyles.textButtonParametres, { fontFamily: "Poppins-Medium" }]}>Historique des versions</Text>
-            <Ionicons name='ios-chevron-forward-outline' size={20} color="#C0C0C0"/>
+            <Text  style={ParametersStyles.textButtonParametres}>Historique des versions</Text>
+            <IconComponent name="chevron-right" size="24" color="#C0C0C0" />
           </TouchableOpacity>
 
         </View>

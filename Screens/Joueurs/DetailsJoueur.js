@@ -1,8 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
@@ -13,16 +12,19 @@ import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';
 import PartiesStyles from '../../Constants/Parties/PartiesStyles';
 
 // Components
+import IconComponent from '../../Components/IconComponent';
 import AvatarComponent from '../../Components/AvatarComponent'
 import ItemPartieJoueurs from '../../Components/Parties/ItemPartieJoueurs';
 import StatsJoueur from '../../Components/Joueurs/StatsJoueur';
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Détails d'un Joueur
 export default function DetailsJoueur({ route, navigation }) {
 
-  const [joueur, setJoueur] = React.useState(null);
+  const [fontsLoaded] = font();
+  const [joueur, setJoueur] = useState(null);
   const [games, setGames] = useState(null);
   const [statutFiltres, setStatutFiltres] = useState({
     "statut": "Toutes les parties"
@@ -37,12 +39,6 @@ export default function DetailsJoueur({ route, navigation }) {
 
   }, [])
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
-
   if (joueur == null || joueur.length === 0) {
     return null
   }
@@ -56,14 +52,14 @@ export default function DetailsJoueur({ route, navigation }) {
   if(joueur.profil) {
 
     modalOptions = [
-      {label: 'Modifier le profil', value: 'Modifier', icon: 'ios-create-outline'},
+      {label: 'Modifier le profil', value: 'Modifier'},
     ];
 
   } else {
 
     modalOptions = [
-      {label: 'Modifier le joueur', value: 'Modifier', icon: 'ios-create-outline'},
-      {label: 'Supprimer le joueur', value: 'Supprimer', icon: 'ios-trash-outline'}
+      {label: 'Modifier le joueur', value: 'Modifier'},
+      {label: 'Supprimer le joueur', value: 'Supprimer'}
     ];
 
   }
@@ -71,7 +67,12 @@ export default function DetailsJoueur({ route, navigation }) {
   const dropdownItem = (rowData) => {
     return (
       <View style={DetailsJoueurStyles.dropdownItem}>
-        <Ionicons name={rowData.icon} size={20} color="#252422"/>
+        {rowData.value == "Modifier"
+        ?
+          <IconComponent name="edit-person" size="20" color="#252422" />
+        :
+          <IconComponent name="trash" size="20" color="#252422" />
+        }
         <Text style={DetailsJoueurStyles.dropdownTextStyle}>{rowData.label}</Text>
       </View>
     )
@@ -92,37 +93,55 @@ export default function DetailsJoueur({ route, navigation }) {
              navigation.navigate('Liste Joueurs');
            }}
          >
-           <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+           <IconComponent name="arrow-back" size="24" color="#252422" />
          </TouchableOpacity>
         }
 
-        <ModalDropdown
-          options={modalOptions}
-          style={GlobalStyles.buttonRight}
-          renderRow={(rowData) => dropdownItem(rowData)}
-          dropdownStyle={DetailsJoueurStyles.dropdownStyle}
-          onSelect={(index, value) => {
-            if( value.value == "Modifier") {
+        { joueur.profil
 
-              navigation.navigate("Modifier Joueur", {joueur_id: joueur.joueur_id })
+          ?
 
-            } else if (value.value == "Supprimer"){
+            <TouchableOpacity
+              style={GlobalStyles.buttonRight}
+              onPress={() => {
+                navigation.navigate("Modifier Joueur", {joueur_id: joueur.joueur_id })
+              }}
+            >
+              <IconComponent name="edit-person" size="24" color="#252422" />
+            </TouchableOpacity>
 
-              deleteJoueur(joueur.joueur_id, db, games);
-              navigation.goBack();
-              toast.show('Joueur supprimé !', {
-                type: "success",
-                placement: "top",
-                animationType: "slide-in"
-              });
+          :
 
-            } else {
+          <ModalDropdown
+            options={modalOptions}
+            style={GlobalStyles.buttonRight}
+            renderRow={(rowData) => dropdownItem(rowData)}
+            dropdownStyle={DetailsJoueurStyles.dropdownStyle}
+            onSelect={(index, value) => {
+              if( value.value == "Modifier") {
 
-            }
-          }}
-        >
-          <Ionicons name='ios-ellipsis-vertical' size={24} color="#252422"  style={GlobalStyles.buttonIcon}/>
-        </ModalDropdown>
+                navigation.navigate("Modifier Joueur", {joueur_id: joueur.joueur_id })
+
+              } else if (value.value == "Supprimer"){
+
+                deleteJoueur(joueur.joueur_id, db, games);
+                navigation.goBack();
+                toast.show('Joueur supprimé !', {
+                  type: "success",
+                  placement: "top",
+                  animationType: "slide-in"
+                });
+
+              } else {
+
+              }
+            }}
+          >
+            <IconComponent name="dots" size="24" color="#252422" />
+          </ModalDropdown>
+
+        }
+
       </View>
 
       <ScrollView>
@@ -136,7 +155,7 @@ export default function DetailsJoueur({ route, navigation }) {
 
         <View>
 
-          <Text style={ DetailsJoueurStyles.subtitle }>historique des parties</Text>
+          <Text style={ DetailsJoueurStyles.subtitle }>historique des parties du joueur</Text>
 
           { games === null || games.length === 0
             ?
@@ -148,9 +167,9 @@ export default function DetailsJoueur({ route, navigation }) {
             :
             <View style={PartiesStyles.partiesContainer}>
 
-              {games.map(({ partie_id, date, horaire, liste_joueurs, statut, gagnant_game, avatars }, index) => (
+              {games.map(({ partie_id, date, horaire, liste_joueurs, statut, gagnant_partie, nb_joueurs, avatars }, index) => (
 
-                <ItemPartieJoueurs key={index} toast={toast} avatars={avatars} setGames={setGames} statutFiltres={statutFiltres} game_id={partie_id} date={date} time={horaire} statut={statut} gagnant_game={gagnant_game} navigation={navigation} db={db} index={index} />
+                <ItemPartieJoueurs key={index} avatars={avatars} setGames={setGames} nbJoueurs={nb_joueurs} statutFiltres={statutFiltres} game_id={partie_id} date={date} time={horaire} statut={statut} gagnant_partie={gagnant_partie} navigation={navigation} db={db} index={index} />
 
               ))}
 
@@ -263,7 +282,7 @@ function addGames(joueur, tx, setGames) {
 
 
   tx.executeSql(
-    `SELECT parties.partie_id, parties.date, parties.horaire, infos_parties_joueurs.joueur_id, parties.statut, GROUP_CONCAT(joueurs.avatar_slug) AS avatars, GROUP_CONCAT(infos_parties_joueurs.joueur_id) AS joueurs
+    `SELECT parties.partie_id, parties.gagnant_partie, parties.nb_joueurs, parties.date, parties.horaire, infos_parties_joueurs.joueur_id, parties.statut, GROUP_CONCAT(joueurs.avatar_slug) AS avatars, GROUP_CONCAT(infos_parties_joueurs.joueur_id) AS joueurs
       FROM parties
       INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
       INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id

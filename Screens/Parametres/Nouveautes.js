@@ -1,14 +1,16 @@
-import React from 'react';
-import {  StyleSheet, View, Text, Animated, FlatList, TouchableOpacity, Image, useWindowDimensions } from 'react-native';
+import { useRef, useCallback } from 'react';
+import {  View, Text, Animated, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { ScalingDot, SlidingBorder, ExpandingDot, SlidingDot } from 'react-native-animated-pagination-dots';
+import { ExpandingDot } from 'react-native-animated-pagination-dots';
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
 import ParametersStyles from '../../Constants/Parametres/ParametersStyles';
-import { useFonts } from 'expo-font';
+
+// Components
+import IconComponent from '../../Components/IconComponent';
+import font from '../../Components/FontComponent';
 
 interface ItemProps {
   key: string;
@@ -16,6 +18,8 @@ interface ItemProps {
   image: string;
   description: string;
 }
+
+const width = Dimensions.get("screen").width;
 
 const INTRO_DATA = [
   {
@@ -71,24 +75,27 @@ const INTRO_DATA = [
 
 export default function Probleme({ navigation, route }) {
 
-  const {width} = useWindowDimensions();
-  const scrollX = React.useRef(new Animated.Value(0)).current;
-  const keyExtractor = React.useCallback((item: ItemProps) => item.key, []);
-  const renderItem = React.useCallback(
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const keyExtractor = useCallback((item: ItemProps) => item.key, []);
+  const renderItem = useCallback(
     ({item}: {item: ItemProps}) => {
       return (
-        <View style={[styles.itemContainer, {width: width }]}>
+        <View style={[ParametersStyles.itemContainer]}>
 
-          <View style={{flex: 4/7, justifyContent: "flex-end"}}>
+          <View style={ParametersStyles.itemWrap}>
 
-            <Image style={{ width: width - 96, resizeMode: "contain", marginBottom: 8 }} source={item.image} />
+            <View style={ParametersStyles.imageContainer}>
 
-          </View>
+              <Image style={ParametersStyles.image} source={item.image} />
 
-          <View style={{flex: 3/7, alignItems: "center"}}>
+            </View>
 
-            <Text  style={{textAlign: "center", marginBottom: 8, fontSize: 16, fontFamily: "Poppins-Medium", color: "#252422"}}>{item.title}</Text>
-            <Animated.Text style={{textAlign: "center"}}>{item.description}</Animated.Text>
+            <View style={ParametersStyles.descriptionContainer}>
+
+              <Text  style={ParametersStyles.itemTitle}>{item.title}</Text>
+              <Animated.Text style={ParametersStyles.itemDescription}>{item.description}</Animated.Text>
+
+            </View>
 
           </View>
 
@@ -97,11 +104,8 @@ export default function Probleme({ navigation, route }) {
     },
     [width],
   );
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
+
+  const [fontsLoaded] = font();
 
   if (!fontsLoaded) {
     return null;
@@ -116,14 +120,14 @@ export default function Probleme({ navigation, route }) {
             navigation.goBack()
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Nouvelles fonctionnalités</Text>
-        <View style={{ width: 42 }}>
+        <Text style={GlobalStyles.textHeaderTitle}>Derniers ajouts</Text>
+        <View style={GlobalStyles.buttonEmpty}>
         </View>
       </View>
 
-      <View style={styles.container}>
+      <View style={ParametersStyles.containerList}>
 
         <FlatList
           data={INTRO_DATA}
@@ -135,7 +139,7 @@ export default function Probleme({ navigation, route }) {
               useNativeDriver: false,
             },
           )}
-          style={styles.flatList}
+          style={ParametersStyles.flatList}
           pagingEnabled
           horizontal
           decelerationRate={'normal'}
@@ -143,7 +147,7 @@ export default function Probleme({ navigation, route }) {
           renderItem={renderItem}
         />
 
-        <View style={styles.dotContainer}>
+        <View style={ParametersStyles.dotContainer}>
           <ExpandingDot
             data={INTRO_DATA}
             expandingDotWidth={30}
@@ -151,8 +155,7 @@ export default function Probleme({ navigation, route }) {
             inActiveDotColor={'#7159df50'}
             activeDotColor={'#7159df'}
             inActiveDotOpacity={0.5}
-            dotStyle={styles.dotStyles}
-            containerStyle={styles.constainerStyles}
+            dotStyle={ParametersStyles.dotStyles}
           />
         </View>
 
@@ -161,33 +164,3 @@ export default function Probleme({ navigation, route }) {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  flatList: {
-    flex: 1,
-  },
-  itemContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    paddingTop: 0,
-    paddingBottom: 64
-  },
-
-  dotContainer: {
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
-  dotStyles: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginHorizontal: 3,
-  },
-
-});

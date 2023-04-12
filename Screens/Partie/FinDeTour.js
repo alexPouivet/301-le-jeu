@@ -1,9 +1,7 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
 // Styles
@@ -11,27 +9,24 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import ClassementStyles from '../../Constants/Partie/ClassementStyles';
 
 // Components
+import IconComponent from '../../Components/IconComponent';
 import ItemJoueurComponent from '../../Components/DetailsPartie/ItemJoueurComponent';
 import InfosPartieComponent from '../../Components/DetailsPartie/InfosPartieComponent';
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Fin de Tour Partie
 export default function FinDeTour({ navigation, route }) {
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
-
+  const [fontsLoaded] = font();
   const {game_id } = route.params;
 
-  const [joueurs, setJoueurs] = React.useState(null);
-  const [game, setGame] = React.useState(null);
+  const [joueurs, setJoueurs] = useState(null);
+  const [game, setGame] = useState(null);
   const toast = useToast();
 
-  React.useEffect(() => {
+  useEffect(() => {
     db.transaction((tx) => {
       // Récupère les données de la partie en cours
       tx.executeSql(`SELECT * FROM parties WHERE parties.partie_id = ?`, [game_id], (_, { rows: { _array } }) => setGame(_array[0]));
@@ -57,9 +52,9 @@ export default function FinDeTour({ navigation, route }) {
             navigation.navigate('Parties', {screen: "Liste Parties"});
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Récap Tour {game.tour_game}</Text>
+        <Text style={GlobalStyles.textHeaderTitle}>Récap Tour {game.tour_partie}</Text>
         <View style={{ width: 42 }}>
         </View>
       </View>
@@ -92,7 +87,7 @@ export default function FinDeTour({ navigation, route }) {
               })
             }}
           >
-            <Text style={ClassementStyles.textButton}>Arrêter la partie</Text>
+            <Text style={ClassementStyles.textButtonArreter}>Arrêter la partie</Text>
           </TouchableOpacity>
         :
         null

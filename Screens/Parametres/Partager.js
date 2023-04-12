@@ -1,22 +1,17 @@
-import * as React from 'react';
 import { View, Text, TouchableOpacity, Image, Share } from 'react-native';
-
-// Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
 import ParametersStyles from '../../Constants/Parametres/ParametersStyles';
 
+// Components
+import IconComponent from '../../Components/IconComponent';
+import font from '../../Components/FontComponent';
+
 // Partager
 export default function Partager({ navigation, route }) {
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
+  const [fontsLoaded] = font();
 
   if (!fontsLoaded) {
     return null;
@@ -52,10 +47,10 @@ export default function Partager({ navigation, route }) {
             navigation.goBack()
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
         <Text style={GlobalStyles.textHeaderTitle}>Partager l'application</Text>
-        <View style={{ width: 42 }}>
+        <View style={GlobalStyles.buttonEmpty}>
         </View>
       </View>
 
@@ -68,8 +63,10 @@ export default function Partager({ navigation, route }) {
         />
 
         <TouchableOpacity style={ParametersStyles.partagerButton} onPress={shareLink} title="Partager l'application">
-            <Ionicons name='ios-share-social-outline' size={20} color="#fff" style={{marginLeft: "auto"}}/>
-            <Text style={ParametersStyles.partagerTextButton}>Partager l'application</Text>
+          <View style={ParametersStyles.partagerButtonWrap}>
+            <IconComponent name="share" size="24" color="#fff" />
+            <Text style={ParametersStyles.partagerTextButton}>Partager avec le lien</Text>
+          </View>
         </TouchableOpacity>
 
       </View>

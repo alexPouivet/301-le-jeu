@@ -1,49 +1,36 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-
-// Packages
-import InputSpinner from "react-native-input-spinner";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
 import PartieStyles from '../../Constants/Partie/PartieStyles';
 
 // Components
-import Sparkle from 'phosphor-react-native/src/icons/Sparkle';
-import CoinVertical from 'phosphor-react-native/src/icons/CoinVertical';
+import IconComponent from '../../Components/IconComponent';
 import AvatarComponent from '../../Components/AvatarComponent'
 import PointsPartieInputSpinner from '../../Components/Partie/PointsPartieInputSpinner';
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Partie
 export default function Partie({ navigation, route }) {
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
-
+  const [fontsLoaded] = font();
   const { game_id } = route.params;
-
-  const [game, setGame] = React.useState(null);
-  const [joueur, setJoueur] = React.useState(null);
-  const [joueurs, setJoueurs] = React.useState(null);
-
-
-  const [points20, setPoints20] = React.useState(0);
-  const [points10, setPoints10] = React.useState(0);
-  const [points8, setPoints8] = React.useState(0);
-  const [points6, setPoints6] = React.useState(0);
-  const [points4, setPoints4] = React.useState(0);
-  const [points2, setPoints2] = React.useState(0);
-  const [point1, setPoint1] = React.useState(0);
+  const [game, setGame] = useState(null);
+  const [joueur, setJoueur] = useState(null);
+  const [joueurs, setJoueurs] = useState(null);
+  const [points20, setPoints20] = useState(0);
+  const [points10, setPoints10] = useState(0);
+  const [points8, setPoints8] = useState(0);
+  const [points6, setPoints6] = useState(0);
+  const [points4, setPoints4] = useState(0);
+  const [points2, setPoints2] = useState(0);
+  const [point1, setPoint1] = useState(0);
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     db.transaction((tx) => {
       // Récupère de la bdd la partie en cours
       tx.executeSql(`SELECT * FROM parties WHERE parties.partie_id = ?`, [game_id],
@@ -73,27 +60,27 @@ export default function Partie({ navigation, route }) {
 
     joueurs[i].position_joueur_en_cours == (joueur.position_joueur_en_cours - 1 )
       ? joueurPrecedent.push(
-        <View key={i} style={{alignItems: "center"}}>
+        <View key={i} style={PartieStyles.joueurWrapper}>
           <AvatarComponent size={32} name={joueurs[i].avatar_slug} />
-          <Text numberOfLines={1} style={[PartieStyles.joueurPrecedent]}>{joueurs[i].nom_joueur}</Text>
+          <Text numberOfLines={1} style={PartieStyles.joueurPrecedent}>{joueurs[i].nom_joueur}</Text>
         </View>
       )
       : null
 
     joueurs[i].joueur_id == joueur.joueur_id
       ? joueurEnCours.push(
-        <View key={i} style={{alignItems: "center"}}>
+        <View key={i} style={PartieStyles.joueurWrapper}>
           <AvatarComponent size={44} name={joueur.avatar_slug} />
-          <Text numberOfLines={1} style={[PartieStyles.joueurEnCours, {fontFamily: "Poppins-Bold"}]}>{joueur.nom_joueur}</Text>
+          <Text numberOfLines={1} style={PartieStyles.joueurEnCours}>{joueur.nom_joueur}</Text>
         </View>
       )
       : null
 
     joueurs[i].position_joueur_en_cours == (joueur.position_joueur_en_cours + 1 )
       ? joueurSuivant.push(
-        <View key={i} style={{alignItems: "center"}}>
+        <View key={i} style={PartieStyles.joueurWrapper}>
           <AvatarComponent size={32} name={joueurs[i].avatar_slug} />
-          <Text numberOfLines={1} style={[PartieStyles.joueurSuivant]}>{joueurs[i].nom_joueur}</Text>
+          <Text numberOfLines={1} style={PartieStyles.joueurSuivant}>{joueurs[i].nom_joueur}</Text>
         </View>
       )
       : null
@@ -116,7 +103,7 @@ export default function Partie({ navigation, route }) {
             navigation.navigate('Parties', {screen: "Liste Parties"});
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
         <Text style={GlobalStyles.textHeaderTitle}>Tour n°{game.tour_partie}</Text>
         <TouchableOpacity
@@ -126,7 +113,7 @@ export default function Partie({ navigation, route }) {
               game_id: game_id
             })
         }}>
-          <Ionicons name='ios-podium-outline' size={24} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="podium" size="24" color="#252422" />
         </TouchableOpacity>
       </View>
       <View style={PartieStyles.infosTour}>
@@ -136,7 +123,7 @@ export default function Partie({ navigation, route }) {
 
               <View style={PartieStyles.separatorJoueursContainer}>
               { joueurPrecedent.length !== 0
-                ? <Ionicons name='ios-chevron-forward-outline' size={16} color="#7159df50"/>
+                ? <IconComponent name="chevron-right" size="12" color="#7159df" />
                 : null
               }
               </View>
@@ -145,7 +132,7 @@ export default function Partie({ navigation, route }) {
 
               <View style={PartieStyles.separatorJoueursContainer}>
                 { joueurSuivant.length !== 0
-                ? <Ionicons name='ios-chevron-forward-outline' size={16} color="#7159df50"/>
+                ? <IconComponent name="chevron-right" size="12" color="#7159df" />
                 : null
                 }
               </View>
@@ -156,16 +143,20 @@ export default function Partie({ navigation, route }) {
 
             <View style={PartieStyles.informationsPartie}>
 
-              <View style={PartieStyles.informationsPalets}>
-                <Sparkle size={32} weight="regular" color="#7159df" style={{marginRight: 8}}/>
+              <View style={PartieStyles.informationsContainer}>
+                <View style={PartieStyles.iconeWrapper}>
+                  <IconComponent name="points" size="24" color="#7159df" />
+                </View>
                 <View>
                   <Text style={PartieStyles.textInfosTour}>{joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)}</Text>
                   <Text style={PartieStyles.textInfosTourLabel}>points restant</Text>
                 </View>
               </View>
 
-              <View style={PartieStyles.informationsPalets}>
-                <CoinVertical size={32} weight="regular" color="#7159df" style={{marginRight: 8}}/>
+              <View style={PartieStyles.informationsContainer}>
+                <View style={PartieStyles.iconeWrapper}>
+                  <IconComponent name="palet" size="24" color="#7159df" />
+                </View>
                 <View>
                   <Text style={PartieStyles.textInfosTour}>{totalPalets}{totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false }</Text>
                   <Text style={PartieStyles.textInfosTourLabel}>palets restant</Text>

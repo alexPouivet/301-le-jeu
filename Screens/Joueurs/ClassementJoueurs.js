@@ -1,32 +1,34 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
 import SwitchSelector from "react-native-switch-selector";
-import { useFonts } from 'expo-font';
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
 import ClassementJoueursStyles from '../../Constants/Joueurs/ClassementJoueursStyles';
 
 // Components
+import IconComponent from '../../Components/IconComponent';
 import ItemJoueurClassement from '../../Components/Joueurs/ItemJoueurClassement'
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Classement Joueurs
 export default function ClassementJoueurs({ navigation }) {
 
+  const [fontsLoaded] = font();
   const [joueurs, setJoueurs] = useState(null);
   const [switchValue, setSwitchValue] = useState({
     "statut": "Nb. Victoires"
   });
 
+
   const options = [
-    { label: "Points", value: "Nb. Points" },
-    { label: "Victoires", value: "Nb. Victoires" },
-    { label: "Position Moy.", value: "Position Moy." }
+    { label: "Points", value: "Nb. Points", customIcon: <IconComponent name="points" size="20" color={ switchValue["statut"] === "Nb. Points" ? "#fff" : "#7159DF" } />  },
+    { label: "Victoires", value: "Nb. Victoires", customIcon: <IconComponent name="cup" size="20" color={ switchValue["statut"] === "Nb. Victoires" ? "#fff" : "#7159DF" } /> },
+    { label: "Pos. Moy.", value: "Position Moy.", customIcon: <IconComponent name="average" size="20" color={ switchValue["statut"] === "Position Moy." ? "#fff" : "#7159DF" } /> }
   ];
 
   useEffect(() => {
@@ -49,11 +51,7 @@ export default function ClassementJoueurs({ navigation }) {
 
   }, [switchValue]);
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
+
 
   if (joueurs === null || joueurs.length === 0) {
     return null;
@@ -73,10 +71,10 @@ export default function ClassementJoueurs({ navigation }) {
             navigation.goBack()
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
         <Text style={GlobalStyles.textHeaderTitle}>Classement général</Text>
-        <View style={{ width: 42 }}>
+        <View style={GlobalStyles.buttonEmpty}>
         </View>
       </View>
 
@@ -88,6 +86,8 @@ export default function ClassementJoueurs({ navigation }) {
         textColor="#7159DF"
         buttonColor="#7159DF"
         initial={1}
+        backgroundColor="#f3f3f3"
+        height={48}
         onPress={value => switchClassement(value)}
         options={options}
       />
@@ -201,7 +201,7 @@ function getClassementPosition(joueurs, tx, setJoueurs) {
     WHERE infos_parties_joueurs.joueur_id = ?`
     , [joueur.joueur_id], (_, { rows: { _array } }) => {
 
-      let position = null;
+      let position = "-";
 
       if(_array[0].position_moy !== null) {
         position = _array[0].position_moy.toString().substring(0,4);

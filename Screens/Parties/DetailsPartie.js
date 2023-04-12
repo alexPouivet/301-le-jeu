@@ -1,9 +1,7 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Alert, View, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
 // Styles
@@ -11,29 +9,24 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import DetailsPartieStyles from '../../Constants/Parties/DetailsPartieStyles';
 
 // Components
+import IconComponent from '../../Components/IconComponent';
 import InfosPartieComponent from '../../Components/DetailsPartie/InfosPartieComponent';
 import ItemJoueurComponent from '../../Components/DetailsPartie/ItemJoueurComponent';
 import PodiumPartieComponent from '../../Components/DetailsPartie/PodiumPartieComponent';
-
-
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Détails d'une Partie
 export default function DetailsPartie({ navigation, route }) {
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
-
+  const [fontsLoaded] = font();
   const { game_id } = route.params;
-  const [game, setGame] = React.useState(null);
-  const [joueurs, setJoueurs] = React.useState(null);
+  const [game, setGame] = useState(null);
+  const [joueurs, setJoueurs] = useState(null);
   const toast = useToast();
 
-  React.useEffect(() => {
+  useEffect(() => {
     db.transaction((tx) => {
       // Récupère les données de la partie en cours
       tx.executeSql(`SELECT * FROM parties WHERE parties.partie_id = ?`, [game_id], (_, { rows: { _array } }) => { setGame(_array[0]) });
@@ -53,7 +46,7 @@ export default function DetailsPartie({ navigation, route }) {
   return (
     <View style={GlobalStyles.container}>
 
-      <View style={GlobalStyles.buttonsHeaderContainer}>
+      <View style={GlobalStyles.buttonsTextHeaderContainer}>
 
         <TouchableOpacity
           style={GlobalStyles.buttonLeft}
@@ -61,8 +54,10 @@ export default function DetailsPartie({ navigation, route }) {
             navigation.goBack()
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon} />
+          <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
+
+        <Text style={[ DetailsPartieStyles.textDate ]}>Partie du {game.date} à {game.horaire}</Text>
 
         <TouchableOpacity
           style={GlobalStyles.buttonRight}
@@ -70,7 +65,7 @@ export default function DetailsPartie({ navigation, route }) {
             showConfirmDialog(game_id, navigation, toast);
           }}
         >
-          <Ionicons name='ios-trash-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="trash" size="24" color="#252422" />
         </TouchableOpacity>
 
       </View>

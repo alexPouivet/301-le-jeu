@@ -1,34 +1,27 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-
-// Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
 import ClassementStyles from '../../Constants/Partie/ClassementStyles';
 
 // Components
+import IconComponent from '../../Components/IconComponent';
 import InfosPartieComponent from '../../Components/DetailsPartie/InfosPartieComponent';
 import ItemJoueurComponent from '../../Components/DetailsPartie/ItemJoueurComponent';
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Classement Partie
 export default function Classement({ navigation, route }) {
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
-
+  const [fontsLoaded] = font();
   const { game_id } = route.params;
-  const [game, setGame] = React.useState(null);
-  const [classement, setClassement] = React.useState(null);
+  const [game, setGame] = useState(null);
+  const [classement, setClassement] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     db.transaction((tx) => {
       // Récupère les données de la partie en cours
       tx.executeSql(`SELECT * FROM parties WHERE parties.partie_id = ?`, [game_id], (_, { rows: { _array } }) => {
@@ -59,7 +52,7 @@ export default function Classement({ navigation, route }) {
             navigation.goBack()
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
         <Text style={GlobalStyles.textHeaderTitle}>Classement Actuel</Text>
         <View style={{ width: 42 }}>

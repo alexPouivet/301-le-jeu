@@ -1,8 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
@@ -11,13 +10,16 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';
 
 // Components
+import IconComponent from '../../Components/IconComponent';
 import AvatarComponent from '../../Components/AvatarComponent'
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Modifier les infos d'un Joueur
 export default function ModifierJoueur({ navigation, route }) {
 
+  const [fontsLoaded] = font();
   const { joueur_id } = route.params;
   const [joueur, setJoueur] = useState(null);
   const [nomJoueur, setNomJoueur] = useState(null);
@@ -33,12 +35,6 @@ export default function ModifierJoueur({ navigation, route }) {
       });
     });
   }, []);
-
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
 
   if (joueur === null || joueur.length === 0) {
     return null;
@@ -64,9 +60,9 @@ export default function ModifierJoueur({ navigation, route }) {
             }
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Modifier les infos</Text>
+        <Text style={GlobalStyles.textHeaderTitle}>Modifier joueur</Text>
         <View style={{ width: 42 }}>
         </View>
       </View>
@@ -90,20 +86,20 @@ export default function ModifierJoueur({ navigation, route }) {
           >
             <View style={DetailsJoueurStyles.wrapperTextIconButton}>
 
-              <Ionicons name='ios-shuffle-outline' size={28} color="#F3F3F3"/>
+              <IconComponent name="shuffle" size="24" color="#fff" />
 
-              <Text style={DetailsJoueurStyles.textIconButton}>Modifier aléatoirement</Text>
+              <Text style={DetailsJoueurStyles.textIconButton}>Changer aléatoirement</Text>
 
             </View>
 
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={DetailsJoueurStyles.resetButton}
+            style={[ DetailsJoueurStyles.resetButton, avatarJoueur == joueur.avatar_slug ? DetailsJoueurStyles.disabledResetButton : DetailsJoueurStyles.enableResetButton ]}
             onPress={() => setAvatarJoueur(joueur.avatar_slug)}
           >
 
-            <Ionicons name='ios-close-outline' size={28} color="#F3F3F3"  style={GlobalStyles.buttonIcon}/>
+            <IconComponent name="close" size="24" color="#7159df" />
 
           </TouchableOpacity>
 
@@ -115,11 +111,11 @@ export default function ModifierJoueur({ navigation, route }) {
 
         <Text style={DetailsJoueurStyles.subtitle}>changer de nom</Text>
 
-        <View style={DetailsJoueurStyles.changeNomContainer}>
+        <View style={ DetailsJoueurStyles.changeNomContainer }>
 
           <TextInput
             style={DetailsJoueurStyles.changeNomInput}
-            placeholder="John Doe..."
+            placeholder="Nom du joueur ..."
             value={nomJoueur}
             onChangeText={ nomJoueur => {setNomJoueur(nomJoueur)}}
           />

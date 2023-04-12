@@ -1,31 +1,24 @@
-import * as React from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-
-// Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
-import logs from '../../logs.json';
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
 import ParametersStyles from '../../Constants/Parametres/ParametersStyles';
 
+// Components
+import IconComponent from '../../Components/IconComponent';
+import logs from '../../logs.json';
+import font from '../../Components/FontComponent';
+
 // Logs
 export default function Logs({ navigation, route }) {
 
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
+  const [fontsLoaded] = font();
 
   let reversedLogs = logs.map(item => item).reverse();
 
   if (!fontsLoaded) {
     return null;
   }
-
-  const B = (props) => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>
 
   return (
     <View style={GlobalStyles.container}>
@@ -37,10 +30,10 @@ export default function Logs({ navigation, route }) {
             navigation.goBack()
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+          <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
         <Text style={GlobalStyles.textHeaderTitle}>Versions de l'app</Text>
-        <View style={{ width: 42 }}>
+        <View style={GlobalStyles.buttonEmpty}>
         </View>
       </View>
 

@@ -1,8 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
@@ -11,14 +10,16 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';
 
 // Components
+import IconComponent from '../../Components/IconComponent';
 import AvatarComponent from '../../Components/AvatarComponent'
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Créer le Profil
 export default function CreerProfil({ navigation }) {
 
-  // const [joueur, setJoueur] = useState(null);
+  const [fontsLoaded] = font();
   const [nomJoueur, setNomJoueur] = useState("");
   const [avatarJoueur, setAvatarJoueur] = useState(null);
   const [errorText, onChangeErrorText] = useState("");
@@ -31,12 +32,6 @@ export default function CreerProfil({ navigation }) {
     setAvatarJoueur(generate);
 
   }, []);
-
-  const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
 
   if (!fontsLoaded) {
     return null;
@@ -55,10 +50,12 @@ export default function CreerProfil({ navigation }) {
             navigation.goBack()
           }}
         >
-          <Ionicons name='ios-chevron-back-outline' size={28} color="#252422" style={GlobalStyles.buttonIcon}/>
+
+          <IconComponent name="arrow-back" size="24" color="#252422" />
+
         </TouchableOpacity>
         <Text style={GlobalStyles.textHeaderTitle}>Créer votre profil</Text>
-        <View style={{ width: 42 }}>
+        <View style={GlobalStyles.buttonEmpty}>
         </View>
       </View>
       <View style={DetailsJoueurStyles.changeAvatarContainer}>
@@ -80,7 +77,7 @@ export default function CreerProfil({ navigation }) {
           >
             <View style={DetailsJoueurStyles.wrapperTextIconButton}>
 
-              <Ionicons name='ios-shuffle-outline' size={28} color="#F3F3F3"/>
+              <IconComponent name="shuffle" size="24" color="#fff" />
 
               <Text style={DetailsJoueurStyles.textIconButton}>Modifier aléatoirement</Text>
 
@@ -100,7 +97,7 @@ export default function CreerProfil({ navigation }) {
 
           <TextInput
             style={DetailsJoueurStyles.changeNomInput}
-            placeholder="John Doe..."
+            placeholder="Nom du joueur..."
             value={nomJoueur}
             onChangeText={ nomJoueur => {setNomJoueur(nomJoueur)}}
           />
