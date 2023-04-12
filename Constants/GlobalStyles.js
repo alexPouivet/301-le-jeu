@@ -2,16 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F3F3F3",
     height: "100%"
-  },
-  buttonContainer: {
-    width: "100%",
-    flexDirection: "row",
-    marginTop: 16,
-    marginBottom: 32,
-    alignItems: "center",
-    justifyContent: "space-between"
   },
   buttonsHeaderContainer: {
     margin: 16,
@@ -20,24 +12,23 @@ export default StyleSheet.create({
     justifyContent: "space-between"
   },
   buttonLeft: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
+    width: 48,
+    height: 48,
+    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: 32,
   },
   buttonRight: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
+    width: 48,
+    height: 48,
+    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: 32,
   },
-  buttonIcon: {
-    alignSelf: "center",
-    textAlign: "center"
+  buttonEmpty: {
+    width: 48
   },
   buttonsTextHeaderContainer: {
     flexDirection: "row",
@@ -55,7 +46,7 @@ export default StyleSheet.create({
   },
   textHeaderContainer: {
     width: "100%",
-    marginBottom: 16,
+    marginBottom: 24,
   },
   textHeaderTitle: {
     fontSize: 20,
@@ -69,34 +60,36 @@ export default StyleSheet.create({
   },
   addPlayerTitle: {
     fontFamily: "Poppins-Medium",
-    fontSize: 14
+    fontSize: 14,
+    marginLeft: 4
   },
   inputAddPlayerContainer: {
-    marginTop: 4,
+    borderWidth: 1.5,
+    borderColor: "#D9D9D9",
+    marginTop: 8,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingRight: 8,
+    borderRadius: 32,
   },
   inputAddPlayer: {
-    height: 48,
-    borderRadius: 10,
+    height: 64,
     paddingLeft: 16,
     fontSize: 16,
     width: "85%",
-    backgroundColor: '#F3F3F3'
   },
   inputAddPlayerFull: {
-    height: 48,
-    borderRadius: 10,
+    height: 64,
     paddingLeft: 16,
     fontSize: 16,
     width: "100%",
-    backgroundColor: '#F3F3F3'
   },
   addPlayerButton: {
     width: 48,
     height: 48,
     backgroundColor: "#7159df",
-    borderRadius: 10,
+    borderRadius: 32,
     justifyContent: "center",
     alignItems: "center"
   },

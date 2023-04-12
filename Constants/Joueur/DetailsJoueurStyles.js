@@ -3,49 +3,26 @@ import { StyleSheet, Dimensions } from 'react-native';
 const width = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
-  buttonContainer: {
-    width: "100%",
-    marginTop: 16,
-    flexDirection: "row",
-    marginBottom: 16,
-    justifyContent: "space-between"
-  },
-  buttonFiltres: {
-    width: 42,
-    height: 42,
-    backgroundColor: "#f3f3f3",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-    marginRight:16,
-  },
   dropdownStyle: {
     width: "auto",
     height: "auto",
-    marginTop: Platform.OS === "android" ? -16 : 12,
-    marginRight: -9,
-    borderRadius: 10,
+    marginTop: Platform.OS === "android" ? -16 : 16,
+    marginRight: -12,
+    borderRadius: 24,
     paddingVertical: 0,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 0.125,
-    shadowRadius: 5,
+    borderWidth: 0
   },
   dropdownItem: {
     flexDirection: "row",
-    marginLeft: 16,
-    marginRight: 16,
-    marginVertical: 10,
+    margin: 16,
+    marginRight:32,
     fontSize: 16,
     alignItems: "center",
     color: "#252422"
   },
   dropdownTextStyle: {
     marginLeft: 10,
-    fontSize: 14,
+    fontSize: 12,
     color: "#252422"
   },
   infosJoueurContainer: {
@@ -56,29 +33,40 @@ export default StyleSheet.create({
     fontSize: 16,
     fontFamily: "Poppins-Medium"
   },
+  descriptionContainer: {
+    marginHorizontal: 16,
+    marginTop: "auto",
+    marginBottom: "auto"
+  },
   subtitle: {
     textAlign: "center",
     fontFamily: "Poppins-Medium",
     color: "#BEBEBE",
     fontSize: 14,
-    marginBottom: 4
+    marginBottom: 8
+  },
+  description: {
+    textAlign: "center",
+    fontFamily: "Poppins-Regular",
+    fontSize: 14,
+    marginBottom: 32
   },
   statsContainer :{
     margin: 16,
-    marginBottom: 48
+    marginBottom: 24
   },
   rowContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 4,
-    marginBottom: 4
+    marginBottom: 6
   },
   statItemContainer: {
-    paddingVertical: 4,
+    paddingVertical: 8,
     paddingLeft: 8,
     paddingRight: 2,
-    borderRadius: 10,
-    width: "32%",
+    borderRadius: 32,
+    backgroundColor: "#fff",
+    width: "32.375%",
     flexDirection: "row",
     alignItems: "center",
   },
@@ -118,8 +106,8 @@ export default StyleSheet.create({
   },
   buttonWithIcon: {
     flex: 1,
-    borderRadius: 10,
-    height: 48,
+    borderRadius: 32,
+    height: 56,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#7159df",
@@ -130,17 +118,17 @@ export default StyleSheet.create({
     alignItems: "center"
   },
   textIconButton: {
-    fontFamily: "Poppins-Medium",
+    fontFamily: "Poppins-Regular",
     color: "#FFFFFF",
     fontSize: 16,
     marginLeft: 12
   },
   resetButton: {
     marginLeft: 4,
-    width: 48,
-    height: 48,
-    backgroundColor: "#C0C0C0",
-    borderRadius: 10,
+    width: 56,
+    height: 56,
+    backgroundColor: "#7159DF20",
+    borderRadius: 32,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -148,22 +136,29 @@ export default StyleSheet.create({
     marginHorizontal: 16,
     flexDirection: "row"
   },
+  disabledResetButton: {
+    display: "none",
+  },
+  enableResetButton: {
+
+  },
   changeNomInput: {
-    height: 48,
-    borderRadius: 10,
+    height: 64,
+    borderRadius: 32,
     fontSize: 16,
     width: "100%",
     textAlign: "center",
-    backgroundColor: '#F3F3F3'
+    borderWidth: 1.5,
+    borderRadius: 32,
+    borderColor: "#D9D9D9"
   },
   validerModifButton: {
     marginTop: "auto",
-    borderRadius: 10,
-    height: 48,
+    borderRadius: 32,
+    height: 56,
     marginHorizontal: 16,
     alignItems: "center",
     justifyContent: "center",
-
     marginBottom: 16
   },
   disabledValiderModifButton: {
@@ -173,21 +168,21 @@ export default StyleSheet.create({
     backgroundColor: "#7159df",
   },
   textValiderModifButton: {
-    fontFamily: "Poppins-Medium",
+    fontFamily: "Poppins-Regular",
     color: "#FFFFFF",
     fontSize: 16
   },
   button: {
     width: width - 32,
-    height: 48,
+    height: 56,
     justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 32,
     backgroundColor: "#7159df",
   },
   textButton: {
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 16,
-    fontFamily: "Poppins-Medium"
+    fontFamily: "Poppins-Regular"
   },
 })

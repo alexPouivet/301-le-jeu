@@ -1,72 +1,25 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const width = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
   parametresContainer: {
     height: "100%",
     width: "100%",
   },
-  parametresRow: {
-    paddingHorizontal: 16,
-    flexDirection: "row",
-     width: "100%",
-     justifyContent: "space-between",
-     marginBottom: 6
-  },
   parametres: {
     backgroundColor: "#ffffff",
     marginLeft: 16,
     marginRight: 16,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#F3F3F3",
+    marginBottom: 16,
+    borderRadius: 32,
   },
   container: {
     margin: 16,
     marginTop: 0,
     padding: 24,
-    borderRadius: 10,
+    borderRadius: 32,
     backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#F3F3F3",
-  },
-  buttonParametresRowFirst: {
-    height: 130,
-    width: "49.25%",
-    backgroundColor: "#C0C0C025",
-    padding: 16,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#C0C0C025"
-  },
-  buttonParametresRowLast: {
-    height: 130,
-    width: "49.25%",
-    backgroundColor: "#7159DF25",
-    padding: 16,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: "#7159DF25"
-  },
-  titleParametresButton: {
-    fontFamily: "Poppins-Medium",
-    color: "#7159DF",
-    fontSize: 16
-  },
-  chevronParametresButton: {
-    marginTop: "auto",
-    marginLeft: "auto"
-  },
-  iconButtonParametresGrey: {
-    backgroundColor: "#D9D9D9",
-    height: 40,
-    width: 40,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  infosButtonContainer: {
-    flexDirection: "row",
-    marginTop: "auto"
   },
   buttonParametres: {
     marginLeft: 16,
@@ -83,9 +36,9 @@ export default StyleSheet.create({
   },
   iconButtonParametres: {
     backgroundColor: "#7159DF25",
-    height: 40,
-    width: 40,
-    borderRadius: 10,
+    height: 48,
+    width: 48,
+    borderRadius: 32,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -93,18 +46,31 @@ export default StyleSheet.create({
     marginLeft: 12,
     marginRight: "auto",
     color: "#252422",
-    fontSize: 16,
+    fontSize: 13,
+    fontFamily: "Poppins-Medium",
   },
   text16: {
-    fontSize: 16
+    fontSize: 14,
+    fontFamily: "Poppins-Regular",
+    color: "#252422",
   },
   marginText12: {
     marginTop: 12,
   },
   containerVersionApp: {
-    margin: 16,
-    marginTop: 12,
+    marginTop: -8,
+    marginLeft: 32,
     flexDirection: "row",
+  },
+  containerSubtitle: {
+    marginLeft: 32,
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 14,
+    fontFamily: "Poppins-Medium",
+    color: "#C0C0C0",
+    textTransform: "uppercase"
   },
   logTitreApp: {
     marginRight: 4,
@@ -156,17 +122,15 @@ export default StyleSheet.create({
     marginTop: 0,
     marginBottom: 8,
     padding: 24,
-    borderRadius: 10,
+    borderRadius: 32,
     backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#F3F3F3",
   },
   titreContainer: {
     flexDirection: "row",
     flexWrap: 'wrap',
   },
   versionApp: {
-    color: "#252422",
+    color: "#C0C0C0",
     fontSize: 12,
   },
   partagerImage: {
@@ -178,32 +142,36 @@ export default StyleSheet.create({
   },
   partagerButton: {
     alignItems: "center",
-    borderRadius: 10,
-    height: 48,
+    borderRadius: 32,
+    height: 56,
     backgroundColor: "#7159df",
     marginTop: 12,
     flexDirection: "row",
   },
-  partagerTextButton: {
-    marginLeft: 10,
+  partagerButtonWrap: {
+    marginLeft: "auto",
     marginRight: "auto",
+    flexDirection: "row"
+  },
+  partagerTextButton: {
+    marginLeft: 12,
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 16,
-    fontFamily: "Poppins-Medium"
+    fontFamily: "Poppins-Regular"
   },
   button: {
-    borderRadius: 10,
+    borderRadius: 32,
     marginTop: 12,
-		height: 48,
+		height: 56,
 		justifyContent: "center",
     marginBottom: 32,
     backgroundColor: "#FF4B3E",
   },
   buttonUpdate: {
-    height: 48,
+    height: 56,
 		justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 32,
 		marginTop: 12,
     marginBottom: 32,
     backgroundColor: "#7159DF",
@@ -213,5 +181,61 @@ export default StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     fontFamily: "Poppins-Regular"
+  },
+  containerList: {
+    flex: 1
+  },
+  flatList: {
+    flex: 1,
+  },
+  itemContainer: {
+    width: width,
+    paddingHorizontal: 16,
+    marginBottom: 46,
+  },
+  itemWrap: {
+    backgroundColor: "#fff",
+    padding: 12,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 64,
+    borderRadius: 32
+  },
+  imageContainer: {
+    flex: 4/7,
+    justifyContent: "flex-end"
+  },
+  image: {
+    width: width - 96,
+    resizeMode: "contain",
+    marginBottom: 8
+  },
+  descriptionContainer: {
+    flex: 3/7,
+    alignItems: "center"
+  },
+  itemTitle: {
+    textAlign: "center",
+    marginBottom: 8,
+    fontSize: 16,
+    fontFamily: "Poppins-Medium",
+    color: "#252422"
+  },
+  itemDescription: {
+    textAlign: "center",
+    fontSize: 11,
+    fontFamily: "Poppins-Regular",
+    color: "#252422"
+  },
+  dotContainer: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  dotStyles: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 3,
   },
 })

@@ -4,10 +4,10 @@ const width = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
   infosTour: {
-    backgroundColor: "#7159df20",
+    backgroundColor: "#fff",
     marginLeft: 16,
     marginRight: 16,
-    borderRadius: 16,
+    borderRadius: 32,
     padding: 8
   },
   listeJoueurs: {
@@ -19,43 +19,54 @@ export default StyleSheet.create({
     width: "30%",
     justifyContent: "center",
   },
+  joueurWrapper: {
+    alignItems: "center"
+  },
   separatorJoueursContainer: {
     width: "5%",
     justifyContent: "center"
   },
   joueurPrecedent: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#7159df",
     textAlign: "center",
     marginTop: 4,
-    width: "75%"
+    width: "75%",
+    fontFamily: "Poppins-Regular"
   },
   joueurEnCours: {
     fontSize: 18,
     color: "#7159df",
     marginTop: 4,
     textAlign: "center",
+    fontFamily: "Poppins-Bold"
   },
   joueurSuivant: {
-    fontSize: 14,
+    fontSize: 12,
     color: "#7159df",
     textAlign: "center",
     marginTop: 4,
-    width: "75%"
+    width: "75%",
+    fontFamily: "Poppins-Regular"
   },
   informationsPartie: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
-  informationsPalets: {
+  informationsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 32,
     width: "49.25%",
-    paddingVertical: 8,
+    padding: 8,
     backgroundColor: "#7159df25"
+  },
+  iconeWrapper: {
+    backgroundColor: "#7159DF25",
+    borderRadius: 32,
+    padding: 12,
+    marginRight: 8
   },
   textInfosTour: {
     fontSize: 20,
@@ -77,31 +88,33 @@ export default StyleSheet.create({
   },
   inputContainer: {
     justifyContent: "space-between",
+    alignItems: "center",
     width: "100%",
-    backgroundColor: "#F3F3F3",
-    borderRadius: 10,
-    marginBottom: 8,
+    backgroundColor: "#fff",
+    borderRadius: 32,
+    marginBottom: 4,
     paddingVertical: 8,
     paddingHorizontal: 8,
     flexDirection: "row"
   },
   pointsContainer: {
-    backgroundColor: "#fff",
-    width: 56,
-    borderRadius: 10,
+    backgroundColor: "#7159DF25",
+    width: 52,
+    height: 52,
+    borderRadius: 32,
     alignItems: "center",
     justifyContent: "center"
   },
   textPoints: {
     color: "#7159DF",
-    fontSize: 28,
+    fontSize: 24,
     fontFamily: "Poppins-Bold"
   },
   textsPointsLabel: {
     position: "absolute",
-    bottom: 4,
-    fontSize: 10,
-    color: "#C0C0C0",
+    bottom: 6,
+    fontSize: 9,
+    color: "#7159DF",
     fontFamily: "Poppins-Regular"
   },
   spinner: {
@@ -115,12 +128,12 @@ export default StyleSheet.create({
   },
   inputSpinner: {
     backgroundColor: "#fff",
-    width: 56,
-    height: 56,
+    width: 52,
+    height: 52,
     marginLeft: 16,
     marginRight: 16,
-    borderRadius: 16,
-    fontSize: 30,
+    borderRadius: 32,
+    fontSize: 20,
     borderColor: "#7159df",
     borderWidth: 3,
     fontFamily: "Poppins-Bold"
@@ -132,14 +145,14 @@ export default StyleSheet.create({
     bottom: 16,
     width: width - 32,
     justifyContent: "center",
-    height: 48,
-    borderRadius: 10,
+    height: 56,
+    borderRadius: 32,
     backgroundColor: "#7159df",
   },
   textButton: {
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 16,
-    fontFamily: "Poppins-Medium"
+    fontFamily: "Poppins-Regular"
   }
 })

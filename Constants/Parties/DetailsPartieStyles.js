@@ -4,30 +4,39 @@ const width = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
   containerStatutPartie: {
-    padding: 6,
-    borderRadius: 16,
-    marginBottom: 16,
-    marginLeft: 16,
-    marginRight: 16,
-  },
-  containerStatutGagnant: {
-    backgroundColor: "#FEC60120",
-  },
-  containerStatutPartieEnCours: {
-    backgroundColor: "#7159df20",
+    marginHorizontal: 16,
+    marginTop: -8,
+    marginBottom: 32
   },
   textStatutPartieContainer: {
+    padding: 8,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 32,
     width: "49.25%",
-    height: 50
+    backgroundColor: "#fff"
+  },
+  iconePartieEnCoursWrapper: {
+    backgroundColor: "#7159df20",
+    borderRadius: 32,
+    padding: 12
+  },
+  iconePartieTermineeWrapper: {
+    backgroundColor: "#FEC60120",
+    borderRadius: 32,
+    padding: 12
+  },
+  iconePaletsWrapper: {
+    backgroundColor: "#BEBEBE20",
+    borderRadius: 32,
+    padding: 12
   },
   textStatutPartie: {
-    fontSize: 14,
-    textAlign: "center",
-    fontFamily: "Poppins-Medium"
+    marginLeft: 8,
+    fontSize: 12,
+    textAlign: "left",
+    fontFamily: "Poppins-Medium",
+    color: "#BEBEBE"
   },
   containerDate: {
     flexDirection: "row",
@@ -39,7 +48,8 @@ export default StyleSheet.create({
   },
   textDate: {
     fontSize: 14,
-    fontFamily: "Poppins-Medium"
+    fontFamily: "Poppins-Medium",
+    color: "#252422",
   },
   containerPodium: {
     marginLeft: 16,
@@ -62,9 +72,9 @@ export default StyleSheet.create({
   },
   secondPlacePodium: {
     height: "40%",
-    backgroundColor: "#C0C0C020",
-    borderTopLeftRadius: 8,
+    borderTopLeftRadius: 20,
     borderWidth: 2,
+    backgroundColor: "#fff",
     borderColor: "#C0C0C0",
     borderBottomWidth: 0,
     borderRightWidth: 0
@@ -72,9 +82,10 @@ export default StyleSheet.create({
   podiumJoueur: {
     alignItems: "center",
     paddingVertical: 4,
+
     marginTop: 4,
     marginHorizontal: 4,
-    borderRadius: 10
+    borderRadius: 16
   },
   firstPlaceTopPodium: {
     height: "47.5%",
@@ -82,9 +93,9 @@ export default StyleSheet.create({
   },
   firstPlacePodium: {
     height: "52.5%",
-    backgroundColor: "#FEC60120",
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     borderWidth: 2,
     borderColor: "#FEC601",
     borderBottomWidth: 0
@@ -95,8 +106,8 @@ export default StyleSheet.create({
   },
   thirdPlacePodium: {
     height: "30%",
-    backgroundColor: "#C49C4820",
-    borderTopRightRadius: 8,
+    backgroundColor: "#fff",
+    borderTopRightRadius: 20,
     borderWidth: 2,
     borderColor: "#C49C48",
     borderBottomWidth: 0,
@@ -120,17 +131,15 @@ export default StyleSheet.create({
   },
   podiumJoueurPoints: {
     color:'#fff',
-    fontSize: 11,
+    fontSize: 10,
     fontFamily: "Poppins-Regular",
   },
   containerJoueurs: {
     backgroundColor: "#ffffff",
-    borderRadius: 16,
+    borderRadius: 20,
     marginLeft: 16,
     marginRight: 16,
-    marginBottom: 80,
-    borderWidth: 1,
-    borderColor: "#f3f3f3"
+    marginBottom: 88,
   },
   joueur: {
     marginLeft: 16,
@@ -152,7 +161,7 @@ export default StyleSheet.create({
     width: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 32,
   },
   textClassementJoueur: {
     fontSize: 20,
@@ -173,17 +182,11 @@ export default StyleSheet.create({
     color: "#252422",
     fontFamily: "Poppins-Medium"
   },
-  textTourJoueur: {
-    width: "20%",
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#252422",
-  },
   containerPointsJoueur: {
     backgroundColor: '#7159df20',
-    borderRadius: 10,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
+    borderRadius: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     alignItems: "center"
   },
   textPointsJoueur: {
@@ -193,7 +196,7 @@ export default StyleSheet.create({
     fontFamily: "Poppins-Bold"
   },
   libelePointsJoueur: {
-    fontSize: 11,
+    fontSize: 10,
     color: "#7159df",
     fontFamily: "Poppins-Regular"
   },
@@ -205,15 +208,15 @@ export default StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
     width: width - 32,
-    height: 48,
+    height: 56,
     justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 32,
     backgroundColor: "#7159df",
   },
   textButtonReprendre: {
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 16,
-    fontFamily: "Poppins-Medium"
+    fontFamily: "Poppins-Regular"
   },
 })

@@ -3,13 +3,6 @@ import { StyleSheet, Dimensions } from 'react-native';
 const width = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
-  headerContainer: {
-    width: "100%",
-    flexDirection: "row",
-    marginBottom: 16,
-    marginTop: 16,
-    alignItems: "center"
-  },
   containerJoueurs: {
     backgroundColor: "#ffffff",
     borderRadius: 16,
@@ -28,33 +21,39 @@ export default StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
     width: width - 32,
-    height: 48,
+    height: 56,
     justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 32,
     backgroundColor: "#7159df",
   },
   buttonContinuer: {
     marginLeft: 4,
     marginRight: 16,
     width: (width / 2) - 20,
-    height: 48,
+    height: 56,
     justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 32,
     backgroundColor: "#7159df",
   },
   buttonArreter: {
     marginLeft: 16,
     marginRight: 4,
     width: (width / 2) - 20,
-    height: 48,
+    height: 56,
     justifyContent: "center",
-    borderRadius: 10,
-    backgroundColor: "#C0C0C0",
+    borderRadius: 32,
+    backgroundColor: "#7159df25",
   },
   textButton: {
     textAlign: "center",
     color: "#FFFFFF",
     fontSize: 16,
-    fontFamily: "Poppins-Medium"
+    fontFamily: "Poppins-Regular"
+  },
+  textButtonArreter: {
+    textAlign: "center",
+    color: "#7159df",
+    fontSize: 16,
+    fontFamily: "Poppins-Regular"
   }
 })

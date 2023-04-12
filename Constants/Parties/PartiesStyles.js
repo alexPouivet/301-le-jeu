@@ -8,19 +8,22 @@ export default StyleSheet.create({
   switchText: {
     textTransform: "uppercase",
     fontSize: 12,
+    marginLeft: 8,
     fontFamily: "Poppins-Medium"
   },
   switchSelectedText: {
     textTransform: "uppercase",
     fontSize: 12,
+    marginLeft: 8,
     fontFamily: "Poppins-Medium"
   },
   listEmptyContainer: {
-    height:"100%",
-    marginTop: 32,
-    marginHorizontal: 16
+    height: "80%",
+    marginHorizontal: 16,
   },
   listEmptyText: {
+    marginTop: 48,
+    color: "#252422",
     textAlign: "center",
     fontSize: 16,
     fontFamily: "Poppins-Regular"
@@ -29,27 +32,25 @@ export default StyleSheet.create({
     paddingHorizontal: 16,
   },
   sectionHeader: {
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: "Poppins-Medium",
     textTransform: "capitalize",
     color: "#BEBEBE",
     fontSize: 14,
-    marginTop: 0,
-    marginBottom: 8,
+    marginTop: 8,
+    marginLeft: 4,
+    marginBottom: 16,
   },
   itemPartieContainer: {
-    borderRadius: 10,
+    borderRadius: 32,
     width: "100%",
     backgroundColor: "#fff",
     marginBottom: 8,
-    borderStyle: "solid",
-    borderColor: "#F3F3F3",
-    borderWidth: 1
   },
   swipeable: {
     overflow: "hidden",
     height: "auto",
-    borderRadius: 10,
+    borderRadius: 32,
   },
   buttonSupprimerSwipeable: {
     justifyContent: "center",
@@ -61,16 +62,16 @@ export default StyleSheet.create({
     marginLeft: 20
   },
   wrapperPartie: {
-    paddingVertical: 12,
-    paddingHorizontal: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
   },
   statutPartieContainer: {
-    height: 56,
-    width: 56,
-    borderRadius: 10,
+    height: 48,
+    width: 48,
+    borderRadius: 32,
     justifyContent: "center",
     alignItems: "center"
   },
@@ -88,16 +89,21 @@ export default StyleSheet.create({
   containerDateAndTime: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10
+    marginBottom: 2
   },
   libeleDateAndTime: {
     color: "#252422",
-    fontSize: 16,
+    fontSize: 12,
     fontFamily: "Poppins-Medium"
   },
   containerJoueurs: {
     flexDirection: "row",
     width: "100%"
+  },
+  statutPartieText: {
+    fontFamily: "Poppins-Medium",
+    fontSize: 10,
+    color: "#BEBEBE",
   },
   containerGagnant: {
     flexDirection: "row",
@@ -106,19 +112,17 @@ export default StyleSheet.create({
   gagnantPartieText: {
     fontFamily: "Poppins-Medium",
     fontSize: 10,
-    color: "#252422",
+    color: "#BEBEBE",
+    marginLeft: 4
   },
   separatorGagnantPartie: {
-    paddingHorizontal: 4,
+    paddingHorizontal: 2,
     fontFamily: "Poppins-Medium",
     fontSize: 10,
-    color: "#252422",
+    color: "#BEBEBE",
   },
   avatarContainer: {
     marginRight: -8
-  },
-  iconGagnant: {
-    marginRight: 2,
   },
   arrowContainer: {
     justifyContent: "center",

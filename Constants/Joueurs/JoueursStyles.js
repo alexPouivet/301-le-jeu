@@ -3,16 +3,17 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   classementButton: {
     overflow: "hidden",
-    marginBottom: 16,
+    marginBottom: 20,
     backgroundColor: "#7159DF",
     marginLeft: 16,
     marginRight: 16,
-    borderRadius: 10,
-    padding: 16
+    borderRadius: 32,
+    paddingVertical: 32,
+    paddingHorizontal: 16
   },
   crownIcon: {
     position: "absolute",
-    top: 4,
+    top: 20,
     right: 128,
     transform: [{rotate: '45deg'}]
   },
@@ -33,38 +34,36 @@ export default StyleSheet.create({
     right: -24
   },
   listEmptyContainer: {
-    height:"100%",
-    marginTop: 32,
-    marginHorizontal: 16
+    height:"60%",
+    marginHorizontal: 16,
+    justifyContent: 'center'
   },
   listEmptyText: {
     textAlign: "center",
     fontSize: 16
   },
   listJoueursContainer: {
-    marginTop: 8,
+    marginTop: 12,
     paddingHorizontal: 16,
   },
   sectionHeader: {
     fontFamily: "Poppins-Medium",
     color: "#BEBEBE",
     fontSize: 14,
-    marginTop: 0,
+    marginTop: 8,
     marginLeft: 4,
-    marginBottom: 8,
+    marginBottom: 16,
   },
   itemJoueurContainer: {
-    borderRadius: 10,
-    borderStyle: "solid",
-    borderColor: "#F3F3F3",
-    borderWidth: 1,
+    borderRadius: 32,
     width: "100%",
-    marginBottom: 8
+    marginBottom: 8,
+    backgroundColor: "#fff"
   },
   swipeable: {
     overflow: "hidden",
     height: "auto",
-    borderRadius: 10,
+    borderRadius: 32,
   },
   buttonSupprimerSwipeable: {
     justifyContent: "center",
@@ -74,7 +73,7 @@ export default StyleSheet.create({
   buttonEditSwipeable: {
     justifyContent: "center",
     height: "100%",
-    backgroundColor: "#F3F3F3",
+    backgroundColor: "#C0C0C0",
   },
   iconButtonSwipeable: {
     marginRight: "auto",
@@ -84,7 +83,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 12,
+    padding: 20,
   },
   infosJoueurContainer: {
     flexDirection: "row",
@@ -101,7 +100,7 @@ export default StyleSheet.create({
   },
   nomJoueur: {
     fontFamily: "Poppins-Medium",
-    fontSize: 14,
+    fontSize: 12,
     color: "#252422"
   },
   profilJoueurContainer: {
@@ -117,9 +116,7 @@ export default StyleSheet.create({
     fontFamily: "Poppins-Medium",
     fontSize: 10,
     color: "#7159DF",
-  },
-  profilIconJoueur: {
-    marginRight: 2,
+    marginLeft: 2
   },
   secondaryInfosJoueurContainer: {
     flexDirection: "row",
@@ -134,12 +131,13 @@ export default StyleSheet.create({
     paddingHorizontal: 4,
     fontFamily: "Poppins-Medium",
     fontSize: 10,
-    color: "#252422",
+    color: "#C0C0C0",
   },
   secondaryInfosJoueurText: {
     fontFamily: "Poppins-Medium",
     fontSize: 10,
-    color: "#252422",
+    color: "#C0C0C0",
+    marginLeft: 4
   },
 
 })
