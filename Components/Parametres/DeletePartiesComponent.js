@@ -1,26 +1,29 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Alert, Text, TouchableOpacity } from 'react-native';
 
 // Packages
-import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
 // Styles
 import ParametersStyles from '../../Constants/Parametres/ParametersStyles';
 
 // Components
+import font from '../../Components/FontComponent';
 import openDatabase from '../OpenDatabase';
 const db = openDatabase();
 
 // Supprimer toutes les Parties
 export default function deleteAllPartiesComponent() {
 
-	const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
+	const [fontsLoaded] = font();
+	const [games, setGames] = useState(null);
 	const toast = useToast();
+
+	useEffect(() => {
+		db.transaction((tx) => {
+		  tx.executeSql(`SELECT * FROM parties`, [], (_, { rows: { _array } }) => setGames(_array));
+		});
+	}, []);
 
   if (!fontsLoaded) {
     return null;
@@ -30,7 +33,7 @@ export default function deleteAllPartiesComponent() {
 
 		<TouchableOpacity
         style={[ ParametersStyles.button, {marginBottom: 0} ]}
-        onPress={() => showConfirmDialog(toast)}
+        onPress={() => showConfirmDialog(toast, games)}
       >
         <Text style={ParametersStyles.textButton}>Supprimer toutes les parties</Text>
     </TouchableOpacity>
@@ -38,7 +41,7 @@ export default function deleteAllPartiesComponent() {
 	)
 }
 
-const showConfirmDialog = (toast) => {
+const showConfirmDialog = (toast, games) => {
   return Alert.alert(
     "Supprimer toutes les parties ?",
     "Etes vous sûr de vouloir supprimer toutes les parties enregistrées ? Cette action est définitive.",
@@ -51,7 +54,7 @@ const showConfirmDialog = (toast) => {
         text: "Supprimer",
 				style: "destructive",
         onPress: () => {
-          deleteGames().then(function(result) {
+          deleteGames(games).then(function(result) {
 
 						toast.show('Toutes les parties ont été supprimées !', {
 							type: "success",
@@ -80,16 +83,24 @@ const showConfirmDialog = (toast) => {
 }
 
 
-const deleteGames = function() {
+const deleteGames = function(games) {
 
   return new Promise(function(resolve, reject) {
 
-		db.transaction((tx) => {
-      tx.executeSql('DELETE from parties');
-			tx.executeSql('DELETE from infos_parties_joueurs');
-  	})
-		
-		resolve('ok');
+		if(games.length !== 0) {
+
+			db.transaction((tx) => {
+	      tx.executeSql('DELETE from parties');
+				tx.executeSql('DELETE from infos_parties_joueurs');
+	  	})
+
+			resolve("ok");
+
+		} else {
+
+			reject("vide");
+
+		}
 
 	})
 }

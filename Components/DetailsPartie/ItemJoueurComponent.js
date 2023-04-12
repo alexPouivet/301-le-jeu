@@ -1,24 +1,16 @@
-import * as React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-
-// Packages
-import { useFonts } from 'expo-font';
+import { View, Text } from 'react-native';
 
 // Styles
-import GlobalStyles from '../../Constants/GlobalStyles';
 import DetailsPartieStyles from '../../Constants/Parties/DetailsPartieStyles';
 
 // Components
 import AvatarComponent from '../../Components/AvatarComponent'
+import font from '../../Components/FontComponent';
 
 // Item Joueur Classement Partie
 export default function itemJoueurComponent(props) {
 
-	const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
+	const [fontsLoaded] = font();
 
   if (!fontsLoaded) {
     return null;

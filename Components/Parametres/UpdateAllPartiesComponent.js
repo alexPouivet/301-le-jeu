@@ -1,30 +1,24 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { Alert, Text, TouchableOpacity } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
 import { useToast } from "react-native-toast-notifications";
 
 // Styles
 import ParametersStyles from '../../Constants/Parametres/ParametersStyles';
 
 // Components
+import font from '../../Components/FontComponent';
 import openDatabase from '../OpenDatabase';
 const db = openDatabase();
 
 export default function updateAllPartiesComponent() {
 
-	const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
-
-	const [games, setGames] = React.useState(null);
+	const [fontsLoaded] = font();
+	const [games, setGames] = useState(null);
 	const toast = useToast();
 
-	React.useEffect(() => {
+	useEffect(() => {
 		db.transaction((tx) => {
 		  // Recupère les données de toutes les parties
 		  tx.executeSql(`SELECT * FROM parties`, [], (_, { rows: { _array } }) => setGames(_array));

@@ -1,8 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
 import Swipeable from 'react-native-swipeable';
 import * as Font from 'expo-font';
 
@@ -10,6 +9,7 @@ import * as Font from 'expo-font';
 import JoueursStyles from '../../Constants/Joueurs/JoueursStyles';
 
 // Components
+import IconComponent from '../../Components/IconComponent';
 import AvatarComponent from '../../Components/AvatarComponent'
 
 let customFonts = {
@@ -45,10 +45,9 @@ export default class ItemJoueur extends React.Component {
     let joueur_id = this.props.joueur_id;
     let avatar_slug = this.props.avatar_slug;
     let nom_joueur = this.props.nom_joueur;
-    let setListJoueurs = this.props.setListJoueurs;
     let db = this.props.db;
+    let onRefresh = this.props.onRefresh;
     let toast = this.props.toast;
-    let setJoueurs = this.props.setJoueurs;
 
     db.transaction((tx) => {
 
@@ -92,7 +91,13 @@ export default class ItemJoueur extends React.Component {
 
         }}
       >
-        <Ionicons name='ios-create-outline' size={24} color="#C0C0C0" style={JoueursStyles.iconButtonSwipeable}/>
+
+        <View style={JoueursStyles.iconButtonSwipeable}>
+
+          <IconComponent name="edit-person" size="24" color="#fff" />
+
+        </View>
+
       </TouchableOpacity>
       ,
       <TouchableOpacity
@@ -100,7 +105,7 @@ export default class ItemJoueur extends React.Component {
         onPress={() => {
           this.swipeable.recenter();
           deleteJoueur(joueur_id, db).then(function() {
-            onRefresh(db, setJoueurs, setListJoueurs);
+            onRefresh();
             toast.show('Joueur supprimé !', {
               type: "success",
               placement: "top",
@@ -110,7 +115,13 @@ export default class ItemJoueur extends React.Component {
 
         }}
       >
-        <Ionicons name='ios-trash-outline' size={24} color="#fff" style={JoueursStyles.iconButtonSwipeable}/>
+
+        <View style={JoueursStyles.iconButtonSwipeable}>
+
+          <IconComponent name="trash" size="24" color="#fff" />
+
+        </View>
+
       </TouchableOpacity>
     ]
 
@@ -130,7 +141,13 @@ export default class ItemJoueur extends React.Component {
 
         }}
       >
-        <Ionicons name='ios-create-outline' size={24} color="#C0C0C0" style={JoueursStyles.iconButtonSwipeable}/>
+
+        <View style={JoueursStyles.iconButtonSwipeable}>
+
+          <IconComponent name="edit-person" size="24" color="#fff" />
+
+        </View>
+
       </TouchableOpacity>
     ]
 
@@ -175,7 +192,7 @@ export default class ItemJoueur extends React.Component {
                   { profil
                     ?
                     <View style={JoueursStyles.profilJoueurContainer}>
-                      <Ionicons name='ios-person-circle-outline' size={12} color="#7159DF" style={JoueursStyles.profilIconJoueur}/>
+                      <IconComponent name="user-bold" size="12" color="#7159df" />
                       <Text style={JoueursStyles.profilJoueur}>Profil</Text>
                     </View>
                     :
@@ -196,14 +213,25 @@ export default class ItemJoueur extends React.Component {
 
                     <View style={JoueursStyles.rowSecondaryInfosJoueur}>
 
-                    <Ionicons name='ios-football-outline' size={12} color="#7159DF" style={JoueursStyles.profilIconJoueur}/>
-                    <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.parties} parties</Text>
+                    <IconComponent name="layer-bold" size="12" color="#7159df" />
+
+                    { this.state.parties == 1
+
+                      ?
+
+                      <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.parties} partie</Text>
+
+                      :
+
+                      <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.parties} parties</Text>
+
+                    }
 
                     </View>
 
                   }
 
-                  { this.state.victoires == null && this.state.victoires !== 0
+                  { this.state.victoires == null || this.state.victoires == 0
 
                     ?
 
@@ -214,8 +242,19 @@ export default class ItemJoueur extends React.Component {
                     <View style={JoueursStyles.rowSecondaryInfosJoueur}>
 
                     <Text style={JoueursStyles.separatorSecondaryInfosJoueur}>·</Text>
-                    <Ionicons name='ios-trophy-outline' size={12} color="#FEC601" style={JoueursStyles.profilIconJoueur}/>
-                    <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.victoires} victoires</Text>
+                    <IconComponent name="cup" size="12" color="#FEC601" />
+
+                    { this.state.victoires == 1
+
+                      ?
+
+                      <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.victoires} victoire</Text>
+
+                      :
+
+                      <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.victoires} victoires</Text>
+
+                    }
 
                     </View>
 
@@ -232,7 +271,7 @@ export default class ItemJoueur extends React.Component {
                     <View style={JoueursStyles.rowSecondaryInfosJoueur}>
 
                       <Text style={JoueursStyles.separatorSecondaryInfosJoueur}>·</Text>
-                      <Ionicons name='ios-analytics-outline' size={12} color="#FD96A9" style={JoueursStyles.profilIconJoueur}/>
+                      <IconComponent name="average" size="12" color="#FD96A9" />
                       <Text style={JoueursStyles.secondaryInfosJoueurText}>{this.state.positionMoy} de moy.</Text>
 
                     </View>
@@ -247,7 +286,7 @@ export default class ItemJoueur extends React.Component {
 
             <View>
 
-              <Ionicons name='ios-chevron-forward-outline' size={24} color="#C0C0C0"/>
+              <IconComponent name="chevron-right" size="24" color="#C0C0C0" />
 
             </View>
 
@@ -391,16 +430,6 @@ const selectGames = function(joueur_id, db) {
         });
 
     });
-
-  });
-
-}
-
-const onRefresh = function(db, setJoueurs, setListJoueurs) {
-
-  db.transaction((tx) => {
-
-    tx.executeSql(`SELECT * FROM joueurs ORDER BY nom_joueur ASC`, [], (_, { rows: { _array } }) => setListJoueurs(setJoueurs, _array));
 
   });
 

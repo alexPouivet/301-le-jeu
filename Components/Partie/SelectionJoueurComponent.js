@@ -1,12 +1,11 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Font from 'expo-font';
 
 // Styles
-import CreerPartieStyles from '../../Constants/Partie/CreerPartieStyles';
+import CreerPartieModalStyles from '../../Constants/Partie/CreerPartieModalStyles';
 
 // Components
 import AvatarComponent from '../../Components/AvatarComponent'
@@ -42,7 +41,7 @@ export default class SelectionJoueurComponent extends React.Component {
 
     return (
       <TouchableOpacity
-        style={ [CreerPartieStyles.itemJoueur, this.props.playersSelect.includes(joueur.joueur_id) ? CreerPartieStyles.selected : CreerPartieStyles.notSelected] }
+        style={ [CreerPartieModalStyles.itemJoueur, this.props.playersSelect.includes(joueur.joueur_id) ? CreerPartieModalStyles.selected : CreerPartieModalStyles.notSelected] }
         onPress={() => {
           checkNbOfPlayers(this.props.playersSelect, joueur.joueur_id, setIsLimit, nb_participants, setPlayersSelect).then((value) => {
 
@@ -69,20 +68,20 @@ export default class SelectionJoueurComponent extends React.Component {
         {
           this.props.playersSelect.includes(joueur.joueur_id)
           ?
-            <View style={CreerPartieStyles.counterJoueurSelected}>
+            <View style={CreerPartieModalStyles.counterJoueurSelected}>
 
-              <Text style={CreerPartieStyles.counterJoueurSelectedText}>{ this.props.playersSelect.indexOf(joueur.joueur_id) + 1 }</Text>
+              <Text style={CreerPartieModalStyles.counterJoueurSelectedText}>{ this.props.playersSelect.indexOf(joueur.joueur_id) + 1 }</Text>
 
             </View>
           :
             null
         }
 
-        <View style={CreerPartieStyles.wrapperItemJoueur}>
+        <View style={CreerPartieModalStyles.wrapperItemJoueur}>
 
           <AvatarComponent size={64} name={joueur.avatar_slug} />
 
-          <Text numberOfLines={1} style={CreerPartieStyles.nomItemJoueur}>{joueur.nom_joueur}</Text>
+          <Text numberOfLines={1} style={CreerPartieModalStyles.nomItemJoueur}>{joueur.nom_joueur}</Text>
         </View>
 
       </TouchableOpacity>

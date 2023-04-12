@@ -1,10 +1,11 @@
-import * as React from 'react';
 import { View, Text } from 'react-native';
 
 // Packages
 import InputSpinner from "react-native-input-spinner";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useFonts } from 'expo-font';
+
+// Components
+import IconComponent from '../../Components/IconComponent';
+import font from '../../Components/FontComponent';
 
 // Styles
 import PartieStyles from '../../Constants/Partie/PartieStyles';
@@ -12,11 +13,7 @@ import PartieStyles from '../../Constants/Partie/PartieStyles';
 // Compteur Points Partie
 export default function PointsPartieInputSpinner(props) {
 
-	const [fontsLoaded] = useFonts({
-    'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-    'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-  });
+	const [fontsLoaded] = font();
 
   let setPoints20 = props.setPoints20;
   let setPoints10 = props.setPoints10;
@@ -40,12 +37,11 @@ export default function PointsPartieInputSpinner(props) {
         step={1}
         value={props.value}
         style={PartieStyles.spinner}
-        width= {56}
-        height= {56}
-        buttonFontSize={52}
+        width= {52}
+        height= {52}
         textColor="#7159df"
-        showBorder={true}
-        buttonTextColor="#fff"
+				buttonLeftImage={<IconComponent name="minus" size="32" color="#fff" />}
+				buttonRightImage={<IconComponent name="plus" size="32" color="#fff" />}
         buttonStyle={PartieStyles.buttonSpinner}
         inputStyle={PartieStyles.inputSpinner}
         onChange={(num)=>{

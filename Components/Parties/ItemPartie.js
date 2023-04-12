@@ -1,8 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 // Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
 import Swipeable from 'react-native-swipeable';
 import * as Font from 'expo-font';
 
@@ -10,7 +9,8 @@ import * as Font from 'expo-font';
 import PartiesStyles from '../../Constants/Parties/PartiesStyles';
 
 // Components
-import AvatarComponent from '../../Components/AvatarComponent'
+import AvatarComponent from '../../Components/AvatarComponent';
+import IconComponent from '../../Components/IconComponent';
 
 let customFonts = {
   'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
@@ -20,7 +20,6 @@ let customFonts = {
 
 // Item d'une partie
 export default class ItemPartie extends React.Component {
-
 
   swipeable = null;
   state = {
@@ -36,7 +35,6 @@ export default class ItemPartie extends React.Component {
     this._loadFontsAsync();
   }
 
-
   render() {
 
     let statutFiltres = this.props.statutFiltres;
@@ -46,7 +44,10 @@ export default class ItemPartie extends React.Component {
     let setListGames = this.props.setListGames;
     let avatars = this.props.avatars.split(',');
     let gagnant_partie = this.props.gagnant;
+    let statut = this.props.statut;
+    let nbJoueurs = this.props.nbJoueurs;
     let toast = this.props.toast;
+    let onRefresh = this.props.onRefresh;
 
     if (!this.state.fontsLoaded) {
       return null;
@@ -65,7 +66,7 @@ export default class ItemPartie extends React.Component {
               onPress={() => {
                 this.swipeable.recenter();
                 deletePartie(this.props.game_id, db).then(function() {
-                  onRefresh(statutFiltres, db, setGames, listerGames, setListGames);
+                  onRefresh(statutFiltres)
                   toast.show('Partie supprimée !', {
                     type: "success",
                     placement: "top",
@@ -74,7 +75,13 @@ export default class ItemPartie extends React.Component {
                 })
               }}
             >
-              <Ionicons name='ios-trash-outline' size={24} color="#fff" style={PartiesStyles.iconButtonSupprimerSwipeable}/>
+
+              <View style={PartiesStyles.iconButtonSupprimerSwipeable}>
+
+                <IconComponent name="trash" size="24" color="#fff" />
+
+              </View>
+
             </TouchableOpacity>
           ]}
         >
@@ -86,9 +93,9 @@ export default class ItemPartie extends React.Component {
             {
             this.props.statut ==  "finie"
             ?
-              <Ionicons name='ios-trophy-outline' size={32} color="#FEC601"/>
+              <IconComponent name="flag" size="24" color="#FEC601" />
             :
-              <Ionicons name='ios-hourglass-outline' size={32} color="#7159DF"/>
+              <IconComponent name="hourglass" size="24" color="#7159DF" />
             }
 
             </View>
@@ -96,10 +103,12 @@ export default class ItemPartie extends React.Component {
             <View style={PartiesStyles.infosPartieContainer}>
 
               <View style={PartiesStyles.containerDateAndTime}>
-                <Text style={PartiesStyles.libeleDateAndTime}>Le {this.props.date} à {this.props.time}</Text>
+                <Text style={PartiesStyles.libeleDateAndTime}>Partie du {this.props.date} à {this.props.time}</Text>
               </View>
 
               <View style={PartiesStyles.containerJoueurs}>
+
+                <Text style={PartiesStyles.statutPartieText}>{nbJoueurs} joueurs</Text>
 
                 {gagnant_partie == undefined
 
@@ -111,30 +120,34 @@ export default class ItemPartie extends React.Component {
 
                   <View style={PartiesStyles.containerGagnant}>
 
-                    <Ionicons name='ios-trophy-outline' size={12} color="#FEC601"  style={PartiesStyles.iconGagnant}/>
-                    <Text style={PartiesStyles.gagnantPartieText}>{gagnant_partie}</Text>
                     <Text style={PartiesStyles.separatorGagnantPartie}> · </Text>
+                    <IconComponent name="cup" size="12" color="#FEC601" />
+                    <Text style={PartiesStyles.gagnantPartieText}>{gagnant_partie}</Text>
 
                   </View>
 
                 }
 
-                {avatars.map(( avatar_slug, i) => (
+              </View>
 
-                  <View key={i} style={PartiesStyles.avatarContainer}>
+              <View  style={{ flexDirection: "row", marginTop: 4}}>
 
-                    <AvatarComponent size={24} name={avatar_slug} />
+              {avatars.map(( avatar_slug, i) => (
 
-                  </View>
+                <View key={i} style={PartiesStyles.avatarContainer}>
 
-                ))}
+                  <AvatarComponent size={24} name={avatar_slug} />
+
+                </View>
+
+              ))}
 
               </View>
 
             </View>
 
             <View style={PartiesStyles.arrowContainer}>
-              <Ionicons name='ios-chevron-forward-outline' size={24} color="#C0C0C0"/>
+              <IconComponent name="chevron-right" size="24" color="#C0C0C0" />
             </View>
 
           </TouchableOpacity>
@@ -159,43 +172,3 @@ const deletePartie = function(game_id, db) {
     resolve(game_id)
   })
 }
-
-const onRefresh = function(statutFiltres, db, setGames, listerGames, setListGames) {
-
-  if (statutFiltres["statut"] == 'Toutes les parties') {
-    db.transaction((tx) => {
-      tx.executeSql(
-        `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
-          FROM parties
-          INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
-          INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id
-          GROUP BY infos_parties_joueurs.partie_id
-          ORDER BY parties.partie_id DESC`
-        , [], (_, { rows: { _array } }) => { setGames(listerGames(setListGames, _array)) });
-    });
-  } else if (statutFiltres["statut"] == 'Parties en Cours'){
-  db.transaction((tx) => {
-    tx.executeSql(
-      `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
-        FROM parties
-        INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
-        INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id
-        WHERE parties.statut == "en cours"
-        GROUP BY infos_parties_joueurs.partie_id
-        ORDER BY parties.partie_id DESC`
-      , [], (_, { rows: { _array } }) => { setGames(listerGames(setListGames, _array)) });
-  });
-  } else {
-    db.transaction((tx) => {
-      tx.executeSql(
-        `SELECT parties.partie_id, parties.date, parties.horaire, parties.statut, GROUP_CONCAT(joueurs.avatar_slug) AS avatars
-          FROM parties
-          INNER JOIN infos_parties_joueurs ON parties.partie_id = infos_parties_joueurs.partie_id
-          INNER JOIN joueurs ON infos_parties_joueurs.joueur_id = joueurs.joueur_id
-          WHERE parties.statut == "finie"
-          GROUP BY infos_parties_joueurs.partie_id
-          ORDER BY parties.partie_id DESC`
-        , [], (_, { rows: { _array } }) => { setGames(listerGames(setListGames, _array)) });
-    });
-  }
-};

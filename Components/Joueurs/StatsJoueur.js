@@ -1,27 +1,19 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-
-// Packages
-import Ionicons from '@expo/vector-icons/Ionicons';
-import * as Font from 'expo-font';
-import Sparkle from 'phosphor-react-native/src/icons/Sparkle';
+import { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 
 // Styles
 import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';
 
-let customFonts = {
-  'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
-  'Poppins-Medium': require('../../assets/fonts/Poppins-Medium.ttf'),
-  'Poppins-Bold': require('../../assets/fonts/Poppins-Bold.ttf'),
-};
-
 // Components
+import IconComponent from '../../Components/IconComponent';
+import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Item d'un joueur dans une liste
 export default function StatsJoueur(props) {
 
+  const [fontsLoaded] = font();
   const [pointsMarques, setPointsMarques] = useState(0);
   const [victoires, setVictoires] = useState(0);
   const [parties, setParties] = useState(0);
@@ -64,24 +56,24 @@ export default function StatsJoueur(props) {
 
       { games == null || games.length === 0
       ?
-      <ItemStat title="Parties" data={0} icon="ios-football-outline" color="#7159DF" />
+      <ItemStat title="Parties" data={0} icon="layer-bold" color="#7159DF" />
       :
-      <ItemStat title="Parties" data={games.length} icon="ios-football-outline" color="#7159DF" />
+      <ItemStat title="Parties" data={games.length} icon="layer-bold" color="#7159DF" />
       }
 
-      <ItemStat title="Victoires" data={victoires} icon="ios-trophy-outline" color="#FEC601" />
+      <ItemStat title="Victoires" data={victoires} icon="cup" color="#FEC601" />
 
-      <ItemStat title="Podiums" data={podiums} icon="ios-podium-outline" color="#FD96A9" />
+      <ItemStat title="Podiums" data={podiums} icon="podium" color="#FD96A9" />
 
     </View>
 
     <View style={DetailsJoueurStyles.rowContainer}>
 
-      <ItemStat title="Pts marqués" data={pointsMarques} icon="sparkle" color="#FEC601" />
+      <ItemStat title="Pts marqués" data={pointsMarques} icon="points" color="#FEC601" />
 
-      <ItemStat title="Position moy." data={positionMoy} icon="ios-analytics-outline" color="#FD96A9" />
+      <ItemStat title="Pos. moy." data={positionMoy} icon="average" color="#FD96A9" />
 
-      <ItemStat title="Meilleure pos." data={meilleurePos} icon="ios-trending-up-outline" color="#68B684" />
+      <ItemStat title="Pos. max" data={meilleurePos} icon="trend-up" color="#68B684" />
 
     </View>
 
@@ -94,19 +86,11 @@ const ItemStat = (props) => {
 
   return (
 
-    <View style={[ DetailsJoueurStyles.statItemContainer, { backgroundColor: ( props.color + "20" ) } ]}>
+    <View style={DetailsJoueurStyles.statItemContainer}>
 
         <View style={[ DetailsJoueurStyles.iconStatItemContainer, { backgroundColor: ( props.color + "25" ) } ]}>
 
-          { props.icon == "sparkle" ?
-
-            <Sparkle size={24} weight="regular" color={props.color} style={{ textAlign: "center"}}/>
-
-          :
-
-            <Ionicons name={props.icon} size={24} color={props.color} style={{ height: 24, width: 24, lineHeight: 24, textAlign: "center"}}/>
-
-          }
+          <IconComponent name={props.icon} size="24" color={props.color} />
 
 
         </View>
