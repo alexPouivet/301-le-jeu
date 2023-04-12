@@ -1,38 +1,40 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { View, TouchableOpacity} from 'react-native';
+import { useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Ionicons from '@expo/vector-icons/Ionicons';
 
+// Components
+import IconComponent from '../Components/IconComponent';
+import BottomSheetModal from '../Components/BottomSheetModal/BottomSheetModal';
+import openDatabase from '../Components/OpenDatabase';
+const db = openDatabase();
+
+// Stack Parties
 import Parties from '../Screens/Parties/Parties'
 import DetailsPartie from '../Screens/Parties/DetailsPartie'
+const PartiesStack = createNativeStackNavigator();
 
+// Stack Joueurs
 import Joueurs from '../Screens/Joueurs/Joueurs'
-import DetailsJoueur from '../Screens/Joueurs/DetailsJoueur'
 import ClassementJoueurs from '../Screens/Joueurs/ClassementJoueurs'
 import ModifierJoueur from '../Screens/Joueurs/ModifierJoueur'
-import CreerProfil from '../Screens/Joueurs/CreerProfil'
-import ProfilVide from '../Screens/Joueurs/ProfilVide'
+const JoueursStack = createNativeStackNavigator();
 
-import NouvellePartie from '../Screens/Partie/NouvellePartie'
-import CreerPartie from '../Screens/Partie/CreerPartie'
-
+// Stack Paramètres
 import Parametres from '../Screens/Parametres/Parametres'
 import Partager from '../Screens/Parametres/Partager'
 import Probleme from '../Screens/Parametres/Probleme'
 import Logs from '../Screens/Parametres/Logs'
 import Configuration from '../Screens/Parametres/Configuration'
 import Nouveautes from '../Screens/Parametres/Nouveautes'
-
-const Tab = createBottomTabNavigator();
-const PartieStack = createNativeStackNavigator();
 const ParametresStack = createNativeStackNavigator();
-const PartiesStack = createNativeStackNavigator();
-const JoueursStack = createNativeStackNavigator();
+
+// Stack Profil
+import ProfilVide from '../Screens/Joueurs/ProfilVide'
+import CreerProfil from '../Screens/Joueurs/CreerProfil'
+import DetailsJoueur from '../Screens/Joueurs/DetailsJoueur'
 const ProfilStack = createNativeStackNavigator();
 
-import openDatabase from '../Components/OpenDatabase';
-const db = openDatabase();
+const Tab = createBottomTabNavigator();
 
 function PartiesStackScreen() {
   return (
@@ -52,16 +54,6 @@ function JoueursStackScreen() {
       <PartiesStack.Screen name="Details Partie" component={DetailsPartie} />
       <JoueursStack.Screen name="Modifier Joueur" component={ModifierJoueur} />
     </JoueursStack.Navigator>
-  );
-}
-
-function PartieStackScreen() {
-  return (
-    <PartieStack.Navigator screenOptions={{headerShown: false}}>
-      <PartieStack.Screen name="Creer partie" component={CreerPartie} />
-      <PartieStack.Screen name="Nouvelle Partie" component={NouvellePartie}/>
-      <PartieStack.Screen name="Partie" component={Partie} />
-    </PartieStack.Navigator>
   );
 }
 
@@ -122,82 +114,92 @@ function ProfilStackScreen() {
   }
 }
 
+const AddScreenComponent = () => {
+  return null;
+}
+
 const Tabs = () => {
+
 	return(
 		<Tab.Navigator
 			initialRouteName="Parties"
 			screenOptions={({ route }) => ({
-          		headerShown: false,
-
+            tabBarActiveTintColor: '#7159df',
+            tabBarInactiveTintColor: '#BEBEBE',
+        		headerShown: false,
+            tabBarStyle: [
+              {
+                height: 64,
+                paddingTop: 16,
+                borderTopWidth: 0,
+                paddingHorizontal: 16,
+              }
+            ],
+            tabBarLabelStyle: {
+              bottom: 2
+            },
       		})}
 		>
+
         <Tab.Screen name="Parties" component={PartiesStackScreen} options={{
-        	tabBarActiveTintColor: '#7159df',
-        	tabBarInactiveTintColor: '#24334c',
-          unmountOnBlur: true,
         	tabBarIcon: ({ focused, color, size}) => {
-            let iconName;
-            iconName = focused
-              ? 'ios-layers'
-              : 'ios-layers-outline';
+            let icon;
+            icon = focused
 
-            return <Ionicons name={iconName} size={size} color={color} />;
+              ? <IconComponent name="layer-bold" size="24" color="#7159df" />
+              : <IconComponent name="layer" size="24" color="#BEBEBE" />;
+
+            return icon;
           }
         }} />
+
         <Tab.Screen name="Joueurs" component={JoueursStackScreen} options={{
-        	tabBarActiveTintColor: '#7159df',
-        	tabBarInactiveTintColor: '#24334c',
-          unmountOnBlur: true,
         	tabBarIcon: ({ focused, color, size}) => {
-            let iconName;
-            iconName = focused
-              ? 'ios-people'
-              : 'ios-people-outline';
+            let icon;
+            icon = focused
 
-            return <Ionicons name={iconName} size={size} color={color} />;
+              ? <IconComponent name="persons-bold" size="24" color="#7159df" />
+              : <IconComponent name="persons" size="24" color="#BEBEBE" />;
+
+            return icon;
           }
         }} />
-        <Tab.Screen name="Nouvelle partie" component={NouvellePartie}
 
-        	options={{
+        <Tab.Screen name="Nouvelle partie" component={AddScreenComponent} options={{
   			  	tabBarLabel: () => null,
-            unmountOnBlur: true,
-  			  	tabBarStyle: {
-              display: "none"
+  			  	tabBarItemStyle: {
+              maxWidth: 48,
+              marginHorizontal: 12
             },
-        		tabBarIcon: () => { return <Ionicons name='ios-add-circle' size={48} color="#7159df" />; },
-        	}}
-        	tabBarOptions={{
-    			showLabel: false,
-    		}}
-        />
-        <Tab.Screen name="Paramètres" component={ParametresStackScreen} options={{
-        	tabBarActiveTintColor: '#7159df',
-        	showLabel: false,
-          unmountOnBlur: true,
-        	tabBarInactiveTintColor: '#24334c',
-        	tabBarIcon: ({ focused, color, size}) => {
-            let iconName;
-            iconName = focused
-              ? 'ios-settings'
-              : 'ios-settings-outline';
+        		tabBarIcon: () => { return <BottomSheetModal/> },
 
-            return <Ionicons name={iconName} size={size} color={color} />;
+          }}
+        />
+
+        <Tab.Screen name="Paramètres" component={ParametresStackScreen} options={{
+        	tabBarIcon: ({ focused, color, size}) => {
+            let icon;
+            icon = focused
+
+              ? <IconComponent name="settings-bold" size="24" color="#7159df" />
+              : <IconComponent name="settings" size="24" color="#BEBEBE" />;
+
+            return icon;
     		  }
     		}}/>
-        <Tab.Screen name="Profil" component={ProfilStackScreen} options={{
-        	tabBarActiveTintColor: '#7159df',
-        	tabBarInactiveTintColor: '#24334c',
-          unmountOnBlur: true,
-        	tabBarIcon: ({ focused, color, size}) => {
-            let iconName;
-            iconName = focused
-              ? 'ios-person-circle'
-              : 'ios-person-circle-outline';
 
-            return <Ionicons name={iconName} size={size} color={color} />;
+        <Tab.Screen name="Profil" component={ProfilStackScreen} options={{
+        	tabBarIcon: ({ focused, color, size}) => {
+            let icon;
+            icon = focused
+
+              ? <IconComponent name="user-bold" size="24" color="#7159df" />
+              : <IconComponent name="user" size="24" color="#BEBEBE" />;
+
+            return icon;
           }
         }} />
+
       </Tab.Navigator>
 	);
 }

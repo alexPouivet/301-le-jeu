@@ -1,17 +1,21 @@
-import * as React from 'react';
 import { SafeAreaView, Platform, StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
+
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import Tabs from './Navigation/tabs';
+
 import { ToastProvider } from 'react-native-toast-notifications'
+import { PortalProvider } from '@gorhom/portal';
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+
+import IconComponent from './Components/IconComponent';
+
+import Tabs from './Navigation/tabs';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-import NouvellePartie from './Screens/Partie/NouvellePartie'
-import CreerPartie from './Screens/Partie/CreerPartie'
 import Partie from './Screens/Partie/Partie'
 import GagnantPartie from './Screens/Partie/GagnantPartie'
 import Classement from './Screens/Partie/Classement'
@@ -49,27 +53,39 @@ export default function App() {
   });
 
   return (
-    <SafeAreaView style={{ flex: 1, paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0 }}>
-      <ToastProvider
-        offsetTop={40}
-        duration={1125}
-        successColor="#68B684"
-        warningColor="#FF4B3E"
-        successIcon={<Ionicons name='checkmark-circle' size={20} color="#ffffff"/>}
-        warningIcon={<Ionicons name='warning-outline' size={20} color="#ffffff"/>}
-      >
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{headerShown: false}} >
-            <Stack.Screen name="Home" component={Tabs} />
-            <Stack.Screen name="Nouvelle partie" component={NouvellePartie} />
-            <Stack.Screen name="Creer partie" component={CreerPartie} />
-            <Stack.Screen name="Partie" component={Partie} />
-            <Stack.Screen name="Classement" component={Classement} />
-            <Stack.Screen name="Fin de Tour" component={FinDeTour} />
-            <Stack.Screen name="Gagnant Partie" component={GagnantPartie} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </ToastProvider>
-    </SafeAreaView>
+    <>
+
+      <SafeAreaView edges={["top"]} style={{ flex: 0, backgroundColor: "#f3f3f3", paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0 }} />
+      <SafeAreaView edges={["left", "right", "bottom"]} style={{ flex: 1, position: "relative"}}>
+        <SafeAreaProvider>
+        <PortalProvider>
+        <BottomSheetModalProvider>
+
+          <ToastProvider
+            offsetTop={40}
+            duration={1125}
+            successColor="#68B684"
+            warningColor="#FF4B3E"
+            successIcon={<IconComponent name="check" size="20" color="#ffffff" />}
+            warningIcon={<IconComponent name="warning" size="20" color="#ffffff" />}
+          >
+            <NavigationContainer>
+              <Stack.Navigator screenOptions={{headerShown: false}} >
+                <Stack.Screen name="Home" component={Tabs} />
+                <Stack.Screen name="Partie" component={Partie} />
+                <Stack.Screen name="Classement" component={Classement} />
+                <Stack.Screen name="Fin de Tour" component={FinDeTour} />
+                <Stack.Screen name="Gagnant Partie" component={GagnantPartie} />
+              </Stack.Navigator>
+            </NavigationContainer>
+
+          </ToastProvider>
+
+        </BottomSheetModalProvider>
+        </PortalProvider>
+        </SafeAreaProvider>
+      </SafeAreaView>
+
+    </>
   );
 }
