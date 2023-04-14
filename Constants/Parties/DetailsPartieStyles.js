@@ -52,8 +52,8 @@ export default StyleSheet.create({
     color: "#252422",
   },
   containerPodium: {
-    marginLeft: 16,
-    marginRight: 16,
+    marginLeft: 24,
+    marginRight: 24,
     alignItems: "center",
     justifyContent: "flex-end"
   },
@@ -136,7 +136,7 @@ export default StyleSheet.create({
   },
   containerJoueurs: {
     backgroundColor: "#ffffff",
-    borderRadius: 20,
+    borderRadius: 24,
     marginLeft: 16,
     marginRight: 16,
     marginBottom: 88,

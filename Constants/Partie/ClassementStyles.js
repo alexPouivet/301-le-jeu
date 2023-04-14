@@ -5,7 +5,7 @@ const width = Dimensions.get("screen").width;
 export default StyleSheet.create({
   containerJoueurs: {
     backgroundColor: "#ffffff",
-    borderRadius: 16,
+    borderRadius: 24,
     marginLeft: 16,
     marginRight: 16,
     marginBottom: 96,
