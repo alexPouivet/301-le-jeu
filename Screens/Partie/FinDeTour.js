@@ -13,6 +13,7 @@ import IconComponent from '../../Components/IconComponent';
 import ItemJoueurComponent from '../../Components/DetailsPartie/ItemJoueurComponent';
 import InfosPartieComponent from '../../Components/DetailsPartie/InfosPartieComponent';
 import font from '../../Components/FontComponent';
+import terminerPartie from '../../Components/Partie/TerminerPartie';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
@@ -122,27 +123,6 @@ const updateGame = function(game_id) {
       )
     })
     // Retourne l'id de la partie en cours
-    resolve(game_id)
-  })
-}
-
-const terminerPartie = function(game_id, classement) {
-
-  return new Promise(function(resolve, reject) {
-
-    db.transaction((tx) => {
-      // Mise à jour du statut de la partie en cours en finie
-      tx.executeSql('UPDATE parties SET statut = ? WHERE partie_id = ?', ["finie", game_id]);
-
-      for (var i = 0; i < classement.length; i++) {
-
-        if (classement[i].classement_joueur == null) {
-
-          tx.executeSql('UPDATE infos_parties_joueurs SET classement_joueur = ? WHERE infos_parties_joueurs.joueur_id = ? AND infos_parties_joueurs.partie_id = ?', [ (i + 1), classement[i].joueur_id, game_id]);
-
-        }
-      }
-    })
     resolve(game_id)
   })
 }

@@ -241,6 +241,10 @@ const updateJoueur = function(points20, points10, points8, points6, points4, poi
 
       // Mise à jour du score du joueur en cours de partie et du nombre de tour joués
       tx.executeSql('UPDATE infos_parties_joueurs SET score_joueur = score_joueur - ?, tour_joueur = tour_joueur +1 WHERE joueur_id = ? AND partie_id = ?', [points, joueur.joueur_id, game.partie_id]);
+
+      // Ajoute les points au total des points du joueurs
+      tx.executeSql('UPDATE joueurs SET nb_points = nb_points + ? WHERE joueur_id = ?', [points, joueur.joueur_id]);
+
       if(joueur.position_joueur_en_cours < game.nb_joueurs_restant) {
         // Met à jour le tour du joueur pour faire jouer le joueur suivant
         tx.executeSql('UPDATE parties SET tour_joueur = ? + 1 WHERE partie_id = ?', [game.tour_joueur, game.partie_id])
@@ -253,11 +257,18 @@ const updateJoueur = function(points20, points10, points8, points6, points4, poi
       // Retourne l'id de la partie en cours
       if (joueur.score_joueur - points == 0) {
 
+        if (game.nb_joueurs - (game.nb_joueurs_restant -1) <= 3) {
+          // Ajoute un podium au total du nombre de podium du joueur
+          tx.executeSql('UPDATE joueurs SET nb_podiums = nb_podiums + ? WHERE joueur_id = ?', [1, joueur.joueur_id]);
+        }
+
         if(game.gagnant_partie == null) {
           // Mise à jour du gagnant de la partie lorsque le premier gagnant est déclaré
           tx.executeSql('UPDATE parties SET gagnant_partie = ? WHERE partie_id = ?', [joueur.nom_joueur, game.partie_id])
           // Mise à jour du classement du joueur ayant gagné la partie
           tx.executeSql('UPDATE infos_parties_joueurs SET classement_joueur = ? WHERE joueur_id = ? AND partie_id = ?', [1, joueur.joueur_id, game.partie_id])
+          // Ajoute une victoire au total du nombre de victoires du joueur
+          tx.executeSql('UPDATE joueurs SET nb_victoires = nb_victoires + ? WHERE joueur_id = ?', [1, joueur.joueur_id]);
         } else {
           // Mise à jour du classement du joueur ayant terminé la partie mais pas en première position
           tx.executeSql('UPDATE infos_parties_joueurs SET classement_joueur = ? WHERE joueur_id = ? AND partie_id = ?', [game.nb_joueurs - (game.nb_joueurs_restant -1), joueur.joueur_id, game.partie_id])
