@@ -80,7 +80,7 @@ export default StyleSheet.create({
     fontFamily: "Poppins-Regular"
   },
   scrollContainer: {
-    marginBottom: 70
+    marginBottom: 78
   },
   inputsContainer: {
     marginHorizontal: 16,
