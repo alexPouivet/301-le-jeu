@@ -208,8 +208,6 @@ function getClassementPosition(joueurs, tx, setJoueurs) {
       let classementArrayEmpty = classementArray.filter(joueur => joueur.statut === "-");
       classementArray = classementArray.filter(joueur => joueur.statut !== "-");
 
-      console.log(classementArrayEmpty);
-
       classementArray.sort(function( a, b) {
 
         return a.statut - b.statut
