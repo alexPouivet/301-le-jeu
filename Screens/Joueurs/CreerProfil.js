@@ -150,7 +150,7 @@ const createProfile = function(nomJoueur, avatarJoueur) {
     db.transaction((tx) => {
       //
       tx.executeSql(
-        'INSERT INTO joueurs (nom_joueur, avatar_slug, profil, nb_points, nb_parties, nb_victoires, nb_podiums, positions_parties) VALUES  (?, ?, ?, ?, ?, ?, ?, ?)', [nomJoueur, avatarJoueur, 1, 0, 0, 0, 0, ""],
+        'INSERT INTO joueurs (nom_joueur, avatar_slug, profil, nb_points, nb_parties, nb_victoires, nb_podiums, positions_parties) VALUES  (?, ?, ?, ?, ?, ?, ?, ?)', [nomJoueur, avatarJoueur, 1, 0, 0, 0, 0, "[]"],
         function(tx, res) {
 
           resolve("ok")
