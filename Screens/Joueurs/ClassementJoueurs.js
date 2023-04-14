@@ -158,19 +158,8 @@ function getClassementVictoires(joueurs, tx, setJoueurs) {
 
   joueurs.map((joueur) => {
 
-    tx.executeSql(`SELECT classement_joueur, SUM(classement_joueur = 1) AS victoires
-    FROM infos_parties_joueurs
-    WHERE infos_parties_joueurs.joueur_id = ?`
-    , [joueur.joueur_id], (_, { rows: { _array } }) => {
-
-      let victoires = 0;
-
-      if(_array[0].victoires !== null) {
-        victoires = _array[0].victoires;
-      }
-
       let values = {
-        statut: victoires,
+        statut: joueur.nb_victoires,
       };
 
       Object.assign(joueur, values);
@@ -183,8 +172,6 @@ function getClassementVictoires(joueurs, tx, setJoueurs) {
       });
 
       setJoueurs(classementArray);
-
-    });
 
   });
 
@@ -196,34 +183,45 @@ function getClassementPosition(joueurs, tx, setJoueurs) {
 
   joueurs.map((joueur) => {
 
-    tx.executeSql(`SELECT classement_joueur, AVG(SUBSTR(classement_joueur, 1, 2)) AS position_moy
-    FROM infos_parties_joueurs
-    WHERE infos_parties_joueurs.joueur_id = ?`
-    , [joueur.joueur_id], (_, { rows: { _array } }) => {
+      let positionsParties = JSON.parse(joueur.positions_parties);
+      let positionPartiesArray = positionsParties.map(x => x.position);
+      let positionMoy = "";
 
-      let position = "-";
+      if (positionPartiesArray.length === 0) {
 
-      if(_array[0].position_moy !== null) {
-        position = _array[0].position_moy.toString().substring(0,4);
+        positionMoy = "-";
+
+      } else {
+
+        let position = positionPartiesArray.reduce((a, b) => a + b, 0) / positionPartiesArray.length
+        positionMoy = position.toString().substring(0,4);
+
       }
 
       let values = {
-        statut: position,
+        statut: positionMoy,
       };
 
       Object.assign(joueur, values);
       classementArray.push(joueur);
 
-      classementArray = classementArray.filter(joueur => joueur.statut !== null)
+      let classementArrayEmpty = classementArray.filter(joueur => joueur.statut === "-");
+      classementArray = classementArray.filter(joueur => joueur.statut !== "-");
+
+      console.log(classementArrayEmpty);
+
       classementArray.sort(function( a, b) {
 
         return a.statut - b.statut
 
       });
 
+      for (var i = 0; i < classementArrayEmpty.length; i++) {
+        classementArray.push(classementArrayEmpty[i]);
+      }
+
       setJoueurs(classementArray);
 
-    });
 
   });
 
@@ -235,13 +233,8 @@ function getClassementPoints(joueurs, tx, setJoueurs) {
 
   joueurs.map((joueur) => {
 
-    tx.executeSql(`SELECT SUM(score_joueur) AS pts, COUNT(*) AS nombre
-    FROM infos_parties_joueurs
-    WHERE infos_parties_joueurs.joueur_id = ?`
-    , [joueur.joueur_id], (_, { rows: { _array } }) => {
-
       let values = {
-        statut: _array[0].nombre *301 - _array[0].pts,
+        statut: joueur.nb_points,
       };
 
       Object.assign(joueur, values);
@@ -254,8 +247,6 @@ function getClassementPoints(joueurs, tx, setJoueurs) {
       });
 
       setJoueurs(classementArray);
-
-    });
 
   });
 
