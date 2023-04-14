@@ -152,7 +152,7 @@ export default function Joueurs({ navigation }) {
           renderSectionHeader={({ section: { title } }) => (
             <Text style={ JoueursStyles.sectionHeader }>{title}</Text>
           )}
-          renderItem={({ item, index }) => ( <ItemJoueur key={index} joueur_id={item.joueur_id} nom_joueur={item.nom_joueur} profil={item.profil} avatar_slug={item.avatar_slug} navigation={navigation} toast={toast} onRefresh={onRefresh} db={db} /> )}
+          renderItem={({ item, index }) => ( <ItemJoueur joueur={item} key={index} navigation={navigation} toast={toast} onRefresh={onRefresh} db={db} /> )}
         />
 
       }
@@ -223,9 +223,6 @@ function setListJoueurs(setJoueurs, joueurs, db) {
       return a.localeCompare(b);
     })
 
-
-
-
     setJoueurs(listJoueurs);
 
   }
@@ -237,7 +234,7 @@ function addPlayer(player) {
   db.transaction((tx) => {
     // ajout d'un joueur dans la bdd
     tx.executeSql(
-      "INSERT INTO joueurs (nom_joueur, avatar_slug, profil) VALUES (?, ?, ?)", [player, player, 0]
+      "INSERT INTO joueurs (nom_joueur, avatar_slug, profil, nb_points, nb_parties, nb_victoires, nb_podiums, positions_parties) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [player, player, 0, 0, 0, 0, 0, "[]"]
     );
 
   });

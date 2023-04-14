@@ -37,9 +37,10 @@ export default function App() {
     tx.executeSql(
       "DROP TABLE IF EXISTS joueur"
     );
+    //
     // création de la table joueurs v2 dans la bdd
     tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS joueurs (joueur_id integer primary key not null, nom_joueur text, avatar_slug text, profil integer)"
+      "CREATE TABLE IF NOT EXISTS joueurs (joueur_id integer primary key not null, nom_joueur text, avatar_slug text, profil integer, nb_parties integer, nb_victoires integer, nb_points integer, nb_podiums integer, positions_parties text)"
     );
     // création de la table parties v2 dans la bdd
     tx.executeSql(

@@ -230,7 +230,7 @@ function addPlayer(player) {
   db.transaction((tx) => {
     // ajout d'un joueur dans la bdd
     tx.executeSql(
-      "INSERT INTO joueurs (nom_joueur, avatar_slug, profil) VALUES (?, ?, ?)", [player, player, 0]
+      "INSERT INTO joueurs (nom_joueur, avatar_slug, profil, nb_points, nb_parties, nb_victoires, nb_podiums, positions_parties) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [player, player, 0, 0, 0, 0, 0, "[]"]
     );
 
   });
@@ -263,6 +263,7 @@ const create = function(playersSelect, nb_participants, nb_palets) {
             tx.executeSql(
               "INSERT INTO infos_parties_joueurs (partie_id, joueur_id, score_joueur, tour_joueur, position_joueur, position_joueur_en_cours) VALUES (?, ?, ?, ?, ?, ?)", [res.insertId, playersSelect[i] , 301, 0, i+1, i+1],
             )
+            tx.executeSql('UPDATE joueurs SET nb_parties = nb_parties + ? WHERE joueur_id = ?', [1, playersSelect[i]]);
           };
           // return game
           resolve(res.insertId)
