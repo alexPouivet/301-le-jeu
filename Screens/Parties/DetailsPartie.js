@@ -14,6 +14,7 @@ import InfosPartieComponent from '../../Components/DetailsPartie/InfosPartieComp
 import ItemJoueurComponent from '../../Components/DetailsPartie/ItemJoueurComponent';
 import PodiumPartieComponent from '../../Components/DetailsPartie/PodiumPartieComponent';
 import font from '../../Components/FontComponent';
+import supprimerPartie from '../../Components/Parties/SupprimerPartie';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
@@ -125,7 +126,7 @@ const showConfirmDialog = (game_id, navigation, toast) => {
         text: "Supprimer",
         style: "destructive",
         onPress: () => {
-          deletePartie(game_id).then(function() {
+          supprimerPartie(game_id).then(function() {
             navigation.goBack();
             toast.show('Partie supprimée !', {
               type: "success",
@@ -137,20 +138,4 @@ const showConfirmDialog = (game_id, navigation, toast) => {
       },
     ],
   );
-}
-
-const deletePartie = function(game_id) {
-
-  return new Promise(function(resolve, reject) {
-
-    db.transaction((tx) => {
-      tx.executeSql(
-        "DELETE FROM parties WHERE parties.partie_id = ?", [game_id]
-      );
-      tx.executeSql(
-        "DELETE FROM infos_parties_joueurs WHERE infos_parties_joueurs.partie_id = ?", [game_id]
-      )
-    })
-    resolve(game_id)
-  })
 }

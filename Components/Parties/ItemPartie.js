@@ -11,6 +11,7 @@ import PartiesStyles from '../../Constants/Parties/PartiesStyles';
 // Components
 import AvatarComponent from '../../Components/AvatarComponent';
 import IconComponent from '../../Components/IconComponent';
+import supprimerPartie from '../../Components/Parties/SupprimerPartie';
 
 let customFonts = {
   'Poppins-Regular': require('../../assets/fonts/Poppins-Regular.ttf'),
@@ -38,7 +39,6 @@ export default class ItemPartie extends React.Component {
   render() {
 
     let statutFiltres = this.props.statutFiltres;
-    let db = this.props.db;
     let setGames = this.props.setGames;
     let listerGames = this.props.listerGames;
     let setListGames = this.props.setListGames;
@@ -65,7 +65,7 @@ export default class ItemPartie extends React.Component {
               style={PartiesStyles.buttonSupprimerSwipeable}
               onPress={() => {
                 this.swipeable.recenter();
-                deletePartie(this.props.game_id, db).then(function() {
+                supprimerPartie(this.props.game_id).then(function() {
                   onRefresh(statutFiltres)
                   toast.show('Partie supprimée !', {
                     type: "success",
@@ -155,20 +155,4 @@ export default class ItemPartie extends React.Component {
       </View>
     )
   }
-}
-
-const deletePartie = function(game_id, db) {
-
-  return new Promise(function(resolve, reject) {
-
-    db.transaction((tx) => {
-      tx.executeSql(
-        "DELETE FROM parties WHERE parties.partie_id = ?", [game_id]
-      );
-      tx.executeSql(
-        "DELETE FROM infos_parties_joueurs WHERE infos_parties_joueurs.partie_id = ?", [game_id]
-      )
-    })
-    resolve(game_id)
-  })
 }
