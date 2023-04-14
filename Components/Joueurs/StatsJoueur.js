@@ -14,38 +14,27 @@ const db = openDatabase();
 export default function StatsJoueur(props) {
 
   const [fontsLoaded] = font();
-  const [pointsMarques, setPointsMarques] = useState(0);
-  const [victoires, setVictoires] = useState(0);
-  const [parties, setParties] = useState(0);
-  const [podiums, setPodiums] = useState(0);
-  const [positionMoy, setPositionMoy] = useState(0);
-  const [meilleurePos, setMeilleurePos] = useState(0);
-  let games = props.games;
+  let nbParties = props.joueur.nb_parties;
+  let nbVictoires = props.joueur.nb_victoires;
+  let nbPodiums = props.joueur.nb_podiums;
+  let nbPoints = props.joueur.nb_points;
+  let positionsParties = JSON.parse(props.joueur.positions_parties);
+  let positionPartiesArray = positionsParties.map(x => x.position);
+  let positionMoy = "";
+  let positionMax = "";
 
-  useEffect(() => {
+  if (positionPartiesArray.length === 0) {
 
-    db.transaction((tx) => {
+    positionMoy = "-";
+    positionMax = "-";
 
-      tx.executeSql(`SELECT classement_joueur, SUM(score_joueur) AS pts, SUM(classement_joueur = 1) AS victoires, SUM(classement_joueur < 4) AS podiums, AVG(SUBSTR(classement_joueur, 1, 2)) AS position_moy, MIN(classement_joueur) AS meilleure_pos, COUNT(*) AS nombre FROM infos_parties_joueurs WHERE infos_parties_joueurs.joueur_id = ?`, [props.joueur_id], (_, { rows: { _array } }) => {
+  } else {
 
-        let pointsTotal = _array[0].nombre *301 - _array[0].pts
+    let position = positionPartiesArray.reduce((a, b) => a + b, 0) / positionPartiesArray.length
+    positionMoy = position.toString().substring(0,4);
+    positionMax = Math.min(...positionPartiesArray);
 
-        if(_array[0].position_moy == null) {
-          setPositionMoy(_array[0].position_moy);
-        } else {
-          setPositionMoy(_array[0].position_moy.toString().substring(0,4));
-        }
-
-        setPointsMarques(pointsTotal);
-        setVictoires(_array[0].victoires);
-        setParties(_array[0].nombre);
-        setPodiums(_array[0].podiums);
-        setMeilleurePos(_array[0].meilleure_pos);
-
-      })
-    });
-
-  }, [])
+  }
 
   return (
   <View style={DetailsJoueurStyles.statsContainer}>
@@ -54,26 +43,26 @@ export default function StatsJoueur(props) {
 
     <View style={DetailsJoueurStyles.rowContainer}>
 
-      { games == null || games.length === 0
+      { nbParties === 0
       ?
       <ItemStat title="Parties" data={0} icon="layer-bold" color="#7159DF" />
       :
-      <ItemStat title="Parties" data={games.length} icon="layer-bold" color="#7159DF" />
+      <ItemStat title="Parties" data={nbParties} icon="layer-bold" color="#7159DF" />
       }
 
-      <ItemStat title="Victoires" data={victoires} icon="cup" color="#FEC601" />
+      <ItemStat title="Victoires" data={nbVictoires} icon="cup" color="#FEC601" />
 
-      <ItemStat title="Podiums" data={podiums} icon="podium" color="#FD96A9" />
+      <ItemStat title="Podiums" data={nbPodiums} icon="podium" color="#FD96A9" />
 
     </View>
 
     <View style={DetailsJoueurStyles.rowContainer}>
 
-      <ItemStat title="Pts marqués" data={pointsMarques} icon="points" color="#FEC601" />
+      <ItemStat title="Pts marqués" data={nbPoints} icon="points" color="#FEC601" />
 
       <ItemStat title="Pos. moy." data={positionMoy} icon="average" color="#FD96A9" />
 
-      <ItemStat title="Pos. max" data={meilleurePos} icon="trend-up" color="#68B684" />
+      <ItemStat title="Pos. max" data={positionMax} icon="trend-up" color="#68B684" />
 
     </View>
 

@@ -16,6 +16,7 @@ import IconComponent from '../../Components/IconComponent';
 import AvatarComponent from '../../Components/AvatarComponent'
 import ItemPartieJoueurs from '../../Components/Parties/ItemPartieJoueurs';
 import StatsJoueur from '../../Components/Joueurs/StatsJoueur';
+import supprimerJoueur from '../../Components/Joueurs/SupprimerJoueur';
 import font from '../../Components/FontComponent';
 import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
@@ -124,7 +125,7 @@ export default function DetailsJoueur({ route, navigation }) {
 
               } else if (value.value == "Supprimer"){
 
-                deleteJoueur(joueur.joueur_id, db, games);
+                supprimerJoueur(joueur.joueur_id);
                 navigation.goBack();
                 toast.show('Joueur supprimé !', {
                   type: "success",
@@ -151,7 +152,7 @@ export default function DetailsJoueur({ route, navigation }) {
           <Text style={DetailsJoueurStyles.joueur}>{joueur.nom_joueur}</Text>
         </View>
 
-        <StatsJoueur games={games} joueur_id={joueur.joueur_id}/>
+        <StatsJoueur joueur={joueur}/>
 
         <View>
 
@@ -208,71 +209,6 @@ function initJoueur(route, db, setJoueur, setGames) {
     });
 
   }
-
-}
-
-function deleteJoueur(joueur_id, db, games) {
-
-  let arrayGames = null;
-
-  if (games !== null) {
-
-    arrayGames = games.map(game => { return game.partie_id });
-
-  }
-
-  db.transaction((tx) => {
-
-    // si le joueur est dans des parties
-    if (arrayGames !== null) {
-
-      //  boucle pour mettre à jour les données des parties
-      for (var i = 0; i < arrayGames.length; i++) {
-
-        let partie_id = arrayGames[i];
-
-        tx.executeSql(`UPDATE parties SET nb_joueurs = nb_joueurs - 1, nb_joueurs_restant = nb_joueurs_restant - 1 WHERE partie_id = ?`, [ partie_id ], (_, { rows: _array } ) => {
-
-          // suppression du joueur de la table infos_parties_joueurs
-          tx.executeSql("DELETE FROM infos_parties_joueurs WHERE infos_parties_joueurs.joueur_id = ?", [joueur_id]);
-
-          tx.executeSql("SELECT parties.nb_joueurs FROM parties WHERE parties.partie_id = ?", [partie_id], (_, { rows: { _array } } ) => {
-
-            let nbJoueurs = _array[0].nb_joueurs;
-
-            tx.executeSql("SELECT * FROM infos_parties_joueurs WHERE infos_parties_joueurs.partie_id = ?", [partie_id], (_, { rows: { _array } } ) => {
-
-              let compteur = 1;
-
-              for (var i = 0; i < nbJoueurs; i++) {
-
-                if( _array[i].score_joueur !== 0 && _array[i].position_joueur_en_cours !== null) {
-
-                  // Mise à jour de la position des joueurs en cours qui n'ont pas fini la partie
-                  tx.executeSql('UPDATE infos_parties_joueurs SET position_joueur_en_cours = ?, position_joueur = ? WHERE joueur_id = ? AND partie_id = ?', [compteur, i + 1, _array[i].joueur_id, partie_id]);
-
-                  compteur++;
-
-                }
-
-              }
-
-            });
-
-            tx.executeSql("SELECT * FROM infos_parties_joueurs WHERE infos_parties_joueurs.partie_id = ?", [partie_id]);
-
-          })
-
-        });
-
-      }
-
-    }
-
-    // suppression du joueur de la table joueurs
-    tx.executeSql(`DELETE FROM joueurs WHERE joueur_id = ?`, [joueur_id]);
-
-  })
 
 }
 
