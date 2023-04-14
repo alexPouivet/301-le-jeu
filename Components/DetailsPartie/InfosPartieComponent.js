@@ -2,8 +2,6 @@ import { View, Text } from 'react-native';
 
 // Components
 import IconComponent from '../../Components/IconComponent';
-import Calendar from 'phosphor-react-native/src/icons/Calendar';
-import CoinVertical from 'phosphor-react-native/src/icons/CoinVertical';
 import font from '../../Components/FontComponent';
 
 // Styles
