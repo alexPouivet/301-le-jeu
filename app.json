@@ -3,7 +3,7 @@
     "owner": "alexpouivet",
     "name": "301 le Jeu",
     "slug": "jeuDu301",
-    "version": "2.4.22",
+    "version": "2.5.10",
     "orientation": "portrait",
     "icon": "./assets/logo/icon.png",
     "splash": {
