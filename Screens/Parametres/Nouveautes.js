@@ -59,13 +59,6 @@ const INTRO_DATA = [
   },
   {
     key: '6',
-    title: 'Sélection des joueurs',
-    image: require('../../assets/images/selection.png'),
-    description:
-      "Il est maintenant encore plus facile de créer une nouvelle partie ! Lors de la sélection des joueurs, le nouvel affichage vous permet de sélectionner ou de créer plus rapidement les joueurs pour votre partie.",
-  },
-  {
-    key: '7',
     title: 'Classement des joueurs',
     image: require('../../assets/images/classement.png'),
     description:

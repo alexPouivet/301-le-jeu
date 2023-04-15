@@ -197,19 +197,18 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     padding: 12,
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 64,
     borderRadius: 32
   },
   imageContainer: {
     flex: 4/7,
+    flexDirection: "column",
     justifyContent: "flex-end"
   },
   image: {
     width: width - 96,
     resizeMode: "contain",
-    marginBottom: 8
   },
   descriptionContainer: {
     flex: 3/7,
