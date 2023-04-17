@@ -6,6 +6,7 @@ import SwitchSelector from "react-native-switch-selector";
 
 // Styles
 import GlobalStyles from '../../Constants/GlobalStyles';
+import JoueursStyles from '../../Constants/Joueurs/JoueursStyles';
 import ClassementJoueursStyles from '../../Constants/Joueurs/ClassementJoueursStyles';
 
 // Components
@@ -50,12 +51,6 @@ export default function ClassementJoueurs({ navigation }) {
     getListJoueurs(setJoueurs, db, newStatut);
 
   }, [switchValue]);
-
-
-
-  if (joueurs === null || joueurs.length === 0) {
-    return null;
-  }
 
   if (!fontsLoaded) {
     return null;
@@ -104,7 +99,11 @@ export default function ClassementJoueurs({ navigation }) {
 
         ?
 
-          null
+        <View style={JoueursStyles.listEmptyContainer}>
+
+          <Text style={JoueursStyles.listEmptyText}>Aucun classement n'est disponible pour le moment. Ajoutez des joueurs pour voir des statistiques.</Text>
+
+        </View>
 
         :
 

@@ -35,7 +35,7 @@ export default function App() {
     );
     // suppression de la table joueur v1 dans la bdd
     tx.executeSql(
-      "DROP TABLE IF EXISTS joueur"
+      "DROP TABLE IF EXISTS joueurs"
     );
     //
     // création de la table joueurs v2 dans la bdd
