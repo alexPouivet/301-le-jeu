@@ -49,7 +49,7 @@ const supprimerInfosPartie = function(game_id, db, joueurs) {
         }
 
         // Mise a jour Podiums joueur
-        if (joueurs[i].classement_joueur <= 3) {
+        if (joueurs[i].classement_joueur <= 3 && joueurs[i].classement_joueur !== null) {
 
           tx.executeSql('UPDATE joueurs SET nb_podiums = nb_podiums - ? WHERE joueur_id = ?', [1, joueurs[i].joueur_id]);
 
