@@ -1,6 +1,5 @@
 {
   "expo": {
-    "title": "301 le Jeu",
     "owner": "alexpouivet",
     "description": "Application officielle de 301 le Jeu, l'application conçue pour créer et enregistrer facilement les résultats des parties jouées.",
     "name": "301 le Jeu",
@@ -33,7 +32,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "3f15e8a7-2ee4-4501-a764-63adcf3e1c5b"
+        "projectId": "0e5b7ba9-42b5-45b7-a7bb-10c9383cec1b"
       }
     }
   }
