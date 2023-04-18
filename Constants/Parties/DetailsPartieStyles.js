@@ -5,7 +5,6 @@ const width = Dimensions.get("screen").width;
 export default StyleSheet.create({
   containerStatutPartie: {
     marginHorizontal: 16,
-    marginTop: -8,
     marginBottom: 32
   },
   textStatutPartieContainer: {
