@@ -34,6 +34,9 @@ import CreerProfil from '../Screens/Joueurs/CreerProfil'
 import DetailsJoueur from '../Screens/Joueurs/DetailsJoueur'
 const ProfilStack = createNativeStackNavigator();
 
+import { useToast } from "react-native-toast-notifications";
+import { useNavigation } from '@react-navigation/native';
+
 const Tab = createBottomTabNavigator();
 
 function PartiesStackScreen() {
@@ -73,6 +76,8 @@ function ParametresStackScreen() {
 function ProfilStackScreen() {
 
   const [isProfil, setIsProfil] = useState(null);
+  const toast = useToast();
+  const navigation = useNavigation();
 
   useEffect(() => {
 
@@ -96,7 +101,7 @@ function ProfilStackScreen() {
 
     return (
       <ProfilStack.Navigator screenOptions={{headerShown: false}}>
-        <ProfilStack.Screen name="Details Joueur" component={DetailsJoueur} />
+        <ProfilStack.Screen name="Details Joueur" component={DetailsJoueur}/>
         <ProfilStack.Screen name="Details Partie" component={DetailsPartie} />
         <ProfilStack.Screen name="Modifier Joueur" component={ModifierJoueur} />
       </ProfilStack.Navigator>
@@ -107,11 +112,19 @@ function ProfilStackScreen() {
     return (
       <ProfilStack.Navigator screenOptions={{headerShown: false}}>
       <ProfilStack.Screen name="Profil Vide" component={ProfilVide} />
-        <ProfilStack.Screen name="Créer Profil" component={CreerProfil} />
+        <ProfilStack.Screen name="Créer Profil">
+          {(props) => <CreerProfilComponent {...props} extraData={{setIsProfil, toast, navigation}} />}
+        </ProfilStack.Screen>
       </ProfilStack.Navigator>
     );
 
   }
+}
+
+const CreerProfilComponent = (isProfil) => {
+  return (
+    <CreerProfil isProfil={isProfil}/>
+  )
 }
 
 const AddScreenComponent = () => {
