@@ -25,7 +25,6 @@ export default class ItemJoueur extends React.Component {
   swipeable = null;
   state = {
     fontsLoaded: false,
-    positionMoy: null
   };
 
   async _loadFontsAsync() {
