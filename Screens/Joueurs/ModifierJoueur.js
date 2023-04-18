@@ -62,7 +62,16 @@ export default function ModifierJoueur({ navigation, route }) {
         >
           <IconComponent name="arrow-back" size="24" color="#252422" />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Modifier joueur</Text>
+        {
+          joueur.profil ?
+
+          <Text style={GlobalStyles.textHeaderTitle}>Modifier le profil</Text>
+
+          :
+
+          <Text style={GlobalStyles.textHeaderTitle}>Modifier le joueur</Text>
+
+        }
         <View style={{ width: 42 }}>
         </View>
       </View>
