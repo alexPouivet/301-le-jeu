@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Dimensions, Platform } from 'react-native';
 
 // Packages
 import GridFlatList from 'grid-flatlist-react-native';
@@ -155,7 +155,7 @@ export default function ComposerPartie(props) {
         <TouchableOpacity
           style={CreerPartieModalStyles.buttonReturnBackContainer}
           onPress={() => {
-            props.changePosition(404)
+            Platform.OS === "android" ? props.changePosition(428) : props.changePosition(404)
             props.changeStepModal('step one')
           }}
         >

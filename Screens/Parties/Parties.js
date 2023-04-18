@@ -197,7 +197,7 @@ function listerGames(setListGames, games) {
 
       let month = convertedDate.split(' ');
 
-      convertedDate = month[1] + " " + newDate.getFullYear();
+      convertedDate = month[0] + " " + newDate.getFullYear();
 
     }
 

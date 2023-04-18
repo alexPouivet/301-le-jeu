@@ -1,6 +1,6 @@
 import { useCallback, useState, useRef, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Platform } from 'react-native';
 
 // Packages
 import BottomSheet, { BottomSheetBackdrop  } from '@gorhom/bottom-sheet';
@@ -19,8 +19,13 @@ const BottomSheetModal = () => {
 
   const bottomSheetRef = useRef(null);
   const navigation = useNavigation();
+  let snapPoints = useMemo(() => [ 520, 404 ], []);
 
-  const snapPoints = useMemo(() => [ 520, 404 ], []);
+  if (Platform.OS === "android") {
+
+    snapPoints = useMemo(() => [ 520, 428 ], []);
+
+  }
 
   const handleSheetChanges = useCallback((index: number) => {
     if (index == -1) {

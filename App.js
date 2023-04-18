@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import { ToastProvider } from 'react-native-toast-notifications'
 import { PortalProvider } from '@gorhom/portal';
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
@@ -60,6 +62,9 @@ export default function App() {
       <SafeAreaView edges={["left", "right", "bottom"]} style={{ flex: 1, position: "relative"}}>
         <SafeAreaProvider>
         <PortalProvider>
+
+        <GestureHandlerRootView style={{flex: 1}}>
+
         <BottomSheetModalProvider>
 
           <ToastProvider
@@ -83,9 +88,12 @@ export default function App() {
           </ToastProvider>
 
         </BottomSheetModalProvider>
+
+        </GestureHandlerRootView>
+
         </PortalProvider>
         </SafeAreaProvider>
-      </SafeAreaView>
+        </SafeAreaView>
 
     </>
   );
