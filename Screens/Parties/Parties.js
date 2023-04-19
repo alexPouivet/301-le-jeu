@@ -136,13 +136,13 @@ export default function Parties({ navigation }) {
               ?
               <View style={{marginTop: "auto", marginBottom: "auto", alignItems: "center"}}>
                 <Lottie style={{ width: 210, height: 210}} source={require('../../assets/animations/floating-palet.json')} autoPlay loop />
-                <Text style={PartiesStyles.listEmptyText}>Aucune partie en cours n'a été créée.</Text>
+                <Text style={PartiesStyles.listEmptyText}>Aucune partie en cours pour le moment.</Text>
               </View>
               :
 
               <View style={{marginTop: "auto", marginBottom: "auto", alignItems: "center"}}>
-                <Lottie style={{ width: 210, height: 210}} source={require('../../assets/animations/floating-palet.json')} autoPlay loop />
-                <Text style={PartiesStyles.listEmptyText}>Aucune partie créée pour le moment.</Text>
+                <Lottie style={{ width: 210, height: 210}} source={require('../../assets/animations/floating-planche.json')} autoPlay loop />
+                <Text style={PartiesStyles.listEmptyText}>Aucune partie de créée pour le moment.</Text>
               </View>
           }
         </View>
