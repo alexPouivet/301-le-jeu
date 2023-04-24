@@ -92,6 +92,7 @@ const deleteGames = function(games) {
 			db.transaction((tx) => {
 	      tx.executeSql('DELETE from parties');
 				tx.executeSql('DELETE from infos_parties_joueurs');
+				tx.executeSql('UPDATE joueurs SET nb_parties = ?, nb_victoires = ?, nb_points = ?, nb_podiums = ?, positions_parties = ? WHERE nb_parties >= ?', [0, 0, 0, 0, "[]", 1]);
 	  	})
 
 			resolve("ok");
