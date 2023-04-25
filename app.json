@@ -4,7 +4,7 @@
     "description": "Application officielle de 301 le Jeu, l'application conçue pour créer et enregistrer facilement les résultats des parties jouées.",
     "name": "301 le Jeu",
     "slug": "jeuDu301",
-    "version": "2.5.15",
+    "version": "2.5.16",
     "orientation": "portrait",
     "icon": "./assets/logo/icon.png",
     "splash": {
@@ -23,7 +23,7 @@
       "buildNumber": "9.1.15"
     },
     "android": {
-      "versionCode": 26,
+      "versionCode": 27,
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo/adaptive-icon.png",
         "backgroundColor": "#ffffff"
