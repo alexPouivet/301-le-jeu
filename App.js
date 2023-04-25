@@ -1,4 +1,4 @@
-import { SafeAreaView, Platform, StatusBar } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -58,8 +58,12 @@ export default function App() {
   return (
     <>
 
-      <SafeAreaView edges={["top"]} style={{ flex: 0, backgroundColor: "#f3f3f3", paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0 }} />
+      <SafeAreaView edges={["top"]} style={{ flex: 0, backgroundColor: "#f3f3f3" }} />
       <SafeAreaView edges={["left", "right", "bottom"]} style={{ flex: 1, position: "relative"}}>
+      <StatusBar
+        backgroundColor="#f3f3f3"
+        barStyle="dark-content"
+      />
         <SafeAreaProvider>
         <PortalProvider>
 
@@ -93,6 +97,7 @@ export default function App() {
 
         </PortalProvider>
         </SafeAreaProvider>
+
         </SafeAreaView>
 
     </>
