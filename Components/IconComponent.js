@@ -10,6 +10,7 @@ import UserBold from '../assets/icons/user-bold';
 import User from '../assets/icons/user';
 import Plus from '../assets/icons/plus';
 import ChevronRight from '../assets/icons/chevron-right';
+import ChevronDown from '../assets/icons/chevron-down';
 import Average from '../assets/icons/average';
 import EditPerson from '../assets/icons/edit-person';
 import Cup from '../assets/icons/cup';
@@ -33,6 +34,7 @@ import Shuffle from '../assets/icons/shuffle';
 import Palet from '../assets/icons/palet';
 import Minus from '../assets/icons/minus';
 import Check from '../assets/icons/check';
+import CheckMark from '../assets/icons/check-mark';
 import Warning from '../assets/icons/warning';
 
 export default function IconComponent(props) {
@@ -93,6 +95,10 @@ export default function IconComponent(props) {
       : props.name == "chevron-right" ?
 
       <ChevronRight size={props.size} color={props.color} />
+
+      : props.name == "chevron-down" ?
+
+      <ChevronDown size={props.size} color={props.color} />
 
       : props.name == "trash" ?
 
@@ -177,6 +183,10 @@ export default function IconComponent(props) {
       : props.name == "check" ?
 
       <Check size={props.size} color={props.color} />
+
+      : props.name == "check-mark" ?
+
+      <CheckMark size={props.size} color={props.color} />
 
       : null
 
