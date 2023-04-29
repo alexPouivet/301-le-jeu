@@ -32,6 +32,7 @@
       },
       "package": "com.alexpouivet.jeudu301",
       "userInterfaceStyle": "automatic",
+      "softwareKeyboardLayoutMode": "pan"
     },
     "extra": {
       "eas": {
