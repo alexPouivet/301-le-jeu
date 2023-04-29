@@ -22,7 +22,7 @@ import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Détails d'un Joueur
-export default function DetailsJoueur({ route, navigation }) {
+export default function DetailsJoueur({ navigation, theme, route }) {
 
   const [fontsLoaded] = font();
   const [joueur, setJoueur] = useState(null);
@@ -70,17 +70,17 @@ export default function DetailsJoueur({ route, navigation }) {
       <View style={DetailsJoueurStyles.dropdownItem}>
         {rowData.value == "Modifier"
         ?
-          <IconComponent name="edit-person" size="20" color="#252422" />
+          <IconComponent name="edit-person" size="20" color={theme === "dark" ? "#fff" : "#252422"} />
         :
-          <IconComponent name="trash" size="20" color="#252422" />
+          <IconComponent name="trash" size="20" color={theme === "dark" ? "#fff" : "#252422"} />
         }
-        <Text style={DetailsJoueurStyles.dropdownTextStyle}>{rowData.label}</Text>
+        <Text style={[theme === "dark" ? DetailsJoueurStyles.dropdownTextStyleDarkTheme : DetailsJoueurStyles.dropdownTextStyle]}>{rowData.label}</Text>
       </View>
     )
   }
 
   return (
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme]}>
 
       <View style={GlobalStyles.buttonsHeaderContainer}>
         { joueur.profil
@@ -89,12 +89,12 @@ export default function DetailsJoueur({ route, navigation }) {
          </View>
          :
          <TouchableOpacity
-           style={GlobalStyles.buttonLeft}
+           style={[ GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
            onPress={() => {
              navigation.navigate('Liste Joueurs');
            }}
          >
-           <IconComponent name="arrow-back" size="24" color="#252422" />
+           <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
          </TouchableOpacity>
         }
 
@@ -103,21 +103,21 @@ export default function DetailsJoueur({ route, navigation }) {
           ?
 
             <TouchableOpacity
-              style={GlobalStyles.buttonRight}
+              style={[ GlobalStyles.buttonRight, theme === "dark" ? GlobalStyles.buttonRightDarkTheme : GlobalStyles.buttonRightLightTheme]}
               onPress={() => {
                 navigation.navigate("Modifier Joueur", {joueur_id: joueur.joueur_id })
               }}
             >
-              <IconComponent name="edit-person" size="24" color="#252422" />
+              <IconComponent name="edit-person" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
             </TouchableOpacity>
 
           :
 
           <ModalDropdown
             options={modalOptions}
-            style={GlobalStyles.buttonRight}
+            style={[ GlobalStyles.buttonRight, theme === "dark" ? GlobalStyles.buttonRightDarkTheme : GlobalStyles.buttonRightLightTheme]}
             renderRow={(rowData) => dropdownItem(rowData)}
-            dropdownStyle={DetailsJoueurStyles.dropdownStyle}
+            dropdownStyle={[ DetailsJoueurStyles.dropdownStyle, theme === "dark" ? DetailsJoueurStyles.dropdownStyleDarkTheme : DetailsJoueurStyles.dropdownStyleLightTheme]}
             onSelect={(index, value) => {
               if( value.value == "Modifier") {
 
@@ -138,7 +138,7 @@ export default function DetailsJoueur({ route, navigation }) {
               }
             }}
           >
-            <IconComponent name="dots" size="24" color="#252422" />
+            <IconComponent name="dots" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
           </ModalDropdown>
 
         }
@@ -149,10 +149,10 @@ export default function DetailsJoueur({ route, navigation }) {
 
         <View style={DetailsJoueurStyles.infosJoueurContainer}>
           <AvatarComponent size={64} name={joueur.avatar_slug} />
-          <Text style={DetailsJoueurStyles.joueur}>{joueur.nom_joueur}</Text>
+          <Text style={[ DetailsJoueurStyles.joueur, theme === "dark" ? DetailsJoueurStyles.joueurDarkTheme : DetailsJoueurStyles.joueurLightTheme]}>{joueur.nom_joueur}</Text>
         </View>
 
-        <StatsJoueur joueur={joueur}/>
+        <StatsJoueur joueur={joueur} theme={theme}/>
 
         <View>
 
@@ -162,7 +162,7 @@ export default function DetailsJoueur({ route, navigation }) {
             ?
             <View style={PartiesStyles.listEmptyContainer}>
 
-                  <Text style={PartiesStyles.listEmptyText}>L'historique est vide pour le moment.</Text>
+                  <Text style={[ PartiesStyles.listEmptyText, theme === "dark" ? PartiesStyles.listEmptyTextDarkTheme : PartiesStyles.listEmptyTextLightTheme ]}>L'historique est vide pour le moment.</Text>
 
             </View>
             :
@@ -170,7 +170,7 @@ export default function DetailsJoueur({ route, navigation }) {
 
               {games.map(({ partie_id, date, horaire, liste_joueurs, statut, gagnant_partie, nb_joueurs, avatars }, index) => (
 
-                <ItemPartieJoueurs key={index} avatars={avatars} setGames={setGames} nbJoueurs={nb_joueurs} statutFiltres={statutFiltres} game_id={partie_id} date={date} time={horaire} statut={statut} gagnant_partie={gagnant_partie} navigation={navigation} db={db} index={index} />
+                <ItemPartieJoueurs theme={theme} key={index} avatars={avatars} setGames={setGames} nbJoueurs={nb_joueurs} statutFiltres={statutFiltres} game_id={partie_id} date={date} time={horaire} statut={statut} gagnant_partie={gagnant_partie} navigation={navigation} db={db} index={index} />
 
               ))}
 

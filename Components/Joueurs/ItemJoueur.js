@@ -38,6 +38,7 @@ export default class ItemJoueur extends React.Component {
 
   render() {
 
+    let theme = this.props.theme;
     let db = this.props.db;
     let index = this.props.index;
     let onRefresh = this.props.onRefresh;
@@ -140,7 +141,7 @@ export default class ItemJoueur extends React.Component {
     }
 
     return (
-      <View style={JoueursStyles.itemJoueurContainer}>
+      <View style={[ JoueursStyles.itemJoueurContainer, theme === "dark" ? JoueursStyles.itemJoueurContainerDarkTheme : JoueursStyles.itemJoueurContainerLightTheme ]}>
 
         <Swipeable
           onRef={ref => this.swipeable = ref}
@@ -171,7 +172,7 @@ export default class ItemJoueur extends React.Component {
 
                 <View style={JoueursStyles.primaryInfosJoueurContainer}>
 
-                  <Text style={JoueursStyles.nomJoueur}>{nom_joueur}</Text>
+                  <Text style={[ JoueursStyles.nomJoueur, theme === "dark" ? JoueursStyles.nomJoueurDarkTheme : JoueursStyles.nomJoueurLightTheme ]}>{nom_joueur}</Text>
 
                   { profil
                     ?

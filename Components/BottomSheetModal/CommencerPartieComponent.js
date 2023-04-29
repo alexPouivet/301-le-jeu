@@ -18,7 +18,7 @@ const db = openDatabase();
 
 let width = Dimensions.get("screen").width;
 
-export default function ComposerPartie(props) {
+export default function ComposerPartie({ participants, palets, toast, changePosition, changeStepModal, closeModal, navigation, theme }) {
 
   const [fontsLoaded] = font();
   const [errorText, onChangeErrorText] = useState("")
@@ -60,25 +60,26 @@ export default function ComposerPartie(props) {
     <View style={CreerPartieModalStyles.stepTwoContainer}>
 
       <View style={CreerPartieModalStyles.textHeaderContainer}>
-        { props.participants > 1
+        { participants > 1
           ?
-          <Text style={CreerPartieModalStyles.textHeaderTitle}>Sélectionnez {props.participants} joueurs</Text>
+          <Text style={[ CreerPartieModalStyles.textHeaderTitle, theme === "dark" ? CreerPartieModalStyles.textHeaderTitleDarkTheme : CreerPartieModalStyles.textHeaderTitleLightTheme ]}>Sélectionnez {participants} joueurs</Text>
           :
-          <Text style={CreerPartieModalStyles.textHeaderTitle}>Sélectionnez {props.participants} joueur</Text>
+          <Text style={[ CreerPartieModalStyles.textHeaderTitle, theme === "dark" ? CreerPartieModalStyles.textHeaderTitleDarkTheme : CreerPartieModalStyles.textHeaderTitleLightTheme ]}>Sélectionnez {participants} joueur</Text>
         }
       </View>
 
       <View style={[GlobalStyles.addPlayerContainer, { marginHorizontal: 0, marginBottom: 16 }]}>
 
-        <Text style={GlobalStyles.addPlayerTitle}>Ajouter un joueur</Text>
+        <Text style={[ GlobalStyles.addPlayerTitle, theme === "dark" ? GlobalStyles.addPlayerTitleDarkTheme : GlobalStyles.addPlayerTitleLightTheme]}>Ajouter un joueur</Text>
 
         <View style={GlobalStyles.inputAddPlayerContainer}>
 
           <TextInput
-            style={[ participant.length < 2 ? GlobalStyles.inputAddPlayerFull : GlobalStyles.inputAddPlayer ]}
+            style={[ participant.length < 2 ? theme === "dark" ? GlobalStyles.inputAddPlayerFullDarkTheme : GlobalStyles.inputAddPlayerFull : theme === "dark" ? GlobalStyles.inputAddPlayerDarkTheme : GlobalStyles.inputAddPlayer ]}
             placeholder="Nom du joueur..."
             value={participant}
             onChangeText={setParticipant}
+            placeholderTextColor="#C0C0C0"
           />
 
           <TouchableOpacity
@@ -95,7 +96,7 @@ export default function ComposerPartie(props) {
                 addPlayer(participant)
                 onRefresh()
                 setParticipant("")
-                props.toast.show('Joueur ajouté avec succès !', {
+                toast.show('Joueur ajouté avec succès !', {
                   type: "success",
                   placement: "top",
                   animationType: "slide-in"
@@ -121,7 +122,7 @@ export default function ComposerPartie(props) {
 
           <View style={CreerPartieModalStyles.listEmptyContainer}>
 
-            <Text style={CreerPartieModalStyles.listEmptyText}>Aucun joueur n'a été créé pour l'instant. Ajoutez un joueur pour pouvoir le sélectionner.</Text>
+            <Text style={[ CreerPartieModalStyles.listEmptyText, theme === "dark" ? CreerPartieModalStyles.listEmptyTextDarkTheme : CreerPartieModalStyles.listEmptyTextLightTheme ]}>Aucun joueur n'a été créé pour l'instant. Ajoutez un joueur pour pouvoir le sélectionner.</Text>
 
           </View>
 
@@ -140,7 +141,7 @@ export default function ComposerPartie(props) {
               onRefresh()
             }}
             renderItem={(item, index) => (
-              <SelectionJoueurComponent joueur={ item } playersSelect={ playersSelect } setPlayersSelect={ setPlayersSelect } nb_participants={ props.participants } index={ index } setIsLimit={setIsLimit} />
+              <SelectionJoueurComponent  theme={theme} joueur={ item } playersSelect={ playersSelect } setPlayersSelect={ setPlayersSelect } nb_participants={ participants } index={ index } setIsLimit={setIsLimit} />
             )}
           />
 
@@ -155,8 +156,8 @@ export default function ComposerPartie(props) {
         <TouchableOpacity
           style={CreerPartieModalStyles.buttonReturnBackContainer}
           onPress={() => {
-            Platform.OS === "android" ? props.changePosition(428) : props.changePosition(404)
-            props.changeStepModal('step one')
+            Platform.OS === "android" ? changePosition(428) : changePosition(404)
+            changeStepModal('step one')
           }}
         >
 
@@ -169,13 +170,13 @@ export default function ComposerPartie(props) {
           disabled={ !isLimit }
           onPress={() => {
 
-            create(playersSelect, props.participants, props.palets).then(function(game_id) {
+            create(playersSelect, participants, palets).then(function(game_id) {
 
-              props.closeModal();
-              props.navigation.navigate('Partie', {
+              closeModal();
+              navigation.navigate('Partie', {
                 game_id: game_id,
               })
-              props.toast.show('Partie créée avec succès !', {
+              toast.show('Partie créée avec succès !', {
                 type: "success",
                 placement: "top",
                 animationType: "slide-in"
@@ -186,12 +187,12 @@ export default function ComposerPartie(props) {
           }}
         >
           {
-            ( props.participants - playersSelect.length ) > 1
+            ( participants - playersSelect.length ) > 1
             ?
-              <Text style={CreerPartieModalStyles.textButton}>Encore { ( props.participants - playersSelect.length ) } joueurs à sélectionner</Text>
-            : ( props.participants - playersSelect.length ) == 1
+              <Text style={CreerPartieModalStyles.textButton}>Encore { ( participants - playersSelect.length ) } joueurs à sélectionner</Text>
+            : ( participants - playersSelect.length ) == 1
               ?
-                <Text style={CreerPartieModalStyles.textButton}>Encore { ( props.participants - playersSelect.length ) } joueur à sélectionner</Text>
+                <Text style={CreerPartieModalStyles.textButton}>Encore { ( participants - playersSelect.length ) } joueur à sélectionner</Text>
               :
                 <Text style={CreerPartieModalStyles.textButton}>Commencer la partie</Text>
           }

@@ -8,8 +8,10 @@ import GlobalStyles from '../../Constants/GlobalStyles';
 import DetailsJoueurStyles from '../../Constants/Joueur/DetailsJoueurStyles';
 
 // Page Profil vide
-export default function ProfilVide({ navigation }) {
+export default function ProfilVide(props) {
 
+  const theme = props.theme;
+  const navigation = props.navigation;
   const [fontsLoaded] = font();
 
   if (!fontsLoaded) {
@@ -17,17 +19,17 @@ export default function ProfilVide({ navigation }) {
   }
 
   return (
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme ]}>
 
       <View style={GlobalStyles.textHeaderContainer}>
-        <Text style={GlobalStyles.textHeaderTitle}>Pas de profil disponible</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === 'dark' ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme]}>Pas de profil disponible</Text>
       </View>
 
       <View style={DetailsJoueurStyles.descriptionContainer}>
 
         <Text style={DetailsJoueurStyles.subtitle}>Informations profil</Text>
 
-        <Text style={DetailsJoueurStyles.description}>Le profil n’a pas été initialisé, les infos et les statistiques ne sont donc pas disponibles pour le moment. Cliquez sur le bouton “Se créer un profil” juste en dessous pour vous enregistrer un profil et ainsi accéder à toutes les fonctionnalités.</Text>
+        <Text style={[ DetailsJoueurStyles.description, theme === "dark" ? DetailsJoueurStyles.descriptionDarkTheme : DetailsJoueurStyles.descriptionLightTheme]}>Le profil n’a pas été initialisé, les infos et les statistiques ne sont donc pas disponibles pour le moment. Cliquez sur le bouton “Se créer un profil” juste en dessous pour vous enregistrer un profil et ainsi accéder à toutes les fonctionnalités.</Text>
 
         <TouchableOpacity
           style={DetailsJoueurStyles.button}

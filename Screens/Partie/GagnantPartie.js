@@ -20,7 +20,7 @@ const db = openDatabase();
 
 
 // Gagnant Partie
-export default function GagnantPartie({ navigation, route }) {
+export default function GagnantPartie({ navigation, route, theme }) {
 
   const [fontsLoaded] = font();
   const { game_id, gagnant } = route.params;
@@ -47,26 +47,26 @@ export default function GagnantPartie({ navigation, route }) {
   }
 
   return(
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme ]}>
 
       <View style={GlobalStyles.textHeaderContainer}>
-        <Text style={GlobalStyles.textHeaderTitle}>Gagnant de la partie</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === "dark" ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme ]}>Gagnant de la partie</Text>
       </View>
 
-      <InfosPartieComponent game={game}/>
+      <InfosPartieComponent game={game} theme={theme}/>
 
       <ScrollView>
 
-        <PodiumPartieComponent joueurs1={classement[1]} joueurs0={classement[0]} joueurs2={classement[2]} />
+        <PodiumPartieComponent theme={theme} joueurs1={classement[1]} joueurs0={classement[0]} joueurs2={classement[2]} />
 
         { classement.length > 3
           ?
-            <View style={DetailsPartieStyles.containerJoueurs}>
+            <View style={[ ClassementStyles.containerJoueurs, theme === "dark" ? ClassementStyles.containerJoueursDarkTheme : ClassementStyles.containerJoueursLightTheme]}>
               {classement.map(({ nom_joueur, avatar_slug, score_joueur, classement_joueur }, i) => (
                 i < 3
                 ? null
                 :
-                <ItemJoueurComponent avatar_slug={avatar_slug} key={i} nom_joueur={nom_joueur} score_joueur={score_joueur} classement_joueur={classement_joueur} joueurs={classement} i={i}/>
+                <ItemJoueurComponent theme={theme} avatar_slug={avatar_slug} key={i} nom_joueur={nom_joueur} score_joueur={score_joueur} classement_joueur={classement_joueur} joueurs={classement} i={i}/>
               ))}
 
             </View>

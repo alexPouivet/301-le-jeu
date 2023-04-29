@@ -10,7 +10,7 @@ import logs from '../../logs.json';
 import font from '../../Components/FontComponent';
 
 // Logs
-export default function Logs({ navigation, route }) {
+export default function Logs({ navigation, theme }) {
 
   const [fontsLoaded] = font();
 
@@ -21,18 +21,18 @@ export default function Logs({ navigation, route }) {
   }
 
   return (
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme ]}>
 
       <View style={GlobalStyles.buttonLeftTextContainer}>
         <TouchableOpacity
-          style={GlobalStyles.buttonLeft}
+          style={[ GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
           onPress={() => {
             navigation.goBack()
           }}
         >
-          <IconComponent name="arrow-back" size="24" color="#252422" />
+          <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Versions de l'app</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === "dark" ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme ]}>Versions de l'app</Text>
         <View style={GlobalStyles.buttonEmpty}>
         </View>
       </View>
@@ -41,11 +41,11 @@ export default function Logs({ navigation, route }) {
 
         {reversedLogs.map((log, index) => (
 
-          <View style={ParametersStyles.logContainer} key={index}>
+          <View style={[ ParametersStyles.logContainer, theme === "dark" ? ParametersStyles.logContainerDarkTheme : ParametersStyles.logContainerLightTheme ]} key={index}>
 
             <View style={ParametersStyles.titreContainer}>
 
-              <Text style={ParametersStyles.logTitreApp}>{log.titre}</Text>
+              <Text style={[ ParametersStyles.logTitreApp, theme === "dark" ? ParametersStyles.logTitreAppDarkTheme : ParametersStyles.logTitreAppLightTheme ]}>{log.titre}</Text>
 
               <View style={ParametersStyles.logVersionAppContainer}>
 
@@ -68,7 +68,7 @@ export default function Logs({ navigation, route }) {
 
             <Text style={ParametersStyles.logDate}>{log.date}</Text>
 
-            <Text style={ParametersStyles.logDescriptionApp}>{log.description}</Text>
+            <Text style={[ ParametersStyles.logDescriptionApp, theme === "dark" ? ParametersStyles.logDescriptionAppDarkTheme : ParametersStyles.logDescriptionAppLightTheme]}>{log.description}</Text>
 
           </View>
 

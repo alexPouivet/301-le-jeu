@@ -42,6 +42,12 @@ export default StyleSheet.create({
     textAlign: "center",
     fontSize: 16
   },
+  listEmptyTextDarkTheme: {
+    color: "#fff"
+  },
+  listEmptyTextLightTheme: {
+    color: "#252422"
+  },
   listJoueursContainer: {
     marginTop: 12,
     paddingHorizontal: 16,
@@ -58,6 +64,11 @@ export default StyleSheet.create({
     borderRadius: 32,
     width: "100%",
     marginBottom: 8,
+  },
+  itemJoueurContainerDarkTheme: {
+    backgroundColor: "#3C3C3C"
+  },
+  itemJoueurContainerLightTheme: {
     backgroundColor: "#fff"
   },
   swipeable: {
@@ -101,6 +112,11 @@ export default StyleSheet.create({
   nomJoueur: {
     fontFamily: "Poppins-Medium",
     fontSize: 12,
+  },
+  nomJoueurDarkTheme: {
+    color: "#fff"
+  },
+  nomJoueurLightTheme: {
     color: "#252422"
   },
   profilJoueurContainer: {

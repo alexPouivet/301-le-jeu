@@ -14,7 +14,7 @@ import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Classement Partie
-export default function Classement({ navigation, route }) {
+export default function Classement({ navigation, route, theme }) {
 
   const [fontsLoaded] = font();
   const { game_id } = route.params;
@@ -43,29 +43,29 @@ export default function Classement({ navigation, route }) {
   }
 
   return(
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme ]}>
 
       <View style={GlobalStyles.buttonLeftTextContainer}>
         <TouchableOpacity
-          style={GlobalStyles.buttonLeft}
+          style={[  GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
           onPress={() => {
             navigation.goBack()
           }}
         >
-          <IconComponent name="arrow-back" size="24" color="#252422" />
+          <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Classement Actuel</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === "dark" ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme ]}>Classement Actuel</Text>
         <View style={{ width: 42 }}>
         </View>
       </View>
 
-      <InfosPartieComponent game={game}/>
+      <InfosPartieComponent game={game} theme={theme}/>
 
       <ScrollView >
 
-        <View style={ClassementStyles.containerJoueurs}>
+        <View style={[ ClassementStyles.containerJoueurs, theme === "dark" ? ClassementStyles.containerJoueursDarkTheme : ClassementStyles.containerJoueursLightTheme]}>
           {classement.map(({ nom_joueur, avatar_slug, score_joueur, classement_joueur }, i) => (
-            <ItemJoueurComponent avatar_slug={avatar_slug} key={i} nom_joueur={nom_joueur} score_joueur={score_joueur} classement_joueur={classement_joueur} joueurs={classement} i={i}/>
+            <ItemJoueurComponent theme={theme} avatar_slug={avatar_slug} key={i} nom_joueur={nom_joueur} score_joueur={score_joueur} classement_joueur={classement_joueur} joueurs={classement} i={i}/>
           ))}
         </View>
 

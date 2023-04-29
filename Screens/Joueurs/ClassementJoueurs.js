@@ -17,7 +17,7 @@ import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Classement Joueurs
-export default function ClassementJoueurs({ navigation }) {
+export default function ClassementJoueurs({ navigation, theme }) {
 
   const [fontsLoaded] = font();
   const [joueurs, setJoueurs] = useState(null);
@@ -27,9 +27,9 @@ export default function ClassementJoueurs({ navigation }) {
 
 
   const options = [
-    { label: "Points", value: "Nb. Points", customIcon: <IconComponent name="points" size="20" color={ switchValue["statut"] === "Nb. Points" ? "#fff" : "#7159DF" } />  },
-    { label: "Victoires", value: "Nb. Victoires", customIcon: <IconComponent name="cup" size="20" color={ switchValue["statut"] === "Nb. Victoires" ? "#fff" : "#7159DF" } /> },
-    { label: "Pos. Moy.", value: "Position Moy.", customIcon: <IconComponent name="average" size="20" color={ switchValue["statut"] === "Position Moy." ? "#fff" : "#7159DF" } /> }
+    { label: "Points", value: "Nb. Points", customIcon: <IconComponent name="points" size="20" color={ switchValue["statut"] === "Nb. Points" ? "#fff" : theme === 'dark' ? "#fff" : "#7159DF" } />  },
+    { label: "Victoires", value: "Nb. Victoires", customIcon: <IconComponent name="cup" size="20" color={ switchValue["statut"] === "Nb. Victoires" ? "#fff" : theme === 'dark' ? "#fff" : "#7159DF" } /> },
+    { label: "Pos. Moy.", value: "Position Moy.", customIcon: <IconComponent name="average" size="20" color={ switchValue["statut"] === "Position Moy." ? "#fff" : theme === 'dark' ? "#fff" : "#7159DF" } /> }
   ];
 
   useEffect(() => {
@@ -57,18 +57,18 @@ export default function ClassementJoueurs({ navigation }) {
   }
 
   return (
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme]}>
 
       <View style={GlobalStyles.buttonLeftTextContainer}>
         <TouchableOpacity
-          style={GlobalStyles.buttonLeft}
+          style={[ GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
           onPress={() => {
             navigation.goBack()
           }}
         >
-          <IconComponent name="arrow-back" size="24" color="#252422" />
+          <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"}  />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Classement général</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === "dark" ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme]}>Classement général</Text>
         <View style={GlobalStyles.buttonEmpty}>
         </View>
       </View>
@@ -78,10 +78,10 @@ export default function ClassementJoueurs({ navigation }) {
         selectedTextStyle={ClassementJoueursStyles.switchSelectedText}
         selectedColor="#ffffff"
         textStyle={ClassementJoueursStyles.switchText}
-        textColor="#7159DF"
+        textColor={ theme === 'dark' ? "#fff" : "#7159DF" }
         buttonColor="#7159DF"
         initial={1}
-        backgroundColor="#f3f3f3"
+        backgroundColor="transparent"
         height={48}
         onPress={value => switchClassement(value)}
         options={options}
@@ -101,7 +101,7 @@ export default function ClassementJoueurs({ navigation }) {
 
         <View style={JoueursStyles.listEmptyContainer}>
 
-          <Text style={JoueursStyles.listEmptyText}>Aucun classement n'est disponible pour le moment. Ajoutez des joueurs pour voir des statistiques.</Text>
+          <Text style={[ JoueursStyles.listEmptyText, theme === "dark" ? JoueursStyles.listEmptyTextDarkTheme : JoueursStyles.listEmptyTextLightTheme ]}>Aucun classement n'est disponible pour le moment. Ajoutez des joueurs pour voir des statistiques.</Text>
 
         </View>
 
@@ -111,7 +111,7 @@ export default function ClassementJoueurs({ navigation }) {
           style={ClassementJoueursStyles.classementBodyContainer}
           data={joueurs}
           renderItem={({ item, index }) =>  (
-            <ItemJoueurClassement profil={item.profil} avatar_slug={item.avatar_slug} nom_joueur={item.nom_joueur} index={index} statut={item.statut} />
+            <ItemJoueurClassement theme={theme} profil={item.profil} avatar_slug={item.avatar_slug} nom_joueur={item.nom_joueur} index={index} statut={item.statut} />
           )}
         />
       }

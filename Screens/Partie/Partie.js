@@ -14,7 +14,7 @@ import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Partie
-export default function Partie({ navigation, route }) {
+export default function Partie({ navigation, route, theme }) {
 
   const [fontsLoaded] = font();
   const { game_id } = route.params;
@@ -62,7 +62,7 @@ export default function Partie({ navigation, route }) {
       ? joueurPrecedent.push(
         <View key={i} style={PartieStyles.joueurWrapper}>
           <AvatarComponent size={32} name={joueurs[i].avatar_slug} />
-          <Text numberOfLines={1} style={PartieStyles.joueurPrecedent}>{joueurs[i].nom_joueur}</Text>
+          <Text numberOfLines={1} style={[ PartieStyles.joueurPrecedent, theme === "dark" ? PartieStyles.joueurPrecedentDarkTheme : PartieStyles.joueurPrecedentLightTheme]}>{joueurs[i].nom_joueur}</Text>
         </View>
       )
       : null
@@ -71,7 +71,7 @@ export default function Partie({ navigation, route }) {
       ? joueurEnCours.push(
         <View key={i} style={PartieStyles.joueurWrapper}>
           <AvatarComponent size={44} name={joueur.avatar_slug} />
-          <Text numberOfLines={1} style={PartieStyles.joueurEnCours}>{joueur.nom_joueur}</Text>
+          <Text numberOfLines={1} style={[ PartieStyles.joueurEnCours, theme === "dark" ? PartieStyles.joueurEnCoursDarkTheme : PartieStyles.joueurEnCoursLightTheme ]}>{joueur.nom_joueur}</Text>
         </View>
       )
       : null
@@ -80,7 +80,7 @@ export default function Partie({ navigation, route }) {
       ? joueurSuivant.push(
         <View key={i} style={PartieStyles.joueurWrapper}>
           <AvatarComponent size={32} name={joueurs[i].avatar_slug} />
-          <Text numberOfLines={1} style={PartieStyles.joueurSuivant}>{joueurs[i].nom_joueur}</Text>
+          <Text numberOfLines={1} style={[ PartieStyles.joueurSuivant, theme === "dark" ? PartieStyles.joueurSuivantDarkTheme : PartieStyles.joueurSuivantLightTheme ]}>{joueurs[i].nom_joueur}</Text>
         </View>
       )
       : null
@@ -95,35 +95,35 @@ export default function Partie({ navigation, route }) {
   }
 
   return(
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme ]}>
       <View style={GlobalStyles.buttonsTextHeaderContainer}>
         <TouchableOpacity
-          style={GlobalStyles.buttonLeft}
+          style={[  GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
           onPress={() => {
             navigation.navigate('Parties', {screen: "Liste Parties"});
           }}
         >
-          <IconComponent name="arrow-back" size="24" color="#252422" />
+          <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Tour n°{game.tour_partie}</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === 'dark' ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme]}>Tour n°{game.tour_partie}</Text>
         <TouchableOpacity
-          style={GlobalStyles.buttonRight}
+          style={[  GlobalStyles.buttonRight, theme === "dark" ? GlobalStyles.buttonRightDarkTheme : GlobalStyles.buttonRightLightTheme]}
           onPress={() => {
             navigation.navigate('Classement', {
               game_id: game_id
             })
         }}>
-          <IconComponent name="podium" size="24" color="#252422" />
+          <IconComponent name="podium" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
         </TouchableOpacity>
       </View>
-      <View style={PartieStyles.infosTour}>
+      <View style={[ PartieStyles.infosTour, theme === "dark" ? PartieStyles.infosTourDarkTheme : PartieStyles.infosTourLightTheme ]}>
             <View style={PartieStyles.listeJoueurs}>
 
               <View style={PartieStyles.joueursContainer}>{joueurPrecedent}</View>
 
               <View style={PartieStyles.separatorJoueursContainer}>
               { joueurPrecedent.length !== 0
-                ? <IconComponent name="chevron-right" size="12" color="#7159df" />
+                ? <IconComponent name="chevron-right" size="12" color={theme === "dark" ? "#fff" : "#7159df"} />
                 : null
               }
               </View>
@@ -132,7 +132,7 @@ export default function Partie({ navigation, route }) {
 
               <View style={PartieStyles.separatorJoueursContainer}>
                 { joueurSuivant.length !== 0
-                ? <IconComponent name="chevron-right" size="12" color="#7159df" />
+                ? <IconComponent name="chevron-right" size="12" color={theme === "dark" ? "#fff" : "#7159df"} />
                 : null
                 }
               </View>
@@ -143,23 +143,23 @@ export default function Partie({ navigation, route }) {
 
             <View style={PartieStyles.informationsPartie}>
 
-              <View style={PartieStyles.informationsContainer}>
-                <View style={PartieStyles.iconeWrapper}>
-                  <IconComponent name="points" size="24" color="#7159df" />
+              <View style={[ PartieStyles.informationsContainer, theme === "dark" ? PartieStyles.informationsContainerDarkTheme : PartieStyles.informationsContainerLightTheme ]}>
+                <View style={[ PartieStyles.iconeWrapper, theme === "dark" ? PartieStyles.iconeWrapperDarkTheme : PartieStyles.iconeWrapperLightTheme ]}>
+                  <IconComponent name="points" size="24" color={theme ==="dark" ? "#fff" : "#7159df"} />
                 </View>
                 <View>
-                  <Text style={PartieStyles.textInfosTour}>{joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)}</Text>
-                  <Text style={PartieStyles.textInfosTourLabel}>points restant</Text>
+                  <Text style={[ PartieStyles.textInfosTour, theme === "dark" ? PartieStyles.textInfosTourDarkTheme : PartieStyles.textInfosTourLightTheme ]}>{joueur.score_joueur - (points20*20 + points10*10 + points8*8 + points6*6 + points4*4 + points2*2 + point1)}</Text>
+                  <Text style={[ PartieStyles.textInfosTourLabel, theme === "dark" ? PartieStyles.textInfosTourLabelDarkTheme : PartieStyles.textInfosTourLabelLightTheme ]}>points restant</Text>
                 </View>
               </View>
 
-              <View style={PartieStyles.informationsContainer}>
-                <View style={PartieStyles.iconeWrapper}>
-                  <IconComponent name="palet" size="24" color="#7159df" />
+              <View style={[ PartieStyles.informationsContainer, theme === "dark" ? PartieStyles.informationsContainerDarkTheme : PartieStyles.informationsContainerLightTheme ]}>
+                <View style={[ PartieStyles.iconeWrapper, theme === "dark" ? PartieStyles.iconeWrapperDarkTheme : PartieStyles.iconeWrapperLightTheme ]}>
+                  <IconComponent name="palet" size="24" color={theme ==="dark" ? "#fff" : "#7159df"} />
                 </View>
                 <View>
-                  <Text style={PartieStyles.textInfosTour}>{totalPalets}{totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false }</Text>
-                  <Text style={PartieStyles.textInfosTourLabel}>palets restant</Text>
+                  <Text style={[ PartieStyles.textInfosTour, theme === "dark" ? PartieStyles.textInfosTourDarkTheme : PartieStyles.textInfosTourLightTheme ]}>{totalPalets}{totalPalets == 0 ? isPaletsEqualZero = true : isPaletsEqualZero = false }</Text>
+                  <Text style={[ PartieStyles.textInfosTourLabel, theme === "dark" ? PartieStyles.textInfosTourLabelDarkTheme : PartieStyles.textInfosTourLabelLightTheme ]}>palets restant</Text>
                 </View>
               </View>
 
@@ -169,13 +169,13 @@ export default function Partie({ navigation, route }) {
         <View style={PartieStyles.scrollContainer}>
           <View style={PartieStyles.inputsContainer}>
 
-            <PointsPartieInputSpinner score={20} max={game.nb_palets} value={points20} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
-            <PointsPartieInputSpinner score={10} max={game.nb_palets} value={points10} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
-            <PointsPartieInputSpinner score={8} max={game.nb_palets} value={points8} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
-            <PointsPartieInputSpinner score={6} max={game.nb_palets} value={points6} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
-            <PointsPartieInputSpinner score={4} max={game.nb_palets} value={points4} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
-            <PointsPartieInputSpinner score={2} max={game.nb_palets} value={points2} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
-            <PointsPartieInputSpinner score={1} max={game.nb_palets} value={point1} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
+            <PointsPartieInputSpinner theme={theme} score={20} max={game.nb_palets} value={points20} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
+            <PointsPartieInputSpinner theme={theme} score={10} max={game.nb_palets} value={points10} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
+            <PointsPartieInputSpinner theme={theme} score={8} max={game.nb_palets} value={points8} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
+            <PointsPartieInputSpinner theme={theme} score={6} max={game.nb_palets} value={points6} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
+            <PointsPartieInputSpinner theme={theme} score={4} max={game.nb_palets} value={points4} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
+            <PointsPartieInputSpinner theme={theme} score={2} max={game.nb_palets} value={points2} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
+            <PointsPartieInputSpinner theme={theme} score={1} max={game.nb_palets} value={point1} isPaletsEqualZero={isPaletsEqualZero} joueur={joueur} points20={points20} setPoints20={setPoints20} points10={points10} setPoints10={setPoints10} points8={points8} setPoints8={setPoints8} points6={points6} setPoints6={setPoints6} points4={points4} setPoints4={setPoints4} points2={points2} setPoints2={setPoints2} point1={point1} setPoint1={setPoint1} />
 
           </View>
         </View>

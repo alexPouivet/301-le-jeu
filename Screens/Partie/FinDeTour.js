@@ -18,7 +18,7 @@ import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Fin de Tour Partie
-export default function FinDeTour({ navigation, route }) {
+export default function FinDeTour({ navigation, route, theme }) {
 
   const [fontsLoaded] = font();
   const {game_id } = route.params;
@@ -45,27 +45,27 @@ export default function FinDeTour({ navigation, route }) {
   }
 
   return(
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme ]}>
       <View style={GlobalStyles.buttonLeftTextContainer}>
         <TouchableOpacity
-          style={GlobalStyles.buttonLeft}
+          style={[  GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
           onPress={() => {
             navigation.navigate('Parties', {screen: "Liste Parties"});
           }}
         >
-          <IconComponent name="arrow-back" size="24" color="#252422" />
+          <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Récap Tour {game.tour_partie}</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === "dark" ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme ]}>Récap Tour {game.tour_partie}</Text>
         <View style={{ width: 42 }}>
         </View>
       </View>
 
-      <InfosPartieComponent game={game}/>
+      <InfosPartieComponent theme={theme} game={game}/>
 
       <ScrollView>
-        <View style={ClassementStyles.containerJoueurs}>
+        <View style={[ ClassementStyles.containerJoueurs, theme === "dark" ? ClassementStyles.containerJoueursDarkTheme : ClassementStyles.containerJoueursLightTheme ]}>
           {joueurs.map(({ nom_joueur, avatar_slug, score_joueur, tour_joueur, classement_joueur }, i) => (
-            <ItemJoueurComponent key={i} avatar_slug={avatar_slug} nom_joueur={nom_joueur} score_joueur={score_joueur} classement_joueur={classement_joueur} joueurs={joueurs} i={i}/>
+            <ItemJoueurComponent theme={theme} key={i} avatar_slug={avatar_slug} nom_joueur={nom_joueur} score_joueur={score_joueur} classement_joueur={classement_joueur} joueurs={joueurs} i={i}/>
           ))}
         </View>
       </ScrollView>

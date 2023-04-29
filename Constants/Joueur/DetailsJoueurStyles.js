@@ -10,7 +10,13 @@ export default StyleSheet.create({
     marginRight: -12,
     borderRadius: 24,
     paddingVertical: 0,
-    borderWidth: 0
+    borderWidth: 0,
+  },
+  dropdownStyleDarkTheme: {
+    backgroundColor: "#3C3C3C"
+  },
+  dropdownStyleLightTheme: {
+    backgroundColor: "#fff"
   },
   dropdownItem: {
     flexDirection: "row",
@@ -18,12 +24,17 @@ export default StyleSheet.create({
     marginRight:32,
     fontSize: 16,
     alignItems: "center",
-    color: "#252422"
+    color: "#252422",
   },
   dropdownTextStyle: {
     marginLeft: 10,
     fontSize: 12,
     color: "#252422"
+  },
+  dropdownTextStyleDarkTheme: {
+    marginLeft: 10,
+    fontSize: 12,
+    color: "#fff"
   },
   infosJoueurContainer: {
     alignItems: "center"
@@ -31,7 +42,13 @@ export default StyleSheet.create({
   joueur: {
     marginTop: 8,
     fontSize: 16,
-    fontFamily: "Poppins-Medium"
+    fontFamily: "Poppins-Medium",
+  },
+  joueurDarkTheme: {
+    color: "#fff"
+  },
+  joueurLightTheme: {
+    color: "#252422"
   },
   descriptionContainer: {
     marginHorizontal: 16,
@@ -51,6 +68,12 @@ export default StyleSheet.create({
     fontSize: 14,
     marginBottom: 32
   },
+  descriptionDarkTheme: {
+    color: "#fff"
+  },
+  descriptionLightTheme: {
+    color: "#252422"
+  },
   statsContainer :{
     margin: 16,
     marginBottom: 24
@@ -65,10 +88,15 @@ export default StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 2,
     borderRadius: 32,
-    backgroundColor: "#fff",
     width: "32.375%",
     flexDirection: "row",
     alignItems: "center",
+  },
+  statItemContainerDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  statItemContainerLightTheme: {
+    backgroundColor: "#fff",
   },
   iconStatItemContainer: {
     marginRight: 8,
@@ -90,8 +118,13 @@ export default StyleSheet.create({
   },
   textStatItemContainer: {
     fontFamily: "Poppins-Bold",
-    color: "#252422",
     fontSize: 16
+  },
+  textStatItemContainerDarkTheme: {
+    color: "#fff",
+  },
+  textStatItemContainerLightTheme: {
+    color: "#252422",
   },
   changeAvatarContainer: {
     alignItems: "center",
@@ -150,7 +183,13 @@ export default StyleSheet.create({
     textAlign: "center",
     borderWidth: 1.5,
     borderRadius: 32,
-    borderColor: "#D9D9D9"
+    borderColor: "#D9D9D9",
+  },
+  changeNomInputDarkTheme: {
+    color: "#fff"
+  },
+  changeNomInputLightTheme: {
+    color: "#252422"
   },
   validerModifButton: {
     marginTop: "auto",

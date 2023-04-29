@@ -10,6 +10,7 @@ import DetailsPartieStyles from '../../Constants/Parties/DetailsPartieStyles';
 // Infos Partie
 export default function infosPartieComponent(props) {
 
+  const theme = props.theme;
   const [fontsLoaded] = font();
 
   if (!fontsLoaded) {
@@ -24,14 +25,14 @@ export default function infosPartieComponent(props) {
 
         {props.game.gagnant_partie == null
           ?
-            <View style={DetailsPartieStyles.textStatutPartieContainer}>
-              <View style={DetailsPartieStyles.iconePartieEnCoursWrapper}>
+            <View style={[DetailsPartieStyles.textStatutPartieContainer, theme === "dark" ? DetailsPartieStyles.textStatutPartieContainerDarkTheme : DetailsPartieStyles.textStatutPartieContainerLightTheme ]}>
+              <View style={[ DetailsPartieStyles.iconePartieEnCoursWrapper, theme === "dark" ? DetailsPartieStyles.iconePartieEnCoursWrapperDarkTheme : DetailsPartieStyles.iconePartieEnCoursWrapperLightTheme]}>
                 <IconComponent name="hourglass" size="24" color="#7159df" />
               </View>
               <Text style={[ DetailsPartieStyles.textStatutPartie, { color: "#7159df" } ]}>Partie en cours</Text>
             </View>
           :
-            <View style={[ DetailsPartieStyles.textStatutPartieContainer ]}>
+            <View style={[DetailsPartieStyles.textStatutPartieContainer, theme === "dark" ? DetailsPartieStyles.textStatutPartieContainerDarkTheme : DetailsPartieStyles.textStatutPartieContainerLightTheme ]}>
               <View style={DetailsPartieStyles.iconePartieTermineeWrapper}>
                 <IconComponent name="cup" size="24" color="#FEC601" />
               </View>
@@ -39,7 +40,7 @@ export default function infosPartieComponent(props) {
             </View>
         }
 
-        <View style={[ DetailsPartieStyles.textStatutPartieContainer ]}>
+        <View style={[DetailsPartieStyles.textStatutPartieContainer, theme === "dark" ? DetailsPartieStyles.textStatutPartieContainerDarkTheme : DetailsPartieStyles.textStatutPartieContainerLightTheme ]}>
           <View style={DetailsPartieStyles.iconePaletsWrapper}>
             <IconComponent name="palet" size="24" color="#BEBEBE" />
           </View>

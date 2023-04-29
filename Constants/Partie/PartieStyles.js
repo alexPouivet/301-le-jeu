@@ -4,11 +4,16 @@ const width = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
   infosTour: {
-    backgroundColor: "#fff",
     marginLeft: 16,
     marginRight: 16,
     borderRadius: 32,
     padding: 8
+  },
+  infosTourDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  infosTourLightTheme: {
+    backgroundColor: "#fff",
   },
   listeJoueurs: {
     flexDirection: "row",
@@ -28,26 +33,41 @@ export default StyleSheet.create({
   },
   joueurPrecedent: {
     fontSize: 12,
-    color: "#7159df",
     textAlign: "center",
     marginTop: 4,
     width: "75%",
     fontFamily: "Poppins-Regular"
   },
+  joueurPrecedentDarkTheme: {
+    color: "#fff",
+  },
+  joueurPrecedentLightTheme: {
+    color: "#7159df",
+  },
   joueurEnCours: {
     fontSize: 18,
-    color: "#7159df",
     marginTop: 4,
     textAlign: "center",
     fontFamily: "Poppins-Bold"
   },
+  joueurEnCoursDarkTheme: {
+    color: "#fff",
+  },
+  joueurEnCoursLightTheme: {
+    color: "#7159df",
+  },
   joueurSuivant: {
     fontSize: 12,
-    color: "#7159df",
     textAlign: "center",
     marginTop: 4,
     width: "75%",
     fontFamily: "Poppins-Regular"
+  },
+  joueurSuivantDarkTheme: {
+    color: "#fff",
+  },
+  joueurSuivantLightTheme: {
+    color: "#7159df",
   },
   informationsPartie: {
     flexDirection: "row",
@@ -60,24 +80,44 @@ export default StyleSheet.create({
     borderRadius: 32,
     width: "49.25%",
     padding: 8,
+  },
+  informationsContainerDarkTheme: {
+    backgroundColor: "#7159df"
+  },
+  informationsContainerLightTheme: {
     backgroundColor: "#7159df25"
   },
   iconeWrapper: {
-    backgroundColor: "#7159DF25",
     borderRadius: 32,
     padding: 12,
     marginRight: 8
   },
+  iconeWrapperDarkTheme: {
+    backgroundColor: "#ffffff25",
+  },
+  iconeWrapperLightTheme: {
+    backgroundColor: "#7159DF25",
+  },
   textInfosTour: {
     fontSize: 20,
-    color: '#7159df',
     fontFamily: "Poppins-Bold",
     marginBottom: -4
   },
+  textInfosTourDarkTheme: {
+    color: '#fff'
+  },
+  textInfosTourLightTheme: {
+    color: '#7159df'
+  },
   textInfosTourLabel: {
     fontSize: 11,
-    color: "#7159df",
     fontFamily: "Poppins-Regular"
+  },
+  textInfosTourLabelDarkTheme: {
+    color: "#fff",
+  },
+  textInfosTourLabelLightTheme: {
+    color: "#7159df",
   },
   scrollContainer: {
     marginBottom: 78
@@ -90,12 +130,17 @@ export default StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    backgroundColor: "#fff",
     borderRadius: 32,
     marginBottom: 4,
     paddingVertical: 8,
     paddingHorizontal: 8,
     flexDirection: "row"
+  },
+  inputContainerDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  inputContainerLightTheme: {
+    backgroundColor: "#fff",
   },
   pointsContainer: {
     backgroundColor: "#7159DF25",
@@ -127,7 +172,7 @@ export default StyleSheet.create({
     backgroundColor: "#7159df"
   },
   inputSpinner: {
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
     width: 52,
     height: 52,
     marginLeft: 16,

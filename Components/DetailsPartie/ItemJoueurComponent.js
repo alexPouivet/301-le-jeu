@@ -10,6 +10,7 @@ import font from '../../Components/FontComponent';
 // Item Joueur Classement Partie
 export default function itemJoueurComponent(props) {
 
+	const theme = props.theme;
 	const [fontsLoaded] = font();
 
   if (!fontsLoaded) {
@@ -25,7 +26,7 @@ export default function itemJoueurComponent(props) {
 
 			<View style={DetailsPartieStyles.infosClassementJoueur}>
 				<AvatarComponent size={24} name={props.avatar_slug} />
-	      <Text numberOfLines={1} style={DetailsPartieStyles.textNomJoueur}>{props.nom_joueur}</Text>
+	      <Text numberOfLines={1} style={[ DetailsPartieStyles.textNomJoueur, theme ==="dark" ? DetailsPartieStyles.textNomJoueurDarkTheme : DetailsPartieStyles.textNomJoueurLightTheme]}>{props.nom_joueur}</Text>
 			</View>
 
       <View style={DetailsPartieStyles.containerPointsJoueur}>

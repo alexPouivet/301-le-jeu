@@ -15,7 +15,7 @@ import IconComponent from '../../Components/IconComponent';
 import NouvellePartieComponent from '../BottomSheetModal/NouvellePartieComponent';
 import CommencerPartieComponent from '../BottomSheetModal/CommencerPartieComponent';
 
-const BottomSheetModal = () => {
+const BottomSheetModal = ({theme}) => {
 
   const bottomSheetRef = useRef(null);
   const navigation = useNavigation();
@@ -79,18 +79,18 @@ const BottomSheetModal = () => {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         enablePanDownToClose={true}
-        backgroundStyle={CreerPartieModalStyles.backgroundModal}
+        backgroundStyle={[ CreerPartieModalStyles.backgroundModal, theme === "dark" ? CreerPartieModalStyles.backgroundModalDarkTheme : CreerPartieModalStyles.backgroundModalLightTheme ]}
         backdropComponent={renderBackdrop}
         handleIndicatorStyle={CreerPartieModalStyles.handleModal}
       >
 
         {stepModal == "step one" ?
 
-        <NouvellePartieComponent palets={palets} onChangePalets={onChangePalets} participants={participants} onChangeParticipants={onChangeParticipants} changeStepModal={changeStepModal} changePosition={changePosition} />
+        <NouvellePartieComponent theme={theme} palets={palets} onChangePalets={onChangePalets} participants={participants} onChangeParticipants={onChangeParticipants} changeStepModal={changeStepModal} changePosition={changePosition} />
 
         :
 
-        <CommencerPartieComponent palets={palets} closeModal={closeModal} participants={participants} changeStepModal={changeStepModal} changePosition={changePosition} toast={toast} navigation={navigation} />
+        <CommencerPartieComponent theme={theme} palets={palets} closeModal={closeModal} participants={participants} changeStepModal={changeStepModal} changePosition={changePosition} toast={toast} navigation={navigation} />
 
         }
 

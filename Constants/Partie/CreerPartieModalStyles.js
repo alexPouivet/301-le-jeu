@@ -12,7 +12,13 @@ export default StyleSheet.create({
     alignItems: "center"
   },
   backgroundModal: {
-    borderRadius: 32
+    borderRadius: 32,
+  },
+  backgroundModalDarkTheme: {
+    backgroundColor: "#3C3C3C"
+  },
+  backgroundModalLightTheme: {
+    backgroundColor: "#fff"
   },
   handleModal: {
     backgroundColor: "#D9D9D9",
@@ -33,17 +39,27 @@ export default StyleSheet.create({
   },
   textHeaderTitle: {
     fontSize: 20,
-    color: "#252422",
     textAlign: "center",
     fontFamily: "Poppins-Medium"
+  },
+  textHeaderTitleDarkTheme: {
+    color: "#fff",
+  },
+  textHeaderTitleLightTheme: {
+    color: "#252422",
   },
   description: {
     alignSelf: "center",
     fontSize: 12,
-    color: "#252422",
     paddingHorizontal: 16,
     textAlign: "center",
     fontFamily: "Poppins-Regular"
+  },
+  descriptionDarkTheme: {
+    color: "#fff",
+  },
+  descriptionLightTheme: {
+    color: "#252422",
   },
   inputsContainer: {
     alignItems: "center",
@@ -62,7 +78,7 @@ export default StyleSheet.create({
     backgroundColor: "#7159df"
   },
   inputSpinner: {
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
     width: 52,
     height: 52,
     marginLeft: 16,
@@ -120,7 +136,13 @@ export default StyleSheet.create({
   },
   listEmptyText: {
     textAlign: "center",
-    fontSize: 16
+    fontSize: 16,
+  },
+  listEmptyTextDarkTheme: {
+    color: "#fff"
+  },
+  listEmptyTextLightTheme: {
+    color: "#252422"
   },
   listJoueursContainer: {
     height: "75%",
@@ -163,8 +185,13 @@ export default StyleSheet.create({
     marginTop: 4,
     fontFamily: "Poppins-Medium",
     fontSize: 12,
-    color: "#252422",
     textAlign: "center",
     width: "100%"
+  },
+  nomItemJoueurDarkTheme: {
+    color: "#fff",
+  },
+  nomItemJoueurLightTheme: {
+    color: "#252422",
   },
 });

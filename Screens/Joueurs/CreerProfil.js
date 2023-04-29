@@ -46,6 +46,8 @@ export default class CreerProfil extends React.Component {
 
   render() {
 
+    let theme = this.props.theme;
+
     if (!this.state.fontsLoaded) {
       return null;
     }
@@ -55,19 +57,19 @@ export default class CreerProfil extends React.Component {
     }
 
     return (
-      <View style={GlobalStyles.container}>
+      <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme ]}>
         <View style={GlobalStyles.buttonLeftTextContainer}>
           <TouchableOpacity
-            style={GlobalStyles.buttonLeft}
+            style={[  GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
             onPress={() => {
-              this.props.isProfil.extraData.navigation.navigate("Profil Vide")
+              this.props.extraData.navigation.navigate("Profil Vide")
             }}
           >
 
-            <IconComponent name="arrow-back" size="24" color="#252422" />
+            <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
 
           </TouchableOpacity>
-          <Text style={GlobalStyles.textHeaderTitle}>Créer votre profil</Text>
+          <Text style={[ GlobalStyles.textHeaderTitle, theme === 'dark' ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme]}>Créer votre profil</Text>
           <View style={GlobalStyles.buttonEmpty}>
           </View>
         </View>
@@ -107,17 +109,18 @@ export default class CreerProfil extends React.Component {
           <View style={DetailsJoueurStyles.changeNomContainer}>
 
             <TextInput
-              style={DetailsJoueurStyles.changeNomInput}
+              style={[ DetailsJoueurStyles.changeNomInput, theme === "dark" ? DetailsJoueurStyles.changeNomInputDarkTheme : DetailsJoueurStyles.changeNomInputLightTheme ]}
               placeholder="Nom du joueur..."
               value={this.state.nomJoueur}
               onChangeText={ nomJoueur => { this.setState({nomJoueur: nomJoueur}) }}
+              placeholderTextColor="#C0C0C0"
             />
 
           </View>
 
           { this.state.errorText
             ?
-            <Text style={[ GlobalStyles.errorText, {marginHorizontal: 16} ]}>{this.state.errorText}</Text>
+            <Text style={[ GlobalStyles.errorText, {marginHorizontal: 16, textAlign: "center" } ]}>{this.state.errorText}</Text>
             :
             null
           }
@@ -137,9 +140,9 @@ export default class CreerProfil extends React.Component {
 
               this.setState({errorText: ""});
               createProfile(this.state.nomJoueur, this.state.avatarJoueur).then(() => {
-                this.props.isProfil.extraData.navigation.navigate("Joueurs");
-                this.props.isProfil.extraData.setIsProfil("profil");
-                this.props.isProfil.extraData.toast.show('Profil créé avec succès !', {
+                this.props.extraData.navigation.navigate("Joueurs");
+                this.props.extraData.setIsProfil("profil");
+                this.props.extraData.toast.show('Profil créé avec succès !', {
                   type: "success",
                   placement: "top",
                   animationType: "slide-in"

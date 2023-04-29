@@ -17,13 +17,15 @@ import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Modifier les infos d'un Joueur
-export default function ModifierJoueur({ navigation, route }) {
+export default function ModifierJoueur(props) {
 
+  const theme = props.theme;
+  const navigation = props.navigation;
   const [fontsLoaded] = font();
-  const { joueur_id } = route.params;
-  const [joueur, setJoueur] = useState(null);
-  const [nomJoueur, setNomJoueur] = useState(null);
-  const [avatarJoueur, setAvatarJoueur] = useState(null);
+  const { joueur_id } = props.route.params;
+  const [joueur, setJoueur] = useState("");
+  const [nomJoueur, setNomJoueur] = useState("");
+  const [avatarJoueur, setAvatarJoueur] = useState("");
   const toast = useToast();
 
   useEffect(() => {
@@ -44,11 +46,21 @@ export default function ModifierJoueur({ navigation, route }) {
     return null;
   }
 
+  function checkModifiedData() {
+
+    if (avatarJoueur == joueur.avatar_slug && nomJoueur == joueur.nom_joueur || nomJoueur.length < 2 || nomJoueur.length < 2 && avatarJoueur !== joueur.avatar_slug ) {
+      return true;
+    } else {
+      return false;
+    }
+
+  }
+
   return (
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme ]}>
       <View style={GlobalStyles.buttonLeftTextContainer}>
         <TouchableOpacity
-          style={GlobalStyles.buttonLeft}
+          style={[  GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
           onPress={() => {
             if (joueur.profil) {
               navigation.reset({
@@ -60,16 +72,16 @@ export default function ModifierJoueur({ navigation, route }) {
             }
           }}
         >
-          <IconComponent name="arrow-back" size="24" color="#252422" />
+          <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
         </TouchableOpacity>
         {
           joueur.profil ?
 
-          <Text style={GlobalStyles.textHeaderTitle}>Modifier le profil</Text>
+          <Text style={[ GlobalStyles.textHeaderTitle, theme === 'dark' ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme]}>Modifier le profil</Text>
 
           :
 
-          <Text style={GlobalStyles.textHeaderTitle}>Modifier le joueur</Text>
+          <Text style={[ GlobalStyles.textHeaderTitle, theme === 'dark' ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme]}>Modifier le joueur</Text>
 
         }
         <View style={{ width: 42 }}>
@@ -123,10 +135,11 @@ export default function ModifierJoueur({ navigation, route }) {
         <View style={ DetailsJoueurStyles.changeNomContainer }>
 
           <TextInput
-            style={DetailsJoueurStyles.changeNomInput}
+            style={[ DetailsJoueurStyles.changeNomInput, theme === "dark" ? DetailsJoueurStyles.changeNomInputDarkTheme : DetailsJoueurStyles.changeNomInputLightTheme ]}
             placeholder="Nom du joueur ..."
             value={nomJoueur}
             onChangeText={ nomJoueur => {setNomJoueur(nomJoueur)}}
+            placeholderTextColor="#C0C0C0"
           />
 
         </View>
@@ -134,8 +147,8 @@ export default function ModifierJoueur({ navigation, route }) {
       </View>
 
       <TouchableOpacity
-        style={[ DetailsJoueurStyles.validerModifButton, avatarJoueur == joueur.avatar_slug ? nomJoueur == joueur.nom_joueur ? DetailsJoueurStyles.disabledValiderModifButton : DetailsJoueurStyles.enableValiderModifButton : DetailsJoueurStyles.enableValiderModifButton ]}
-        disabled={ avatarJoueur == joueur.avatar_slug ? nomJoueur == joueur.nom_joueur ? true : false : false }
+        style={[ DetailsJoueurStyles.validerModifButton, checkModifiedData() == true ? DetailsJoueurStyles.disabledValiderModifButton : DetailsJoueurStyles.enableValiderModifButton ]}
+        disabled={ checkModifiedData() }
         onPress={() => updateJoueur(joueur.joueur_id, avatarJoueur, nomJoueur).then(() => {
           navigation.goBack()
           toast.show('Informations modifiées avec succès !', {

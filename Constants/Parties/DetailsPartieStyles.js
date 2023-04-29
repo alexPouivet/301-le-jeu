@@ -13,15 +13,25 @@ export default StyleSheet.create({
     alignItems: "center",
     borderRadius: 32,
     width: "49.25%",
+  },
+  textStatutPartieContainerDarkTheme: {
+    backgroundColor: "#3C3C3C"
+  },
+  textStatutPartieContainerLightTheme: {
     backgroundColor: "#fff"
   },
   iconePartieEnCoursWrapper: {
-    backgroundColor: "#7159df20",
     borderRadius: 32,
     padding: 12
   },
+  iconePartieEnCoursWrapperDarkTheme: {
+    backgroundColor: "#7159df40",
+  },
+  iconePartieEnCoursWrapperLightTheme: {
+    backgroundColor: "#7159df25",
+  },
   iconePartieTermineeWrapper: {
-    backgroundColor: "#FEC60120",
+    backgroundColor: "#FEC60125",
     borderRadius: 32,
     padding: 12
   },
@@ -48,6 +58,11 @@ export default StyleSheet.create({
   textDate: {
     fontSize: 14,
     fontFamily: "Poppins-Medium",
+  },
+  textDateDarkTheme: {
+    color: "#fff",
+  },
+  textDateLightTheme: {
     color: "#252422",
   },
   containerPodium: {
@@ -73,10 +88,15 @@ export default StyleSheet.create({
     height: "40%",
     borderTopLeftRadius: 20,
     borderWidth: 2,
-    backgroundColor: "#fff",
     borderColor: "#C0C0C0",
     borderBottomWidth: 0,
     borderRightWidth: 0
+  },
+  secondPlacePodiumDarkTheme: {
+    backgroundColor: "#252422",
+  },
+  secondPlacePodiumLightTheme: {
+    backgroundColor: "#fff",
   },
   podiumJoueur: {
     alignItems: "center",
@@ -92,12 +112,17 @@ export default StyleSheet.create({
   },
   firstPlacePodium: {
     height: "52.5%",
-    backgroundColor: "#fff",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderWidth: 2,
     borderColor: "#FEC601",
     borderBottomWidth: 0
+  },
+  firstPlacePodiumDarkTheme: {
+    backgroundColor: "#252422",
+  },
+  firstPlacePodiumLightTheme: {
+    backgroundColor: "#fff",
   },
   thirdPlaceTopPodium: {
     height: "70%",
@@ -105,12 +130,17 @@ export default StyleSheet.create({
   },
   thirdPlacePodium: {
     height: "30%",
-    backgroundColor: "#fff",
     borderTopRightRadius: 20,
     borderWidth: 2,
     borderColor: "#C49C48",
     borderBottomWidth: 0,
     borderLeftWidth: 0
+  },
+  thirdPlacePodiumDarkTheme: {
+    backgroundColor: "#252422",
+  },
+  thirdPlacePodiumLightTheme: {
+    backgroundColor: "#fff",
   },
   podiumJoueurContainer: {
     alignItems: "center",
@@ -121,10 +151,16 @@ export default StyleSheet.create({
     marginTop: 4,
     fontSize: 16,
     fontWeight: "500",
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "Poppins-Medium",
+  },
+  podiumJoueurNomDarkTheme: {
+    color: "#fff"
+  },
+  podiumJoueurNomLightTheme: {
+    color: "#252422"
   },
   podiumJoueurScore: {
-    color: "#fff",
     fontSize: 16,
     fontFamily: "Poppins-Bold",
   },
@@ -134,19 +170,24 @@ export default StyleSheet.create({
     fontFamily: "Poppins-Regular",
   },
   containerJoueurs: {
-    backgroundColor: "#ffffff",
     borderRadius: 24,
     marginLeft: 16,
     marginRight: 16,
     marginBottom: 88,
+  },
+  containerJoueursDarkTheme: {
+    backgroundColor: "#3C3C3C"
+  },
+  containerJoueursLightTheme: {
+    backgroundColor: "#ffffff"
   },
   joueur: {
     marginLeft: 16,
     marginRight: 16,
     marginTop: 12,
     paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#f3f3f3",
+    borderBottomWidth: 0.25,
+    borderBottomColor: "#D9D9D9",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -170,7 +211,6 @@ export default StyleSheet.create({
   infosClassementJoueur: {
     flexDirection: "row",
     width: "50%",
-    marginLeft: 16,
     alignItems: "center"
   },
   textNomJoueur: {
@@ -178,8 +218,13 @@ export default StyleSheet.create({
     flex: 1,
     marginLeft: 8,
     fontWeight: "500",
-    color: "#252422",
     fontFamily: "Poppins-Medium"
+  },
+  textNomJoueurDarkTheme: {
+    color: "#fff",
+  },
+  textNomJoueurLightTheme: {
+    color: "#252422",
   },
   containerPointsJoueur: {
     backgroundColor: '#7159df20',

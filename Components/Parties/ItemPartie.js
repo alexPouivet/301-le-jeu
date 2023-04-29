@@ -38,6 +38,7 @@ export default class ItemPartie extends React.Component {
 
   render() {
 
+    let theme = this.props.theme;
     let statutFiltres = this.props.statutFiltres;
     let setGames = this.props.setGames;
     let listerGames = this.props.listerGames;
@@ -54,7 +55,7 @@ export default class ItemPartie extends React.Component {
     }
 
     return (
-      <View style={PartiesStyles.itemPartieContainer} >
+      <View style={[ PartiesStyles.itemPartieContainer, theme === "dark" ? PartiesStyles.itemPartieContainerDarkTheme : PartiesStyles.itemPartieContainerLightTheme]} >
         <Swipeable
           onRef={ref => this.swipeable = ref}
           style={PartiesStyles.swipeable}
@@ -89,7 +90,7 @@ export default class ItemPartie extends React.Component {
             onPress={() => this.props.navigation.navigate('Details Partie', { game_id: this.props.game_id }) }
           >
 
-            <View style={[PartiesStyles.statutPartieContainer, this.props.statut == "finie" ? PartiesStyles.partieFinie : PartiesStyles.partieEnCours ]}>
+            <View style={[PartiesStyles.statutPartieContainer, this.props.statut == "finie" ? PartiesStyles.partieFinie : theme === "dark" ? PartiesStyles.partieEnCoursDarkTheme : PartiesStyles.partieEnCoursLightTheme ]}>
             {
             this.props.statut ==  "finie"
             ?
@@ -103,7 +104,7 @@ export default class ItemPartie extends React.Component {
             <View style={PartiesStyles.infosPartieContainer}>
 
               <View style={PartiesStyles.containerDateAndTime}>
-                <Text style={PartiesStyles.libeleDateAndTime}>Partie du {this.props.date} à {this.props.time}</Text>
+                <Text style={[ PartiesStyles.libeleDateAndTime, theme === "dark" ? PartiesStyles.libeleDateAndTimeDarkTheme : PartiesStyles.libeleDateAndTimeLightTheme]}>Partie du {this.props.date} à {this.props.time}</Text>
               </View>
 
               <View style={PartiesStyles.containerJoueurs}>

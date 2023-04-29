@@ -8,25 +8,35 @@ export default StyleSheet.create({
     width: "100%",
   },
   parametres: {
-    backgroundColor: "#ffffff",
     marginLeft: 16,
     marginRight: 16,
     marginBottom: 16,
     borderRadius: 32,
+  },
+  parametresDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  parametresLightTheme: {
+    backgroundColor: "#ffffff",
   },
   container: {
     margin: 16,
     marginTop: 0,
     padding: 24,
     borderRadius: 32,
+  },
+  containerDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  containerLightTheme: {
     backgroundColor: "#fff",
   },
   buttonParametres: {
     marginLeft: 16,
     marginRight: 16,
     marginTop: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#F3F3F3",
+    borderBottomWidth: 0.25,
+    borderBottomColor: "#D9D9D9",
     paddingBottom: 12,
     flexDirection: "row",
     alignItems: "center",
@@ -35,23 +45,38 @@ export default StyleSheet.create({
     borderBottomWidth: 0,
   },
   iconButtonParametres: {
-    backgroundColor: "#7159DF25",
     height: 48,
     width: 48,
     borderRadius: 32,
     alignItems: 'center',
     justifyContent: 'center'
   },
+  iconButtonParametresDarkTheme: {
+    backgroundColor: "#7159DF40",
+  },
+  iconButtonParametresLightTheme: {
+    backgroundColor: "#7159DF25",
+  },
   textButtonParametres: {
     marginLeft: 12,
     marginRight: "auto",
-    color: "#252422",
     fontSize: 13,
     fontFamily: "Poppins-Medium",
   },
+  textButtonParametresDarkMode: {
+    color: "#fff"
+  },
+  textButtonParametresLightMode: {
+    color: "#252422"
+  },
   text16: {
     fontSize: 14,
-    fontFamily: "Poppins-Regular",
+    fontFamily: "Poppins-Regular"
+  },
+  text16DarkTheme: {
+    color: "#fff",
+  },
+  text16LightTheme: {
     color: "#252422",
   },
   marginText12: {
@@ -77,6 +102,11 @@ export default StyleSheet.create({
     fontSize: 16,
     alignSelf: "center",
     fontFamily: "Poppins-Medium",
+  },
+  logTitreAppDarkTheme: {
+    color: "#fff",
+  },
+  logTitreAppLightTheme: {
     color: "#252422",
   },
   logVersionAppContainer: {
@@ -85,6 +115,7 @@ export default StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 4,
     borderRadius: 16,
+    marginRight: 4,
     backgroundColor: "#7159DF25",
   },
   logVersionApp: {
@@ -96,7 +127,6 @@ export default StyleSheet.create({
   logSpecialContainer: {
     paddingHorizontal: 6,
     paddingVertical: 4,
-    marginLeft: 4,
     borderRadius: 16,
     backgroundColor: "#f3f3f3",
   },
@@ -114,7 +144,12 @@ export default StyleSheet.create({
   logDescriptionApp: {
     marginTop: 4,
     fontSize: 14,
-    fontFamily: "Poppins-Regular",
+    fontFamily: "Poppins-Regular"
+  },
+  logDescriptionAppDarkTheme: {
+    color: "#fff",
+  },
+  logDescriptionAppLightTheme: {
     color: "#252422",
   },
   logContainer: {
@@ -123,6 +158,11 @@ export default StyleSheet.create({
     marginBottom: 8,
     padding: 24,
     borderRadius: 32,
+  },
+  logContainerDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  logContainerLightTheme: {
     backgroundColor: "#fff",
   },
   titreContainer: {
@@ -194,12 +234,17 @@ export default StyleSheet.create({
     marginBottom: 46,
   },
   itemWrap: {
-    backgroundColor: "#fff",
     padding: 12,
     flex: 1,
     alignItems: 'center',
     paddingBottom: 64,
     borderRadius: 32
+  },
+  itemWrapDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  itemWrapLightTheme: {
+    backgroundColor: "#fff",
   },
   imageContainer: {
     flex: 4/7,
@@ -219,12 +264,22 @@ export default StyleSheet.create({
     marginBottom: 8,
     fontSize: 16,
     fontFamily: "Poppins-Medium",
+  },
+  itemTitleDarkTheme: {
+    color: "#fff"
+  },
+  itemTitleLightTheme: {
     color: "#252422"
   },
   itemDescription: {
     textAlign: "center",
     fontSize: 11,
     fontFamily: "Poppins-Regular",
+  },
+  itemDescriptionDarkTheme: {
+    color: "#fff"
+  },
+  itemDescriptionLightTheme: {
     color: "#252422"
   },
   dotContainer: {

@@ -10,6 +10,7 @@ import font from '../../Components/FontComponent';
 // Podium Partie
 export default function PodiumPartieComponent(props) {
 
+	const theme = props.theme;
 	const [fontsLoaded] = font();
 
   if (!fontsLoaded) {
@@ -25,11 +26,11 @@ export default function PodiumPartieComponent(props) {
               ? null
               : <View style={DetailsPartieStyles.podiumJoueurContainer}>
 									<AvatarComponent size={48} name={props.joueurs1.avatar_slug} />
-									<Text numberOfLines={1} style={[ DetailsPartieStyles.podiumJoueurNom, { fontFamily: "Poppins-Medium"}]}>{props.joueurs1.nom_joueur}</Text>
+									<Text numberOfLines={1} style={[ DetailsPartieStyles.podiumJoueurNom, theme === "dark" ? DetailsPartieStyles.podiumJoueurNomDarkTheme : DetailsPartieStyles.podiumJoueurNomLightTheme ]}>{props.joueurs1.nom_joueur}</Text>
 								</View>
             }
           </View>
-          <View style={DetailsPartieStyles.secondPlacePodium}>
+          <View style={[  DetailsPartieStyles.secondPlacePodium, theme === "dark" ? DetailsPartieStyles.secondPlacePodiumDarkTheme : DetailsPartieStyles.secondPlacePodiumLightTheme]}>
             {props.joueurs1 == null
               ? null
               : <View style={[ DetailsPartieStyles.podiumJoueur, { backgroundColor:"#C0C0C025" } ]}>
@@ -45,11 +46,11 @@ export default function PodiumPartieComponent(props) {
               ? null
               : <View style={DetailsPartieStyles.podiumJoueurContainer}>
 									<AvatarComponent size={48} name={props.joueurs0.avatar_slug} />
-									<Text numberOfLines={1} style={[ DetailsPartieStyles.podiumJoueurNom, { fontFamily: "Poppins-Medium"}]}>{props.joueurs0.nom_joueur}</Text>
+									<Text numberOfLines={1} style={[ DetailsPartieStyles.podiumJoueurNom, theme === "dark" ? DetailsPartieStyles.podiumJoueurNomDarkTheme : DetailsPartieStyles.podiumJoueurNomLightTheme ]}>{props.joueurs0.nom_joueur}</Text>
 							</View>
 						}
           </View>
-          <View style={DetailsPartieStyles.firstPlacePodium}>
+          <View style={[ DetailsPartieStyles.firstPlacePodium, theme === "dark" ? DetailsPartieStyles.firstPlacePodiumDarkTheme : DetailsPartieStyles.firstPlacePodiumLightTheme ]}>
             {props.joueurs0 == null
               ? null
               : <View style={[DetailsPartieStyles.podiumJoueur, { backgroundColor:"#FEC60125" } ]}>
@@ -65,11 +66,11 @@ export default function PodiumPartieComponent(props) {
               ? null
               : <View style={DetailsPartieStyles.podiumJoueurContainer}>
 									<AvatarComponent size={48} name={props.joueurs2.avatar_slug} />
-									<Text numberOfLines={1} style={[ DetailsPartieStyles.podiumJoueurNom, { fontFamily: "Poppins-Medium"}]}>{props.joueurs2.nom_joueur}</Text>
+									<Text numberOfLines={1} style={[ DetailsPartieStyles.podiumJoueurNom, theme === "dark" ? DetailsPartieStyles.podiumJoueurNomDarkTheme : DetailsPartieStyles.podiumJoueurNomLightTheme ]}>{props.joueurs2.nom_joueur}</Text>
 								</View>
 						}
           </View>
-          <View style={DetailsPartieStyles.thirdPlacePodium}>
+          <View style={[ DetailsPartieStyles.thirdPlacePodium, theme === "dark" ? DetailsPartieStyles.thirdPlacePodiumDarkTheme : DetailsPartieStyles.thirdPlacePodiumLightTheme ]}>
             {props.joueurs2 == null
               ? null
               : <View style={[DetailsPartieStyles.podiumJoueur, { backgroundColor:"#C49C4825" }]}>

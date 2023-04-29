@@ -35,6 +35,7 @@ export default class ItemPartie extends React.Component {
 
   render() {
 
+    let theme = this.props.theme;
     let db = this.props.db;
     let avatars = this.props.avatars.split(',');
 
@@ -43,13 +44,13 @@ export default class ItemPartie extends React.Component {
     }
 
     return (
-      <View style={PartiesStyles.itemPartieContainer} >
+      <View style={[ PartiesStyles.itemPartieContainer, theme === "dark" ? PartiesStyles.itemPartieContainerDarkTheme : PartiesStyles.itemPartieContainerLightTheme]} >
 
           <TouchableOpacity style={[PartiesStyles.wrapperPartie] }
             onPress={() => this.props.navigation.navigate('Details Partie', { game_id: this.props.game_id }) }
           >
 
-            <View style={[PartiesStyles.statutPartieContainer, this.props.statut == "finie" ? PartiesStyles.partieFinie : PartiesStyles.partieEnCours ]}>
+            <View style={[PartiesStyles.statutPartieContainer, this.props.statut == "finie" ? PartiesStyles.partieFinie : theme === "dark" ? PartiesStyles.partieEnCoursDarkTheme : PartiesStyles.partieEnCoursLightTheme ]}>
 
               {
               this.props.statut ==  "finie"
@@ -64,7 +65,7 @@ export default class ItemPartie extends React.Component {
             <View style={PartiesStyles.infosPartieContainer}>
 
               <View style={PartiesStyles.containerDateAndTime}>
-                <Text style={PartiesStyles.libeleDateAndTime}>Partie du {this.props.date} à {this.props.time}</Text>
+                <Text style={[ PartiesStyles.libeleDateAndTime, theme === "dark" ? PartiesStyles.libeleDateAndTimeDarkTheme : PartiesStyles.libeleDateAndTimeLightTheme]}>Partie du {this.props.date} à {this.props.time}</Text>
               </View>
 
               <View style={PartiesStyles.containerJoueurs}>

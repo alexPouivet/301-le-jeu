@@ -10,7 +10,7 @@ import CreerPartieModalStyles from '../../Constants/Partie/CreerPartieModalStyle
 import IconComponent from '../../Components/IconComponent';
 import font from '../../Components/FontComponent';
 
-export default function NouvellePartie(props) {
+export default function NouvellePartie({ participants, palets, onChangeParticipants, onChangePalets, changePosition, changeStepModal, theme }) {
 
   const [fontsLoaded] = font();
 
@@ -23,17 +23,17 @@ export default function NouvellePartie(props) {
     <View style={CreerPartieModalStyles.stepOneContainer}>
 
       <View style={CreerPartieModalStyles.textHeaderContainer}>
-        <Text style={CreerPartieModalStyles.textHeaderTitle}>Nouvelle partie</Text>
+        <Text style={[ CreerPartieModalStyles.textHeaderTitle, theme === "dark" ? CreerPartieModalStyles.textHeaderTitleDarkTheme : CreerPartieModalStyles.textHeaderTitleLightTheme ]}>Nouvelle partie</Text>
       </View>
 
       <View>
-        <Text style={CreerPartieModalStyles.description}>Commencez une nouvelle partie en indiquant le nombre de joueurs et que de palets par joueur.</Text>
+        <Text style={[ CreerPartieModalStyles.description, theme === "dark" ? CreerPartieModalStyles.descriptionDarkTheme : CreerPartieModalStyles.descriptionLightTheme ]}>Commencez une nouvelle partie en indiquant le nombre de joueurs et que de palets par joueur.</Text>
       </View>
 
       <View style={CreerPartieModalStyles.inputsContainer}>
         <Text style={CreerPartieModalStyles.text}>Nombre de joueurs</Text>
         <InputSpinner
-          value={props.participants}
+          value={participants}
           min={1}
           max={8}
           step={1}
@@ -47,13 +47,13 @@ export default function NouvellePartie(props) {
           buttonStyle={CreerPartieModalStyles.buttonSpinner}
           inputStyle={CreerPartieModalStyles.inputSpinner}
           onChange={(num)=>{
-            props.onChangeParticipants(num)
+            onChangeParticipants(num)
           }}
           editable={false}
         />
         <Text style={CreerPartieModalStyles.text}>Nombre de palets par joueurs</Text>
         <InputSpinner
-          value={props.palets}
+          value={palets}
           min={1}
           max={9}
           step={1}
@@ -66,7 +66,7 @@ export default function NouvellePartie(props) {
           buttonStyle={CreerPartieModalStyles.buttonSpinner}
           inputStyle={CreerPartieModalStyles.inputSpinner}
           onChange={(num)=>{
-            props.onChangePalets(num)
+            onChangePalets(num)
           }}
           editable={false}
         />
@@ -75,8 +75,8 @@ export default function NouvellePartie(props) {
       <TouchableOpacity
         style={[CreerPartieModalStyles.button]}
         onPress={() => {
-          props.changePosition(520)
-          props.changeStepModal('step two')
+          changePosition(520)
+          changeStepModal('step two')
       }}
       >
         <Text style={CreerPartieModalStyles.textButton}>Étape suivante</Text>

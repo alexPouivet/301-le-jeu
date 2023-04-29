@@ -15,6 +15,7 @@ export default function PointsPartieInputSpinner(props) {
 
 	const [fontsLoaded] = font();
 
+	let theme = props.theme;
   let setPoints20 = props.setPoints20;
   let setPoints10 = props.setPoints10;
   let setPoints8 = props.setPoints8;
@@ -29,7 +30,7 @@ export default function PointsPartieInputSpinner(props) {
 
 	return (
 
-    <View style={PartieStyles.inputContainer}>
+    <View style={[  PartieStyles.inputContainer, theme === "dark" ? PartieStyles.inputContainerDarkTheme : PartieStyles.inputContainerLightTheme ]}>
       <Points score={props.score} />
       <InputSpinner
         max={props.max}

@@ -47,12 +47,17 @@ export default StyleSheet.create({
     paddingHorizontal: 16
   },
   classementJoueurItemContainer: {
-    backgroundColor: "#fff",
     flexDirection: "row",
     alignItems: "center",
     borderRadius: 32,
     padding: 20,
     marginBottom: 8
+  },
+  classementJoueurItemContainerDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  classementJoueurItemContainerLightTheme: {
+    backgroundColor: "#fff",
   },
   classementNumberContainer: {
     height: 40,
@@ -65,8 +70,13 @@ export default StyleSheet.create({
   classementJoueurItemStatut: {
     marginLeft: "auto",
     fontSize: 20,
-    color: "#252422",
     fontFamily: "Poppins-Bold"
+  },
+  classementJoueurItemStatutDarkTheme: {
+    color: "#fff",
+  },
+  classementJoueurItemStatutLightTheme: {
+    color: "#252422",
   },
   classementNumberOneContainer: {
     backgroundColor: '#FFAD0820',

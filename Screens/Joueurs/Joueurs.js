@@ -16,7 +16,7 @@ import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Joueurs
-export default function Joueurs({ navigation }) {
+export default function Joueurs({ navigation, theme }) {
 
   const [fontsLoaded] = font();
   const [refreshing, setRefreshing] = useState(false);
@@ -63,9 +63,9 @@ export default function Joueurs({ navigation }) {
   }
 
   return (
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === 'dark' ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme]}>
       <View style={GlobalStyles.textHeaderContainer}>
-        <Text style={GlobalStyles.textHeaderTitle}>Joueurs</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === 'dark' ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme]}>Joueurs</Text>
       </View>
 
       <TouchableOpacity onPress={() => {
@@ -87,15 +87,16 @@ export default function Joueurs({ navigation }) {
 
       <View style={GlobalStyles.addPlayerContainer}>
 
-        <Text style={GlobalStyles.addPlayerTitle}>Ajouter un joueur</Text>
+        <Text style={[ GlobalStyles.addPlayerTitle, theme === "dark" ? GlobalStyles.addPlayerTitleDarkTheme : GlobalStyles.addPlayerTitleLightTheme]}>Ajouter un joueur</Text>
 
         <View style={GlobalStyles.inputAddPlayerContainer}>
 
           <TextInput
-            style={[ participant.length < 2 ? GlobalStyles.inputAddPlayerFull : GlobalStyles.inputAddPlayer ]}
+            style={[ participant.length < 2 ? theme === "dark" ? GlobalStyles.inputAddPlayerFullDarkTheme : GlobalStyles.inputAddPlayerFull : theme === "dark" ? GlobalStyles.inputAddPlayerDarkTheme : GlobalStyles.inputAddPlayer ]}
             placeholder="Nom du joueur..."
             value={participant}
             onChangeText={setParticipant}
+            placeholderTextColor="#C0C0C0"
           />
 
           <TouchableOpacity
@@ -138,7 +139,7 @@ export default function Joueurs({ navigation }) {
         ?
           <View style={JoueursStyles.listEmptyContainer}>
 
-            <Text style={JoueursStyles.listEmptyText}>Aucun joueur n'a été créé pour le moment.</Text>
+            <Text style={[ JoueursStyles.listEmptyText, theme === "dark" ? JoueursStyles.listEmptyTextDarkTheme : JoueursStyles.listEmptyTextLightTheme]}>Aucun joueur n'a été créé pour le moment.</Text>
 
           </View>
 
@@ -152,7 +153,7 @@ export default function Joueurs({ navigation }) {
           renderSectionHeader={({ section: { title } }) => (
             <Text style={ JoueursStyles.sectionHeader }>{title}</Text>
           )}
-          renderItem={({ item, index }) => ( <ItemJoueur joueur={item} key={index} navigation={navigation} toast={toast} onRefresh={onRefresh} db={db} /> )}
+          renderItem={({ item, index }) => ( <ItemJoueur joueur={item} theme={theme} key={index} navigation={navigation} toast={toast} onRefresh={onRefresh} db={db} /> )}
         />
 
       }

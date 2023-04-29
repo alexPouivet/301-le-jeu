@@ -23,10 +23,15 @@ export default StyleSheet.create({
   },
   listEmptyText: {
     marginTop: 48,
-    color: "#252422",
     textAlign: "center",
     fontSize: 16,
     fontFamily: "Poppins-Regular"
+  },
+  listEmptyTextDarkTheme: {
+    color: "#fff",
+  },
+  listEmptyTextLightTheme: {
+    color: "#252422",
   },
   partiesContainer: {
     paddingHorizontal: 16,
@@ -44,8 +49,13 @@ export default StyleSheet.create({
   itemPartieContainer: {
     borderRadius: 32,
     width: "100%",
-    backgroundColor: "#fff",
     marginBottom: 8,
+  },
+  itemPartieContainerDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  itemPartieContainerLightTheme: {
+    backgroundColor: "#fff",
   },
   swipeable: {
     overflow: "hidden",
@@ -78,7 +88,10 @@ export default StyleSheet.create({
   partieFinie: {
     backgroundColor: "#FEC60125",
   },
-  partieEnCours: {
+  partieEnCoursDarkTheme: {
+    backgroundColor: "#7159DF40"
+  },
+  partieEnCoursLightTheme: {
     backgroundColor: "#7159DF25"
   },
   infosPartieContainer: {
@@ -92,9 +105,14 @@ export default StyleSheet.create({
     marginBottom: 2
   },
   libeleDateAndTime: {
-    color: "#252422",
     fontSize: 12,
     fontFamily: "Poppins-Medium"
+  },
+  libeleDateAndTimeDarkTheme: {
+    color: "#fff",
+  },
+  libeleDateAndTimeLightTheme: {
+    color: "#252422",
   },
   containerJoueurs: {
     flexDirection: "row",

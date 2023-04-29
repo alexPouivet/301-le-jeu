@@ -34,6 +34,7 @@ export default class SelectionJoueurComponent extends React.Component {
 
   render() {
 
+    let theme = this.props.theme;
     let joueur = this.props.joueur;
     let setIsLimit = this.props.setIsLimit;
     let setPlayersSelect = this.props.setPlayersSelect;
@@ -81,7 +82,7 @@ export default class SelectionJoueurComponent extends React.Component {
 
           <AvatarComponent size={64} name={joueur.avatar_slug} />
 
-          <Text numberOfLines={1} style={CreerPartieModalStyles.nomItemJoueur}>{joueur.nom_joueur}</Text>
+          <Text numberOfLines={1} style={[ CreerPartieModalStyles.nomItemJoueur, theme === "dark" ? CreerPartieModalStyles.nomItemJoueurDarkTheme : CreerPartieModalStyles.nomItemJoueurLightTheme ]}>{joueur.nom_joueur}</Text>
         </View>
 
       </TouchableOpacity>

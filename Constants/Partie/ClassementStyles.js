@@ -4,13 +4,16 @@ const width = Dimensions.get("screen").width;
 
 export default StyleSheet.create({
   containerJoueurs: {
-    backgroundColor: "#ffffff",
     borderRadius: 24,
     marginLeft: 16,
     marginRight: 16,
     marginBottom: 96,
-    borderWidth: 1,
-    borderColor: "#f3f3f3"
+  },
+  containerJoueursDarkTheme: {
+    backgroundColor: "#3C3C3C",
+  },
+  containerJoueursLightTheme: {
+    backgroundColor: "#ffffff",
   },
   containerButton: {
     position: "absolute",

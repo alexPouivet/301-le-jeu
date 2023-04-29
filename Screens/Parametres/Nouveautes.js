@@ -66,7 +66,7 @@ const INTRO_DATA = [
   },
 ];
 
-export default function Probleme({ navigation, route }) {
+export default function Nouveautes({ navigation, theme }) {
 
   const scrollX = useRef(new Animated.Value(0)).current;
   const keyExtractor = useCallback((item: ItemProps) => item.key, []);
@@ -75,7 +75,7 @@ export default function Probleme({ navigation, route }) {
       return (
         <View style={[ParametersStyles.itemContainer]}>
 
-          <View style={ParametersStyles.itemWrap}>
+          <View style={[ ParametersStyles.itemWrap, theme === "dark" ? ParametersStyles.itemWrapDarkTheme : ParametersStyles.itemWrapLightTheme]}>
 
             <View style={ParametersStyles.imageContainer}>
 
@@ -85,8 +85,8 @@ export default function Probleme({ navigation, route }) {
 
             <View style={ParametersStyles.descriptionContainer}>
 
-              <Text  style={ParametersStyles.itemTitle}>{item.title}</Text>
-              <Animated.Text style={ParametersStyles.itemDescription}>{item.description}</Animated.Text>
+              <Text  style={[ ParametersStyles.itemTitle, theme === "dark" ? ParametersStyles.itemTitleDarkTheme : ParametersStyles.itemTitleLightTheme]}>{item.title}</Text>
+              <Animated.Text style={[ ParametersStyles.itemDescription, theme === "dark" ? ParametersStyles.itemDescriptionDarkTheme : ParametersStyles.itemDescriptionLightTheme]}>{item.description}</Animated.Text>
 
             </View>
 
@@ -105,17 +105,17 @@ export default function Probleme({ navigation, route }) {
   }
 
   return (
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === "dark" ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme ]}>
       <View style={GlobalStyles.buttonLeftTextContainer}>
         <TouchableOpacity
-          style={GlobalStyles.buttonLeft}
+          style={[ GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
           onPress={() => {
             navigation.goBack()
           }}
         >
-          <IconComponent name="arrow-back" size="24" color="#252422" />
+          <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
         </TouchableOpacity>
-        <Text style={GlobalStyles.textHeaderTitle}>Derniers ajouts</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === "dark" ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme ]}>Derniers ajouts</Text>
         <View style={GlobalStyles.buttonEmpty}>
         </View>
       </View>

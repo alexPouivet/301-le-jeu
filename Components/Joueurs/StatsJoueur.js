@@ -13,6 +13,7 @@ const db = openDatabase();
 // Item d'un joueur dans une liste
 export default function StatsJoueur(props) {
 
+  const theme = props.theme;
   const [fontsLoaded] = font();
   let nbParties = props.joueur.nb_parties;
   let nbVictoires = props.joueur.nb_victoires;
@@ -45,24 +46,24 @@ export default function StatsJoueur(props) {
 
       { nbParties === 0
       ?
-      <ItemStat title="Parties" data={0} icon="layer-bold" color="#7159DF" />
+      <ItemStat theme={theme} title="Parties" data={0} icon="layer-bold" color="#7159DF" />
       :
-      <ItemStat title="Parties" data={nbParties} icon="layer-bold" color="#7159DF" />
+      <ItemStat theme={theme} title="Parties" data={nbParties} icon="layer-bold" color="#7159DF" />
       }
 
-      <ItemStat title="Victoires" data={nbVictoires} icon="cup" color="#FEC601" />
+      <ItemStat theme={theme} title="Victoires" data={nbVictoires} icon="cup" color="#FEC601" />
 
-      <ItemStat title="Podiums" data={nbPodiums} icon="podium" color="#FD96A9" />
+      <ItemStat theme={theme} title="Podiums" data={nbPodiums} icon="podium" color="#FD96A9" />
 
     </View>
 
     <View style={DetailsJoueurStyles.rowContainer}>
 
-      <ItemStat title="Pts marqués" data={nbPoints} icon="points" color="#FEC601" />
+      <ItemStat theme={theme} title="Pts marqués" data={nbPoints} icon="points" color="#FEC601" />
 
-      <ItemStat title="Pos. moy." data={positionMoy} icon="average" color="#FD96A9" />
+      <ItemStat theme={theme} title="Pos. moy." data={positionMoy} icon="average" color="#FD96A9" />
 
-      <ItemStat title="Pos. max" data={positionMax} icon="trend-up" color="#68B684" />
+      <ItemStat theme={theme} title="Pos. max" data={positionMax} icon="trend-up" color="#68B684" />
 
     </View>
 
@@ -73,11 +74,13 @@ export default function StatsJoueur(props) {
 
 const ItemStat = (props) => {
 
+  let theme = props.theme;
+
   return (
 
-    <View style={DetailsJoueurStyles.statItemContainer}>
+    <View style={[ DetailsJoueurStyles.statItemContainer, theme === "dark" ? DetailsJoueurStyles.statItemContainerDarkTheme : DetailsJoueurStyles.statItemContainerLightTheme]}>
 
-        <View style={[ DetailsJoueurStyles.iconStatItemContainer, { backgroundColor: ( props.color + "25" ) } ]}>
+        <View style={[ DetailsJoueurStyles.iconStatItemContainer, { backgroundColor: theme === "dark" ? props.title === "Parties" ? ( props.color + "40" ) : ( props.color + "25" ) : ( props.color + "25" ) } ]}>
 
           <IconComponent name={props.icon} size="24" color={props.color} />
 
@@ -90,9 +93,9 @@ const ItemStat = (props) => {
 
           { props.data
             ?
-            <Text numberOfLines={1} style={DetailsJoueurStyles.textStatItemContainer}>{props.data}</Text>
+            <Text numberOfLines={1} style={[ DetailsJoueurStyles.textStatItemContainer, theme === "dark" ? DetailsJoueurStyles.textStatItemContainerDarkTheme : DetailsJoueurStyles.textStatItemContainerLightTheme ]}>{props.data}</Text>
             :
-            <Text style={DetailsJoueurStyles.textStatItemContainer}>-</Text>
+            <Text style={[ DetailsJoueurStyles.textStatItemContainer, theme === "dark" ? DetailsJoueurStyles.textStatItemContainerDarkTheme : DetailsJoueurStyles.textStatItemContainerLightTheme ]}>-</Text>
           }
 
         </View>

@@ -19,7 +19,7 @@ import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Détails d'une Partie
-export default function DetailsPartie({ navigation, route }) {
+export default function DetailsPartie({ navigation, theme, route } ) {
 
   const [fontsLoaded] = font();
   const { game_id } = route.params;
@@ -45,46 +45,46 @@ export default function DetailsPartie({ navigation, route }) {
   }
 
   return (
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === 'dark' ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme]}>
 
       <View style={GlobalStyles.buttonsTextHeaderContainer}>
 
         <TouchableOpacity
-          style={GlobalStyles.buttonLeft}
+          style={[ GlobalStyles.buttonLeft, theme === "dark" ? GlobalStyles.buttonLeftDarkTheme : GlobalStyles.buttonLeftLightTheme]}
           onPress={() => {
             navigation.goBack()
           }}
         >
-          <IconComponent name="arrow-back" size="24" color="#252422" />
+          <IconComponent name="arrow-back" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
         </TouchableOpacity>
 
-        <Text style={[ DetailsPartieStyles.textDate ]}>Partie du {game.date} à {game.horaire}</Text>
+        <Text style={[ DetailsPartieStyles.textDate, theme === "dark" ? DetailsPartieStyles.textDateDarkTheme : DetailsPartieStyles.textDateLightTheme ]}>Partie du {game.date} à {game.horaire}</Text>
 
         <TouchableOpacity
-          style={GlobalStyles.buttonRight}
+          style={[ GlobalStyles.buttonRight, theme === "dark" ? GlobalStyles.buttonRightDarkTheme : GlobalStyles.buttonRightLightTheme]}
           onPress={() => {
             showConfirmDialog(game_id, navigation, toast);
           }}
         >
-          <IconComponent name="trash" size="24" color="#252422" />
+          <IconComponent name="trash" size="24" color={theme === "dark" ? "#fff" : "#252422"} />
         </TouchableOpacity>
 
       </View>
 
-      <InfosPartieComponent game={game}/>
+      <InfosPartieComponent game={game} theme={theme}/>
 
       <ScrollView>
 
-        <PodiumPartieComponent joueurs1={joueurs[1]} joueurs0={joueurs[0]} joueurs2={joueurs[2]} />
+        <PodiumPartieComponent joueurs1={joueurs[1]} joueurs0={joueurs[0]} joueurs2={joueurs[2]} theme={theme} />
 
         { joueurs.length > 3
           ?
-            <View style={DetailsPartieStyles.containerJoueurs}>
+            <View style={[ DetailsPartieStyles.containerJoueurs, theme === "dark" ? DetailsPartieStyles.containerJoueursDarkTheme : DetailsPartieStyles.containerJoueursLightTheme]}>
               {joueurs.map(({ nom_joueur, score_joueur, classement_joueur, avatar_slug }, i) => (
                i < 3
                 ? null
                 :
-                <ItemJoueurComponent key={i} avatar_slug={avatar_slug} nom_joueur={nom_joueur} score_joueur={score_joueur} classement_joueur={classement_joueur} joueurs={joueurs} i={i}/>
+                <ItemJoueurComponent key={i} theme={theme} avatar_slug={avatar_slug} nom_joueur={nom_joueur} score_joueur={score_joueur} classement_joueur={classement_joueur} joueurs={joueurs} i={i}/>
               ))}
 
             </View>

@@ -18,7 +18,7 @@ import openDatabase from '../../Components/OpenDatabase';
 const db = openDatabase();
 
 // Liste des Parties
-export default function Parties({ navigation }) {
+export default function Parties({ navigation, theme }) {
 
   const [fontsLoaded] = font();
   const [games, setGames] = useState(null);
@@ -54,7 +54,6 @@ export default function Parties({ navigation }) {
 
   useEffect(() => {
     const focusHandler = navigation.addListener('focus', () => filtrerTout(setGames,setListGames, db));
-
     filtrerTout(setGames, setListGames, db);
   }, []);
 
@@ -81,9 +80,9 @@ export default function Parties({ navigation }) {
   }, [statutFiltres]);
 
   const options = [
-    { label: "en cours", value: "Parties en Cours", customIcon: <IconComponent name="hourglass" size="20" color={ statutFiltres["statut"] === "Parties en Cours" ? "#fff" : "#7159DF" } /> },
-    { label: "Tout", value: "Toutes les parties", customIcon: <IconComponent name="layer-bold" size="20" color={ statutFiltres["statut"] === "Toutes les parties" ? "#fff" : "#7159DF" } /> },
-    { label: "terminées", value: "Parties Terminées", customIcon: <IconComponent name="flag" size="20" color={ statutFiltres["statut"] === "Parties Terminées" ? "#fff" : "#7159DF" } /> }
+    { label: "en cours", value: "Parties en Cours", customIcon: <IconComponent name="hourglass" size="20" color={ statutFiltres["statut"] === "Parties en Cours" ? "#fff" : theme === 'dark' ? "#fff" : "#7159DF" } /> },
+    { label: "Tout", value: "Toutes les parties", customIcon: <IconComponent name="layer-bold" size="20" color={ statutFiltres["statut"] === "Toutes les parties" ? "#fff" : theme === 'dark' ? "#fff" : "#7159DF" } /> },
+    { label: "terminées", value: "Parties Terminées", customIcon: <IconComponent name="flag" size="20" color={ statutFiltres["statut"] === "Parties Terminées" ? "#fff" : theme === 'dark' ? "#fff" : "#7159DF" } /> }
   ];
 
   const bottomSheetModalRef = useRef(null);
@@ -101,10 +100,10 @@ export default function Parties({ navigation }) {
   }
 
   return (
-    <View style={GlobalStyles.container}>
+    <View style={[ GlobalStyles.container, theme === 'dark' ? GlobalStyles.containerDarkTheme : GlobalStyles.containerLightTheme]}>
 
       <View style={GlobalStyles.textHeaderContainer}>
-        <Text style={GlobalStyles.textHeaderTitle}>Parties</Text>
+        <Text style={[ GlobalStyles.textHeaderTitle, theme === 'dark' ? GlobalStyles.textHeaderTitleDarkTheme : GlobalStyles.textHeaderTitleLightTheme]}>Parties</Text>
       </View>
 
       <SwitchSelector
@@ -112,10 +111,10 @@ export default function Parties({ navigation }) {
         selectedTextStyle={PartiesStyles.switchSelectedText}
         selectedColor="#ffffff"
         textStyle={PartiesStyles.switchText}
-        textColor="#7159DF"
+        textColor={ theme === 'dark' ? "#fff" : "#7159DF" }
         buttonColor="#7159DF"
         initial={1}
-        backgroundColor="#f3f3f3"
+        backgroundColor="transparent"
         height={48}
         options={options}
         onPress={value => filterParties(value)}
@@ -129,20 +128,20 @@ export default function Parties({ navigation }) {
             ?
               <View style={{marginTop: "auto", marginBottom: "auto", alignItems: "center"}}>
                 <Lottie style={{ width: 210, height: 210}} source={require('../../assets/animations/floating-palet.json')} autoPlay loop />
-                <Text style={PartiesStyles.listEmptyText}>Aucune partie n'a été terminée pour le moment.</Text>
+                <Text style={[ PartiesStyles.listEmptyText, theme === "dark" ? PartiesStyles.listEmptyTextDarkTheme : PartiesStyles.listEmptyTextLightTheme ]}>Aucune partie n'a été terminée pour le moment.</Text>
               </View>
             :
               statutFiltres["statut"] === "Parties en Cours"
               ?
               <View style={{marginTop: "auto", marginBottom: "auto", alignItems: "center"}}>
                 <Lottie style={{ width: 210, height: 210}} source={require('../../assets/animations/floating-palet.json')} autoPlay loop />
-                <Text style={PartiesStyles.listEmptyText}>Aucune partie en cours pour le moment.</Text>
+                <Text style={[ PartiesStyles.listEmptyText, theme === "dark" ? PartiesStyles.listEmptyTextDarkTheme : PartiesStyles.listEmptyTextLightTheme ]}>Aucune partie en cours pour le moment.</Text>
               </View>
               :
 
               <View style={{marginTop: "auto", marginBottom: "auto", alignItems: "center"}}>
                 <Lottie style={{ width: 210, height: 210}} source={require('../../assets/animations/floating-planche.json')} autoPlay loop />
-                <Text style={PartiesStyles.listEmptyText}>Aucune partie de créée pour le moment.</Text>
+                <Text style={[ PartiesStyles.listEmptyText, theme === "dark" ? PartiesStyles.listEmptyTextDarkTheme : PartiesStyles.listEmptyTextLightTheme ]}>Aucune partie de créée pour le moment.</Text>
               </View>
           }
         </View>
@@ -156,7 +155,7 @@ export default function Parties({ navigation }) {
             <Text style={ PartiesStyles.sectionHeader }>{title}</Text>
           )}
           renderItem={({item, index}) => (
-            <ItemPartie onRefresh={onRefresh} key={index} toast={toast} gagnant={item.gagnant_partie} avatars={item.avatars} setGames={setGames} statutFiltres={statutFiltres} game_id={item.partie_id} date={item.date} time={item.horaire} nbJoueurs={item.nb_joueurs} statut={item.statut} gagnant_game={item.gagnant_game} listerGames={listerGames} setListGames={setListGames} navigation={navigation} db={db}/>
+            <ItemPartie onRefresh={onRefresh} theme={theme} key={index} toast={toast} gagnant={item.gagnant_partie} avatars={item.avatars} setGames={setGames} statutFiltres={statutFiltres} game_id={item.partie_id} date={item.date} time={item.horaire} nbJoueurs={item.nb_joueurs} statut={item.statut} gagnant_game={item.gagnant_game} listerGames={listerGames} setListGames={setListGames} navigation={navigation} db={db}/>
           )}
         />
       }
