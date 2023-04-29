@@ -1,6 +1,8 @@
-import { SafeAreaView, StatusBar } from 'react-native';
+import { useState, useEffect, useCallback, useContest } from 'react';
+import { SafeAreaView, StatusBar, StyleSheet, Platform, useColorScheme  } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
+import { get, save } from './storage';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -24,46 +26,57 @@ import Classement from './Screens/Partie/Classement'
 import FinDeTour from './Screens/Partie/FinDeTour'
 import DetailsPartie from './Screens/Parties/DetailsPartie'
 
-import openDatabase from './Components/OpenDatabase';
-const db = openDatabase();
+import * as NavigationBar from 'expo-navigation-bar';
+
 
 export default function App() {
 
-  db.transaction((tx) => {
-    tx.executeSql(" PRAGMA foreign_keys=on ");
-    // suppression de la table game v1 dans la bdd
-    tx.executeSql(
-      "DROP TABLE IF EXISTS game"
-    );
-    // suppression de la table joueur v1 dans la bdd
-    tx.executeSql(
-      "DROP TABLE IF EXISTS joueur"
-    );
-    //
-    // création de la table joueurs v2 dans la bdd
-    tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS joueurs (joueur_id integer primary key not null, nom_joueur text, avatar_slug text, profil integer, nb_parties integer, nb_victoires integer, nb_points integer, nb_podiums integer, positions_parties text)"
-    );
-    // création de la table parties v2 dans la bdd
-    tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS parties (partie_id integer primary key not null, date text, horaire time, statut text, nb_palets int, nb_joueurs int, nb_joueurs_restant int, tour_partie int, gagnant_partie text, tour_joueur int)"
-    );
-    // création de la table infos_parties_joueurs dans la bdd
-    tx.executeSql(
-      "CREATE TABLE IF NOT EXISTS infos_parties_joueurs (infos_parties_joueurs_id integer primary key not null, partie_id integer references parties(partie_id), joueur_id integer references joueurs(joueur_id), score_joueur int, tour_joueur int, classement_joueur int, position_joueur int, position_joueur_en_cours int)"
-    );
+  const appearance = useColorScheme();
+  const [theme, setTheme] = useState('');
 
-  });
+  const setAppTheme = useCallback(async () => {
+    const IS_FIRST = await get('IS_FIRST');
+    if (IS_FIRST === null) {
+      save('Theme', appearance);
+      save('IsDefault', true);
+      save('IS_FIRST', true);
+    }
+  }, []);
+
+  const changeNavigationBarColor = async (theme) => {
+    if (theme === "dark") {
+      NavigationBar.setBackgroundColorAsync("#3C3C3C");
+    } else {
+      NavigationBar.setBackgroundColorAsync("#ffffff");
+    }
+  }
+
+  const declareTheme = async () => {
+     try {
+      let mode = await get('Theme') || '';
+      setTheme(mode)
+      if (Platform.OS === "android") changeNavigationBarColor(mode)
+    } catch (error) {}
+  }
+
+
+  useEffect(() => {
+
+    declareTheme()
+    setAppTheme();
+
+  }, [setAppTheme]);
 
   return (
     <>
 
-      <SafeAreaView edges={["top"]} style={{ flex: 0, backgroundColor: "#f3f3f3" }} />
-      <SafeAreaView edges={["left", "right", "bottom"]} style={{ flex: 1, position: "relative"}}>
+      <SafeAreaView edges={["top"]} style={{ backgroundColor: theme === 'dark' ?  "#252422" : "#f3f3f3" }} />
+      <SafeAreaView edges={["left", "right", "bottom"]} style={{ flex: 1, position: "relative", backgroundColor: theme === "dark" ? "#3C3C3C" : '#fff' }}>
       <StatusBar
-        backgroundColor="#f3f3f3"
-        barStyle="dark-content"
+        backgroundColor={ theme === 'dark' ?  "#252422" : "#f3f3f3" }
+        barStyle={ theme === "dark" ? "light-content" : "dark-content" }
       />
+
         <SafeAreaProvider>
         <PortalProvider>
 
@@ -81,11 +94,21 @@ export default function App() {
           >
             <NavigationContainer>
               <Stack.Navigator screenOptions={{headerShown: false}} >
-                <Stack.Screen name="Home" component={Tabs} />
-                <Stack.Screen name="Partie" component={Partie} />
-                <Stack.Screen name="Classement" component={Classement} />
-                <Stack.Screen name="Fin de Tour" component={FinDeTour} />
-                <Stack.Screen name="Gagnant Partie" component={GagnantPartie} />
+                <Stack.Screen name="Home">
+                  {(props) => <Tabs {...props} theme={theme} setTheme={setTheme} />}
+                </Stack.Screen>
+                <Stack.Screen name="Partie">
+                  {(props) => <Partie {...props} theme={theme} />}
+                </Stack.Screen>
+                <Stack.Screen name="Classement">
+                  {(props) => <Classement {...props} theme={theme} />}
+                </Stack.Screen>
+                <Stack.Screen name="Fin de Tour">
+                  {(props) => <FinDeTour {...props} theme={theme} />}
+                </Stack.Screen>
+                <Stack.Screen name="Gagnant Partie">
+                  {(props) => <GagnantPartie {...props} theme={theme} />}
+                </Stack.Screen>
               </Stack.Navigator>
             </NavigationContainer>
 

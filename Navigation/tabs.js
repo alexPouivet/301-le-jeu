@@ -39,42 +39,78 @@ import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
-function PartiesStackScreen() {
+function PartiesStackScreen(props) {
+
+  let theme = props.theme;
+
   return (
     <PartiesStack.Navigator screenOptions={{headerShown: false}}>
-      <PartiesStack.Screen name="Liste Parties" component={Parties} />
-      <PartiesStack.Screen name="Details Partie" component={DetailsPartie} />
+      <PartiesStack.Screen name="Liste Parties">
+        {(props) => <Parties {...props} theme={theme} />}
+      </PartiesStack.Screen>
+      <PartiesStack.Screen name="Details Partie">
+        {(props) => <DetailsPartie {...props} theme={theme} />}
+      </PartiesStack.Screen>
     </PartiesStack.Navigator>
   );
 }
 
-function JoueursStackScreen() {
+function JoueursStackScreen(props) {
+
+  let theme = props.theme;
+
   return (
     <JoueursStack.Navigator screenOptions={{headerShown: false}}>
-      <JoueursStack.Screen name="Liste Joueurs" component={Joueurs} />
-      <JoueursStack.Screen name="Details Joueur" component={DetailsJoueur} />
-      <JoueursStack.Screen name="Classement Joueurs" component={ClassementJoueurs} />
-      <PartiesStack.Screen name="Details Partie" component={DetailsPartie} />
-      <JoueursStack.Screen name="Modifier Joueur" component={ModifierJoueur} />
+      <JoueursStack.Screen name="Liste Joueurs" >
+        {(props) => <Joueurs {...props} theme={theme} />}
+      </JoueursStack.Screen>
+      <JoueursStack.Screen name="Details Joueur">
+        {(props) => <DetailsJoueur {...props} theme={theme} />}
+      </JoueursStack.Screen>
+      <JoueursStack.Screen name="Classement Joueurs">
+        {(props) => <ClassementJoueurs {...props} theme={theme} />}
+      </JoueursStack.Screen>
+      <PartiesStack.Screen name="Details Partie">
+        {(props) => <DetailsPartie {...props} theme={theme} />}
+      </PartiesStack.Screen>
+      <JoueursStack.Screen name="Modifier Joueur">
+        {(props) => <ModifierJoueur {...props} theme={theme} />}
+      </JoueursStack.Screen>
     </JoueursStack.Navigator>
   );
 }
 
-function ParametresStackScreen() {
+function ParametresStackScreen(props) {
+
+  let { theme, setTheme } = props
+
 	return (
     <ParametresStack.Navigator screenOptions={{headerShown: false}}>
-      <ParametresStack.Screen name="Parametres" component={Parametres} />
-      <ParametresStack.Screen name="Partager" component={Partager} />
-      <ParametresStack.Screen name="Probleme" component={Probleme} />
-      <ParametresStack.Screen name="Configuration" component={Configuration} />
-      <ParametresStack.Screen name="Nouveautés" component={Nouveautes} />
-      <ParametresStack.Screen name="Logs" component={Logs} />
+      <ParametresStack.Screen name="Parametres">
+        {(props) => <Parametres{...props} setThemeForNavbar={setTheme} />}
+      </ParametresStack.Screen>
+      <ParametresStack.Screen name="Partager">
+        {(props) => <Partager{...props} theme={theme} />}
+      </ParametresStack.Screen>
+      <ParametresStack.Screen name="Probleme">
+        {(props) => <Probleme{...props} theme={theme} />}
+      </ParametresStack.Screen>
+      <ParametresStack.Screen name="Configuration">
+        {(props) => <Configuration{...props} theme={theme} />}
+      </ParametresStack.Screen>
+      <ParametresStack.Screen name="Nouveautés">
+        {(props) => <Nouveautes{...props} theme={theme} />}
+      </ParametresStack.Screen>
+      <ParametresStack.Screen name="Logs">
+        {(props) => <Logs{...props} theme={theme} />}
+      </ParametresStack.Screen>
     </ParametresStack.Navigator>
   );
 }
 
-function ProfilStackScreen() {
+function ProfilStackScreen(props) {
 
+  const theme = props.theme;
   const [isProfil, setIsProfil] = useState(null);
   const toast = useToast();
   const navigation = useNavigation();
@@ -101,9 +137,15 @@ function ProfilStackScreen() {
 
     return (
       <ProfilStack.Navigator screenOptions={{headerShown: false}}>
-        <ProfilStack.Screen name="Details Joueur" component={DetailsJoueur}/>
-        <ProfilStack.Screen name="Details Partie" component={DetailsPartie} />
-        <ProfilStack.Screen name="Modifier Joueur" component={ModifierJoueur} />
+        <ProfilStack.Screen name="Details Joueur">
+          {(props) => <DetailsJoueur {...props} theme={theme} />}
+        </ProfilStack.Screen>
+        <ProfilStack.Screen name="Details Partie">
+          {(props) => <DetailsPartie {...props} theme={theme} />}
+        </ProfilStack.Screen>
+        <ProfilStack.Screen name="Modifier Joueur">
+          {(props) => <ModifierJoueur {...props} theme={theme} />}
+        </ProfilStack.Screen>
       </ProfilStack.Navigator>
     );
 
@@ -111,9 +153,11 @@ function ProfilStackScreen() {
 
     return (
       <ProfilStack.Navigator screenOptions={{headerShown: false}}>
-      <ProfilStack.Screen name="Profil Vide" component={ProfilVide} />
+        <ProfilStack.Screen name="Profil Vide">
+          {(props) => <ProfilVide {...props} theme={theme}/>}
+        </ProfilStack.Screen>
         <ProfilStack.Screen name="Créer Profil">
-          {(props) => <CreerProfilComponent {...props} extraData={{setIsProfil, toast, navigation}} />}
+          {(props) => <CreerProfil {...props} theme={theme} extraData={{setIsProfil, toast, navigation}} />}
         </ProfilStack.Screen>
       </ProfilStack.Navigator>
     );
@@ -121,24 +165,24 @@ function ProfilStackScreen() {
   }
 }
 
-const CreerProfilComponent = (isProfil) => {
-  return (
-    <CreerProfil isProfil={isProfil}/>
-  )
-}
-
 const AddScreenComponent = () => {
   return null;
 }
 
-const Tabs = () => {
+const Tabs = (props) => {
+
+  let theme = props.theme;
+  let setTheme = props.setTheme;
+
+  let tabBarActiveTintColor = '#7159df';
+  let tabBarInactiveTintColor = theme === "dark" ? "#fff" : '#BEBEBE'
 
 	return(
 		<Tab.Navigator
 			initialRouteName="Parties"
 			screenOptions={({ route }) => ({
-            tabBarActiveTintColor: '#7159df',
-            tabBarInactiveTintColor: '#BEBEBE',
+            tabBarActiveTintColor: tabBarActiveTintColor,
+            tabBarInactiveTintColor: tabBarInactiveTintColor,
         		headerShown: false,
             tabBarStyle: [
               {
@@ -146,6 +190,7 @@ const Tabs = () => {
                 paddingTop: 16,
                 borderTopWidth: 0,
                 paddingHorizontal: 16,
+                backgroundColor: theme === "dark" ? "#3C3C3C" : '#fff'
               }
             ],
             tabBarLabelStyle: {
@@ -154,29 +199,33 @@ const Tabs = () => {
       		})}
 		>
 
-        <Tab.Screen name="Parties" component={PartiesStackScreen} options={{
+        <Tab.Screen name="Parties" options={{
         	tabBarIcon: ({ focused, color, size}) => {
             let icon;
             icon = focused
 
-              ? <IconComponent name="layer-bold" size="24" color="#7159df" />
-              : <IconComponent name="layer" size="24" color="#BEBEBE" />;
+              ? <IconComponent name="layer-bold" size="24" color={tabBarActiveTintColor} />
+              : <IconComponent name="layer" size="24" color={tabBarInactiveTintColor} />;
 
             return icon;
           }
-        }} />
+        }}>
+          {(props) => <PartiesStackScreen {...props} theme={theme} />}
+        </Tab.Screen>
 
-        <Tab.Screen name="Joueurs" component={JoueursStackScreen} options={{
+        <Tab.Screen name="Joueurs" options={{
         	tabBarIcon: ({ focused, color, size}) => {
             let icon;
             icon = focused
 
-              ? <IconComponent name="persons-bold" size="24" color="#7159df" />
-              : <IconComponent name="persons" size="24" color="#BEBEBE" />;
+              ? <IconComponent name="persons-bold" size="24" color={tabBarActiveTintColor} />
+              : <IconComponent name="persons" size="24" color={tabBarInactiveTintColor} />;
 
             return icon;
           }
-        }} />
+        }}>
+          {(props) => <JoueursStackScreen {...props} theme={theme} />}
+        </Tab.Screen>
 
         <Tab.Screen name="Nouvelle partie" component={AddScreenComponent} options={{
   			  	tabBarLabel: () => null,
@@ -184,34 +233,38 @@ const Tabs = () => {
               maxWidth: 48,
               marginHorizontal: 12
             },
-        		tabBarIcon: () => { return <BottomSheetModal/> },
+        		tabBarIcon: () => { return <BottomSheetModal theme={theme}/> },
 
           }}
         />
 
-        <Tab.Screen name="Paramètres" component={ParametresStackScreen} options={{
+        <Tab.Screen name="Paramètres" options={{
         	tabBarIcon: ({ focused, color, size}) => {
             let icon;
             icon = focused
 
-              ? <IconComponent name="settings-bold" size="24" color="#7159df" />
-              : <IconComponent name="settings" size="24" color="#BEBEBE" />;
+              ? <IconComponent name="settings-bold" size="24" color={tabBarActiveTintColor} />
+              : <IconComponent name="settings" size="24" color={tabBarInactiveTintColor} />;
 
             return icon;
     		  }
-    		}}/>
+    		}}>
+          {(props) => <ParametresStackScreen {...props} setTheme={setTheme} theme={theme}/>}
+        </Tab.Screen>
 
-        <Tab.Screen name="Profil" component={ProfilStackScreen} options={{
+        <Tab.Screen name="Profil" options={{
         	tabBarIcon: ({ focused, color, size}) => {
             let icon;
             icon = focused
 
-              ? <IconComponent name="user-bold" size="24" color="#7159df" />
-              : <IconComponent name="user" size="24" color="#BEBEBE" />;
+              ? <IconComponent name="user-bold" size="24" color={tabBarActiveTintColor} />
+              : <IconComponent name="user" size="24" color={tabBarInactiveTintColor} />;
 
             return icon;
           }
-        }} />
+        }}>
+          {(props) => <ProfilStackScreen {...props} theme={theme}/>}
+        </Tab.Screen>
 
       </Tab.Navigator>
 	);
