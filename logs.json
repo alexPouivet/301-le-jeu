@@ -39,10 +39,10 @@
   },
   {
     "titre": "Changements de design",
-    "version": "2.5.16",
+    "version": "2.5.20",
     "special": "Refonte mineure",
     "date": "Avril 2023",
-    "description": "Refonte globale du design de l'application, modifications de certaines fonctionnalités (création de partie) et optimisation des performances."
+    "description": "Refonte globale du design de l'application, modifications de certaines fonctionnalités (création de partie, mode sombre) et optimisation des performances."
   },
 
 ]
