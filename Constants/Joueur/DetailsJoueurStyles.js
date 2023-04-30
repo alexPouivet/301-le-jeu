@@ -112,7 +112,6 @@ export default StyleSheet.create({
   titleStatItemContainer: {
     fontFamily: "Poppins-Medium",
     fontSize: 8,
-    lineHeight: 0,
     margin: 0,
     padding: 0,
   },
