@@ -79,6 +79,7 @@ const BottomSheetModal = ({theme}) => {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         enablePanDownToClose={true}
+        enableContentPanningGesture={false}
         backgroundStyle={[ CreerPartieModalStyles.backgroundModal, theme === "dark" ? CreerPartieModalStyles.backgroundModalDarkTheme : CreerPartieModalStyles.backgroundModalLightTheme ]}
         backdropComponent={renderBackdrop}
         handleIndicatorStyle={CreerPartieModalStyles.handleModal}
