@@ -100,6 +100,7 @@ export default StyleSheet.create({
   },
   textInfosTour: {
     fontSize: 20,
+    lineHeight: 30,
     fontFamily: "Poppins-Bold",
     marginBottom: -4
   },
@@ -111,6 +112,7 @@ export default StyleSheet.create({
   },
   textInfosTourLabel: {
     fontSize: 11,
+    lineHeight: 15,
     fontFamily: "Poppins-Regular"
   },
   textInfosTourLabelDarkTheme: {

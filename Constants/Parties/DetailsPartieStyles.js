@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 const width = Dimensions.get("screen").width;
 
@@ -86,11 +86,11 @@ export default StyleSheet.create({
   },
   secondPlacePodium: {
     height: "40%",
-    borderTopLeftRadius: 20,
     borderWidth: 2,
+    borderTopLeftRadius: Platform.OS === "android" ? 0 : 20,
     borderColor: "#C0C0C0",
     borderBottomWidth: 0,
-    borderRightWidth: 0
+    borderRightWidth: 0,
   },
   secondPlacePodiumDarkTheme: {
     backgroundColor: "#252422",
@@ -101,7 +101,6 @@ export default StyleSheet.create({
   podiumJoueur: {
     alignItems: "center",
     paddingVertical: 4,
-
     marginTop: 4,
     marginHorizontal: 4,
     borderRadius: 16
@@ -112,8 +111,8 @@ export default StyleSheet.create({
   },
   firstPlacePodium: {
     height: "52.5%",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: Platform.OS === "android" ? 0 : 20,
+    borderTopRightRadius: Platform.OS === "android" ? 0 : 20,
     borderWidth: 2,
     borderColor: "#FEC601",
     borderBottomWidth: 0
@@ -130,7 +129,7 @@ export default StyleSheet.create({
   },
   thirdPlacePodium: {
     height: "30%",
-    borderTopRightRadius: 20,
+    borderTopRightRadius: Platform.OS === "android" ? 0 : 20,
     borderWidth: 2,
     borderColor: "#C49C48",
     borderBottomWidth: 0,
@@ -150,6 +149,7 @@ export default StyleSheet.create({
   podiumJoueurNom: {
     marginTop: 4,
     fontSize: 16,
+    maxWidth: "85%",
     fontWeight: "500",
     textAlign: "center",
     fontFamily: "Poppins-Medium",
@@ -162,11 +162,13 @@ export default StyleSheet.create({
   },
   podiumJoueurScore: {
     fontSize: 16,
+    lineHeight: 24,
     fontFamily: "Poppins-Bold",
   },
   podiumJoueurPoints: {
     color:'#fff',
     fontSize: 10,
+    lineHeight: 15,
     fontFamily: "Poppins-Regular",
   },
   containerJoueurs: {
@@ -237,11 +239,13 @@ export default StyleSheet.create({
     fontSize: 16,
     color: "#7159df",
     marginBottom: -2,
+    lineHeight: 24,
     fontFamily: "Poppins-Bold"
   },
   libelePointsJoueur: {
     fontSize: 10,
     color: "#7159df",
+    lineHeight: 15,
     fontFamily: "Poppins-Regular"
   },
   containerButton: {
