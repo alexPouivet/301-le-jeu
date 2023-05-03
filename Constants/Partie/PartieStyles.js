@@ -145,12 +145,17 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
   },
   pointsContainer: {
-    backgroundColor: "#7159DF25",
     width: 52,
     height: 52,
     borderRadius: 32,
     alignItems: "center",
     justifyContent: "center"
+  },
+  pointsContainerDarkTheme: {
+    backgroundColor: "#7159DF40",
+  },
+  pointsContainerLightTheme: {
+    backgroundColor: "#7159DF25",
   },
   textPoints: {
     color: "#7159DF",

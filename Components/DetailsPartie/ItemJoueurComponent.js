@@ -20,7 +20,7 @@ export default function itemJoueurComponent(props) {
 	return (
 
 		<View key={props.i} style={[ DetailsPartieStyles.joueur, props.i+1 == props.joueurs.length ? DetailsPartieStyles.lastJoueur : null ]}>
-      <View style={DetailsPartieStyles.containerClassementJoueur}>
+      <View style={[ DetailsPartieStyles.containerClassementJoueur, theme === "dark" ? DetailsPartieStyles.containerClassementJoueurDarkTheme : DetailsPartieStyles.containerClassementJoueurLightTheme ]}>
         <Text style={DetailsPartieStyles.textClassementJoueur}>{props.classement_joueur == null ? props.i+1 : props.classement_joueur}</Text>
       </View>
 
@@ -29,7 +29,7 @@ export default function itemJoueurComponent(props) {
 	      <Text numberOfLines={1} style={[ DetailsPartieStyles.textNomJoueur, theme ==="dark" ? DetailsPartieStyles.textNomJoueurDarkTheme : DetailsPartieStyles.textNomJoueurLightTheme]}>{props.nom_joueur}</Text>
 			</View>
 
-      <View style={DetailsPartieStyles.containerPointsJoueur}>
+      <View style={[DetailsPartieStyles.containerPointsJoueur, theme === "dark" ? DetailsPartieStyles.containerPointsJoueurDarkTheme : DetailsPartieStyles.containerPointsJoueurLightTheme ]}>
         <Text style={DetailsPartieStyles.textPointsJoueur}>{props.score_joueur}</Text>
         <Text style={DetailsPartieStyles.libelePointsJoueur}>points restant</Text>
       </View>

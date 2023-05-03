@@ -198,12 +198,17 @@ export default StyleSheet.create({
     borderBottomWidth: 0,
   },
   containerClassementJoueur: {
-    backgroundColor: '#7159df20',
     height: 40,
     width: 40,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 32,
+  },
+  containerClassementJoueurDarkTheme: {
+    backgroundColor: '#7159df40',
+  },
+  containerClassementJoueurLightTheme: {
+    backgroundColor: '#7159df20',
   },
   textClassementJoueur: {
     fontSize: 20,
@@ -229,11 +234,16 @@ export default StyleSheet.create({
     color: "#252422",
   },
   containerPointsJoueur: {
-    backgroundColor: '#7159df20',
     borderRadius: 20,
     paddingVertical: 8,
     paddingHorizontal: 12,
     alignItems: "center"
+  },
+  containerPointsJoueurDarkTheme: {
+    backgroundColor: '#7159df40',
+  },
+  containerPointsJoueurLightTheme: {
+    backgroundColor: '#7159df20',
   },
   textPointsJoueur: {
     fontSize: 16,

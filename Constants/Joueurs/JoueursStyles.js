@@ -126,6 +126,11 @@ export default StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 4,
     borderRadius: 16,
+  },
+  profilJoueurContainerDarkTheme: {
+    backgroundColor: "#7159DF40",
+  },
+  profilJoueurContainerLightTheme: {
     backgroundColor: "#7159DF25",
   },
   profilJoueur: {

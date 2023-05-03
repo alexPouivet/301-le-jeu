@@ -59,7 +59,7 @@ export default class ItemJoueur extends React.Component {
         <Text style={[ JoueursStyles.nomJoueur, theme === "dark" ? JoueursStyles.nomJoueurDarkTheme : JoueursStyles.nomJoueurLightTheme ,{marginLeft: 12}]}>{nom_joueur}</Text>
         { profil
           ?
-          <View style={JoueursStyles.profilJoueurContainer}>
+          <View style={[ JoueursStyles.profilJoueurContainer, theme === "dark" ? JoueursStyles.profilJoueurContainerDarkTheme : JoueursStyles.profilJoueurContainerLightTheme ]}>
           <IconComponent name="user-bold" size="12" color="#7159DF" />
             <Text style={JoueursStyles.profilJoueur}>Profil</Text>
           </View>

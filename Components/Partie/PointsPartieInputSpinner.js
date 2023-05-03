@@ -31,7 +31,7 @@ export default function PointsPartieInputSpinner(props) {
 	return (
 
     <View style={[  PartieStyles.inputContainer, theme === "dark" ? PartieStyles.inputContainerDarkTheme : PartieStyles.inputContainerLightTheme ]}>
-      <Points score={props.score} />
+      <Points theme={theme} score={props.score} />
       <InputSpinner
         max={props.max}
         min={0}
@@ -73,17 +73,20 @@ export default function PointsPartieInputSpinner(props) {
         editable={false}
         buttonRightDisabled={props.isPaletsEqualZero ? true : false || props.joueur.score_joueur - (props.points20*20 + props.points10*10 + props.points8*8 + props.points6*6 + props.points4*4 + props.points2*2 + props.point1) < props.score ? true : false}
       />
-      <Points score={props.score} />
+      <Points theme={theme} score={props.score} />
     </View>
 
 	)
 }
 
-function Points(props) {
+function Points({ score, theme }) {
+
+
+
   return (
-    <View style={PartieStyles.pointsContainer}>
-      <Text style={PartieStyles.textPoints}>{props.score}</Text>
-			{props.score == 1
+    <View style={[ PartieStyles.pointsContainer, theme === "dark" ? PartieStyles.pointsContainerDarkTheme : PartieStyles.pointsContainerLightTheme ]}>
+      <Text style={PartieStyles.textPoints}>{score}</Text>
+			{score == 1
 			?
 			<Text style={PartieStyles.textsPointsLabel}>pt</Text>
 			:
