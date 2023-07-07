@@ -79,7 +79,7 @@ export default StyleSheet.create({
     color: "#252422",
   },
   classementNumberOneContainer: {
-    backgroundColor: '#FFAD0820',
+    backgroundColor: '#FEC60120',
   },
   classementNumberTwoContainer: {
     backgroundColor: '#C0C0C020',
@@ -95,7 +95,7 @@ export default StyleSheet.create({
     fontFamily: "Poppins-Bold"
   },
   classementNumberOneText: {
-    color: "#FFAD08",
+    color: "#FEC601",
   },
   classementNumberTwoText: {
     color: "#C0C0C0",
